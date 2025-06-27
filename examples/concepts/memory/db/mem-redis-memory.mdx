@@ -1,8 +1,7 @@
 ---
-title: Redis Memory Storage
+title: Redis 记忆存储
 ---
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/memory/redis_memory.py
 """
@@ -15,24 +14,24 @@ from agno.memory.v2.memory import Memory
 from agno.models.openai import OpenAIChat
 from agno.storage.redis import RedisStorage
 
-# Create Redis memory database
+# 创建 Redis 记忆数据库
 memory_db = RedisMemoryDb(
     prefix="agno_memory",  # Prefix for Redis keys to namespace the memories
     host="localhost",      # Redis host address
     port=6379,             # Redis port number
 )
 
-# Create memory instance with Redis backend
+# 使用 Redis 后端创建记忆实例
 memory = Memory(db=memory_db)
 
-# This will clear any existing memories
+# 这将清除所有现有记忆
 memory.clear()
 
-# Session and user identifiers
+# 会话与用户标识符
 session_id = "redis_memories"
 user_id = "redis_user"
 
-# Create agent with memory and Redis storage
+# 创建具有记忆和Redis存储功能的智能体
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
     memory=memory,
@@ -41,7 +40,7 @@ agent = Agent(
     enable_session_summaries=True,
 )
 
-# First interaction - introducing personal information
+# 首次交互 - 个人信息介绍
 agent.print_response(
     "My name is John Doe and I like to hike in the mountains on weekends.",
     stream=True,
@@ -49,7 +48,7 @@ agent.print_response(
     session_id=session_id,
 )
 
-# Second interaction - testing if memory was stored
+# 第二次交互 - 测试记忆是否被存储
 agent.print_response(
     "What are my hobbies?", 
     stream=True, 
@@ -57,37 +56,37 @@ agent.print_response(
     session_id=session_id
 )
 
-# Display the memories stored in Redis
+# 显示存储在 Redis 中的记忆
 memories = memory.get_user_memories(user_id=user_id)
 print("Memories stored in Redis:")
 for i, m in enumerate(memories):
     print(f"{i}: {m.memory}")
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set environment variables">
+  <Step title="设置环境变量">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno openai redis
     ```
   </Step>
 
-  <Step title="Run Redis">
+  <Step title="运行 Redis">
     ```bash
     docker run --name my-redis -p 6379:6379 -d redis
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac/Linux
     python cookbook/agent_concepts/memory/redis_memory.py

@@ -1,24 +1,23 @@
 ---
-title: Lumalabs
+title: 鲁马实验室
 ---
+**LumaLabTools** 允许智能体通过[Lumalabs平台](https://lumalabs.ai/dream-machine)生成媒体内容。
 
-**LumaLabTools** enables an Agent to generate media using the [Lumalabs platform](https://lumalabs.ai/dream-machine).
-
-## Prerequisites
+## 先决条件
 
 ```shell
 export LUMAAI_API_KEY=***
 ```
 
-The following example requires the `lumaai` library. To install the Lumalabs client, run the following command:
+以下示例需要 `lumaai` 库。安装Lumalabs客户端请运行以下命令：
 
 ```shell
 pip install -U lumaai
 ```
 
-## Example
+## 示例
 
-The following agent will use Lumalabs to generate any video requested by the user.
+以下智能体将使用Lumalabs根据用户请求生成任意视频。
 
 ```python cookbook/tools/lumalabs_tool.py
 from agno.agent import Agent
@@ -50,20 +49,20 @@ luma_agent = Agent(
 luma_agent.run("Generate a video of a car in a sky")
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter | Type  | Default | Description                                          |
-| --------- | ----- | ------- | ---------------------------------------------------- |
-| `api_key` | `str` | `None`  | If you want to manually supply the Lumalabs API key. |
+| 参数        | 类型   | 默认值  | 描述                                           |
+| ----------- | ------ | ------- | ---------------------------------------------- |
+| `api_key` | `str` | `None` | 如需手动提供Lumalabs API密钥时使用。            |
 
-## Toolkit Functions
+## 工具包功能
 
-| Function         | Description                                                           |
-| ---------------- | --------------------------------------------------------------------- |
-| `generate_video` | Generate a video from a prompt.                                       |
-| `image_to_video` | Generate a video from a prompt, a starting image and an ending image. |
+| 功能                | 描述                                                                 |
+| ------------------- | -------------------------------------------------------------------- |
+| `generate_video` | 根据文本提示生成视频。                                               |
+| `image_to_video` | 根据文本提示、起始图像和结束图像生成视频。                           |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/lumalabs.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/lumalabs_tools.py)
+- 查看[工具文档](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/lumalabs.py)
+- 查看[案例库](https://github.com/agno-agi/agno/blob/main/cookbook/tools/lumalabs_tools.py)

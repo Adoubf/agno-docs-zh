@@ -1,8 +1,7 @@
 ---
-title: Agent with Structured Outputs
+title: 支持结构化输出的智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/ollama/structured_output.py
 import asyncio
@@ -32,18 +31,18 @@ class MovieScript(BaseModel):
     )
 
 
-# Agent that returns a structured output
+# 返回结构化输出的智能体
 structured_output_agent = Agent(
     model=Ollama(id="llama3.2"),
     description="You write movie scripts.",
     response_model=MovieScript,
 )
 
-# Run the agent synchronously
+# 同步运行智能体
 structured_output_agent.print_response("Llamas ruling the world")
 
 
-# Run the agent asynchronously
+# 异步运行智能体
 async def run_agents_async():
     await structured_output_agent.aprint_response("Llamas ruling the world")
 
@@ -51,25 +50,25 @@ async def run_agents_async():
 asyncio.run(run_agents_async())
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install Ollama">
-    Follow the [installation guide](https://github.com/ollama/ollama?tab=readme-ov-file#macos) and run:
+  <Step title="安装Ollama">
+    按照[安装指南](https://github.com/ollama/ollama?tab=readme-ov-file#macos)操作并运行：
     ```bash
     ollama pull llama3.2
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U ollama agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/ollama/structured_output.py

@@ -1,10 +1,9 @@
 ---
-title: Datetime Instructions
+title: 日期时间指令
 ---
+本示例展示如何在智能体的指令中添加当前日期和时间。
 
-This example shows how to add the current date and time to the instructions of an agent.
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/other/datetime_instructions.py
 from agno.agent import Agent
@@ -20,24 +19,24 @@ agent.print_response(
 )
 ```
 
-## Usage
+## 使用方式
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/other/datetime_instructions.py
@@ -48,4 +47,4 @@ agent.print_response(
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

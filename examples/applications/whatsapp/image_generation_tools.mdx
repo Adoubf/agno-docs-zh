@@ -1,10 +1,9 @@
 ---
-title: Image Generation Tools
+title: 图像生成工具
 ---
+本示例演示如何利用OpenAI工具在WhatsApp应用中生成图像。
 
-this example shows how to use the openai tools to generate images with whatsapp app.
-
-## Code
+## 代码
 
 ```python cookbook/apps/whatsapp/image_generation_tools.py
 from agno.agent import Agent
@@ -36,24 +35,24 @@ if __name__ == "__main__":
 
 ```
 
-## Usage
+## 使用方式
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno openai "uvicorn[standard]"
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/apps/whatsapp/image_generation_tools.py
@@ -64,4 +63,4 @@ if __name__ == "__main__":
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

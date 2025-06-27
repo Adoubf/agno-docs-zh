@@ -1,12 +1,11 @@
 ---
 title: Browserbase
 ---
+**BrowserbaseTools** 使智能体能够通过无头浏览器服务 Browserbase 自动化浏览器交互。
 
-**BrowserbaseTools** enable an Agent to automate browser interactions using Browserbase, a headless browser service.
+## 前提条件
 
-## Prerequisites
-
-The following example requires Browserbase API credentials after you signup [here](https://www.browserbase.com/), and the Playwright library.
+以下示例需要您在[此处](https://www.browserbase.com/)注册后获取 Browserbase API 凭证，并安装 Playwright 库。
 
 ```shell
 pip install browserbase playwright
@@ -15,9 +14,9 @@ export BROWSERBASE_PROJECT_ID=xxx
 ```
 
 
-## Example
+## 示例
 
-The following agent will use Browserbase to visit `https://quotes.toscrape.com` and extract content. Then navigate to page two of the website and get quotes from there as well.
+以下智能体将使用 Browserbase 访问 `https://quotes.toscrape.com` 并提取内容。随后导航至网站第二页并获取该页面的引文。
 
 ```python cookbook/tools/browserbase_tools.py
 from agno.agent import Agent
@@ -47,24 +46,24 @@ agent.print_response("""
 
 
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter    | Type   | Default | Description                                                                                                                                                                                |
-| ------------ | ------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `api_key`    | `str`  | `None`  | Browserbase API key. If not provided, uses BROWSERBASE_API_KEY env var.                                                                                                                    |
-| `project_id` | `str`  | `None`  | Browserbase project ID. If not provided, uses BROWSERBASE_PROJECT_ID env var.                                                                                                              |
-| `base_url`   | `str`  | `None`  | Custom Browserbase API endpoint URL. Only use this if you're using a self-hosted Browserbase instance or need to connect to a different region. If not provided, uses BROWSERBASE_BASE_URL env var. |
+| 参数名        | 类型   | 默认值  | 描述                                                                                                                                                                                 |
+| ------------ | ------ | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `api_key`    | `str`  | `None`  | Browserbase API密钥。如未提供，则使用 BROWSERBASE_API_KEY 环境变量。                                                                                                                 |
+| `project_id` | `str`  | `None`  | Browserbase项目ID。如未提供，则使用 BROWSERBASE_PROJECT_ID 环境变量。                                                                                                               |
+| `base_url`   | `str`  | `None`  | 自定义Browserbase API端点URL。仅当使用自托管Browserbase实例或需连接其他区域时使用。如未提供，则使用 BROWSERBASE_BASE_URL 环境变量。 |
 
-## Toolkit Functions
+## 工具包功能
 
-| Function           | Description                                                                                                                                                |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `navigate_to`      | Navigates to a URL. Takes a URL and an optional connect_url parameter.                                                                                     |
-| `screenshot`       | Takes a screenshot of the current page. Takes a path to save the screenshot, a boolean for full-page capture, and an optional connect_url parameter.       |
-| `get_page_content` | Gets the HTML content of the current page. Takes an optional connect_url parameter.                                                                        |
-| `close_session`    | Closes a browser session.                                                                                                                                  |
+| 功能               | 描述                                                                                                                                                |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `navigate_to`      | 导航至指定URL。需提供URL参数及可选connect_url参数。                                                                                                 |
+| `screenshot`       | 对当前页面截屏。需提供截图保存路径、是否捕获完整页面的布尔值及可选connect_url参数。                                                                 |
+| `get_page_content` | 获取当前页面HTML内容。需提供可选connect_url参数。                                                                                                   |
+| `close_session`    | 关闭浏览器会话。                                                                                                                                    |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/browserbase.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/browserbase_tools.py)
+- 查看[工具文档](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/browserbase.py)
+- 查看[代码示例库](https://github.com/agno-agi/agno/blob/main/cookbook/tools/browserbase_tools.py)

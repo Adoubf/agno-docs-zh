@@ -1,85 +1,83 @@
 ---
-title: Hybrid Search- Combining Keyword and Vector Search
-description: Understanding Hybrid Search and its benefits in combining keyword and vector search for better results.
+title: 混合搜索 - 关键词与向量搜索的结合
+description: 理解混合搜索及其优势：结合关键词与向量搜索以获得更优结果。
 ---
+通过混合搜索（Hybrid Search），您既能获得精确匹配的准确性，又能结合语义理解的智能。在许多场景下，这两种方法的结合将提供更全面且相关的结果。
 
-With Hybrid search, you can get the precision of exact matching with the intelligence of semantic understanding. Combining both approaches will deliver more comprehensive and relevant results in many cases.
+## 什么是混合搜索？
 
-## What exactly is Hybrid Search?
+**混合搜索**是一种检索技术，它结合了**向量搜索**（语义搜索）和**关键词搜索**（词法搜索）的优势，以找到与查询最相关的结果。
 
-**Hybrid search** is a retrieval technique that combines the strengths of both **vector search** (semantic search) and **keyword search** (lexical search) to find the most relevant results for a query.
+- 向量搜索使用嵌入（密集向量）捕捉文本的语义含义，即便用词不完全匹配，系统也能找到含义相似的结果。
+- 关键词搜索（如BM25、TF-IDF等）根据查询中精确单词或短语的出现及频率匹配文档。
 
-- Vector search uses embeddings (dense vectors) to capture the semantic meaning of text, enabling the system to find results that are similar in meaning, even if the exact words don’t match.
-- Keyword search (BM25, TF-IDF, etc.) matches documents based on the presence and frequency of exact words or phrases in the query.
+混合搜索通常通过综合两种方法的评分或排序结果，最大化准确率和召回率。
 
-Hybrid search blends these approaches, typically by scoring and/or ranking results from both methods, to maximize both precision and recall.
+## 关键词搜索 vs 向量搜索 vs 混合搜索
 
-
-## Keyword Search vs Vector Search vs Hybrid Search
-
-| Feature                  | Keyword Search                     | Vector Search                       | Hybrid Search                              |
+| 特性                  | 关键词搜索                     | 向量搜索                       | 混合搜索                              |
 |--------------------------|------------------------------------|--------------------------------------|--------------------------------------------|
-| Based On                | Lexical matching (BM25, TF-IDF)     | Embedding similarity (cosine, dot)   | Both                                        |
-| Strength                | Exact matches, relevance            | Contextual meaning                   | Balanced relevance + meaning                |
-| Weakness                | No semantic understanding           | Misses exact keywords                | Slightly heavier in compute                 |
-| Example Match           | "chicken soup" = *chicken soup*     | "chicken soup" = *hot broth with chicken* | Both literal and related concepts       |
-| Best Use Case           | Legal docs, structured data         | Chatbots, Q&A, semantic search       | Multimodal, real-world messy user queries   |
+| 基础原理                | 词法匹配（BM25、TF-IDF）     | 嵌入相似度（余弦、点积）   | 两者结合                                        |
+| 优势                | 精确匹配、相关性            | 上下文语义理解                   | 相关性+语义的平衡                |
+| 劣势                | 缺乏语义理解           | 可能遗漏精确关键词                | 计算开销略高                 |
+| 匹配示例           | "鸡肉汤" = *鸡肉汤*     | "鸡肉汤" = *热鸡汤* | 同时匹配字面和相关概念       |
+| 最佳场景           | 法律文档、结构化数据         | 聊天机器人、问答、语义搜索       | 多模态、真实场景中的复杂用户查询   |
 
 <Note>
-Why Hybrid Search might be better for your application-
+混合搜索更适合您的应用场景的原因：
 
-- **Improved Recall**: Captures more relevant results missed by pure keyword or vector search.
-- **Balanced Precision**: Exact matches get priority while also including semantically relevant results.
-- **Robust to Ambiguity**: Handles spelling variations, synonyms, and fuzzy user intent.
-- **Best of Both Worlds**: Keywords matter when they should, and meaning matters when needed.
+- **更高的召回率**：捕捉纯关键词或向量搜索遗漏的相关结果。
+- **平衡的准确率**：优先精确匹配，同时包含语义相关结果。
+- **抗模糊性**：处理拼写变体、同义词和用户意图模糊的情况。
+- **两全其美**：关键词该发挥作用时生效，语义需要时也能体现。
 
-**Perfect for **real-world apps** like recipe search, customer support, legal discovery, etc.**
+**非常适合**食谱搜索、客户支持、法律检索等**真实场景应用**。
 </Note>
 
-## Vector DBs in Agno that Support Hybrid Search
+## Agno支持混合搜索的向量数据库
 
-The following vector databases support hybrid search natively or via configurations:
+以下向量数据库原生或通过配置支持混合搜索：
 
-| Database      | Hybrid Search Support |
+| 数据库      | 是否支持混合搜索 |
 |---------------|-----------------------|
-| `pgvector`    | ✅ Yes                |
-| `milvus`      | ✅ Yes                |
-| `lancedb`     | ✅ Yes                |
-| `qdrantdb`    | ✅ Yes                |
-| `weaviate`    | ✅ Yes                |
-| `mongodb`     | ✅ Yes (Atlas Vector Search) |
+| `pgvector`    | ✅ 是                |
+| `milvus`      | ✅ 是                |
+| `lancedb`     | ✅ 是                |
+| `qdrantdb`    | ✅ 是                |
+| `weaviate`    | ✅ 是                |
+| `mongodb`     | ✅ 是（Atlas Vector Search） |
 
 ---
 
-## Example: Hybrid Search using `pgvector`
+## 示例：使用`pgvector`实现混合搜索
 
 ```python
 from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
 from agno.vectordb.pgvector import PgVector, SearchType
 
-# Database URL
+# 数据库 URL
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
-# Initialize hybrid vector DB
+# 初始化混合向量数据库
 hybrid_db = PgVector(
     table_name="recipes",
     db_url=db_url,
     search_type=SearchType.hybrid  # Hybrid Search
 )
 
-# Load PDF knowledge base using hybrid search
+# 使用混合搜索加载PDF知识库
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
     vector_db=hybrid_db,
 )
 
-# Load the data into the DB (first-time setup)
+# 将数据载入数据库（首次设置）
 knowledge_base.load(recreate=True, upsert=True)
 
-# Run a hybrid search query
+# 运行混合搜索查询
 results = hybrid_db.search("chicken coconut soup", limit=5)
 print("Hybrid Search Results:", results)
 ```
 
-## See More Examples
-For hands-on code and advanced usage, check out these hybrid search examples for each supported vector database [here](../examples/concepts/hybrid-search/)
+## 更多示例
+如需实操代码和高级用法，请查看[此链接](../examples/concepts/hybrid-search/)中各支持向量数据库的混合搜索示例。

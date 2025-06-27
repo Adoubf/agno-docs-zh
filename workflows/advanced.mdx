@@ -1,26 +1,24 @@
 ---
-title: Advanced
+title: 高级
 ---
+**工作流的核心在于控制与灵活性。**
 
-**Workflows are all about control and flexibility.**
+您的工作流逻辑只是一个Python函数，因此您拥有对流程的完全掌控权。您可以：
+- 在处理前验证输入
+- 根据输入并行创建并运行多个智能体
+- 按需缓存结果
+- 修正中间错误
+- 流式传输输出
+- 返回单个或多个输出结果
 
-Your workflow logic is just a python function, so you have full control over the workflow logic. You can:
-- Validate input before processing
-- Depending on the input, spawn agents and run them in parallel
-- Cache results as needed
-- Correct any intermediate errors
-- Stream the output
-- Return a single or multiple outputs
+**这种控制级别对于系统可靠性至关重要。**
 
-**This level of control is critical for reliability.**
+## 流式传输
 
-
-## Streaming
-
-It is important to understand that when you build a workflow, you are writing a python function, meaning you decide if the function streams the output or not. To stream the output, yield an `Iterator[RunResponse]` from the `run()` method of your workflow.
+关键要理解：当您构建工作流时，实际上是在编写Python函数，这意味着由您决定是否启用流式输出。如需流式传输，请在工作流的`run()`方法中生成一个`Iterator[RunResponse]`。
 
 ```python news_report_generator.py
-# Define the workflow
+# 定义工作流程
 class GenerateNewsReport(Workflow):
     agent_1: Agent = ...
 
@@ -29,32 +27,78 @@ class GenerateNewsReport(Workflow):
     agent_3: Agent = ...
 
     def run(self, ...) -> Iterator[RunResponse]:
-        # Run agents and gather the response
-        # These can be batch responses, you can also stream intermediate results if you want
+        # 运行智能体并收集响应
+        # 这些可以是批量响应，若需要您也可以流式传输中间结果。
         final_agent_input = ...
 
-        # Generate the final response from the writer agent
+        # 生成来自写作者智能体的最终响应
         agent_3_response_stream: Iterator[RunResponse] = self.agent_3.run(final_agent_input, stream=True)
 
-        # Yield the response
+        # 返回响应
         yield agent_3_response_stream
 
-# Instantiate the workflow
+# 实例化工作流
 generate_news_report = GenerateNewsReport()
 
-# Run workflow and get the response as an iterator of RunResponse objects
+# 运行工作流并获取作为 RunResponse 对象迭代器的响应
 report_stream: Iterator[RunResponse] = generate_news_report.run(...)
 
-# Print the response
+# # 翻译结果
+
+# 智能体 API
+
+## 概述
+
+Agno 提供了一个智能体 API 用于构建和运行 AI 智能体。该 API 提供以下核心功能：
+
+- **状态管理**：智能体维持其自身的记忆、知识和推理状态
+- **工具调用**：智能体可以执行任务并使用工具（如搜索、代码执行等）
+- **多轮对话**：通过上下文追踪支持长时间的交互
+- **可观测性**：对智能体活动进行日志记录和监控
+
+## 快速开始
+
+要使用智能体 API，您需要：
+
+1. 在 __PROTECTED_AGNO_WORKSPACE__ 中设置您的环境
+2. 安装 `agno` Python 包
+3. 获取 API 密钥
+
+```python
+from agno import Agent
+
+agent = Agent(api_key="__PROTECTED_API_KEY__")
+response = agent.run("当前比特币价格是多少？")
+```
+
+## 架构
+
+智能体 API 建立在以下技术栈之上：
+
+- **后端**: FastAPI + PostgreSQL
+- **前端**: Next.js 部署在 Vercel
+- **存储**: 用于长期记忆的向量数据库
+- **工具**: 可扩展的工具生态系统
+
+## 限制
+
+当前的智能体 API 有以下限制：
+
+- 每个智能体最多 10 个并发会话
+- 响应时间 < 3 秒
+- 工具调用频率限制为每分钟 60 次
+- __PROTECTED_RATE_LIMIT__ 请求/天
+
+请参阅我们的文档获取最新限制信息。
 pprint_run_response(report_stream, markdown=True)
 ```
 
-## Batch
+## 批量处理
 
-Simply return a `RunResponse` object from the `run()` method of your workflow to return a single output.
+只需从工作流的`run()`方法返回一个`RunResponse`对象，即可返回单一输出。
 
 ```python news_report_generator.py
-# Define the workflow
+# 定义工作流程
 class GenerateNewsReport(Workflow):
     agent_1: Agent = ...
 
@@ -63,21 +107,21 @@ class GenerateNewsReport(Workflow):
     agent_3: Agent = ...
 
     def run(self, ...) -> RunResponse:
-        # Run agents and gather the response
+        # 运行智能体并收集响应
         final_agent_input = ...
 
-        # Generate the final response from the writer agent
+        # 生成来自写作者智能体的最终响应
         agent_3_response: RunResponse = self.agent_3.run(final_agent_input)
 
-        # Return the response
+        # 返回响应
         return agent_3_response
 
-# Instantiate the workflow
+# 实例化工作流
 generate_news_report = GenerateNewsReport()
 
-# Run workflow and get the response as a RunResponse object
+# 运行工作流并获取作为 RunResponse 对象的响应
 report: RunResponse = generate_news_report.run(...)
 
-# Print the response
+# 输出响应
 pprint_run_response(report, markdown=True)
 ```

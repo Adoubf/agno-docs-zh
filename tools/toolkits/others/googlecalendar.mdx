@@ -1,70 +1,69 @@
 ---
-title: Google Calendar
-sidebarTitle: Google Calendar
+title: Google 日历
+sidebarTitle: Google 日历
 ---
+让智能体能够使用Google Calendar查看和安排会议。
 
-Enable an Agent to work with Google Calendar to view and schedule meetings.
+## 前提条件
 
-## Prerequisites
-
-### Install dependencies
+### 安装依赖项
 
 ```shell
 pip install tzlocal
 ```
 
-### Setup Google Project and OAuth
+### 设置Google项目与OAuth
 
-Reference: https://developers.google.com/calendar/api/quickstart/python
+参考文档：https://developers.google.com/calendar/api/quickstart/python
 
-1. Enable Google Calender API
+1. 启用Google Calendar API
 
-   - Go to [Google Cloud Console](https://console.cloud.google.com/apis/enableflow?apiid=calendar-json.googleapis.com).
-   - Select Project and Enable.
+   - 访问[Google Cloud控制台](https://console.cloud.google.com/apis/enableflow?apiid=calendar-json.googleapis.com)
+   - 选择项目并启用API
 
-2. Go To API & Service -> OAuth Consent Screen
+2. 进入API和服务 -> OAuth同意屏幕
 
-3. Select User Type
+3. 选择用户类型
 
-   - If you are a Google Workspace user, select Internal.
-   - Otherwise, select External.
+   - 如果您是Google Workspace用户，选择"内部"
+   - 否则选择"外部"
 
-4. Fill in the app details (App name, logo, support email, etc).
+4. 填写应用详情（应用名称、图标、支持邮箱等）
 
-5. Select Scope
+5. 选择权限范围
 
-   - Click on Add or Remove Scope.
-   - Search for Google Calender API (Make sure you've enabled Google calender API otherwise scopes wont be visible).
-   - Select scopes accordingly
-     - From the dropdown check on `/auth/calendar` scope
-   - Save and continue.
+   - 点击"添加或删除范围"
+   - 搜索Google Calendar API（确保已启用该API否则不会显示范围）
+   - 选择相应范围
+     - 从下拉菜单中勾选`/auth/calendar`范围
+   - 保存并继续
 
-6. Adding Test User
+6. 添加测试用户
 
-   - Click Add Users and enter the email addresses of the users you want to allow during testing.
-   - NOTE : Only these users can access the app's OAuth functionality when the app is in "Testing" mode.
-     Any other users will receive access denied errors.
-   - To make the app available to all users, you'll need to move the app's status to "In Production".
-     Before doing so, ensure the app is fully verified by Google if it uses sensitive or restricted scopes.
-   - Click on Go back to Dashboard.
+   - 点击"添加用户"并输入允许测试的邮箱地址
+   - 注意：当应用处于"测试"模式时，只有这些用户能访问应用的OAuth功能
+     其他用户会收到访问拒绝错误
+   - 要让所有用户都能使用应用，需将应用状态改为"正式发布"
+     在此之前，如果应用使用了敏感或受限范围，需确保应用已通过Google完整验证
+   - 点击"返回仪表盘"
 
-7. Generate OAuth 2.0 Client ID
+7. 生成OAuth 2.0客户端ID
 
-   - Go to Credentials.
-   - Click on Create Credentials -> OAuth Client ID
-   - Select Application Type as Desktop app.
-   - Download JSON.
+   - 进入"凭证"
+   - 点击"创建凭证" -> "OAuth客户端ID"
+   - 选择应用类型为"桌面应用"
+   - 下载JSON文件
 
-8. Using Google Calender Tool
-   - Pass the path of downloaded credentials as credentials_path to Google Calender tool.
-   - Optional: Set the `token_path` parameter to specify where the tool should create the `token.json` file.
-   - The `token.json` file is used to store the user's access and refresh tokens and is automatically created during the authorization flow if it doesn't already exist.
-   - If `token_path` is not explicitly provided, the file will be created in the default location which is your current working directory.
-   - If you choose to specify `token_path`, please ensure that the directory you provide has write access, as the application needs to create or update this file during the authentication process.
+8. 使用Google Calendar工具
+   - 将下载的凭证文件路径作为credentials_path传递给Google Calendar工具
+   - 可选：设置`token_path`参数来指定工具创建`token.json`文件的位置
+   - `token.json`文件用于存储用户的访问和刷新令牌，如果文件不存在会在授权流程中自动创建
+   - 如果未明确提供`token_path`，文件将创建在默认位置（当前工作目录）
+   - 如果指定`token_path`，请确保该目录具有写入权限，因为应用需要在认证过程中创建或更新此文件
 
-## Example
+## 示例
 
-The following agent will use GoogleCalendarTools to find today's events.
+以下智能体将使用GoogleCalendarTools查找今日日程
 
 ```python cookbook/tools/googlecalendar_tools.py
 from agno.agent import Agent
@@ -90,21 +89,21 @@ agent = Agent(
 agent.print_response("Give me the list of todays events", markdown=True)
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter          | Type  | Default | Description                                                                    |
+| 参数名          | 类型  | 默认值 | 描述                                                                    |
 | ------------------ | ----- | ------- | ------------------------------------------------------------------------------ |
-| `credentials_path` | `str` | `None`  | Path of the file credentials.json file which contains OAuth 2.0 Client ID.     |
-| `token_path`       | `str` | `None`  | Path of the file token.json which stores the user's access and refresh tokens. |
+| `credentials_path` | `str` | `None`  | 包含OAuth 2.0客户端ID的credentials.json文件路径     |
+| `token_path`       | `str` | `None`  | 存储用户访问和刷新令牌的token.json文件路径 |
 
-## Toolkit Functions
+## 工具包功能
 
-| Function       | Description                                        |
+| 功能       | 描述                                        |
 | -------------- | -------------------------------------------------- |
-| `list_events`  | List events from the user's primary calendar.      |
-| `create_event` | Create a new event in the user's primary calendar. |
+| `list_events`  | 从用户主日历列出事件      |
+| `create_event` | 在用户主日历创建新事件 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/googlecalendar.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/googlecalendar_tools.py)
+- 查看[工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/googlecalendar.py)
+- 查看[Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/googlecalendar_tools.py)

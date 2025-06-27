@@ -1,8 +1,7 @@
 ---
-title: Reasoning Demo
+title: 推理演示
 ---
-
-## Code
+## 代码
 
 ```python cookbook/apps/playground/reasoning_demo.py 
 import asyncio
@@ -166,7 +165,7 @@ thinking_tool_agent = Agent(
 
 agno_docs = UrlKnowledge(
     urls=["https://www.paulgraham.com/read.html"],
-    # Use LanceDB as the vector database and store embeddings in the `agno_docs` table
+    # 使用LanceDB作为向量数据库，并将嵌入内容存储在`agno_docs`表中
     vector_db=LanceDb(
         uri="tmp/lancedb",
         table_name="agno_docs",
@@ -203,10 +202,10 @@ reasoning_finance_team = Team(
         web_agent,
         finance_agent,
     ],
-    # reasoning=True,
+    # 推理=True,
     tools=[ReasoningTools(add_instructions=True)],
-    # uncomment it to use knowledge tools
-    # tools=[knowledge_tools],
+    # 取消注释以使用知识工具
+    # 工具=[知识工具],
     team_id="reasoning_finance_team",
     debug_mode=True,
     instructions=[
@@ -246,37 +245,37 @@ if __name__ == "__main__":
     playground.serve(app="reasoning_demo:app", reload=True)
 
 
-# reasoning_tool_agent
-# Solve this logic puzzle: A man has to take a fox, a chicken, and a sack of grain across a river.
-# The boat is only big enough for the man and one item. If left unattended together,
-# the fox will eat the chicken, and the chicken will eat the grain. How can the man get everything across safely?
+# 推理工具智能体
+# 解决这个逻辑难题：一个人需要将一只狐狸、一只鸡和一袋谷物运过河。
+# 这条船只能容纳一个人和一件物品。如果让它们无人看管地在一起，
+# 狐狸会吃鸡，鸡会吃谷物。这个人该如何安全地将所有东西运到对岸？
 
 
-# knowledge_agent prompt
-# What does Paul Graham explain here with respect to need to read?
+# 知识智能体提示
+# 保罗·格雷厄姆在这里就阅读的必要性作何解释？
 
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API keys (optional)">
+  <Step title="设置您的API密钥（可选）">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno "uvicorn[standard]" openai duckduckgo-search yfinance lancedb sqlalchemy 
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果
     python cookbook/apps/playground/reasoning_demo.py
     ```
 
@@ -285,4 +284,4 @@ if __name__ == "__main__":
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

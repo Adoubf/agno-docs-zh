@@ -1,15 +1,14 @@
 ---
-title: Tool Result Caching
+title: 工具结果缓存
 ---
+工具结果缓存机制旨在通过将函数调用结果存储到磁盘，避免不必要的重复计算。  
+该功能在开发和测试阶段非常实用，能加速开发流程、规避访问频率限制并降低成本。  
 
-Tool result caching is designed to avoid unnecessary recomputation by storing the results of function calls on disk. 
-This is useful during development and testing to speed up the development process, avoid rate limiting, and reduce costs.
+所有Agno工具包均支持此功能  
 
-This is supported for all Agno Toolkits
+## 示例  
 
-## Example
-
-Pass `cache_results=True` to the Toolkit constructor to enable caching for that Toolkit.
+向工具包构造函数传递`cache_results=True`即可为该工具包启用缓存功能。  
 
 ```python cache_tool_calls.py
 import asyncio

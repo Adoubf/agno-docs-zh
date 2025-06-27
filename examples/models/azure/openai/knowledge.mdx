@@ -1,8 +1,7 @@
 ---
-title: Agent with Knowledge Base
+title: 带知识库的智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/azure/openai/knowledge.py
 from agno.agent import Agent
@@ -32,12 +31,12 @@ agent = Agent(
 agent.print_response("How to make Thai curry?", markdown=True)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的API密钥">
     ```bash
     export AZURE_OPENAI_API_KEY=xxx
     export AZURE_OPENAI_ENDPOINT=xxx
@@ -45,13 +44,13 @@ agent.print_response("How to make Thai curry?", markdown=True)
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno duckduckgo-search sqlalchemy pgvector pypdf
     ```
   </Step>
 
-  <Step title="Run PgVector">
+  <Step title="运行 PgVector">
     ```bash
     docker run -d \
       -e POSTGRES_DB=ai \
@@ -65,7 +64,7 @@ agent.print_response("How to make Thai curry?", markdown=True)
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/azure/openai/knowledge.py

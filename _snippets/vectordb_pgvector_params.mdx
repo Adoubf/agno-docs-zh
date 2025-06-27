@@ -1,15 +1,15 @@
-| Parameter             | Type                   | Default | Description                                                             |
+| 参数                | 类型                   | 默认值  | 描述                                                                   |
 | --------------------- | ---------------------- | ------- | ----------------------------------------------------------------------- |
-| `table_name`          | `str`                  | -       | The name of the table to use.                                           |
-| `schema`              | `str`                  | -       | The schema to use.                                                      |
-| `db_url`              | `str`                  | -       | The database URL to connect to.                                         |
-| `db_engine`           | `Engine`               | -       | The database engine to use.                                             |
-| `embedder`            | `Embedder`             | -       | The embedder to use.                                                    |
-| `search_type`         | `SearchType`           | vector  | The search type to use.                                                 |
-| `vector_index`        | `Union[Ivfflat, HNSW]` | -       | The vector index to use.                                                |
-| `distance`            | `Distance`             | cosine  | The distance to use.                                                    |
-| `prefix_match`        | `bool`                 | -       | Whether to use prefix matching.                                         |
-| `vector_score_weight` | `float`                | 0.5     | Weight for vector similarity in hybrid search. Must be between 0 and 1. |
-| `content_language`    | `str`                  | -       | The content language to use.                                            |
-| `schema_version`      | `int`                  | -       | The schema version to use.                                              |
-| `auto_upgrade_schema` | `bool`                 | -       | Whether to auto upgrade the schema.                                     |
+| `table_name`          | `str`                  | -       | 使用的表名。                                                           |
+| `schema`              | `str`                  | -       | 使用的数据库模式。                                                     |
+| `db_url`              | `str`                  | -       | 连接数据库的URL。                                                      |
+| `db_engine`           | `Engine`               | -       | 使用的数据库引擎。                                                     |
+| `embedder`            | `Embedder`             | -       | 使用的嵌入模型。                                                       |
+| `search_type`         | `SearchType`           | vector  | 使用的搜索类型。                                                       |
+| `vector_index`        | `Union[Ivfflat, HNSW]` | -       | 使用的向量索引。                                                       |
+| `distance`            | `Distance`             | cosine  | 使用的距离计算方法。                                                   |
+| `prefix_match`        | `bool`                 | -       | 是否使用前缀匹配。                                                     |
+| `vector_score_weight` | `float`                | 0.5     | 混合搜索中向量相似度的权重值。必须介于0到1之间。                       |
+| `content_language`    | `str`                  | -       | 使用的内容语言。                                                       |
+| `schema_version`      | `int`                  | -       | 使用的模式版本。                                                       |
+| `auto_upgrade_schema` | `bool`                 | -       | 是否自动升级模式。                                                     |

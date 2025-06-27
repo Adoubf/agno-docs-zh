@@ -1,19 +1,18 @@
 ---
-title: BaiduSearch
-sidebarTitle: BaiduSearch
+title: 百度搜索
+sidebarTitle: 百度搜索
 ---
+**BaiduSearch** 使智能体能够通过百度搜索引擎在互联网上搜索信息。
 
-**BaiduSearch** enables an Agent to search the web for information using the Baidu search engine.
+## 前提条件
 
-## Prerequisites
-
-The following example requires the `baidusearch` library. To install BaiduSearch, run the following command:
+以下示例需要 `baidusearch` 库。要安装 BaiduSearch，请运行以下命令：
 
 ```shell
 pip install -U baidusearch
 ```
 
-## Example
+## 示例
 
 ```python cookbook/tools/baidusearch_tools.py
 from agno.agent import Agent
@@ -33,23 +32,23 @@ agent = Agent(
 agent.print_response("What are the latest advancements in AI?", markdown=True)
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter           | Type  | Default | Description                                                                                          |
+| 参数           | 类型  | 默认值 | 描述                                                                                          |
 | ------------------- | ----- | ------- | ---------------------------------------------------------------------------------------------------- |
-| `fixed_max_results` | `int` | -       | Sets a fixed number of maximum results to return. No default is provided, must be specified if used. |
-| `fixed_language`    | `str` | -       | Set the fixed language for the results.                                                              |
-| `headers`           | `Any` | -       | Headers to be used in the search request.                                                            |
-| `proxy`             | `str` | -       | Specifies a single proxy address as a string to be used for the HTTP requests.                       |
-| `timeout`           | `int` | `10`    | Sets the timeout for HTTP requests, in seconds.                                                      |
+| `fixed_max_results` | `int` | -       | 设置返回的最大结果数量。未提供默认值，使用时必须指定。 |
+| `fixed_language`    | `str` | -       | 设置结果的固定语言。                                                              |
+| `headers`           | `Any` | -       | 搜索请求中使用的请求头。                                                            |
+| `proxy`             | `str` | -       | 指定一个字符串形式的单一代理地址，用于 HTTP 请求。                       |
+| `timeout`           | `int` | `10`    | 设置 HTTP 请求的超时时间（秒）。                                                      |
 
-## Toolkit Functions
+## 工具包功能
 
-| Function       | Description                                    |
+| 功能       | 描述                                    |
 | -------------- | ---------------------------------------------- |
-| `baidu_search` | Use this function to search Baidu for a query. |
+| `baidu_search` | 使用此功能在百度中搜索查询。 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/baidusearch.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/baidusearch_tools.py)
+- 查看 [工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/baidusearch.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/baidusearch_tools.py)

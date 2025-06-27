@@ -1,8 +1,8 @@
-## Build your Web App
+## 构建你的Web应用
 
-The [Django Tutorials](https://docs.djangoproject.com/en/4.2/intro/tutorial01/) are a great place to learn about Django, play around and update your Web App to your use case. Here's how to create a simple chat application:
+[Django教程](https://docs.djangoproject.com/en/4.2/intro/tutorial01/)是学习Django、进行实验并根据你的用例更新Web应用的绝佳资源。以下是创建一个简单聊天应用的步骤：
 
-**1. Create a new django app**
+**1. 创建一个新的django应用**
 
 ```bash
 docker exec -it django-dev-app python manage.py startapp chat
@@ -10,13 +10,13 @@ docker exec -it django-dev-app python manage.py startapp chat
 
 <Note>
 
-Read more about [django apps here](https://docs.djangoproject.com/en/4.2/intro/tutorial01/#creating-the-polls-app)
+了解更多关于[django应用的内容](https://docs.djangoproject.com/en/4.2/intro/tutorial01/#creating-the-polls-app)
 
 </Note>
 
-**2. Register the chat app**
+**2. 注册聊天应用**
 
-Update the 'app/settings.py' file and register the `chat`
+更新'app/settings.py'文件并注册`chat`
 
 ```python app/settings.py
 ...
@@ -27,15 +27,15 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # register the chat app
+    # 注册聊天应用
     'chat',
 ]
 ...
 ```
 
-**3. Create views for the chat app**
+**3. 为聊天应用创建视图**
 
-Update the `chat/views.py` file to
+更新`chat/views.py`文件为：
 
 ```python chat/views.py
 from django.shortcuts import render, redirect
@@ -44,23 +44,23 @@ from agno.agent import Agent
 
 def index(request):
     try:
-        # Create a agent
+        # 创建一个智能体
         agent = Agent()
         if 'messages' not in request.session:
             request.session['messages'] = []
         if request.method == 'POST':
             prompt = request.POST.get('prompt')
-            # Add the prompt to the messages
+            # 将提示添加到消息中
             request.session['messages'].append({"role": "user", "content": prompt})
-            # Set the session as modified
+            # 将会话标记为已修改
             request.session.modified = True
-            # Create a response
+            # 生成响应
             response = agent.run(prompt, stream=False)
-            # Append the response to the messages
+            # 将响应追加到消息中
             request.session['messages'].append({"role": "agent", "content": response})
-            # Set the session as modified
+            # 将会话标记为已修改
             request.session.modified = True
-            # Redirect to the home page
+            # 重定向至首页
             context = {
                 'messages': request.session['messages'],
                 'prompt': '',
@@ -78,15 +78,15 @@ def index(request):
 
 
 def new_chat(request):
-    # -*- Clears the session messages and redirects to the home page -*-
+    # -*- 清除会话消息并重定向至首页 -*-
     request.session.pop('agent', None)
     request.session.pop('messages', None)
     return redirect('index')
 ```
 
-**4. Configure URLs**
+**4. 配置URL**
 
-Create a file named `urls.py` in the chat folder:
+在chat文件夹中创建名为`urls.py`的文件：
 
 ```python chat/urls.py
 from django.urls import path
@@ -98,7 +98,7 @@ urlpatterns = [
 ]
 ```
 
-Update the `app/urls.py` file to:
+更新`app/urls.py`文件为：
 
 ```python app/urls.py
 from django.contrib import admin
@@ -110,9 +110,9 @@ urlpatterns = [
 ]
 ```
 
-**5. Create templates**
+**5. 创建模板**
 
-Create the HTML templates for the chat interface in the `chat/templates/chat` folder.
+在`chat/templates/chat`文件夹中为聊天界面创建HTML模板。
 
 ```python chat/templates/chat/base.html
 <!DOCTYPE html>
@@ -168,14 +168,14 @@ Create the HTML templates for the chat interface in the `chat/templates/chat` fo
 {% endblock %}
 ```
 
-**6. Open Django App**
+**6. 打开Django应用**
 
-Open [localhost:8000/chat/](http://localhost:8000/chat/) to view the LLM chat app.
+访问[localhost:8000/chat/](http://localhost:8000/chat/)查看LLM聊天应用。
 
 ![django-app-chat-app](/images/django-app-chat-app.png)
 
 <Note>
 
-If needed, restart the django server using `ag ws restart dev:docker:app -y`
+如果需要，使用`ag ws restart dev:docker:app -y`重启django服务器
 
 </Note>

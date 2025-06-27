@@ -1,17 +1,16 @@
 ---
-title: Human in the loop
+title: 人在回路
 ---
+人工介入循环（HITL）允许在执行工具调用前后获取用户输入。
 
-Human in the loop (HITL) let's you get input from a user before or after executing a tool call.
+以下示例展示如何利用工具钩子在执行工具调用前获取用户确认。
 
-The example below shows how to use a tool hook to get user confirmation before executing a tool call.
+## 示例：使用工具钩子实现人工介入循环
 
-## Example: Human in the loop using tool hooks
-
-This example shows how to:
-- Add hooks to tools for user confirmation
-- Handle user input during tool execution
-- Gracefully cancel operations based on user choice
+本示例演示如何：
+- 为工具添加用户确认钩子
+- 处理工具执行过程中的用户输入
+- 根据用户选择优雅取消操作
 
 ```python hitl.py
 """🤝 Human-in-the-Loop: Adding User Confirmation to Tool Calls
@@ -43,21 +42,21 @@ from rich.console import Console
 from rich.pretty import pprint
 from rich.prompt import Prompt
 
-# This is the console instance used by the print_response method
-# We can use this to stop and restart the live display and ask for user confirmation
+# 这是 print_response 方法使用的控制台实例
+# 我们可以利用这一功能来停止和重启实时显示，并请求用户确认。
 console = Console()
 
 
 def confirmation_hook(
     function_name: str, function_call: Callable, arguments: Dict[str, Any]
 ):
-    # Get the live display instance from the console
+    # 从控制台获取实时显示实例
     live = console._live
 
-    # Stop the live display temporarily so we can ask for user confirmation
+    # 暂停止实时显示以便请求用户确认
     live.stop()  # type: ignore
 
-    # Ask for confirmation
+    # 请求确认
     console.print(f"\nAbout to run [bold blue]{fc.function.name}[/]")
     message = (
         Prompt.ask("Do you want to continue?", choices=["y", "n"], default="y")
@@ -65,20 +64,20 @@ def confirmation_hook(
         .lower()
     )
 
-    # Restart the live display
+    # 重新启动实时显示
     live.start()  # type: ignore
 
-    # If the user does not want to continue, raise a StopExecution exception
+    # 如果用户不希望继续，则抛出 StopExecution 异常
     if message != "y":
         raise StopAgentRun(
             "Tool call cancelled by user",
             agent_message="Stopping execution as permission was not granted.",
         )
     
-    # Call the function
+    # 调用该函数
     result = function_call(**arguments)
 
-    # Optionally transform the result
+    # 可选转换结果
 
     return result
 
@@ -93,11 +92,11 @@ def get_top_hackernews_stories(num_stories: int) -> Iterator[str]:
     Returns:
         str: JSON string containing story details
     """
-    # Fetch top story IDs
+    # 获取热门新闻ID
     response = httpx.get("https://hacker-news.firebaseio.com/v0/topstories.json")
     story_ids = response.json()
 
-    # Yield story details
+    # 收益故事详情
     final_stories = []
     for story_id in story_ids[:num_stories]:
         story_response = httpx.get(
@@ -111,7 +110,7 @@ def get_top_hackernews_stories(num_stories: int) -> Iterator[str]:
     return json.dumps(final_stories)
 
 
-# Initialize the agent with a tech-savvy personality and clear instructions
+# 初始化智能体时设定精通技术的个性特征与明确指令
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[get_top_hackernews_stories],

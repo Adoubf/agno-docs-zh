@@ -1,10 +1,9 @@
 ---
-title: Travel Planner MCP Team
+title: 旅行规划器 MCP 团队
 ---
+本示例展示如何创建一个使用Agno的MCP集成功能的旅行规划团队。
 
-This example shows how to create a travel planner team where members use Agno's MCP integration.
-
-## Code
+## 代码
 
 ```python travel_planner_mcp_team.py
 """
@@ -20,8 +19,8 @@ Prerequisites:
     https://console.developers.google.com/apis/api/addressvalidation.googleapis.com
 
 - Apify:
-    - Set the environment variable `APIFY_TOKEN` with your Apify API token.
-    You can obtain the API key from the Apify Console:
+    - Set the environment variable `APIFY_TOKEN`替换为您的Apify API令牌。
+    您可以从Apify控制台获取API密钥：
     https://console.apify.com/settings/integrations
 
 """
@@ -41,7 +40,7 @@ from mcp import StdioServerParameters
 from pydantic import BaseModel
 
 
-# Define response models
+# 定义响应模型
 class AirbnbListing(BaseModel):
     name: str
     description: str
@@ -78,7 +77,7 @@ async def run_team():
         **os.environ,
         "GOOGLE_MAPS_API_KEY": os.getenv("GOOGLE_MAPS_API_KEY"),
     }
-    # Define server parameters
+    # 定义服务器参数
     airbnb_server_params = StdioServerParameters(
         command="npx",
         args=["-y", "@openbnb/mcp-server-airbnb", "--ignore-robots-txt"],
@@ -89,61 +88,61 @@ async def run_team():
         command="npx", args=["-y", "@modelcontextprotocol/server-google-maps"], env=env
     )
 
-    # Use AsyncExitStack to manage multiple context managers
+    # 使用AsyncExitStack管理多个上下文管理器
     async with (
         MCPTools(server_params=airbnb_server_params) as airbnb_tools,
         MCPTools(server_params=maps_server_params) as maps_tools,
     ):
-        # Create all agents
+        # 创建所有智能体
         airbnb_agent = Agent(
             name="Airbnb",
-            role="Airbnb Agent",
+            role="Airbnb智能体",
             model=OpenAIChat("gpt-4o"),
             tools=[airbnb_tools],
             instructions=dedent("""\
-                You are an agent that can find Airbnb listings for a given location.\
+                您是一个能为指定地点查找Airbnb房源的智能体。\
             """),
             add_datetime_to_instructions=True,
         )
 
         maps_agent = Agent(
             name="Google Maps",
-            role="Location Services Agent",
+            role="位置服务智能体",
             model=OpenAIChat("gpt-4o"),
             tools=[maps_tools],
             instructions=dedent("""\
-                You are an agent that helps find attractions, points of interest,
-                and provides directions in travel destinations. Help plan travel
-                routes and find interesting places to visit for a given location and date.\
+                您是一个帮助查找景点、兴趣点
+                并提供旅行目的地路线的智能体。帮助规划旅行
+                路线并为指定地点和日期寻找有趣的参观场所。\
             """),
             add_datetime_to_instructions=True,
         )
 
         web_search_agent = Agent(
             name="Web Search",
-            role="Web Search Agent",
+            role="网络搜索智能体",
             model=OpenAIChat("gpt-4o"),
             tools=[DuckDuckGoTools(cache_results=True)],
             instructions=dedent("""\
-                You are an agent that can search the web for information.
-                Search for information about a given location.\
+                您是一个能在网上搜索信息的智能体。
+                搜索指定地点的相关信息。\
             """),
             add_datetime_to_instructions=True,
         )
 
         weather_search_agent = Agent(
             name="Weather Search",
-            role="Weather Search Agent",
+            role="天气搜索智能体",
             model=OpenAIChat("gpt-4o"),
             tools=[DuckDuckGoTools()],
             instructions=dedent("""\
-                You are an agent that can search the web for information.
-                Search for the weather forecast for a given location and date.\
+                您是一个能在网上搜索信息的智能体。
+                搜索指定地点和日期的天气预报。\
             """),
             add_datetime_to_instructions=True,
         )
 
-        # Create and run the team
+        # 创建并运行团队
         team = Team(
             name="TravelPlanner",
             mode="coordinate",
@@ -155,9 +154,9 @@ async def run_team():
                 weather_search_agent,
             ],
             instructions=[
-                "Plan a full itinerary for the trip.",
-                "Continue asking individual team members until you have ALL the information you need.",
-                "Think about the best way to tackle the task.",
+                "为旅行规划完整的行程。",
+                "持续询问团队成员直到获取所有需要的信息。",
+                "思考完成任务的最佳方式。",
             ],
             tools=[ReasoningTools(add_instructions=True)],
             response_model=TravelPlan,
@@ -168,15 +167,15 @@ async def run_team():
             add_datetime_to_instructions=True,
         )
 
-        # Execute the team's task
+        # 执行团队任务
         await team.aprint_response(
             dedent("""\
-            I want to travel to San Francisco from New York sometime in May.
-            I am one person going for 2 weeks.
-            Plan my travel itinerary.
-            Make sure to include the best attractions, restaurants, and activities.
-            Make sure to include the best Airbnb listings.
-            Make sure to include the weather information.\
+            我想在五月份从纽约去旧金山旅行。
+            我是一个人去两周。
+            请规划我的旅行行程。
+            务必包含最佳景点、餐厅和活动。
+            务必包含最佳Airbnb房源。
+            务必包含天气信息。\
         """)
         )
 

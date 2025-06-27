@@ -1,189 +1,188 @@
 ---
 title: TeamRunResponse
-sidebarTitle: Team Run Response & Events
+sidebarTitle: 团队运行响应与事件
 ---
+`TeamRunResponse` 类代表团队运行时的响应，包含团队整体响应和个体成员响应。它支持流式传输，并提供团队执行过程中的实时事件。
 
-The `TeamRunResponse` class represents the response from a team run, containing both the team's overall response and individual member responses. It supports streaming and provides real-time events throughout the execution of a team.
+## TeamRunResponse 属性
 
-## TeamRunResponse Attributes
-
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `content` | `Any` | `None` | Content of the response |
-| `content_type` | `str` | `"str"` | Specifies the data type of the content |
-| `thinking` | `str` | `None` | Any thinking content the model produced (used by Anthropic models) |
-| `messages` | `List[Message]` | `None` | A list of messages included in the response |
-| `metrics` | `Dict[str, Any]` | `None` | Usage metrics of the run |
-| `model` | `str` | `None` | The model used in the run |
-| `model_provider` | `str` | `None` | The model provider used in the run |
-| `member_responses` | `List[Union[TeamRunResponse, RunResponse]]` | `[]` | Responses from individual team members |
-| `run_id` | `str` | `None` | Run Id |
-| `team_id` | `str` | `None` | Team Id for the run |
-| `session_id` | `str` | `None` | Session Id for the run |
-| `tools` | `List[Dict[str, Any]]` | `None` | List of tools provided to the model |
-| `images` | `List[Image]` | `None` | List of images from member runs |
-| `videos` | `List[Video]` | `None` | List of videos from member runs |
-| `audio` | `List[Audio]` | `None` | List of audio snippets from member runs |
-| `response_audio` | `ModelResponseAudio` | `None` | The model's raw response in audio |
-| `reasoning_content` | `str` | `None` | Any reasoning content the model produced |
-| `citations` | `Citations` | `None` | Any citations used in the response |
-| `created_at` | `int` | Current timestamp | Unix timestamp of the response creation |
-| `extra_data` | `RunResponseExtraData` | `None` | Extra data containing optional fields like `references`, `add_messages`, `history`, `reasoning_steps`, and `reasoning_messages` |
+| `content` | `Any` | `None` | 响应内容 |
+| `content_type` | `str` | `"str"` | 指定内容的数据类型 |
+| `thinking` | `str` | `None` | 模型产生的思考内容（Anthropic 模型使用） |
+| `messages` | `List[Message]` | `None` | 响应中包含的消息列表 |
+| `metrics` | `Dict[str, Any]` | `None` | 运行的使用指标 |
+| `model` | `str` | `None` | 运行中使用的模型 |
+| `model_provider` | `str` | `None` | 运行中使用的模型提供商 |
+| `member_responses` | `List[Union[TeamRunResponse, RunResponse]]` | `[]` | 个体团队成员的响应 |
+| `run_id` | `str` | `None` | 运行 ID |
+| `team_id` | `str` | `None` | 运行的团队 ID |
+| `session_id` | `str` | `None` | 运行的会话 ID |
+| `tools` | `List[Dict[str, Any]]` | `None` | 提供给模型的工具列表 |
+| `images` | `List[Image]` | `None` | 成员运行中的图像列表 |
+| `videos` | `List[Video]` | `None` | 成员运行中的视频列表 |
+| `audio` | `List[Audio]` | `None` | 成员运行中的音频片段列表 |
+| `response_audio` | `ModelResponseAudio` | `None` | 模型的原始音频响应 |
+| `reasoning_content` | `str` | `None` | 模型产生的推理内容 |
+| `citations` | `Citations` | `None` | 响应中使用的引用 |
+| `created_at` | `int` | 当前时间戳 | 响应创建的 Unix 时间戳 |
+| `extra_data` | `RunResponseExtraData` | `None` | 包含可选字段的额外数据，如 `references`、`add_messages`、`history`、`reasoning_steps` 和 `reasoning_messages` |
 
-## TeamRunResponseEvent Types
+## TeamRunResponseEvent 类型
 
-The following events are sent by the `Team.run()` function depending on the team's configuration:
+以下事件由 `Team.run()` 函数根据团队配置发送：
 
-### Core Events
+### 核心事件
 
-| Event Type | Description |
+| 事件类型 | 描述 |
 |------------|-------------|
-| `TeamRunStarted` | Indicates the start of a team run |
-| `TeamRunResponseContent` | Contains the model's response text as individual chunks |
-| `TeamRunCompleted` | Signals successful completion of the team run |
-| `TeamRunError` | Indicates an error occurred during the team run |
-| `TeamRunCancelled` | Signals that the team run was cancelled |
+| `TeamRunStarted` | 表示团队运行开始 |
+| `TeamRunResponseContent` | 包含模型响应文本的单个片段 |
+| `TeamRunCompleted` | 表示团队运行成功完成 |
+| `TeamRunError` | 表示团队运行期间发生错误 |
+| `TeamRunCancelled` | 表示团队运行被取消 |
 
-### Tool Events
+### 工具事件
 
-| Event Type | Description |
+| 事件类型 | 描述 |
 |------------|-------------|
-| `TeamToolCallStarted` | Indicates the start of a tool call |
-| `TeamToolCallCompleted` | Signals completion of a tool call, including tool call results |
+| `TeamToolCallStarted` | 表示工具调用开始 |
+| `TeamToolCallCompleted` | 表示工具调用完成，包括工具调用结果 |
 
-### Reasoning Events
+### 推理事件
 
-| Event Type | Description |
+| 事件类型 | 描述 |
 |------------|-------------|
-| `TeamReasoningStarted` | Indicates the start of the team's reasoning process |
-| `TeamReasoningStep` | Contains a single step in the reasoning process |
-| `TeamReasoningCompleted` | Signals completion of the reasoning process |
+| `TeamReasoningStarted` | 表示团队推理过程开始 |
+| `TeamReasoningStep` | 包含推理过程的单个步骤 |
+| `TeamReasoningCompleted` | 表示推理过程完成 |
 
-### Memory Events
+### 记忆事件
 
-| Event Type | Description |
+| 事件类型 | 描述 |
 |------------|-------------|
-| `TeamMemoryUpdateStarted` | Indicates that the team is updating its memory |
-| `TeamMemoryUpdateCompleted` | Signals completion of a memory update |
+| `TeamMemoryUpdateStarted` | 表示团队正在更新其记忆 |
+| `TeamMemoryUpdateCompleted` | 表示记忆更新完成 |
 
-## Event Attributes
+## 事件属性
 
-### Base TeamRunResponseEvent
+### 基础 TeamRunResponseEvent
 
-All events inherit from `BaseTeamRunResponseEvent` which provides these common attributes:
+所有事件继承自 `BaseTeamRunResponseEvent`，提供以下共同属性：
 
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `created_at` | `int` | Current timestamp | Unix timestamp of the event creation |
-| `event` | `str` | Event type value | The type of event |
-| `team_id` | `str` | `""` | ID of the team generating the event |
-| `run_id` | `Optional[str]` | `None` | ID of the current run |
-| `session_id` | `Optional[str]` | `None` | ID of the current session |
-| `content` | `Optional[Any]` | `None` | For backwards compatibility |
+| `created_at` | `int` | 当前时间戳 | 事件创建的 Unix 时间戳 |
+| `event` | `str` | 事件类型值 | 事件类型 |
+| `team_id` | `str` | `""` | 生成事件的团队 ID |
+| `run_id` | `Optional[str]` | `None` | 当前运行的 ID |
+| `session_id` | `Optional[str]` | `None` | 当前会话的 ID |
+| `content` | `Optional[Any]` | `None` | 用于向后兼容 |
 
 ### RunResponseStartedEvent
 
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"TeamRunStarted"` | Event type |
-| `model` | `str` | `""` | The model being used |
-| `model_provider` | `str` | `""` | The provider of the model |
+| `event` | `str` | `"TeamRunStarted"` | 事件类型 |
+| `model` | `str` | `""` | 使用的模型 |
+| `model_provider` | `str` | `""` | 模型的提供商 |
 
 ### RunResponseContentEvent
 
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"TeamRunResponseContent"` | Event type |
-| `content` | `Optional[Any]` | `None` | The content of the response |
-| `content_type` | `str` | `"str"` | Type of the content |
-| `thinking` | `Optional[str]` | `None` | Internal thoughts of the model |
-| `citations` | `Optional[Citations]` | `None` | Citations used in the response |
-| `response_audio` | `Optional[AudioResponse]` | `None` | Model's audio response |
-| `image` | `Optional[ImageArtifact]` | `None` | Image attached to the response |
-| `extra_data` | `Optional[RunResponseExtraData]` | `None` | Additional response data |
+| `event` | `str` | `"TeamRunResponseContent"` | 事件类型 |
+| `content` | `Optional[Any]` | `None` | 响应内容 |
+| `content_type` | `str` | `"str"` | 内容类型 |
+| `thinking` | `Optional[str]` | `None` | 模型的内部思考 |
+| `citations` | `Optional[Citations]` | `None` | 响应中使用的引用 |
+| `response_audio` | `Optional[AudioResponse]` | `None` | 模型的音频响应 |
+| `image` | `Optional[ImageArtifact]` | `None` | 响应附带的图像 |
+| `extra_data` | `Optional[RunResponseExtraData]` | `None` | 额外的响应数据 |
 
 ### RunResponseCompletedEvent
 
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"TeamRunCompleted"` | Event type |
-| `content` | `Optional[Any]` | `None` | Final content of the response |
-| `content_type` | `str` | `"str"` | Type of the content |
-| `reasoning_content` | `Optional[str]` | `None` | Reasoning content produced |
-| `thinking` | `Optional[str]` | `None` | Internal thoughts of the model |
-| `citations` | `Optional[Citations]` | `None` | Citations used in the response |
-| `images` | `Optional[List[ImageArtifact]]` | `None` | Images attached to the response |
-| `videos` | `Optional[List[VideoArtifact]]` | `None` | Videos attached to the response |
-| `audio` | `Optional[List[AudioArtifact]]` | `None` | Audio snippets attached to the response |
-| `response_audio` | `Optional[AudioResponse]` | `None` | Model's audio response |
-| `extra_data` | `Optional[RunResponseExtraData]` | `None` | Additional response data |
-| `member_responses` | `List[Union[TeamRunResponse, RunResponse]]` | `[]` | Responses from individual team members |
+| `event` | `str` | `"TeamRunCompleted"` | 事件类型 |
+| `content` | `Optional[Any]` | `None` | 响应的最终内容 |
+| `content_type` | `str` | `"str"` | 内容类型 |
+| `reasoning_content` | `Optional[str]` | `None` | 产生的推理内容 |
+| `thinking` | `Optional[str]` | `None` | 模型的内部思考 |
+| `citations` | `Optional[Citations]` | `None` | 响应中使用的引用 |
+| `images` | `Optional[List[ImageArtifact]]` | `None` | 响应附带的图像 |
+| `videos` | `Optional[List[VideoArtifact]]` | `None` | 响应附带的视频 |
+| `audio` | `Optional[List[AudioArtifact]]` | `None` | 响应附带的音频片段 |
+| `response_audio` | `Optional[AudioResponse]` | `None` | 模型的音频响应 |
+| `extra_data` | `Optional[RunResponseExtraData]` | `None` | 额外的响应数据 |
+| `member_responses` | `List[Union[TeamRunResponse, RunResponse]]` | `[]` | 个体团队成员的响应 |
 
 ### RunResponseErrorEvent
 
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"TeamRunError"` | Event type |
-| `content` | `Optional[Any]` | `None` | Error message |
+| `event` | `str` | `"TeamRunError"` | 事件类型 |
+| `content` | `Optional[Any]` | `None` | 错误消息 |
 
 ### RunResponseCancelledEvent
 
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"TeamRunCancelled"` | Event type |
-| `reason` | `Optional[str]` | `None` | Reason for cancellation |
+| `event` | `str` | `"TeamRunCancelled"` | 事件类型 |
+| `reason` | `Optional[str]` | `None` | 取消原因 |
 
 
 ### ToolCallStartedEvent
 
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"TeamToolCallStarted"` | Event type |
-| `tool` | `Optional[ToolExecution]` | `None` | The tool being called |
+| `event` | `str` | `"TeamToolCallStarted"` | 事件类型 |
+| `tool` | `Optional[ToolExecution]` | `None` | 被调用的工具 |
 
 ### ToolCallCompletedEvent
 
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"TeamToolCallCompleted"` | Event type |
-| `tool` | `Optional[ToolExecution]` | `None` | The tool that was called |
-| `content` | `Optional[Any]` | `None` | Result of the tool call |
-| `images` | `Optional[List[ImageArtifact]]` | `None` | Images produced by the tool |
-| `videos` | `Optional[List[VideoArtifact]]` | `None` | Videos produced by the tool |
-| `audio` | `Optional[List[AudioArtifact]]` | `None` | Audio produced by the tool |
+| `event` | `str` | `"TeamToolCallCompleted"` | 事件类型 |
+| `tool` | `Optional[ToolExecution]` | `None` | 被调用的工具 |
+| `content` | `Optional[Any]` | `None` | 工具调用的结果 |
+| `images` | `Optional[List[ImageArtifact]]` | `None` | 工具产生的图像 |
+| `videos` | `Optional[List[VideoArtifact]]` | `None` | 工具产生的视频 |
+| `audio` | `Optional[List[AudioArtifact]]` | `None` | 工具产生的音频 |
 
 ### ReasoningStartedEvent
 
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"TeamReasoningStarted"` | Event type |
+| `event` | `str` | `"TeamReasoningStarted"` | 事件类型 |
 
 
 ### ReasoningStepEvent
 
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"TeamReasoningStep"` | Event type |
-| `content` | `Optional[Any]` | `None` | Content of the reasoning step |
-| `content_type` | `str` | `"str"` | Type of the content |
-| `reasoning_content` | `str` | `""` | Detailed reasoning content |
+| `event` | `str` | `"TeamReasoningStep"` | 事件类型 |
+| `content` | `Optional[Any]` | `None` | 推理步骤的内容 |
+| `content_type` | `str` | `"str"` | 内容类型 |
+| `reasoning_content` | `str` | `""` | 详细的推理内容 |
 
 ### ReasoningCompletedEvent
 
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"TeamReasoningCompleted"` | Event type |
-| `content` | `Optional[Any]` | `None` | Content of the reasoning step |
-| `content_type` | `str` | `"str"` | Type of the content |
+| `event` | `str` | `"TeamReasoningCompleted"` | 事件类型 |
+| `content` | `Optional[Any]` | `None` | 推理步骤的内容 |
+| `content_type` | `str` | `"str"` | 内容类型 |
 
 ### MemoryUpdateStartedEvent
 
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"TeamMemoryUpdateStarted"` | Event type |
+| `event` | `str` | `"TeamMemoryUpdateStarted"` | 事件类型 |
 
 ### MemoryUpdateCompletedEvent
 
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"TeamMemoryUpdateCompleted"` | Event type |
+| `event` | `str` | `"TeamMemoryUpdateCompleted"` | 事件类型 |

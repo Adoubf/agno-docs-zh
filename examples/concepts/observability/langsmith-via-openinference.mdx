@@ -1,12 +1,11 @@
 ---
 title: LangSmith
 ---
+## 概述
 
-## Overview
+本示例展示如何通过OpenInference为您的Agno智能体添加检测功能，并将追踪数据发送至LangSmith。
 
-This example demonstrates how to instrument your Agno agent with OpenInference and send traces to LangSmith.
-
-## Code
+## 代码
 
 ```python
 import os
@@ -20,24 +19,24 @@ from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExport
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import SimpleSpanProcessor
 
-# Set the endpoint and headers for LangSmith
+# 设置LangSmith的端点及请求头
 endpoint = "https://eu.api.smith.langchain.com/otel/v1/traces"
 headers = {
     "x-api-key": os.getenv("LANGSMITH_API_KEY"),
     "Langsmith-Project": os.getenv("LANGSMITH_PROJECT"),
 }
 
-# Configure the tracer provider
+# 配置追踪器提供程序
 tracer_provider = TracerProvider()
 tracer_provider.add_span_processor(
     SimpleSpanProcessor(OTLPSpanExporter(endpoint=endpoint, headers=headers))
 )
 trace_api.set_tracer_provider(tracer_provider=tracer_provider)
 
-# Start instrumenting agno
+# 开始为 Agno 进行仪器化
 AgnoInstrumentor().instrument()
 
-# Create and configure the agent
+# 创建并配置智能体
 agent = Agent(
     name="Stock Market Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
@@ -46,20 +45,20 @@ agent = Agent(
     debug_mode=True,
 )
 
-# Use the agent
+# 使用智能体
 agent.print_response("What is news on the stock market?")
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
-  <Step title="Install Dependencies">
+  <Step title="安装依赖项">
     ```bash
     pip install agno openai openinference-instrumentation-agno opentelemetry-sdk opentelemetry-exporter-otlp
     ```
   </Step>
 
-  <Step title="Set Environment Variables">
+  <Step title="设置环境变量">
     ```bash
     export LANGSMITH_API_KEY=<your-key>
     export LANGSMITH_TRACING=true
@@ -68,7 +67,7 @@ agent.print_response("What is news on the stock market?")
     ```
   </Step>
 
-  <Step title="Run the Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/observability/langsmith_via_openinference.py
@@ -81,6 +80,6 @@ agent.print_response("What is news on the stock market?")
   </Step>
 </Steps>
 
-## Notes
+## 注意事项
 
-- **Data Regions**: Choose the appropriate `LANGSMITH_ENDPOINT` based on your data region.
+- **数据区域**：根据您所在的数据区域选择对应的`LANGSMITH_ENDPOINT`。

@@ -1,8 +1,7 @@
 ---
-title: Agent with Storage
+title: 带存储的智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/ibm/watsonx/storage.py
 from agno.agent import Agent
@@ -22,29 +21,29 @@ agent.print_response("How many people live in Canada?")
 agent.print_response("What is their national anthem called?")
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export IBM_WATSONX_API_KEY=xxx
     export IBM_WATSONX_PROJECT_ID=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U ibm-watsonx-ai sqlalchemy psycopg duckduckgo-search agno
     ```
   </Step>
 
-  <Step title="Set up PostgreSQL">
-    Make sure you have a PostgreSQL database running. You can adjust the `db_url` in the code to match your database configuration.
+  <Step title="设置 PostgreSQL">
+    确保您已运行PostgreSQL数据库。您可以调整代码中的`db_url`以匹配您的数据库配置。
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/ibm/watsonx/storage.py
@@ -57,6 +56,6 @@ agent.print_response("What is their national anthem called?")
   </Step>
 </Steps>
 
-This example shows how to use PostgreSQL storage with IBM WatsonX to maintain conversation state across multiple interactions. It creates an agent with a PostgreSQL storage backend and sends multiple messages, with the conversation history being preserved between them.
+本示例展示了如何结合PostgreSQL存储与IBM WatsonX来维护跨多次交互的会话状态。它创建了一个带有PostgreSQL存储后端的智能体，并发送多条消息，会话历史记录会在消息之间保留。
 
-Note: You need to install the `sqlalchemy` package and have a PostgreSQL database available. 
+注意：您需要安装`sqlalchemy`包并确保PostgreSQL数据库可用。

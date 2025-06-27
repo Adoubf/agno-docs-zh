@@ -1,22 +1,21 @@
 ---
-title: Image Agent
+title: 镜像智能体
 ---
+本示例展示如何创建一个能分析图像并通过网络搜索将其与当前事件关联的AI智能体。非常适合以下场景：
+1. 新闻报道与新闻业
+2. 旅游与观光内容创作
+3. 社交媒体分析
+4. 教育演示制作
+5. 事件报道
 
-This example shows how to create an AI agent that can analyze images and connect them with current events using web searches. Perfect for:
-1. News reporting and journalism
-2. Travel and tourism content
-3. Social media analysis
-4. Educational presentations
-5. Event coverage
+可尝试的示例图像：
+- 著名地标（埃菲尔铁塔、泰姬陵等）
+- 城市天际线
+- 文化活动与节日庆典
+- 突发新闻现场
+- 历史遗迹
 
-Example images to try:
-- Famous landmarks (Eiffel Tower, Taj Mahal, etc.)
-- City skylines
-- Cultural events and festivals
-- Breaking news scenes
-- Historical locations
-
-## Code
+## 代码
 
 ```python image_agent.py
 from textwrap import dedent
@@ -68,7 +67,7 @@ agent = Agent(
     markdown=True,
 )
 
-# Example usage with a famous landmark
+# 著名地标的使用示例
 agent.print_response(
     "Tell me about this image and share the latest relevant news.",
     images=[
@@ -79,7 +78,7 @@ agent.print_response(
     stream=True,
 )
 
-# More examples to try:
+# 更多示例尝试：
 """
 Sample prompts to explore:
 1. "What's the historical significance of this location?"
@@ -94,27 +93,27 @@ Sample image URLs to analyze:
 3. Golden Gate Bridge: "https://upload.wikimedia.org/wikipedia/commons/0/0c/GoldenGateBridge-001.jpg"
 """
 
-# To get the response in a variable:
+# 要将响应存储在变量中：
 # from rich.pretty import pprint
 # response = agent.run(
-#     "Analyze this landmark's architecture and recent news.",
-#     images=[Image(url="YOUR_IMAGE_URL")],
+# “分析这座地标建筑的风格特征及近期相关新闻。”
+# images=[Image(url="您的图片URL")],
 # )
 # pprint(response.content)
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai duckduckgo-search agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行智能体">
     ```bash
     python image_agent.py
     ```

@@ -1,20 +1,19 @@
 ---
-title: What is Agno?
-description: "Agno is a python framework for building multi-agent systems with shared memory, knowledge and reasoning."
-sidebarTitle: What is Agno?
+title: 什么是 Agno？
+description: "Agno 是一个用于构建具有共享记忆、知识和推理能力的多智能体系统的 Python 框架。"
+sidebarTitle: 什么是Agno？
 ---
+工程师和研究人员使用Agno构建以下智能体：
 
-Engineers and researchers use Agno to build:
+- **第一级**：具备工具和指令的智能体（[示例](/introduction/agents#level-1%3A-agents-with-tools-and-instructions)）
+- **第二级**：具备知识和存储的智能体（[示例](/introduction/agents#level-2%3A-agents-with-knowledge-and-storage)）
+- **第三级**：具备记忆和推理能力的智能体（[示例](/introduction/agents#level-3%3A-agents-with-memory-and-reasoning)）
+- **第四级**：可推理协作的智能体团队（[示例](/introduction/multi-agent-systems#level-4%3A-agent-teams-that-can-reason-and-collaborate)）
+- **第五级**：具备状态和确定性的智能工作流（[示例](/introduction/multi-agent-systems#level-5%3A-agentic-workflows-with-state-and-determinism)）
 
-- **Level 1:** Agents with tools and instructions ([example](/introduction/agents#level-1%3A-agents-with-tools-and-instructions)).
-- **Level 2:** Agents with knowledge and storage ([example](/introduction/agents#level-2%3A-agents-with-knowledge-and-storage)).
-- **Level 3:** Agents with memory and reasoning ([example](/introduction/agents#level-3%3A-agents-with-memory-and-reasoning)).
-- **Level 4:** Agent Teams that can reason and collaborate ([example](/introduction/multi-agent-systems#level-4%3A-agent-teams-that-can-reason-and-collaborate)).
-- **Level 5:** Agentic Workflows with state and determinism ([example](/introduction/multi-agent-systems#level-5%3A-agentic-workflows-with-state-and-determinism)).
+**示例**：使用YFinance API解答问题的第一级推理智能体：
 
-**Example:** Level 1 Reasoning Agent that uses the YFinance API to answer questions:
-
-```python Reasoning Finance Agent
+```python 金融推理智能体
 from agno.agent import Agent
 from agno.models.anthropic import Claude
 from agno.tools.reasoning import ReasoningTools
@@ -31,7 +30,7 @@ reasoning_agent = Agent(
 )
 ```
 
-<Accordion title="Watch the reasoning finance agent in action">
+<Accordion title="观看金融推理智能体的实际运作">
   <video
     autoPlay
     muted
@@ -42,123 +41,123 @@ reasoning_agent = Agent(
   ></video>
 </Accordion>
 
-# Getting Started
+# 快速入门
 
-If you're new to Agno, learn how to build your [first Agent](/introduction/agents), chat with it on the [playground](/introduction/playground) and [monitor](/introduction/monitoring) it on [app.agno.com](https://app.agno.com).
+初次接触Agno？学习如何构建[第一个智能体](/introduction/agents)，在[演练场](/introduction/playground)与它对话，并在[app.agno.com](https://app.agno.com)上[监控](/introduction/monitoring)其运行。
 
 <CardGroup cols={3}>
   <Card
-    title="Your first Agents"
+    title="您的首个智能体"
     icon="user-astronaut"
     iconType="duotone"
     href="/introduction/agents"
   >
-    Learn how to build Agents with Agno
+    学习使用Agno构建智能体
   </Card>
   <Card
-    title="Agent Playground"
+    title="智能体演练场"
     icon="comment-dots"
     iconType="duotone"
     href="introduction/playground"
   >
-    Chat with your Agents using a beautiful Agent UI
+    通过精美UI与智能体对话
   </Card>
   <Card
-    title="Agent Monitoring"
+    title="智能体监控"
     icon="rocket-launch"
     iconType="duotone"
     href="introduction/monitoring"
   >
-    Monitor your Agents on [agno.com](https://app.agno.com)
+    在[agno.com](https://app.agno.com)监控智能体
   </Card>
 </CardGroup>
 
-After that, dive deeper into the [concepts below](/introduction#dive-deeper) or explore the [examples gallery](/examples) to build real-world applications with Agno.
+之后可深入探索[以下概念](/introduction#dive-deeper)，或浏览[示例库](/examples)用Agno构建真实应用。
 
-# Why Agno?
+# 为什么选择Agno？
 
-Agno will help you build best-in-class, highly-performant agentic systems, saving you hours of research and boilerplate. Here are some key features that set Agno apart:
+Agno助您构建一流的高性能智能体系统，节省大量研究和样板代码时间。其差异化特性包括：
 
-- **Model Agnostic**: Agno provides a unified interface to 23+ model providers, no lock-in.
-- **Highly performant**: Agents instantiate in **~3μs** and use **~6.5Kib** memory on average.
-- **Reasoning is a first class citizen**: Reasoning improves reliability and is a must-have for complex autonomous agents. Agno supports 3 approaches to reasoning: Reasoning Models, `ReasoningTools` or our custom `chain-of-thought` approach.
-- **Natively Multi-Modal**: Agno Agents are natively multi-modal, they accept text, image, audio and video as input and generate text, image, audio and video as output.
-- **Advanced Multi-Agent Architecture**: Agno provides an industry leading multi-agent architecture (**Agent Teams**) with reasoning, memory, and shared context.
-- **Built-in Agentic Search**: Agents can search for information at runtime using 20+ vector databases. Agno provides state-of-the-art Agentic RAG, **fully async and highly performant.**
-- **Built-in Memory & Session Storage**: Agents come with built-in `Storage` & `Memory` drivers that give your Agents long-term memory and session storage.
-- **Structured Outputs**: Agno Agents can return fully-typed responses using model provided structured outputs or `json_mode`.
-- **Pre-built FastAPI Routes**: After building your Agents, serve them using pre-built FastAPI routes. 0 to production in minutes.
-- **Monitoring**: Monitor agent sessions and performance in real-time on [agno.com](https://app.agno.com).
+- **模型无关**：统一接口支持23+模型供应商，无锁定
+- **高性能**：智能体平均初始化仅需**~3微秒**，内存占用**~6.5Kib**
+- **原生推理支持**：提供三种推理方式：推理模型、`ReasoningTools`或我们的定制方案`chain-of-thought`
+- **原生多模态**：支持文本/图像/音频/视频输入输出
+- **先进多智能体架构**：行业领先的智能体团队架构，具备推理、记忆和共享上下文
+- **内置智能搜索**：运行时使用20+向量数据库搜索，提供全异步高性能Agentic RAG
+- **内置记忆存储**：预置`Storage`和`Memory`驱动实现长期记忆和会话存储
+- **结构化输出**：通过模型结构化输出或`json_mode`返回强类型响应
+- **预置FastAPI路由**：分钟级生产部署
+- **实时监控**：在[agno.com](https://app.agno.com)监控会话和性能
 
-# Dive deeper
+# 深入探索
 
-Agno is a battle-tested framework with a state of the art reasoning and multi-agent architecture, read the following guides to learn more:
+Agno是经过实战检验的先进框架，阅读以下指南深入了解：
 
 <CardGroup cols={3}>
-  <Card title="Agents" icon="user-astronaut" iconType="duotone" href="/agents">
-    Learn how to build lightning fast Agents.
+  <Card title="智能体" icon="user-astronaut" iconType="duotone" href="/agents">
+    构建高速智能体
   </Card>
-  <Card title="Teams" icon="microchip" iconType="duotone" href="/teams">
-    Build autonomous multi-agent teams.
+  <Card title="团队" icon="microchip" iconType="duotone" href="/teams">
+    创建自治多智能体团队
   </Card>
-  <Card title="Models" icon="cube" iconType="duotone" href="/models">
-    Use any model, any provider, no lock-in.
+  <Card title="模型" icon="cube" iconType="duotone" href="/models">
+    无锁定的多模型支持
   </Card>
   <Card
-    title="Tools"
+    title="工具"
     icon="screwdriver-wrench"
     iconType="duotone"
     href="/tools"
   >
-    100s of tools to extend your Agents.
+    数百种扩展工具
   </Card>
   <Card
-    title="Reasoning"
+    title="推理"
     icon="brain-circuit"
     iconType="duotone"
     href="/reasoning"
   >
-    Make Agents "think" and "analyze".
+    实现"思考"与"分析"
   </Card>
-  <Card title="Knowledge" icon="server" iconType="duotone" href="/knowledge">
-    Give Agents domain-specific knowledge.
+  <Card title="知识" icon="server" iconType="duotone" href="/knowledge">
+    赋予领域知识
   </Card>
   <Card
-    title="Vector Databases"
+    title="向量数据库"
     icon="spider-web"
     iconType="duotone"
     href="/vectordb"
   >
-    Store and search your knowledge base.
+    知识库存储检索
   </Card>
-  <Card title="Storage" icon="database" iconType="duotone" href="/storage">
-    Persist Agent session and state in a database.
+  <Card title="存储" icon="database" iconType="duotone" href="/storage">
+    持久化会话与状态
   </Card>
   <Card
-    title="Memory"
+    title="记忆"
     icon="lightbulb"
     iconType="duotone"
     href="/agents/memory"
   >
-    Remember user details and session summaries.
+    记忆用户与会话摘要
   </Card>
   <Card
-    title="Embeddings"
+    title="嵌入"
     icon="network-wired"
     iconType="duotone"
     href="/embedder"
   >
-    Generate embeddings for your knowledge base.
+    生成知识库嵌入
   </Card>
   <Card
-    title="Workflows"
+    title="工作流"
     icon="diagram-project"
     iconType="duotone"
     href="/workflows"
   >
-    Deterministic, stateful, multi-agent workflows.
+    确定性状态工作流
   </Card>
-  <Card title="Evals" icon="shield" iconType="duotone" href="/evals">
-    Evaluate, monitor and improve your Agents.
+  <Card title="评估" icon="shield" iconType="duotone" href="/evals">
+    评估与优化智能体
   </Card>
 </CardGroup>

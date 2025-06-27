@@ -1,8 +1,7 @@
 ---
 title: OpenBB
 ---
-
-**OpenBBTools** enable an Agent to provide information about stocks and companies.
+**OpenBBTools** 使智能体能够提供股票和公司相关信息。
 
 ```python cookbook/tools/openbb_tools.py
 from agno.agent import Agent
@@ -11,41 +10,41 @@ from agno.tools.openbb import OpenBBTools
 
 agent = Agent(tools=[OpenBBTools()], debug_mode=True, show_tool_calls=True)
 
-# Example usage showing stock analysis
+# 展示股票分析的示例用法
 agent.print_response(
     "Get me the current stock price and key information for Apple (AAPL)"
 )
 
-# Example showing market analysis
+# 市场分析示例
 agent.print_response(
     "What are the top gainers in the market today?"
 )
 
-# Example showing economic indicators
+# 展示经济指标的示例
 agent.print_response(
     "Show me the latest GDP growth rate and inflation numbers for the US"
 )
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter         | Type   | Default | Description                                                                        |
-| ----------------- | ------ | ------- | ---------------------------------------------------------------------------------- |
-| `read_article`    | `bool` | `True`  | Enables the functionality to read the full content of an article.                  |
-| `include_summary` | `bool` | `False` | Specifies whether to include a summary of the article along with the full content. |
-| `article_length`  | `int`  | -       | The maximum length of the article or its summary to be processed or returned.      |
+| 参数          | 类型   | 默认值 | 描述                                                                        |
+| ------------- | ------ | ------ | -------------------------------------------------------------------------- |
+| `read_article` | `bool` | `True` | 启用读取文章完整内容的功能。                                                 |
+| `include_summary` | `bool` | `False` | 指定是否在返回结果中包含文章的摘要信息。                                      |
+| `article_length` | `int` | -       | 设定待处理或返回的文章内容/摘要的最大长度限制。                               |
 
-## Toolkit Functions
+## 工具包功能
 
-| Function                | Description                                                                       |
-| ----------------------- | --------------------------------------------------------------------------------- |
-| `get_stock_price`       | This function gets the current stock price for a stock symbol or list of symbols. |
-| `search_company_symbol` | This function searches for the stock symbol of a company.                         |
-| `get_price_targets`     | This function gets the price targets for a stock symbol or list of symbols.       |
-| `get_company_news`      | This function gets the latest news for a stock symbol or list of symbols.         |
-| `get_company_profile`   | This function gets the company profile for a stock symbol or list of symbols.     |
+| 函数                | 描述                                                                       |
+| ------------------- | ------------------------------------------------------------------------- |
+| `get_stock_price`   | 获取单个或多个股票代码的实时股价。                                          |
+| `search_company_symbol` | 根据公司名称搜索对应的股票代码。                                            |
+| `get_price_targets` | 获取单个或多个股票代码的价格目标数据。                                      |
+| `get_company_news`  | 获取单个或多个股票代码的最新新闻资讯。                                      |
+| `get_company_profile` | 获取单个或多个股票代码对应的公司概况信息。                                  |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/openbb.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/openbb_tools.py)
+- 查看 [工具文档](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/openbb.py)
+- 查看 [使用手册](https://github.com/agno-agi/agno/blob/main/cookbook/tools/openbb_tools.py)

@@ -1,11 +1,10 @@
 ---
-title: Meeting Summary Agent
-description: Multi-modal Agno agent that transcribes meeting recordings, extracts key insights, generates visual summaries, and creates audio summaries using OpenAI tools.
+title: 会议纪要智能体
+description: 多模态Agno智能体，能够转录会议录音、提取关键见解、生成可视化摘要，并使用OpenAI工具创建音频摘要。
 ---
+本示例演示了一个多模态会议总结与可视化智能体，该智能体利用OpenAITools和ReasoningTools实现以下功能：转录会议录音、提取关键见解、生成可视化摘要并合成音频摘要。
 
-This example demonstrates a multi-modal meeting summarizer and visualizer agent that uses OpenAITools and ReasoningTools to transcribe a meeting recording, extract key insights, generate a visual summary, and synthesize an audio summary.
-
-## Code
+## 代码
 
 ```python ref/meeting_summarizer_agent.py
 """Example: Meeting Summarizer & Visualizer Agent
@@ -61,20 +60,20 @@ if response.audio:
     print(f"Meeting summary saved to: {Path('tmp/meeting_summary.mp3')}")
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
-  <Step title="Install dependencies">
+  <Step title="安装依赖">
     ```bash
     pip install openai agno
     ```
   </Step>
 
-  <Step title="Run the example">
+  <Step title="运行示例">
     ```bash
     python ref/meeting_summarizer_agent.py
     ```
   </Step>
 </Steps>
 
-By default, the audio summary will be saved to `tmp/meeting_summary.mp3`.
+默认情况下，音频摘要将保存至`tmp/meeting_summary.mp3`。

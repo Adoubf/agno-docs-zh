@@ -1,12 +1,11 @@
 ---
-title: Structured Output
+title: 结构化输出
 ---
+我们最喜爱的功能之一是利用智能体生成结构化数据（即pydantic模型）。该功能可用于特征提取、数据分类、生成模拟数据等场景。最妙的是它能与函数调用、知识库及其他所有特性无缝协作。
 
-One of our favorite features is using Agents to generate structured data (i.e. a pydantic model). Use this feature to extract features, classify data, produce fake data etc. The best part is that they work with function calls, knowledge bases and all other features.
+## 示例
 
-## Example
-
-Let's create an Movie Agent to write a `MovieScript` for us.
+让我们创建一个电影智能体来为我们编写`MovieScript`。
 
 ```python movie_agent.py
 from typing import List
@@ -25,7 +24,7 @@ class MovieScript(BaseModel):
     characters: List[str] = Field(..., description="Name of characters for this movie.")
     storyline: str = Field(..., description="3 sentence storyline for the movie. Make it exciting!")
 
-# Agent that uses JSON mode
+# 使用 JSON 模式的智能体
 json_mode_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     description="You write movie scripts.",
@@ -34,7 +33,7 @@ json_mode_agent = Agent(
 )
 json_mode_agent.print_response("New York")
 
-# Agent that uses structured outputs
+# 采用结构化输出的智能体
 structured_output_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     description="You write movie scripts.",
@@ -44,7 +43,7 @@ structured_output_agent = Agent(
 structured_output_agent.print_response("New York")
 ```
 
-Run the script to see the output.
+运行脚本查看输出结果。
 
 ```bash
 pip install -U agno openai
@@ -52,10 +51,10 @@ pip install -U agno openai
 python movie_agent.py
 ```
 
-The output is an object of the `MovieScript` class, here's how it looks:
+输出结果为`MovieScript`类的对象，其结构如下：
 
 ```python
-# Using JSON mode
+# 使用 JSON 模式
 MovieScript(
 │   setting='The bustling streets of New York City, filled with skyscrapers, secret alleyways, and hidden underground passages.',
 │   ending='The protagonist manages to thwart an international conspiracy, clearing his name and winning the love of his life back.',
@@ -65,7 +64,7 @@ MovieScript(
 │   storyline="When Alex Monroe, an ex-CIA operative, is framed for a crime he didn't commit, he must navigate the dangerous streets of New York to clear his name. As he uncovers a labyrinth of deceit involving the city's most notorious crime syndicate, he enlists the help of an old flame, Eva Parker. Together, they race against time to expose the true villain before it's too late."
 )
 
-# Use the structured output
+# 使用结构化输出
 MovieScript(
 │   setting='In the bustling streets and iconic skyline of New York City.',
 │   ending='Isabella and Alex, having narrowly escaped the clutches of the Syndicate, find themselves standing at the top of the Empire State Building. As the glow of the setting sun bathes the city, they share a victorious kiss. Newly emboldened and as an unstoppable duo, they vow to keep NYC safe from any future threats.',
@@ -76,9 +75,9 @@ MovieScript(
 )
 ```
 
-## Using a Parser Model
+## 使用解析器模型
 
-You can use an additional model to parse and structure the output from your primary model. This approach is particularly effective when the primary model is optimized for reasoning tasks, as such models may not consistently produce detailed structured responses.
+您可以使用辅助模型来解析并结构化主模型的输出。当主模型专精于推理任务时（这类模型可能无法持续生成详细的结构化响应），该方法尤为有效。
 
 ```python
 agent = Agent(
@@ -89,9 +88,9 @@ agent = Agent(
 )
 ```
 
-You can also provide a custom `parser_model_prompt` to your Parser Model.
+您还可以为解析器模型提供自定义的`parser_model_prompt`。
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/async/structured_output.py)
-- View [Parser Model Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/other/parse_model.py)
+- 查看[Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/async/structured_output.py)
+- 查看[Parser Model Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/other/parse_model.py)

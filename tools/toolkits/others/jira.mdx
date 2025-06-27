@@ -1,12 +1,11 @@
 ---
 title: Jira
 ---
+**JiraTools** 使智能体能够执行Jira任务。
 
-**JiraTools** enable an Agent to perform Jira tasks.
+## 前提条件
 
-## Prerequisites
-
-The following example requires the `jira` library and auth credentials.
+以下示例需要 `jira` 库和认证凭证。
 
 ```shell
 pip install -U jira
@@ -18,9 +17,9 @@ export JIRA_USERNAME="YOUR_USERNAME"
 export JIRA_TOKEN="YOUR_API_TOKEN"
 ```
 
-## Example
+## 示例
 
-The following agent will use Jira API to search for issues in a project.
+以下智能体将使用Jira API在项目中搜索问题。
 
 ```python cookbook/tools/jira_tools.py
 from agno.agent import Agent
@@ -30,25 +29,25 @@ agent = Agent(tools=[JiraTools()])
 agent.print_response("Find all issues in project PROJ", markdown=True)
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter    | Type  | Default | Description                                                                                                                   |
-| ------------ | ----- | ------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `server_url` | `str` | `""`    | The URL of the JIRA server, retrieved from the environment variable `JIRA_SERVER_URL`. Default is an empty string if not set. |
-| `username`   | `str` | `None`  | The JIRA username for authentication, retrieved from the environment variable `JIRA_USERNAME`. Default is None if not set.    |
-| `password`   | `str` | `None`  | The JIRA password for authentication, retrieved from the environment variable `JIRA_PASSWORD`. Default is None if not set.    |
-| `token`      | `str` | `None`  | The JIRA API token for authentication, retrieved from the environment variable `JIRA_TOKEN`. Default is None if not set.      |
+| 参数          | 类型  | 默认值 | 描述                                                                                                                   |
+| ------------- | ----- | ------ | --------------------------------------------------------------------------------------------------------------------- |
+| `server_url` | `str` | `""`    | JIRA服务器URL，从环境变量 `JIRA_SERVER_URL` 获取。如果未设置，则默认为空字符串。 |
+| `username`   | `str` | `None`  | JIRA认证用户名，从环境变量 `JIRA_USERNAME` 获取。如果未设置，则默认为None。    |
+| `password`   | `str` | `None`  | JIRA认证密码，从环境变量 `JIRA_PASSWORD` 获取。如果未设置，则默认为None。    |
+| `token`      | `str` | `None`  | JIRA认证API令牌，从环境变量 `JIRA_TOKEN` 获取。如果未设置，则默认为None。      |
 
-## Toolkit Functions
+## 工具包函数
 
-| Function        | Description                                                                                                                                                                                                                                                                                                                           |
-| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `get_issue`     | Retrieves issue details from JIRA. Parameters include:<br/>- `issue_key`: the key of the issue to retrieve<br/>Returns a JSON string containing issue details or an error message.                                                                                                                                                    |
-| `create_issue`  | Creates a new issue in JIRA. Parameters include:<br/>- `project_key`: the project in which to create the issue<br/>- `summary`: the issue summary<br/>- `description`: the issue description<br/>- `issuetype`: the type of issue (default is "Task")<br/>Returns a JSON string with the new issue's key and URL or an error message. |
-| `search_issues` | Searches for issues using a JQL query in JIRA. Parameters include:<br/>- `jql_str`: the JQL query string<br/>- `max_results`: the maximum number of results to return (default is 50)<br/>Returns a JSON string containing a list of dictionaries with issue details or an error message.                                             |
-| `add_comment`   | Adds a comment to an issue in JIRA. Parameters include:<br/>- `issue_key`: the key of the issue<br/>- `comment`: the comment text<br/>Returns a JSON string indicating success or an error message.                                                                                                                                   |
+| 函数          | 描述                                                                                                                                                                                                                                                                                                                           |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `get_issue`     | 从JIRA获取问题详情。参数包括：<br/>- `issue_key`: 要获取的问题的键<br/>返回包含问题详情的JSON字符串或错误消息。                                                                                                                                                    |
+| `create_issue`  | 在JIRA中创建新问题。参数包括：<br/>- `project_key`: 要创建问题的项目<br/>- `summary`: 问题摘要<br/>- `description`: 问题描述<br/>- `issuetype`: 问题类型（默认为"Task"）<br/>返回包含新问题键和URL的JSON字符串或错误消息。 |
+| `search_issues` | 使用JQL查询在JIRA中搜索问题。参数包括：<br/>- `jql_str`: JQL查询字符串<br/>- `max_results`: 返回的最大结果数（默认为50）<br/>返回包含问题详情字典列表的JSON字符串或错误消息。                                             |
+| `add_comment`   | 向JIRA问题添加评论。参数包括：<br/>- `issue_key`: 问题的键<br/>- `comment`: 评论文本<br/>返回指示成功的JSON字符串或错误消息。                                                                                                                                   |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/jira.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/jira_tools.py)
+- 查看[工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/jira.py)
+- 查看[Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/jira_tools.py)

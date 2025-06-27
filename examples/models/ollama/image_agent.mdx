@@ -1,8 +1,7 @@
 ---
-title: Image Agent
+title: 镜像智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/ollama/image_agent.py
 from pathlib import Path
@@ -23,27 +22,27 @@ agent.print_response(
 )
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install Ollama">
-    Follow the [installation guide](https://github.com/ollama/ollama?tab=readme-ov-file#macos) and run:
+  <Step title="安装Ollama">
+    按照[安装指南](https://github.com/ollama/ollama?tab=readme-ov-file#macos)操作并运行：
     ```bash
     ollama pull llama3.2-vision
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U ollama agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果电脑
     python cookbook/models/ollama/image_agent.py
     ```
 

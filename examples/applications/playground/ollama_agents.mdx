@@ -1,8 +1,7 @@
 ---
-title: Ollama Agents
+title: Ollama 智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/apps/playground/ollama_agents.py 
 from agno.agent import Agent
@@ -107,30 +106,30 @@ if __name__ == "__main__":
 
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install Ollama">
+  <Step title="安装Ollama">
     <p>
-      Follow the instructions on [Ollama.com](https://ollama.com) to download and install Ollama.
+      参照[Ollama.com](https://ollama.com)上的指引下载并安装Ollama。
     </p>
   </Step>
 
-  <Step title="Pull a model">
+  <Step title="拉取模型">
     ```bash
     ollama pull llama3.1:8b
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U "uvicorn[standard]" ollama duckduckgo-search yfinance pypdf sqlalchemy 'fastapi[standard]' youtube-transcript-api agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/apps/playground/ollama_agents.py
@@ -141,4 +140,4 @@ if __name__ == "__main__":
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

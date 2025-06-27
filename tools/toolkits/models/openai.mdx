@@ -2,22 +2,21 @@
 title: OpenAI
 sidebarTitle: OpenAI
 ---
+OpenAITools 允许智能体与 OpenAI 模型交互，实现音频转录、图像生成和文本转语音功能。
 
-OpenAITools allow an Agent to interact with OpenAI models for performing audio transcription, image generation, and text-to-speech.
+## 先决条件
 
-## Prerequisites
+使用 `OpenAITools` 之前，请确保已安装 `openai` 库并配置好 OpenAI API 密钥。
 
-Before using `OpenAITools`, ensure you have the `openai` library installed and your OpenAI API key configured.
-
-1. **Install the library:**
+1. **安装库：**
    ```bash
    pip install -U openai
    ```
 
-2. **Set your API key:** Obtain your API key from [OpenAI](https://platform.openai.com/account/api-keys) and set it as an environment variable.
+2. **设置 API 密钥：** 从 [OpenAI](https://platform.openai.com/account/api-keys) 获取 API 密钥并设置为环境变量。
 
    <CodeGroup>
-   ```bash Mac
+   ```bash 苹果
    export OPENAI_API_KEY="your-openai-api-key"
    ```
    ```bash Windows
@@ -25,9 +24,9 @@ Before using `OpenAITools`, ensure you have the `openai` library installed and y
    ```
    </CodeGroup>
 
-## Initialization
+## 初始化
 
-Import `OpenAITools` and add it to your Agent's tool list.
+导入 `OpenAITools` 并将其添加到智能体的工具列表中。
 
 ```python
 from agno.agent import Agent
@@ -41,11 +40,11 @@ agent = Agent(
 )
 ```
 
-## Usage Examples
+## 使用示例
 
-### 1. Transcribing Audio
+### 1. 音频转录
 
-This example demonstrates an agent that transcribes an audio file.
+此示例展示智能体转录音频文件的功能。
 
 ```python transcription_agent.py
 from pathlib import Path
@@ -68,9 +67,9 @@ agent = Agent(
 agent.print_response(f"Transcribe the audio file located at '{local_audio_path}'")
 ```
 
-### 2. Generating Images
+### 2. 图像生成
 
-This example demonstrates an agent that generates an image based on a text prompt.
+此示例展示智能体基于文本提示生成图像的功能。
 
 ```python image_generation_agent.py
 from agno.agent import Agent
@@ -90,9 +89,9 @@ if response.images:
     save_base64_data(response.images[0].content, "tmp/coffee_shop.png")
 ```
 
-### 3. Generating Speech
+### 3. 语音合成
 
-This example demonstrates an agent that generates speech from text.
+此示例展示智能体将文本转换为语音的功能。
 
 ```python speech_synthesis_agent.py
 from agno.agent import Agent
@@ -117,11 +116,11 @@ if response and response.audio:
     save_base64_data(response.audio[0].base64_audio, "tmp/hello.mp3")
 ```
 
-<Note> View more examples [here](/examples/concepts/tools/models/openai). </Note>
+<Note> 查看更多示例 [请访问](/examples/concepts/tools/models/openai)。 </Note>
 
-## Customization
+## 自定义配置
 
-You can customize the underlying OpenAI models used for transcription, image generation, and TTS:
+您可以自定义用于转录、图像生成和文本转语音的底层 OpenAI 模型：
 
 ```python
 OpenAITools(
@@ -133,19 +132,19 @@ OpenAITools(
 )
 ```
 
-## Toolkit Functions
+## 工具包功能
 
-The `OpenAITools` toolkit provides the following functions:
+`OpenAITools` 工具包提供以下功能：
 
-| Function           | Description                                                                 |
-| ------------------ | --------------------------------------------------------------------------- |
-| `transcribe_audio` | Transcribes audio from a local file path or a public URL |
-| `generate_image`   | Generates images based on a text prompt |
-| `generate_speech`  | Synthesizes speech from text |
+| 功能                | 描述                                                                 |
+| ------------------- | -------------------------------------------------------------------- |
+| `transcribe_audio` | 从本地文件路径或公开 URL 转录音频 |
+| `generate_image`   | 基于文本提示生成图像 |
+| `generate_speech`  | 将文本合成为语音 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/openai.py)
-- View [OpenAI Transcription Guide](https://platform.openai.com/docs/guides/speech-to-text)
-- View [OpenAI Image Generation Guide](https://platform.openai.com/docs/guides/image-generation?image-generation-model=gpt-image-1)
-- View [OpenAI Text-to-Speech Guide](https://platform.openai.com/docs/guides/text-to-speech)
+- 查看 [工具文档](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/openai.py)
+- 查看 [OpenAI 语音转录指南](https://platform.openai.com/docs/guides/speech-to-text)
+- 查看 [OpenAI 图像生成指南](https://platform.openai.com/docs/guides/image-generation?image-generation-model=gpt-image-1)
+- 查看 [OpenAI 文本转语音指南](https://platform.openai.com/docs/guides/text-to-speech)

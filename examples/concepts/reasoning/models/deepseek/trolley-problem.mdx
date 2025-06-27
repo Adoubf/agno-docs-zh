@@ -1,8 +1,7 @@
 ---
-title: DeepSeek Reasoner
+title: 深度求索推理器
 ---
-
-## Code
+## 代码
 
 ```python cookbook/reasoning/models/deepseek/trolley_problem.py
 from agno.agent import Agent
@@ -28,26 +27,26 @@ reasoning_agent.print_response(task, stream=True)
 
 ```
 
-## Usage
+## 使用指南
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export DEEPSEEK_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果电脑
     python cookbook/reasoning/models/deepseek/trolley_problem.py
     ```
 

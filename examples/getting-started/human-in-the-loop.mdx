@@ -1,21 +1,20 @@
 ---
-title: Human in the Loop
+title: 人在回路
 ---
+本示例展示如何在智能体工作流程中实现人工验证。它演示了以下功能：
+- 执行前验证
+- 执行后审查  
+- 交互式反馈循环
+- 质量控制检查点
 
-This example shows how to implement human validation in your agent workflows. It demonstrates:
-- Pre-execution validation
-- Post-execution review
-- Interactive feedback loops
-- Quality control checkpoints
+应用场景示例：
+- 内容审核
+- 关键决策审批
+- 输出质量验证  
+- 安全检查
+- 专家评审流程
 
-Example scenarios:
-- Content moderation
-- Critical decision approval
-- Output quality validation
-- Safety checks
-- Expert review processes
-
-## Code
+## 代码
 
 ```python human_in_the_loop.py
 import json
@@ -30,19 +29,19 @@ from rich.console import Console
 from rich.pretty import pprint
 from rich.prompt import Prompt
 
-# This is the console instance used by the print_response method
-# We can use this to stop and restart the live display and ask for user confirmation
+# 这是 print_response 方法所使用的控制台实例。
+# 我们可以利用此功能来暂停和重启实时显示，并请求用户确认
 console = Console()
 
 
 def pre_hook(fc: FunctionCall):
-    # Get the live display instance from the console
+    # 从控制台获取实时显示实例
     live = console._live
 
-    # Stop the live display temporarily so we can ask for user confirmation
+    # 暂时停止实时显示以便请求用户确认
     live.stop()  # type: ignore
 
-    # Ask for confirmation
+    # 请求确认
     console.print(f"\nAbout to run [bold blue]{fc.function.name}[/]")
     message = (
         Prompt.ask("Do you want to continue?", choices=["y", "n"], default="y")
@@ -50,10 +49,10 @@ def pre_hook(fc: FunctionCall):
         .lower()
     )
 
-    # Restart the live display
+    # 重新启动实时显示
     live.start()  # type: ignore
 
-    # If the user does not want to continue, raise a StopExecution exception
+    # 如果用户不想继续，则抛出 StopExecution 异常
     if message != "y":
         raise StopAgentRun(
             "Tool call cancelled by user",
@@ -71,11 +70,11 @@ def get_top_hackernews_stories(num_stories: int) -> Iterator[str]:
     Returns:
         str: JSON string containing story details
     """
-    # Fetch top story IDs
+    # 获取头条故事ID
     response = httpx.get("https://hacker-news.firebaseio.com/v0/topstories.json")
     story_ids = response.json()
 
-    # Yield story details
+    # 获取故事详情
     for story_id in story_ids[:num_stories]:
         story_response = httpx.get(
             f"https://hacker-news.firebaseio.com/v0/item/{story_id}.json"
@@ -86,7 +85,7 @@ def get_top_hackernews_stories(num_stories: int) -> Iterator[str]:
         yield json.dumps(story)
 
 
-# Initialize the agent with a tech-savvy personality and clear instructions
+# 以技术精通的特质初始化智能体，并配备清晰明确的指令
 agent = Agent(
     description="A Tech News Assistant that fetches and summarizes Hacker News stories",
     instructions=dedent("""\
@@ -106,27 +105,27 @@ agent = Agent(
     markdown=True,
 )
 
-# Example questions to try:
-# - "What are the top 3 HN stories right now?"
-# - "Show me the most recent story from Hacker News"
-# - "Get the top 5 stories (you can try accepting and declining the confirmation)"
+# 可供尝试的示例问题：
+# - "当前 HN 上最热门的 3 个故事是什么？"
+# - "给我看看Hacker News上最新的故事"
+# - "获取前5条故事（你可以尝试接受或拒绝确认）"
 agent.print_response(
     "What are the top 2 hackernews stories?", stream=True, console=console
 )
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行智能体">
     ```bash
     python human_in_the_loop.py
     ```

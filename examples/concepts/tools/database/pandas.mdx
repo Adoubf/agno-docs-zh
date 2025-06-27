@@ -1,18 +1,18 @@
-Description:
+描述：
 
-Implemented an AI agent using the agno library with PandasTools for automated data analysis.
+使用agno库结合PandasTools实现了一个用于自动化数据分析的AI智能体。
 
-The agent loads a CSV file (data.csv) and performs analysis based on natural language instructions.
+该智能体能加载CSV文件（data.csv）并根据自然语言指令执行数据分析。
 
-Enables interaction with data without manual Pandas coding, simplifying data exploration and insights extraction.
+无需手动编写Pandas代码即可与数据交互，简化了数据探索和洞察提取流程。
 
-Includes setup instructions for environment variables and dependencies.
+包含环境变量和依赖项的设置说明。
 
 ---
-title: Pandas Tools
+标题: Pandas工具集
 ---
 
-## Code
+## 代码
 
 ```python cookbook/tools/pandas_tools.py
 from agno.agent import Agent
@@ -26,26 +26,26 @@ agent = Agent(
 agent.print_response("Load and analyze the dataset from data.csv")
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step> 
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U pandas openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果电脑
     python cookbook/tools/pandas_tools.py
     ```
 

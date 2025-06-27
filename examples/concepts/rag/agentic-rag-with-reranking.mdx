@@ -1,8 +1,7 @@
 ---
-title: Agentic RAG with Reranking
+title: 带重排功能的智能体化检索增强生成
 ---
-
-## Code
+## 代码
 
 ```python
 from agno.agent import Agent
@@ -12,10 +11,10 @@ from agno.models.openai import OpenAIChat
 from agno.reranker.cohere import CohereReranker
 from agno.vectordb.lancedb import LanceDb, SearchType
 
-# Create a knowledge base of PDFs from URLs
+# 从URL创建PDF知识库
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-    # Use LanceDB as the vector database and store embeddings in the `recipes` table
+    # 使用 LanceDB 作为向量数据库并将嵌入向量存储在 `recipes` 表中
     vector_db=LanceDb(
         table_name="recipes",
         uri="tmp/lancedb",
@@ -24,14 +23,14 @@ knowledge_base = PDFUrlKnowledgeBase(
         reranker=CohereReranker(model="rerank-multilingual-v3.0"),  # Add a reranker
     ),
 )
-# Load the knowledge base: Comment after first run as the knowledge base is already loaded
+# 加载知识库：首次运行后无需重复加载，因为知识库已加载完成
 knowledge_base.load()
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     knowledge=knowledge_base,
-    # Add a tool to search the knowledge base which enables agentic RAG.
-    # This is enabled by default when `knowledge` is provided to the Agent.
+    # 添加一个工具来搜索知识库，以实现智能体的检索增强生成（RAG）。
+    # 当向智能体提供`knowledge`时，此功能默认启用。
     search_knowledge=True,
     show_tool_calls=True,
     markdown=True,
@@ -41,25 +40,25 @@ agent.print_response(
 )
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API keys">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     export COHERE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai lancedb tantivy pypdf sqlalchemy agno cohere
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/rag/agentic_rag_with_reranking.py

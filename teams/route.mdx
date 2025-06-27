@@ -1,25 +1,24 @@
 ---
-title: Route
+title: 路由
 ---
+在**路由模式**下，团队领导者会根据请求内容将用户查询引导至最合适的团队成员处。
 
-In **Route Mode**, the Team Leader directs user queries to the most appropriate team member based on the content of the request.
+团队领导者充当智能路由器的角色，分析查询并选择最适合处理该请求的智能体。该成员的响应将直接返回给用户。
 
-The Team Leader acts as a smart router, analyzing the query and selecting the best-suited agent to handle it. The member's response is then returned directly to the user.
+## 路由模式工作原理
 
-## How Route Mode Works
+在"路由"模式下：
 
-In "route" mode:
+1. 团队接收用户查询
+2. 团队领导者分析查询以确定哪位成员具备相应专长
+3. 查询被转发至选定的团队成员
+4. 团队成员的响应直接返回给用户
 
-1. The team receives a user query
-2. A Team Leader analyzes the query to determine which team member has the right expertise
-3. The query is forwarded to the selected team member
-4. The response from the team member is returned directly to the user
-
-This mode is particularly useful when you have specialized agents with distinct expertise areas and want to automatically direct queries to the right specialist.
+当您拥有具备不同专业领域的专用智能体，并希望自动将查询引导至正确的专家时，此模式特别有用。
 
 <Steps>
-  <Step title="Create Multi Language Team">
-    Create a file `multi_language_team.py`
+  <Step title="创建多语言团队">
+    创建文件 `multi_language_team.py`
 
     ```python multi_language_team.py
     from agno.agent import Agent
@@ -105,7 +104,7 @@ This mode is particularly useful when you have specialized agents with distinct 
     )
 
 
-    # Ask "How are you?" in all supported languages
+    # 用所有支持的语言问"你好吗？"
     multi_language_team.print_response(
         "How are you?", stream=True  # English
     )
@@ -125,14 +124,14 @@ This mode is particularly useful when you have specialized agents with distinct 
     ```
 
   </Step>
-  <Step title="Run the team">
-    Install libraries
+  <Step title="运行团队">
+    安装库
 
     ```shell
     pip install openai mistral agno
     ```
 
-    Run the team
+    运行团队
 
     ```shell
     python multi_language_team.py
@@ -141,12 +140,12 @@ This mode is particularly useful when you have specialized agents with distinct 
   </Step>
 </Steps>
 
-## Structured Output with Route Mode
+## 路由模式的结构化输出
 
-One powerful feature of route mode is its ability to maintain structured output from member agents.
-When using a Pydantic model for the response, the response from the selected team member will be automatically parsed into the specified structure.
+路由模式的一个强大功能是它能保持成员智能体的结构化输出。
+当使用Pydantic模型定义响应时，所选团队成员的响应将自动解析为指定结构。
 
-### Defining Structured Output Models
+### 定义结构化输出模型
 
 ```python
 from pydantic import BaseModel
@@ -200,7 +199,7 @@ team = Team(
     markdown=True,
 )
 
-# This should route to the stock_searcher
+# 这应该路由到 stock_searcher
 response = team.run("What is the current stock price of NVDA?")
 assert isinstance(response.content, StockAnalysis)
 ```

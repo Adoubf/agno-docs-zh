@@ -1,20 +1,16 @@
 ---
-title: Finance Agent
+title: 金融智能体
 ---
+本示例展示如何创建一个专业的金融分析师智能体，该智能体利用实时数据提供全面的市场洞察。该智能体整合了股票市场数据、分析师推荐、公司信息和最新新闻，以提供专业级的金融分析。
 
-This example shows how to create a sophisticated financial analyst that provides
-comprehensive market insights using real-time data. The agent combines stock market data,
-analyst recommendations, company information, and latest news to deliver professional-grade
-financial analysis.
+可尝试的示例提示：
+- "苹果公司(AAPL)的最新新闻和财务表现如何？"
+- "给我特斯拉(TSLA)当前市场地位的详细分析"
+- "微软(MSFT)的财务状况如何？包含分析师推荐"
+- "分析英伟达(NVDA)的股票表现和未来展望"
+- "市场对亚马逊(AMZN)最新季度的评价是什么？"
 
-Example prompts to try:
-- "What's the latest news and financial performance of Apple (AAPL)?"
-- "Give me a detailed analysis of Tesla's (TSLA) current market position"
-- "How are Microsoft's (MSFT) financials looking? Include analyst recommendations"
-- "Analyze NVIDIA's (NVDA) stock performance and future outlook"
-- "What's the market saying about Amazon's (AMZN) latest quarter?"
-
-## Code
+## 代码
 
 ```python finance_agent.py
 from textwrap import dedent
@@ -73,12 +69,12 @@ finance_agent = Agent(
     markdown=True,
 )
 
-# Example usage with detailed market analysis request
+# 示例用法（包含详细的市场分析请求）
 finance_agent.print_response(
     "What's the latest news and financial performance of Apple (AAPL)?", stream=True
 )
 
-# Semiconductor market analysis example
+# 半导体市场分析示例
 finance_agent.print_response(
     dedent("""\
     Analyze the semiconductor market performance focusing on:
@@ -90,7 +86,7 @@ finance_agent.print_response(
     stream=True,
 )
 
-# Automotive market analysis example
+# 汽车市场分析示例
 finance_agent.print_response(
     dedent("""\
     Evaluate the automotive industry's current state:
@@ -102,7 +98,7 @@ finance_agent.print_response(
     stream=True,
 )
 
-# More example prompts to explore:
+# 更多探索性提示示例：
 """
 Advanced analysis queries:
 1. "Compare Tesla's valuation metrics with traditional automakers"
@@ -126,22 +122,22 @@ Automotive Industry:
 """
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai yfinance agno
     ```
   </Step>
-  <Step title="Set environment variables">
+  <Step title="设置环境变量">
     ```bash
     export OPENAI_API_KEY=****
     ```
     </Step>
-  <Step title="Run the agent">
+  <Step title="运行智能体">
     ```bash
     python finance_agent.py
     ```

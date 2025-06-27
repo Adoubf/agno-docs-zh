@@ -1,8 +1,7 @@
 ---
-title: Agent with Structured Outputs
+title: 支持结构化输出的智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/cohere/structured_output.py
 from typing import List
@@ -39,31 +38,31 @@ json_mode_agent = Agent(
     # debug_mode=True,
 )
 
-# Get the response in a variable
-# json_mode_response: RunResponse = json_mode_agent.run("New York")
+# 将响应存储在变量中
+# json_mode_response: RunResponse = json_mode_agent.run("纽约")
 # pprint(json_mode_response.content)
 
 json_mode_agent.print_response("New York")
 ```
 
-## Usage
+## 使用方式
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的API密钥">
     ```bash
     export CO_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U cohere agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/cohere/structured_output.py

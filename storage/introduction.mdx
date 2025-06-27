@@ -1,24 +1,23 @@
 ---
-title: What is Storage?
-sidebarTitle: Overview
-description: Storage is a way to persist Agent sessions and state to a database or file.
+title: 什么是存储？
+sidebarTitle: 概述
+description: 存储是将智能体会话和状态持久化到数据库或文件的一种方式。
 ---
-
-Use **Session Storage** to persist Agent sessions and state to a database or file.
+使用 **会话存储（Session Storage）** 将智能体会话及状态持久化到数据库或文件中。
 
 <Tip>
-**Why do we need Session Storage?**
+**为何需要会话存储？**
 
-Agents are ephemeral and the built-in memory only lasts for the current execution cycle.
+智能体是临时性的，其内置记忆仅持续当前执行周期。
 
-In production environments, we serve (or trigger) Agents via an API and need to continue the same session across multiple requests. Storage persists the session history and state in a database and allows us to pick up where we left off.
+在生产环境中，我们通过API提供（或触发）智能体服务，并需在多次请求间延续同一会话。存储系统将会话历史及状态持久化到数据库中，使我们能够从断点处继续。
 
-Storage also let's us inspect and evaluate Agent sessions, extract few-shot examples and build internal monitoring tools. It lets us **look at the data** which helps us build better Agents.
+存储系统还允许我们检查和评估智能体会话，提取少量示例（few-shot）并构建内部监控工具。它让我们能**查看数据**，从而构建更优质的智能体。
 </Tip>
 
-Adding storage to an Agent, Team or Workflow is as simple as providing a `Storage` driver and Agno handles the rest. You can use Sqlite, Postgres, Mongo or any other database you want.
+为智能体、团队或工作流添加存储功能非常简单，只需提供 `Storage` 驱动，Agno 便会处理余下操作。您可以使用 Sqlite、Postgres、Mongo 或任何其他数据库。
 
-Here's a simple example that demostrates persistence across execution cycles:
+以下是一个展示跨执行周期持久化的简单示例：
 
 ```python storage.py
 from agno.agent import Agent
@@ -28,7 +27,7 @@ from rich.pretty import pprint
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
-    # Fix the session id to continue the same session across execution cycles
+    # 修复会话 ID 以在执行周期间保持同一会话
     session_id="fixed_id_for_demo",
     storage=SqliteStorage(table_name="agent_sessions", db_file="tmp/data.db"),
     add_history_to_messages=True,
@@ -40,33 +39,33 @@ agent.print_response("What was my last question?")
 pprint(agent.get_messages_for_session())
 ```
 
-The first time you run this, the answer to "What was my last question?" will not be available. But run it again and the Agent will able to answer properly. Because we have fixed the session id, the Agent will continue from the same session every time you run the script.
+首次运行时，智能体无法回答“我上次的问题是什么？”。但再次运行时，智能体将正确应答。由于我们固定了会话ID，每次运行脚本时智能体会从同一会话继续。
 
-## Benefits of Storage
+## 存储的优势
 
-Storage has typically been an under-discussed part of Agent Engineering -- but we see it as the unsung hero of production agentic applications.
+存储通常是智能体工程中较少讨论的部分——但我们视其为生产级智能体应用的无名英雄。
 
-In production, you need storage to:
+在生产环境中，您需要存储来实现：
 
-- Continue sessions: retrieve sessions history and pick up where you left off.
-- Get list of sessions: To continue a previous session, you need to maintain a list of sessions available for that agent.
-- Save state between runs: save the Agent's state to a database or file so you can inspect it later.
+- 会话延续：检索会话历史并从断点继续。
+- 获取会话列表：要延续先前的会话，需维护该智能体的可用会话列表。
+- 运行间状态保存：将智能体状态保存到数据库或文件中供后续检查。
 
-But there is so much more:
+但作用远不止于此：
 
-- Storage saves our Agent's session data for inspection and evaluations.
-- Storage helps us extract few-shot examples, which can be used to improve the Agent.
-- Storage enables us to build internal monitoring tools and dashboards.
+- 存储保存智能体会话数据供检查和评估。
+- 存储帮助我们提取少量示例（few-shot），用于改进智能体。
+- 存储使我们能构建内部监控工具和仪表盘。
 
 <Warning>
-Storage is such a critical part of your Agentic infrastructure that it should never be offloaded to a third party. You should almost always use your own storage layer for your Agents.
+存储是智能体基础设施的关键部分，绝不应外包给第三方。您几乎总应为智能体使用自己的存储层。
 </Warning>
 
-## Agent Storage
+## 智能体存储
 
-When working with agents, storage allows users to continue conversations where they left off. Every message, along with the agent's responses, is saved to your database of choice.
+使用智能体时，存储功能允许用户从断点处继续对话。每条消息及智能体响应都会被保存至您选择的数据库。
 
-Here's a simple example of adding storage to an agent:
+以下是为智能体添加存储的简单示例：
 
 ```python storage.py
 """Run `pip install duckduckgo-search sqlalchemy openai` to install dependencies."""
@@ -88,25 +87,25 @@ agent.print_response("What is their national anthem?")
 agent.print_response("List my messages one by one")
 ```
 
-## Team Storage
+## 团队存储
 
-`Storage` drivers also works with teams, providing persistent memory and state management for multi-agent collaborative systems. With team storage, you can maintain conversation history, shared context, and team state across multiple sessions.
-
-<Note>
-Learn more about [teams](/teams/) and their storage capabilities to build powerful multi-agent systems with persistent state.
-</Note>
-
-## Workflow Storage
-
-The storage system in Agno also works with workflows, enabling more complex multi-agent systems with state management. This allows for persistent conversations and cached results across workflow sessions.
+`Storage` 驱动同样适用于团队，为多智能体协作系统提供持久化记忆和状态管理。团队存储可维护跨会话的对话历史、共享上下文和团队状态。
 
 <Note>
-Learn more about using storage with [workflows](/workflows/) to build powerful multi-agent systems with state management.
+了解更多关于[团队](/teams/)及其存储能力的内容，以构建具有持久状态的多智能体系统。
 </Note>
 
-## Supported Storage Backends
+## 工作流存储
 
-The following databases are supported as a storage backend:
+Agno 的存储系统也支持工作流，为复杂多智能体系统提供状态管理。这实现了跨工作流会话的持久化对话和缓存结果。
+
+<Note>
+了解如何结合[工作流](/workflows/)使用存储，构建具备状态管理的强大多智能体系统。
+</Note>
+
+## 支持的存储后端
+
+以下数据库可作为存储后端：
 
 - [PostgreSQL](/storage/postgres)
 - [Sqlite](/storage/sqlite)
@@ -117,4 +116,4 @@ The following databases are supported as a storage backend:
 - [JSON](/storage/json)
 - [Redis](/storage/redis)
 
-Check detailed [examples](/examples/concepts/storage) for each storage
+查看每种存储的详细[示例](/examples/concepts/storage)。

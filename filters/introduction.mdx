@@ -1,18 +1,18 @@
-# Knowledge Filters
+# 知识过滤器
 
-Knowledge filters allow you to restrict and refine searches within your knowledge base using metadata such as user IDs, document types, years, and more. This feature is especially useful when you have a large collection of documents and want to retrieve information relevant to specific users or contexts.
+知识过滤器允许您使用用户ID、文档类型、年份等元数据来限制和优化知识库中的搜索。当您拥有大量文档集合并希望检索与特定用户或上下文相关的信息时，该功能尤其有用。
 
-## Why Use Knowledge Filters?
+## 为何使用知识过滤器？
 
-- **Personalization:** Retrieve information for a specific user or group.
-- **Security:** Restrict access to sensitive documents.
-- **Efficiency:** Reduce noise by narrowing down search results.
+- **个性化:** 为特定用户或群组检索信息
+- **安全性:** 限制对敏感文档的访问
+- **效率:** 通过缩小搜索结果范围减少干扰
 
-## How Do Knowledge Filters Work?
+## 知识过滤器工作原理
 
-When you load documents into your knowledge base, you can attach metadata (like user ID, document type, year, etc.). Later, when querying, you can specify filters to only search documents matching certain criteria.
+当您将文档加载到知识库时，可以附加元数据（如用户ID、文档类型、年份等）。后续查询时，您可以指定过滤器来仅搜索符合特定条件的文档。
 
-**Example Metadata:**
+**示例元数据:**
 ```python
 {
     "user_id": "jordan_mitchell",
@@ -21,19 +21,19 @@ When you load documents into your knowledge base, you can attach metadata (like 
 }
 ```
 
-## Ways to Apply Filters
+## 应用过滤器的两种方式
 
-You can apply knowledge filters in two main ways:
-1. **Manual Filters:** Explicitly pass filters when querying.
-2. **Agentic Filters:** Let the Agent automatically extract filters from your query.
+主要通过两种方式应用知识过滤器：
+1. **手动过滤:** 查询时明确传递过滤器
+2. **智能体过滤:** 让智能体自动从查询中提取过滤器
 
-> **Tip:** You can combine multiple filters for more precise results!
+> **提示:** 您可以组合多个过滤器以获得更精确的结果！
 
-## Filters in Traditional RAG vs. Agentic RAG
+## 传统RAG与智能体RAG中的过滤器
 
-When configuring your Agent it is important to choose the right approach for your use case. There are two broad approaches to RAG with Agno agents: traditional RAG and agentic RAG. With a traditional RAG approach you set `add_references=True` to ensure that references are included in the system message sent to the LLM. For Agentic RAG, you set `search_knowledge=True` to leverage the agent's ability search the knowledge base directly.
+配置智能体时，为您的用例选择正确的方法很重要。Agno智能体的RAG实现主要有两种方式：传统RAG和智能体RAG。采用传统RAG方法时，您需要设置`add_references=True`以确保引用内容包含在发送给LLM的系统消息中。对于智能体RAG，您设置`search_knowledge=True`来利用智能体直接搜索知识库的能力。
 
-Example:
+示例:
 ```python
 agent = Agent(
     name="KnowledgeFilterAgent",
@@ -44,25 +44,25 @@ agent = Agent(
 ```
 
 <Check> 
-Remember to use only one of these configurations at a time, setting the other to false. By default, `search_knowledge=True` is preferred as it offers a more dynamic and interactive experience.
-Checkout an example [here](/examples/concepts/knowledge/filters/filtering-traditional-RAG) of how to set up knowledge filters in a Traditional RAG system
+请记住每次只使用其中一种配置，将另一种设置为false。默认情况下，`search_knowledge=True`是推荐选项，它能提供更动态和交互式的体验。
+查看[示例](/examples/concepts/knowledge/filters/filtering-traditional-RAG)了解如何在传统RAG系统中设置知识过滤器
 </Check>
 
-## Best Practices
+## 最佳实践
 
-- Make your prompts descriptive (e.g., include user names, document types, years).
-- Use agentic filtering for interactive applications or chatbots.
+- 使用描述性提示（例如包含用户名、文档类型、年份）
+- 对交互式应用或聊天机器人使用智能体过滤
 
-## Manual vs. Agentic Filtering
+## 手动过滤 vs 智能体过滤
 
-| Manual Filtering | Agentic Filtering |
+| 手动过滤 | 智能体过滤 |
 |------------------|------------------|
-| Explicit filters in code | Filters inferred from query text |
-| Full control | More natural, less code |
-| Good for automation | Good for user-facing apps |
+| 在代码中明确指定过滤器 | 从查询文本推断过滤器 |
+| 完全控制 | 更自然，代码量更少 |
+| 适合自动化场景 | 适合面向用户的应用 |
 
 <Note>
-🚦 **Currently, knowledge filtering is supported on the following vector databases:**
+🚦 **当前支持知识过滤的向量数据库如下：**
 
 - **Qdrant**
 - **LanceDB**

@@ -1,8 +1,7 @@
 ---
-title: Agent with Structured Outputs
+title: 结构化输出智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/fireworks/structured_output.py
 from typing import List
@@ -32,38 +31,38 @@ class MovieScript(BaseModel):
     )
 
 
-# Agent that uses JSON mode
+# 使用 JSON 模式的智能体
 agent = Agent(
     model=Fireworks(id="accounts/fireworks/models/llama-v3p1-405b-instruct"),
     description="You write movie scripts.",
     response_model=MovieScript,
 )
 
-# Get the response in a variable
-# response: RunResponse = agent.run("New York")
+# 将响应存入变量
+# 响应：RunResponse = 智能体.run("纽约")
 # pprint(json_mode_response.content)
 
 agent.print_response("New York")
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export FIREWORKS_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/fireworks/structured_output.py

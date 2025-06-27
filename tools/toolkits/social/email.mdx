@@ -1,10 +1,9 @@
 ---
-title: Email
+title: 电子邮件
 ---
+**邮件工具**赋予智能体向用户发送电子邮件的能力。该功能允许智能体通过指定主题和正文内容向用户发送邮件。
 
-**EmailTools** enable an Agent to send an email to a user. The Agent can send an email to a user with a specific subject and body.
-
-## Example
+## 示例
 
 ```python cookbook/tools/email_tools.py
 from agno.agent import Agent
@@ -29,22 +28,22 @@ agent = Agent(
 agent.print_response("send an email to <receiver_email>")
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter        | Type  | Default | Description                         |
+| 参数        | 类型  | 默认值 | 说明                         |
 | ---------------- | ----- | ------- | ----------------------------------- |
-| `receiver_email` | `str` | -       | The email address of the receiver.  |
-| `sender_name`    | `str` | -       | The name of the sender.             |
-| `sender_email`   | `str` | -       | The email address of the sender.    |
-| `sender_passkey` | `str` | -       | The passkey for the sender's email. |
+| `receiver_email` | `str` | -       | 收件人邮箱地址  |
+| `sender_name`    | `str` | -       | 发件人名称             |
+| `sender_email`   | `str` | -       | 发件人邮箱地址    |
+| `sender_passkey` | `str` | -       | 发件邮箱的授权密码 |
 
-## Toolkit Functions
+## 工具包函数
 
-| Function     | Description                                                                  |
+| 函数     | 说明                                                                  |
 | ------------ | ---------------------------------------------------------------------------- |
-| `email_user` | Emails the user with the given subject and body. Currently works with Gmail. |
+| `email_user` | 通过指定主题和正文向用户发送邮件。当前仅支持Gmail邮箱服务。 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/email.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/email_tools.py)
+- 查看[工具文档](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/email.py)
+- 查看[开发手册](https://github.com/agno-agi/agno/blob/main/cookbook/tools/email_tools.py)

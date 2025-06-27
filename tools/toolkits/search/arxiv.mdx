@@ -1,20 +1,19 @@
 ---
-title: Arxiv
+title: Arxiv（学术论文预印本平台）
 ---
+**ArxivTools** 使智能体能够在Arxiv上搜索学术论文。
 
-**ArxivTools** enable an Agent to search for publications on Arxiv.
+## 前提条件
 
-## Prerequisites
-
-The following example requires the `arxiv` and `pypdf` libraries.
+以下示例需要 `arxiv` 和 `pypdf` 库。
 
 ```shell
 pip install -U arxiv pypdf
 ```
 
-## Example
+## 示例
 
-The following agent will run seach arXiv for "language models" and print the response.
+以下智能体会在arXiv上搜索"语言模型"并打印响应结果。
 
 ```python cookbook/tools/arxiv_tools.py
 from agno.agent import Agent
@@ -24,22 +23,22 @@ agent = Agent(tools=[ArxivTools()], show_tool_calls=True)
 agent.print_response("Search arxiv for 'language models'", markdown=True)
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter           | Type   | Default | Description                                                        |
+| 参数名称           | 类型   | 默认值 | 描述                                                        |
 | ------------------- | ------ | ------- | ------------------------------------------------------------------ |
-| `search_arxiv`      | `bool` | `True`  | Enables the functionality to search the arXiv database.            |
-| `read_arxiv_papers` | `bool` | `True`  | Allows reading of arXiv papers directly.                           |
-| `download_dir`      | `Path` | -       | Specifies the directory path where downloaded files will be saved. |
+| `search_arxiv`      | `bool` | `True`  | 启用搜索arXiv数据库的功能。            |
+| `read_arxiv_papers` | `bool` | `True`  | 允许直接阅读arXiv论文。                           |
+| `download_dir`      | `Path` | -       | 指定下载文件的保存目录路径。 |
 
-## Toolkit Functions
+## 工具包函数
 
-| Function                                 | Description                                                                                        |
+| 函数名称                                 | 描述                                                                                        |
 | ---------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `search_arxiv_and_update_knowledge_base` | This function searches arXiv for a topic, adds the results to the knowledge base and returns them. |
-| `search_arxiv`                           | Searches arXiv for a query.                                                                        |
+| `search_arxiv_and_update_knowledge_base` | 该函数在arXiv上搜索主题，将结果添加到知识库并返回。 |
+| `search_arxiv`                           | 在arXiv上搜索指定查询内容。                                                                        |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/arxiv.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/arxiv_tools.py)
+- 查看 [工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/arxiv.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/arxiv_tools.py)

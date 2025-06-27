@@ -1,14 +1,13 @@
 ---
-title: Memory Search
+title: 记忆搜索
 ---
+本示例演示如何通过不同检索方法搜索用户记忆
 
-This example demonstrates how to search for user memories using different retrieval methods
+- last_n: 获取最近n条记忆  
+- first_n: 获取前n条记忆  
+- semantic: 使用语义搜索获取记忆
 
-- last_n: Retrieves the last n memories
-- first_n: Retrieves the first n memories
-- semantic: Retrieves memories using semantic search
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/memory/05_memory_search.py
 from agno.memory.v2 import Memory, UserMemory
@@ -17,7 +16,7 @@ from agno.models.google.gemini import Gemini
 from rich.pretty import pprint
 
 memory_db = SqliteMemoryDb(table_name="memory", db_file="tmp/memory.db")
-# Reset for this example
+# 重置此示例
 memory_db.clear()
 
 memory = Memory(model=Gemini(id="gemini-2.0-flash-exp"), db=memory_db)
@@ -57,18 +56,18 @@ print("\nJohn Doe's memories similar to the query (agentic):")
 pprint(memories)
 ```
 
-## Usage
+## 使用方式
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/memory/05_memory_search.py

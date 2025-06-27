@@ -1,20 +1,18 @@
 ---
-title: Linear
+title: 线性
 ---
+**LinearTool** 使智能体能够执行 [Linear](https://linear.app/) 任务。
 
-**LinearTool** enable an Agent to perform [Linear](https://linear.app/) tasks.
-
-## Prerequisites
-The following examples require Linear API key, which can be obtained from [here](https://linear.app/settings/account/security).
-
+## 前提条件
+以下示例需要 Linear API 密钥，可从[此处](https://linear.app/settings/account/security)获取。
 
 ```shell
 export LINEAR_API_KEY="LINEAR_API_KEY"
 ```
 
-## Example
+## 示例
 
-The following agent will use Linear API to search for issues in a project for a specific user.
+以下智能体将使用 Linear API 在项目中为特定用户搜索问题。
 
 ```python cookbook/tools/linear_tools.py
 from agno.agent import Agent
@@ -30,31 +28,31 @@ agent = Agent(
 agent.print_response("Show all the issues assigned to user id: 12021")
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter                  | Type   | Default | Description                             |
+| 参数                  | 类型   | 默认值 | 描述                             |
 | -------------------------- | ------ | ------- | --------------------------------------- |
-| `get_user_details`         | `bool` | `True`  | Enable `get_user_details` tool.         |
-| `get_issue_details`        | `bool` | `True`  | Enable `get_issue_details` tool.        |
-| `create_issue`             | `bool` | `True`  | Enable `create_issue` tool.             |
-| `update_issue`             | `bool` | `True`  | Enable `update_issue` tool.             |
-| `get_user_assigned_issues` | `bool` | `True`  | Enable `get_user_assigned_issues` tool. |
-| `get_workflow_issues`      | `bool` | `True`  | Enable `get_workflow_issues` tool.      |
-| `get_high_priority_issues` | `bool` | `True`  | Enable `get_high_priority_issues` tool. |
+| `get_user_details`         | `bool` | `True`  | 启用 `get_user_details` 工具。         |
+| `get_issue_details`        | `bool` | `True`  | 启用 `get_issue_details` 工具。        |
+| `create_issue`             | `bool` | `True`  | 启用 `create_issue` 工具。             |
+| `update_issue`             | `bool` | `True`  | 启用 `update_issue` 工具。             |
+| `get_user_assigned_issues` | `bool` | `True`  | 启用 `get_user_assigned_issues` 工具。 |
+| `get_workflow_issues`      | `bool` | `True`  | 启用 `get_workflow_issues` 工具。      |
+| `get_high_priority_issues` | `bool` | `True`  | 启用 `get_high_priority_issues` 工具。 |
 
-## Toolkit Functions
+## 工具包功能
 
-| Function                   | Description                                                      |
+| 函数                   | 描述                                                      |
 | -------------------------- | ---------------------------------------------------------------- |
-| `get_user_details`         | Fetch authenticated user details.                                |
-| `get_issue_details`        | Retrieve details of a specific issue by issue ID.                |
-| `create_issue`             | Create a new issue within a specific project and team.           |
-| `update_issue`             | Update the title or state of a specific issue by issue ID.       |
-| `get_user_assigned_issues` | Retrieve issues assigned to a specific user by user ID.          |
-| `get_workflow_issues`      | Retrieve issues within a specific workflow state by workflow ID. |
-| `get_high_priority_issues` | Retrieve issues with a high priority (priority `<=` 2).          |
+| `get_user_details`         | 获取认证用户详情。                                |
+| `get_issue_details`        | 通过问题 ID 检索特定问题的详情。                |
+| `create_issue`             | 在特定项目和团队中创建新问题。           |
+| `update_issue`             | 通过问题 ID 更新特定问题的标题或状态。       |
+| `get_user_assigned_issues` | 通过用户 ID 检索分配给特定用户的问题。          |
+| `get_workflow_issues`      | 通过工作流 ID 检索特定工作流状态中的问题。 |
+| `get_high_priority_issues` | 检索高优先级（优先级 `<=` 2）的问题。          |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/linear.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/linear_tools.py)
+- 查看 [工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/linear.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/linear_tools.py)

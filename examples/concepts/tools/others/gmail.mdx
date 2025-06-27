@@ -1,8 +1,7 @@
 ---
-title: Gmail Tools
+title: Gmail 工具
 ---
-
-## Code
+## 代码
 
 ```python cookbook/tools/gmail_tools.py
 from agno.agent import Agent
@@ -31,19 +30,19 @@ agent.print_response(
 )
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set up Google Cloud Project">
-    1. Go to [Google Cloud Console](https://console.cloud.google.com)
-    2. Create a new project or select an existing one
-    3. Enable the Gmail API for your project
-    4. Create OAuth 2.0 credentials and download the client configuration file
+  <Step title="设置 Google Cloud 项目">
+    1. 访问 [Google Cloud Console](https://console.cloud.google.com)
+    2. 新建项目或选择现有项目
+    3. 为项目启用 Gmail API
+    4. 创建 OAuth 2.0 凭据并下载客户端配置文件
   </Step>
 
-  <Step title="Set your API keys">
+  <Step title="设置您的API密钥">
     ```bash
     export GOOGLE_CLIENT_ID=xxx
     export GOOGLE_CLIENT_SECRET=xxx
@@ -52,15 +51,15 @@ agent.print_response(
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U google-api-python-client google-auth-httplib2 google-auth-oauthlib google-generativeai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果电脑
     python cookbook/tools/gmail_tools.py
     ```
 
@@ -69,4 +68,4 @@ agent.print_response(
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

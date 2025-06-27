@@ -1,8 +1,7 @@
 ---
-title: Teams Demo
+title: 团队演示
 ---
-
-## Code
+## 代码
 
 ```python cookbook/apps/playground/teams_demo.py 
 from textwrap import dedent
@@ -238,12 +237,12 @@ if __name__ == "__main__":
 
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API keys">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     export ANTHROPIC_API_KEY=xxx
@@ -252,13 +251,13 @@ if __name__ == "__main__":
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno "uvicorn[standard]" openai anthropic google-generativeai duckduckgo-search exa-py yfinance psycopg-binary
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/apps/playground/teams_demo.py
@@ -269,4 +268,4 @@ if __name__ == "__main__":
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

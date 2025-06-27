@@ -1,16 +1,15 @@
 ---
-title: Audio Agent
+title: 音频智能体
 ---
+本示例展示如何创建一个能处理音频输入并生成音频响应的AI智能体。该智能体可用于多种语音交互场景，从分析语音内容到生成自然语音响应。
 
-This example shows how to create an AI agent that can process audio input and generate audio responses. You can use this agent for various voice-based interactions, from analyzing speech content to generating natural-sounding responses.
+可尝试的音频交互示例：
+- 上传对话录音进行分析
+- 让智能体用语音回答提问
+- 处理不同语言和口音
+- 分析语音中的语气和情绪
 
-Example audio interactions to try:
-- Upload a recording of a conversation for analysis
-- Have the agent respond to questions with voice output
-- Process different languages and accents
-- Analyze tone and emotion in speech
-
-## Code
+## 代码
 
 ```python audio_agent.py
 from textwrap import dedent
@@ -21,7 +20,7 @@ from agno.media import Audio
 from agno.models.openai import OpenAIChat
 from agno.utils.audio import write_audio_to_file
 
-# Create an AI Voice Interaction Agent
+# 创建AI语音交互智能体
 agent = Agent(
     model=OpenAIChat(
         id="gpt-4o-audio-preview",
@@ -45,24 +44,24 @@ agent = Agent(
     """),
 )
 
-# Fetch the audio file and convert it to a base64 encoded string
+# 获取音频文件并将其转换为base64编码字符串
 url = "https://openaiassets.blob.core.windows.net/$web/API/docs/audio/alloy.wav"
 response = requests.get(url)
 response.raise_for_status()
 
-# Process the audio and get a response
+# 处理音频并获取响应
 agent.run(
     "What's in this recording? Please analyze the content and tone.",
     audio=[Audio(content=response.content, format="wav")],
 )
 
-# Save the audio response if available
+# 保存音频响应（如果可用）
 if agent.run_response.response_audio is not None:
     write_audio_to_file(
         audio=agent.run_response.response_audio.content, filename="tmp/response.wav"
     )
 
-# More example interactions to try:
+# 更多可尝试的交互示例：
 """
 Try these voice interaction scenarios:
 1. "Can you summarize the main points discussed in this recording?"
@@ -80,18 +79,18 @@ with open('your_audio.wav', 'rb') as audio_file:
 """
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai requests agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行智能体">
     ```bash
     python audio_agent.py
     ```

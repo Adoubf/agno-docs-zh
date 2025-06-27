@@ -1,40 +1,39 @@
 ---
-title: DynamoDB Agent Storage
+title: DynamoDB 智能体存储
 sidebarTitle: DynamoDB
 ---
+Agno 支持使用 DynamoDB 作为智能体的存储后端，通过 `DynamoDbStorage` 类实现。
 
-Agno supports using DynamoDB as a storage backend for Agents using the `DynamoDbStorage` class.
+## 使用方法
 
-## Usage
-
-You need to provide `aws_access_key_id` and `aws_secret_access_key` parameters to the `DynamoDbStorage` class.
+需要向 `DynamoDbStorage` 类提供 `aws_access_key_id` 和 `aws_secret_access_key` 参数。
 
 ```python dynamodb_storage_for_agent.py
 from agno.storage.dynamodb import DynamoDbStorage
 
-# AWS Credentials
+# AWS 凭证
 AWS_ACCESS_KEY_ID = getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = getenv("AWS_SECRET_ACCESS_KEY")
 
 storage = DynamoDbStorage(
-    # store sessions in the ai.sessions table
+    # 将会话存储在 ai.sessions 表中
     table_name="agent_sessions",
-    # region_name: DynamoDB region name
+    # region_name: DynamoDB 区域名称
     region_name="us-east-1",
-    # aws_access_key_id: AWS access key id
+    # aws_access_key_id: AWS访问密钥ID
     aws_access_key_id=AWS_ACCESS_KEY_ID,
-    # aws_secret_access_key: AWS secret access key
+    # aws_secret_access_key: AWS密钥访问密钥
     aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
 )
 
-# Add storage to the Agent
+# 为智能体添加存储功能
 agent = Agent(storage=storage)
 ```
 
-## Params
+## 参数说明
 
 <Snippet file="storage-dynamodb-params.mdx" />
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/dynamodb_storage/dynamodb_storage_for_agent.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/dynamodb_storage/dynamodb_storage_for_agent.py)

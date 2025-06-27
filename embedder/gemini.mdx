@@ -1,25 +1,24 @@
 ---
-title: Gemini Embedder
-sidebarTitle: Gemini
+title: Gemini嵌入器
+sidebarTitle: 双子星
 ---
+`GeminiEmbedder` 类用于通过 Gemini API 将文本数据嵌入为向量。您可以[在此处](https://ai.google.dev/aistudio)获取该工具。
 
-The `GeminiEmbedder` class is used to embed text data into vectors using the Gemini API. You can get one from [here](https://ai.google.dev/aistudio).
-
-## Usage
+## 使用方法
 
 ```python cookbook/embedders/gemini_embedder.py
 from agno.agent import AgentKnowledge
 from agno.vectordb.pgvector import PgVector
 from agno.embedder.google import GeminiEmbedder
 
-# Embed sentence in database
+# 将句子嵌入数据库中
 embeddings = GeminiEmbedder().get_embedding("The quick brown fox jumps over the lazy dog.")
 
-# Print the embeddings and their dimensions
+# 打印嵌入向量及其维度
 print(f"Embeddings: {embeddings[:5]}")
 print(f"Dimensions: {len(embeddings)}")
 
-# Use an embedder in a knowledge base
+# 在知识库中使用嵌入器
 knowledge_base = AgentKnowledge(
     vector_db=PgVector(
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -30,18 +29,18 @@ knowledge_base = AgentKnowledge(
 )
 ```
 
-## Params
+## 参数说明
 
-| Parameter        | Type                       | Default                     | Description                                                 |
-| ---------------- | -------------------------- | --------------------------- | ----------------------------------------------------------- |
-| `dimensions`     | `int`                      | `768`                       | The dimensionality of the generated embeddings              |
-| `model`          | `str`                      | `models/text-embedding-004` | The name of the Gemini model to use                         |
-| `task_type`      | `str`                      | -                           | The type of task for which embeddings are being generated   |
-| `title`          | `str`                      | -                           | Optional title for the embedding task                       |
-| `api_key`        | `str`                      | -                           | The API key used for authenticating requests.               |
-| `request_params` | `Optional[Dict[str, Any]]` | -                           | Optional dictionary of parameters for the embedding request |
-| `client_params`  | `Optional[Dict[str, Any]]` | -                           | Optional dictionary of parameters for the Gemini client     |
-| `gemini_client`  | `Optional[Client]`         | -                           | Optional pre-configured Gemini client instance              |
+| 参数名           | 类型                       | 默认值                     | 描述                                                  |
+| ---------------- | -------------------------- | --------------------------- | ----------------------------------------------------- |
+| `dimensions`     | `int`                      | `768`                       | 生成向量的维度                                        |
+| `model`          | `str`                      | `models/text-embedding-004` | 使用的 Gemini 模型名称                                |
+| `task_type`      | `str`                      | -                           | 生成嵌入向量的任务类型                                |
+| `title`          | `str`                      | -                           | 嵌入任务的可选标题                                    |
+| `api_key`        | `str`                      | -                           | 用于请求认证的 API 密钥                               |
+| `request_params` | `Optional[Dict[str, Any]]` | -                           | 嵌入请求的可选参数字典                                |
+| `client_params`  | `Optional[Dict[str, Any]]` | -                           | Gemini 客户端的可选参数字典                          |
+| `gemini_client`  | `Optional[Client]`         | -                           | 可选预配置的 Gemini 客户端实例                        |
 
-## Developer Resources
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/embedders/gemini_embedder.py)
+## 开发者资源
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/embedders/gemini_embedder.py)

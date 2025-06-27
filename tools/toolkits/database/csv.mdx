@@ -1,12 +1,11 @@
 ---
 title: CSV
 ---
+**CsvTools** 赋予智能体读写CSV文件的能力。
 
-**CsvTools** enable an Agent to read and write CSV files.
+## 示例
 
-## Example
-
-The following agent will download the IMDB csv file and allow the user to query it using a CLI app.
+以下智能体会下载IMDB的CSV文件，并允许用户通过CLI应用程序查询该文件。
 
 ```python cookbook/tools/csv_tools.py
 import httpx
@@ -38,29 +37,29 @@ agent = Agent(
 agent.cli_app(stream=False)
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter           | Type                     | Default | Description                                                            |
+| 参数               | 类型                     | 默认值  | 描述                                                                 |
 | ------------------- | ------------------------ | ------- | ---------------------------------------------------------------------- |
-| `csvs`              | `List[Union[str, Path]]` | -       | A list of CSV files or paths to be processed or read.                  |
-| `row_limit`         | `int`                    | -       | The maximum number of rows to process from each CSV file.              |
-| `read_csvs`         | `bool`                   | `True`  | Enables the functionality to read data from specified CSV files.       |
-| `list_csvs`         | `bool`                   | `True`  | Enables the functionality to list all available CSV files.             |
-| `query_csvs`        | `bool`                   | `True`  | Enables the functionality to execute queries on data within CSV files. |
-| `read_column_names` | `bool`                   | `True`  | Enables the functionality to read the column names from the CSV files. |
-| `duckdb_connection` | `Any`                    | -       | Specifies a connection instance for DuckDB database operations.        |
-| `duckdb_kwargs`     | `Dict[str, Any]`         | -       | A dictionary of keyword arguments for configuring DuckDB operations.   |
+| `csvs`     | `List[Union[str, Path]]` | -       | 待处理或读取的CSV文件/路径列表。                                      |
+| `row_limit`     | `int`          | -       | 每个CSV文件最多处理的行数。                                           |
+| `read_csvs`     | `bool`         | `True`  | 启用从指定CSV文件读取数据的功能。                                     |
+| `list_csvs`     | `bool`         | `True`  | 启用列出所有可用CSV文件的功能。                                       |
+| `query_csvs`    | `bool`         | `True`  | 启用对CSV文件数据执行查询的功能。                                     |
+| `read_column_names`    | `bool`         | `True`  | 启用从CSV文件读取列名的功能。                                         |
+| `duckdb_connection`    | `Any`          | -       | 指定DuckDB数据库操作的连接实例。                                      |
+| `duckdb_kwargs`    | `Dict[str, Any]` | -       | 用于配置DuckDB操作的关键字参数字典。                                  |
 
-## Toolkit Functions
+## 工具包函数
 
-| Function         | Description                                      |
-| ---------------- | ------------------------------------------------ |
-| `list_csv_files` | Lists all available CSV files.                   |
-| `read_csv_file`  | This function reads the contents of a csv file   |
-| `get_columns`    | This function returns the columns of a csv file  |
-| `query_csv_file` | This function queries the contents of a csv file |
+| 函数               | 描述                                      |
+| ------------------ | ----------------------------------------- |
+| `list_csv_files`   | 列出所有可用CSV文件。                     |
+| `read_csv_file`   | 读取CSV文件内容。                         |
+| `get_columns`   | 返回CSV文件的列名。                       |
+| `query_csv_file`   | 查询CSV文件内容。                         |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/csv.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/csv_tools.py)
+- 查看[工具文档](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/csv.py)
+- 查看[教程手册](https://github.com/agno-agi/agno/blob/main/cookbook/tools/csv_tools.py)

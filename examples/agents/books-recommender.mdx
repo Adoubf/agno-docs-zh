@@ -1,19 +1,16 @@
 ---
-title: Books Recommender
+title: 书籍推荐系统
 ---
+本示例展示如何创建一个智能图书推荐系统，该系统会根据您的偏好提供全面的文学推荐。该智能体整合了图书数据库、评分、评论和即将发行的新书数据，从而提供个性化的阅读建议。
 
-This example shows how to create an intelligent book recommendation system that provides
-comprehensive literary suggestions based on your preferences. The agent combines book databases,
-ratings, reviews, and upcoming releases to deliver personalized reading recommendations.
+可尝试的示例提示：
+- "我特别喜欢《The Seven Husbands of Evelyn Hugo》和《Daisy Jones & The Six》，接下来该读什么？"
+- "推荐一些类似《Gone Girl》和《The Silent Patient》的心理惊悚小说"
+- "过去两年出版的最佳奇幻类书籍有哪些？"
+- "我喜欢以强势女性为主角的历史小说，有什么推荐吗？"
+- "寻找类似《The Immortal Life of Henrietta Lacks》这样具有小说可读性的科学书籍"
 
-Example prompts to try:
-- "I loved 'The Seven Husbands of Evelyn Hugo' and 'Daisy Jones & The Six', what should I read next?"
-- "Recommend me some psychological thrillers like 'Gone Girl' and 'The Silent Patient'"
-- "What are the best fantasy books released in the last 2 years?"
-- "I enjoy historical fiction with strong female leads, any suggestions?"
-- "Looking for science books that read like novels, similar to 'The Immortal Life of Henrietta Lacks'"
-
-## Code
+## 代码
 
 ```python books_recommender.py
 from textwrap import dedent
@@ -76,13 +73,13 @@ book_recommendation_agent = Agent(
     show_tool_calls=True,
 )
 
-# Example usage with different types of book queries
+# 不同书籍查询类型的使用示例
 book_recommendation_agent.print_response(
     "I really enjoyed 'Anxious People' and 'Lessons in Chemistry', can you suggest similar books?",
     stream=True,
 )
 
-# More example prompts to explore:
+# 更多可供探索的示例提示：
 """
 Genre-specific queries:
 1. "Recommend contemporary literary fiction like 'Beautiful World, Where Are You'"
@@ -110,26 +107,26 @@ Upcoming Releases:
 """
 ```
 
-## Usage
+## 使用方式
 
 <Steps>
 
     <Snippet file="create-venv-step.mdx" />
 
-    <Step title="Install required libraries">
+    <Step title="安装必要的库">
         ```bash
         pip install openai exa_py agno
         ```
     </Step>
 
-    <Step title="Set environment variables">
+    <Step title="设置环境变量">
         ```bash
         export OPENAI_API_KEY=****
         export EXA_API_KEY=****
         ```
     </Step>
 
-    <Step title="Run the agent">
+    <Step title="运行智能体">
         ```bash
         python books_recommender.py
         ```

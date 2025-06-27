@@ -1,16 +1,15 @@
 ---
 title: Searxng
 ---
+## 示例
 
-## Example
-
-**Searxng** enables an Agent to search the web for a query, scrape a website, or crawl a website.
+**Searxng** 使智能体能够针对查询进行网络搜索、抓取网站或爬取网站内容。
 
 ```python cookbook/tools/searxng_tools.py
 from agno.agent import Agent
 from agno.tools.searxng import SearxngTools
 
-# Initialize Searxng with your Searxng instance URL
+# 初始化 Searxng 并配置您的 Searxng 实例 URL
 searxng = SearxngTools(
     host="http://localhost:53153",
     engines=[],
@@ -19,45 +18,45 @@ searxng = SearxngTools(
     science=True
 )
 
-# Create an agent with Searxng
+# 创建一个带有Searxng的智能体
 agent = Agent(tools=[searxng])
 
-# Example: Ask the agent to search using Searxng
+# 示例：让智能体使用 Searxng 进行搜索
 agent.print_response("""
 Please search for information about artificial intelligence
 and summarize the key points from the top results
 """)
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter           | Type        | Default | Description                                                        |
+| 参数                | 类型         | 默认值   | 描述                                                        |
 | ------------------- | ----------- | ------- | ------------------------------------------------------------------ |
-| `host`              | `str`       | -       | The host for the connection.                                       |
-| `engines`           | `List[str]` | `[]`    | A list of search engines to use.                                   |
-| `fixed_max_results` | `int`       | `None`  | Optional parameter to specify the fixed maximum number of results. |
-| `images`            | `bool`      | `False` | Enables searching for images.                                      |
-| `it`                | `bool`      | `False` | Enables searching for IT-related content.                          |
-| `map`               | `bool`      | `False` | Enables searching for maps.                                        |
-| `music`             | `bool`      | `False` | Enables searching for music.                                       |
-| `news`              | `bool`      | `False` | Enables searching for news.                                        |
-| `science`           | `bool`      | `False` | Enables searching for science-related content.                     |
-| `videos`            | `bool`      | `False` | Enables searching for videos.                                      |
+| `host`              | `str`       | -       | 连接所用的主机地址。                                       |
+| `engines`           | `List[str]` | `[]`    | 使用的搜索引擎列表。                                   |
+| `fixed_max_results` | `int`       | `None`  | 可选参数，用于指定返回结果的固定最大数量。 |
+| `images`            | `bool`      | `False` | 启用图片搜索功能。                                      |
+| `it`                | `bool`      | `False` | 启用IT相关内容搜索功能。                          |
+| `map`               | `bool`      | `False` | 启用地图搜索功能。                                        |
+| `music`             | `bool`      | `False` | 启用音乐搜索功能。                                       |
+| `news`              | `bool`      | `False` | 启用新闻搜索功能。                                        |
+| `science`           | `bool`      | `False` | 启用科学相关内容搜索功能。                     |
+| `videos`            | `bool`      | `False` | 启用视频搜索功能。                                      |
 
-## Toolkit Functions
+## 工具包函数
 
-| Function         | Description                                                                                                                                                                                                                         |
+| 函数                | 描述                                                                                                                                                                                                                         |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `search`         | Performs a general web search using the specified query. Parameters include `query` for the search term and `max_results` for the maximum number of results (default is 5). Returns the search results.                             |
-| `image_search`   | Performs an image search using the specified query. Parameters include `query` for the search term and `max_results` for the maximum number of results (default is 5). Returns the image search results.                            |
-| `it_search`      | Performs a search for IT-related information using the specified query. Parameters include `query` for the search term and `max_results` for the maximum number of results (default is 5). Returns the IT-related search results.   |
-| `map_search`     | Performs a search for maps using the specified query. Parameters include `query` for the search term and `max_results` for the maximum number of results (default is 5). Returns the map search results.                            |
-| `music_search`   | Performs a search for music-related information using the specified query. Parameters include `query` for the search term and `max_results` for the maximum number of results (default is 5). Returns the music search results.     |
-| `news_search`    | Performs a search for news using the specified query. Parameters include `query` for the search term and `max_results` for the maximum number of results (default is 5). Returns the news search results.                           |
-| `science_search` | Performs a search for science-related information using the specified query. Parameters include `query` for the search term and `max_results` for the maximum number of results (default is 5). Returns the science search results. |
-| `video_search`   | Performs a search for videos using the specified query. Parameters include `query` for the search term and `max_results` for the maximum number of results (default is 5). Returns the video search results.                        |
+| `search`         | 使用指定查询执行通用网络搜索。参数包括搜索关键词 `query` 和返回结果最大数量 `max_results`（默认为5）。返回搜索结果。                             |
+| `image_search`   | 使用指定查询执行图片搜索。参数包括搜索关键词 `query` 和返回结果最大数量 `max_results`（默认为5）。返回图片搜索结果。                            |
+| `it_search`      | 使用指定查询执行IT相关信息搜索。参数包括搜索关键词 `query` 和返回结果最大数量 `max_results`（默认为5）。返回IT相关搜索结果。   |
+| `map_search`     | 使用指定查询执行地图搜索。参数包括搜索关键词 `query` 和返回结果最大数量 `max_results`（默认为5）。返回地图搜索结果。                            |
+| `music_search`   | 使用指定查询执行音乐相关信息搜索。参数包括搜索关键词 `query` 和返回结果最大数量 `max_results`（默认为5）。返回音乐搜索结果。     |
+| `news_search`    | 使用指定查询执行新闻搜索。参数包括搜索关键词 `query` 和返回结果最大数量 `max_results`（默认为5）。返回新闻搜索结果。                           |
+| `science_search` | 使用指定查询执行科学相关信息搜索。参数包括搜索关键词 `query` 和返回结果最大数量 `max_results`（默认为5）。返回科学搜索结果。 |
+| `video_search`   | 使用指定查询执行视频搜索。参数包括搜索关键词 `query` 和返回结果最大数量 `max_results`（默认为5）。返回视频搜索结果。                        |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/searxng.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/searxng_tools.py)
+- 查看 [工具文档](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/searxng.py)
+- 查看 [操作手册](https://github.com/agno-agi/agno/blob/main/cookbook/tools/searxng_tools.py)

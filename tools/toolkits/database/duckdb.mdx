@@ -1,22 +1,21 @@
 ---
-title: DuckDb
+title: DuckDB
 ---
+**DuckDbTools** 允许智能体通过DuckDB执行SQL并分析数据。
 
-**DuckDbTools** enable an Agent to run SQL and analyze data using DuckDb.
+## 先决条件
 
-## Prerequisites
-
-The following example requires DuckDB library. To install DuckDB, run the following command:
+以下示例需要DuckDB库。安装DuckDB请运行以下命令：
 
 ```shell
 pip install duckdb
 ```
 
-For more installation options, please refer to [DuckDB documentation](https://duckdb.org/docs/installation).
+更多安装选项请参阅[DuckDB文档](https://duckdb.org/docs/installation)。
 
-## Example
+## 示例
 
-The following agent will analyze the movies file using SQL and return the result.
+以下智能体会使用SQL分析电影文件并返回结果。
 
 ```python cookbook/tools/duckdb_tools.py
 from agno.agent import Agent
@@ -31,41 +30,41 @@ agent = Agent(
 agent.print_response("What is the average rating of movies?", markdown=True, stream=False)
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter          | Type                 | Default | Description                                                       |
-| ------------------ | -------------------- | ------- | ----------------------------------------------------------------- |
-| `db_path`          | `str`                | -       | Specifies the path to the database file.                          |
-| `connection`       | `DuckDBPyConnection` | -       | Provides an existing DuckDB connection object.                    |
-| `init_commands`    | `List`               | -       | A list of initial SQL commands to run on database connection.     |
-| `read_only`        | `bool`               | `False` | Configures the database connection to be read-only.               |
-| `config`           | `dict`               | -       | Configuration options for the database connection.                |
-| `run_queries`      | `bool`               | `True`  | Determines whether to run SQL queries during the operation.       |
-| `inspect_queries`  | `bool`               | `False` | Enables inspection of SQL queries without executing them.         |
-| `create_tables`    | `bool`               | `True`  | Allows creation of tables in the database during the operation.   |
-| `summarize_tables` | `bool`               | `True`  | Enables summarization of table data during the operation.         |
-| `export_tables`    | `bool`               | `False` | Allows exporting tables to external formats during the operation. |
+| 参数               | 类型                | 默认值   | 描述                                                                 |
+| ------------------ | ------------------- | -------- | -------------------------------------------------------------------- |
+| `db_path`    | `str`     | -        | 指定数据库文件路径。                                                 |
+| `connection`    | `DuckDBPyConnection`     | -        | 提供现有DuckDB连接对象。                                             |
+| `init_commands`    | `List`     | -        | 数据库连接时运行的初始SQL命令列表。                                  |
+| `read_only`    | `bool`     | `False` | 配置数据库连接为只读模式。                                           |
+| `config`   | `dict`    | -        | 数据库连接的配置选项。                                               |
+| `run_queries`   | `bool`    | `True`  | 确定是否在操作期间运行SQL查询。                                      |
+| `inspect_queries`   | `bool`    | `False` | 启用SQL查询检查而不执行。                                            |
+| `create_tables`   | `bool`    | `True`  | 允许在操作期间创建数据库表。                                         |
+| `summarize_tables`   | `bool`    | `True`  | 启用操作期间对表数据的汇总。                                         |
+| `export_tables`   | `bool`    | `False` | 允许在操作期间将表导出为外部格式。                                   |
 
-## Toolkit Functions
+## 工具包函数
 
-| Function                   | Description                                                                                                                                                                                                                                    |
-| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `show_tables`              | Function to show tables in the database                                                                                                                                                                                                        |
-| `describe_table`           | Function to describe a table                                                                                                                                                                                                                   |
-| `inspect_query`            | Function to inspect a query and return the query plan. Always inspect your query before running them.                                                                                                                                          |
-| `run_query`                | Function that runs a query and returns the result.                                                                                                                                                                                             |
-| `summarize_table`          | Function to compute a number of aggregates over a table. The function launches a query that computes a number of aggregates over all columns, including min, max, avg, std and approx_unique.                                                  |
-| `get_table_name_from_path` | Get the table name from a path                                                                                                                                                                                                                 |
-| `create_table_from_path`   | Creates a table from a path                                                                                                                                                                                                                    |
-| `export_table_to_path`     | Save a table in a desired format (default: parquet). If the path is provided, the table will be saved under that path. Eg: If path is /tmp, the table will be saved as /tmp/table.parquet. Otherwise it will be saved in the current directory |
-| `load_local_path_to_table` | Load a local file into duckdb                                                                                                                                                                                                                  |
-| `load_local_csv_to_table`  | Load a local CSV file into duckdb                                                                                                                                                                                                              |
-| `load_s3_path_to_table`    | Load a file from S3 into duckdb                                                                                                                                                                                                                |
-| `load_s3_csv_to_table`     | Load a CSV file from S3 into duckdb                                                                                                                                                                                                            |
-| `create_fts_index`         | Create a full text search index on a table                                                                                                                                                                                                     |
-| `full_text_search`         | Full text Search in a table column for a specific text/keyword                                                                                                                                                                                 |
+| 函数                       | 描述                                                                                                                                                                                                 |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `show_tables`           | 显示数据库中所有表的函数                                                                                                                                                                             |
+| `describe_table`           | 描述表结构的函数                                                                                                                                                                                     |
+| `inspect_query`           | 检查查询并返回查询计划的函数。执行前务必先检查查询。                                                                                                                                                 |
+| `run_query`           | 运行查询并返回结果的函数                                                                                                                                                                             |
+| `summarize_table`           | 计算表聚合值的函数。该函数发起一个查询，计算所有列的聚合值，包括最小值、最大值、平均值、标准差和近似唯一值。                                                                                         |
+| `get_table_name_from_path`           | 从路径获取表名                                                                                                                                                                                       |
+| `create_table_from_path`           | 从路径创建表                                                                                                                                                                                         |
+| `export_table_to_path`           | 以指定格式保存表（默认：parquet）。若提供路径，表将保存在该路径下。例如：若路径为/tmp，表将保存为/tmp/table.parquet。否则保存至当前目录                                                              |
+| `load_local_path_to_table`           | 将本地文件加载至duckdb                                                                                                                                                                               |
+| `load_local_csv_to_table`           | 将本地CSV文件加载至duckdb                                                                                                                                                                            |
+| `load_s3_path_to_table`           | 从S3加载文件至duckdb                                                                                                                                                                                 |
+| `load_s3_csv_to_table`           | 从S3加载CSV文件至duckdb                                                                                                                                                                              |
+| `create_fts_index`           | 在表上创建全文检索索引                                                                                                                                                                               |
+| `full_text_search`           | 在表列中全文检索特定文本/关键词                                                                                                                                                                      |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/duckdb.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/duckdb_tools.py)
+- 查看[工具集](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/duckdb.py)
+- 查看[操作手册](https://github.com/agno-agi/agno/blob/main/cookbook/tools/duckdb_tools.py)

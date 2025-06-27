@@ -1,25 +1,24 @@
 ---
-title: Research Workflow
+title: 研究流程
 ---
+本示例展示了如何构建一个结合以下功能的综合性研究工作流：
+🔍 网络搜索能力：用于查找相关资源
+📚 内容提取与处理
+✍️ 学术风格报告生成
+💾 智能缓存以提升性能
 
-This example shows how to build a sophisticated research workflow that combines:
-🔍 Web search capabilities for finding relevant sources
-📚 Content extraction and processing
-✍️ Academic-style report generation
-💾 Smart caching for improved performance
+我们使用了以下免费工具：
+- DuckDuckGoTools：用于搜索网络上的相关文章
+- Newspaper4kTools：用于抓取和处理文章内容
 
-We've used the following tools as they're available for free:
-- DuckDuckGoTools: Searches the web for relevant articles
-- Newspaper4kTools: Scrapes and processes article content
+可尝试的研究主题示例：
+- "量子计算领域的最新进展是什么？"
+- "研究人工意识的当前发展状况"
+- "分析核聚变能源的最新突破"
+- "调查太空旅游对环境的影响"
+- "探索长寿研究的最新发现"
 
-Example research topics to try:
-- "What are the latest developments in quantum computing?"
-- "Research the current state of artificial consciousness"
-- "Analyze recent breakthroughs in fusion energy"
-- "Investigate the environmental impact of space tourism"
-- "Explore the latest findings in longevity research"
-
-## Code
+## 代码
 
 ```python research_workflow.py
 import json
@@ -131,40 +130,40 @@ class ResearchReportGenerator(Workflow):
           - End with implications and future directions\
         """),
         expected_output=dedent("""\
-        # {Compelling Academic Title}
+        # {引人注目的学术标题}
 
-        ## Executive Summary
+        # # 执行摘要
         {Concise overview of key findings and significance}
 
-        ## Introduction
+        # # 简介
         {Research context and background}
         {Current state of the field}
 
-        ## Methodology
+        # # 方法论
         {Search and analysis approach}
         {Source evaluation criteria}
 
-        ## Key Findings
+        # # 关键发现
         {Major discoveries and developments}
         {Supporting evidence and analysis}
         {Contrasting viewpoints}
 
-        ## Analysis
+        # # 分析
         {Critical evaluation of findings}
         {Integration of multiple perspectives}
         {Identification of patterns and trends}
 
-        ## Implications
+        # # 影响
         {Academic and practical significance}
         {Future research directions}
         {Potential applications}
 
-        ## Key Takeaways
+        # # 核心要点
         - {Critical finding 1}
         - {Critical finding 2}
         - {Critical finding 3}
 
-        ## References
+        # # 参考文献
         {Properly formatted academic citations}
 
         ---
@@ -211,7 +210,7 @@ class ResearchReportGenerator(Workflow):
         """
         logger.info(f"Generating a report on: {topic}")
 
-        # Use the cached report if use_cached_report is True
+        # 如果 use_cached_report 为 True 则使用缓存报告
         if use_cached_report:
             cached_report = self.get_cached_report(topic)
             if cached_report:
@@ -220,11 +219,11 @@ class ResearchReportGenerator(Workflow):
                 )
                 return
 
-        # Search the web for articles on the topic
+        # 在网络上搜索该主题的相关文章
         search_results: Optional[SearchResults] = self.get_search_results(
             topic, use_search_cache
         )
-        # If no search_results are found for the topic, end the workflow
+        # 如果未找到该主题的搜索结果，则终止工作流
         if search_results is None or len(search_results.articles) == 0:
             yield RunResponse(
                 event=RunEvent.workflow_completed,
@@ -232,12 +231,12 @@ class ResearchReportGenerator(Workflow):
             )
             return
 
-        # Scrape the search results
+        # 抓取搜索结果
         scraped_articles: Dict[str, ScrapedArticle] = self.scrape_articles(
             search_results, use_scrape_cache
         )
 
-        # Write a research report
+        # 撰写研究报告
         yield from self.write_research_report(topic, scraped_articles)
 
     def get_cached_report(self, topic: str) -> Optional[str]:
@@ -248,7 +247,7 @@ class ResearchReportGenerator(Workflow):
         logger.info(f"Saving report for topic: {topic}")
         self.session_state.setdefault("reports", {})
         self.session_state["reports"][topic] = report
-        # Save the report to the storage
+        # 将报告保存至存储
         self.write_to_storage()
 
     def get_cached_search_results(self, topic: str) -> Optional[SearchResults]:
@@ -259,7 +258,7 @@ class ResearchReportGenerator(Workflow):
         logger.info(f"Saving search results for topic: {topic}")
         self.session_state.setdefault("search_results", {})
         self.session_state["search_results"][topic] = search_results.model_dump()
-        # Save the search results to the storage
+        # 将搜索结果保存至存储
         self.write_to_storage()
 
     def get_cached_scraped_articles(
@@ -274,13 +273,13 @@ class ResearchReportGenerator(Workflow):
         logger.info(f"Saving scraped articles for topic: {topic}")
         self.session_state.setdefault("scraped_articles", {})
         self.session_state["scraped_articles"][topic] = scraped_articles
-        # Save the scraped articles to the storage
+        # 将抓取的文章保存到存储中
         self.write_to_storage()
 
     def get_search_results(
         self, topic: str, use_search_cache: bool, num_attempts: int = 3
     ) -> Optional[SearchResults]:
-        # Get cached search_results from the session state if use_search_cache is True
+        # 若 use_search_cache 为 True，则从会话状态中获取缓存的 search_results
         if use_search_cache:
             try:
                 search_results_from_cache = self.get_cached_search_results(topic)
@@ -295,7 +294,7 @@ class ResearchReportGenerator(Workflow):
             except Exception as e:
                 logger.warning(f"Could not read search results from cache: {e}")
 
-        # If there are no cached search_results, use the web_searcher to find the latest articles
+        # 若无缓存搜索结果，则使用 web_searcher 查找最新文章
         for attempt in range(num_attempts):
             try:
                 searcher_response: RunResponse = self.web_searcher.run(topic)
@@ -308,7 +307,7 @@ class ResearchReportGenerator(Workflow):
                     logger.info(
                         f"Found {article_count} articles on attempt {attempt + 1}"
                     )
-                    # Cache the search results
+                    # 缓存搜索结果
                     self.add_search_results_to_cache(topic, searcher_response.content)
                     return searcher_response.content
                 else:
@@ -326,7 +325,7 @@ class ResearchReportGenerator(Workflow):
     ) -> Dict[str, ScrapedArticle]:
         scraped_articles: Dict[str, ScrapedArticle] = {}
 
-        # Get cached scraped_articles from the session state if use_scrape_cache is True
+        # 如果 use_scrape_cache 为 True，从会话状态获取缓存的 scraped_articles
         if use_scrape_cache:
             try:
                 scraped_articles_from_cache = self.get_cached_scraped_articles(topic)
@@ -339,7 +338,7 @@ class ResearchReportGenerator(Workflow):
             except Exception as e:
                 logger.warning(f"Could not read scraped articles from cache: {e}")
 
-        # Scrape the articles that are not in the cache
+        # 抓取未在缓存中的文章
         for article in search_results.articles:
             if article.url in scraped_articles:
                 logger.info(f"Found scraped article in cache: {article.url}")
@@ -358,7 +357,7 @@ class ResearchReportGenerator(Workflow):
                 )
                 logger.info(f"Scraped article: {article_scraper_response.content.url}")
 
-        # Save the scraped articles in the session state
+        # 将爬取的文章保存在会话状态中
         self.add_scraped_articles_to_cache(topic, scraped_articles)
         return scraped_articles
 
@@ -366,22 +365,22 @@ class ResearchReportGenerator(Workflow):
         self, topic: str, scraped_articles: Dict[str, ScrapedArticle]
     ) -> Iterator[RunResponse]:
         logger.info("Writing research report")
-        # Prepare the input for the writer
+        # 为撰稿人准备输入内容
         writer_input = {
             "topic": topic,
             "articles": [v.model_dump() for v in scraped_articles.values()],
         }
-        # Run the writer and yield the response
+        # 运行写入器并生成响应
         yield from self.writer.run(json.dumps(writer_input, indent=4), stream=True)
-        # Save the research report in the cache
+        # 将研究报告保存到缓存中
         self.add_report_to_cache(topic, self.writer.run_response.content)
 
 
-# Run the workflow if the script is executed directly
+# 若脚本直接执行则运行工作流
 if __name__ == "__main__":
     from rich.prompt import Prompt
 
-    # Example research topics
+    # 示例研究主题
     example_topics = [
         "quantum computing breakthroughs 2024",
         "artificial consciousness research",
@@ -396,16 +395,16 @@ if __name__ == "__main__":
 
     print(f"\n📚 Example Research Topics:\n{topics_str}\n")
 
-    # Get topic from user
+    # 获取用户主题
     topic = Prompt.ask(
         "[bold]Enter a research topic[/bold]\n✨",
         default="quantum computing breakthroughs 2024",
     )
 
-    # Convert the topic to a URL-safe string for use in session_id
+    # 将主题转换为 URL 安全的字符串，用于 session_id
     url_safe_topic = topic.lower().replace(" ", "-")
 
-    # Initialize the news report generator workflow
+    # 初始化新闻报道生成器工作流程
     generate_research_report = ResearchReportGenerator(
         session_id=f"generate-report-on-{url_safe_topic}",
         storage=SqliteWorkflowStorage(
@@ -414,7 +413,7 @@ if __name__ == "__main__":
         ),
     )
 
-    # Execute the workflow with caching enabled
+    # 启用缓存执行工作流
     report_stream: Iterator[RunResponse] = generate_research_report.run(
         topic=topic,
         use_search_cache=True,
@@ -422,22 +421,22 @@ if __name__ == "__main__":
         use_cached_report=True,
     )
 
-    # Print the response
+    # 输出响应
     pprint_run_response(report_stream, markdown=True)
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     openai duckduckgo-search newspaper4k lxml_html_clean sqlalchemy agno
     ```
   </Step>
 
-  <Step title="Run the workflow">
+  <Step title="运行工作流">
     ```bash
     python research_workflow.py
     ```

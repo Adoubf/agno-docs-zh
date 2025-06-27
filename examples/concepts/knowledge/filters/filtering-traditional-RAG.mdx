@@ -1,9 +1,8 @@
 ---
-title: Knowledge filtering using Traditional RAG
-description: Learn how to filter knowledge in Traditional RAG using metadata like user IDs, document types, and years. This example demonstrates how to set up a knowledge base with filters and query it effectively.
+title: 使用传统RAG进行知识过滤
+description: 了解如何利用用户ID、文档类型和年份等元数据在传统RAG中筛选知识。本示例演示如何搭建带过滤功能的知识库并实现高效查询。
 ---
-
-## Code
+## 代码
 
 ```python filtering-traditional-RAG.py
 from agno.agent import Agent
@@ -14,19 +13,19 @@ from agno.utils.media import (
 )
 from agno.vectordb.lancedb import LanceDb
 
-# Download all sample CVs and get their paths
+# 下载所有示例简历并获取其路径
 downloaded_cv_paths = download_knowledge_filters_sample_data(
     num_files=5, file_extension=SampleDataFileExtension.TXT
 )
 
-# Initialize LanceDB
-# By default, it stores data in /tmp/lancedb
+# 初始化 LanceDB
+# 默认情况下，它将数据存储在 `/tmp/lancedb` 目录中
 vector_db = LanceDb(
     table_name="recipes",
     uri="tmp/lancedb",  # You can change this path to store data elsewhere
 )
 
-# Step 1: Initialize knowledge base with documents and metadata
+# 步骤1：用文档和元数据初始化知识库
 knowledge_base = TextKnowledgeBase(
     path=[
         {
@@ -73,12 +72,12 @@ knowledge_base = TextKnowledgeBase(
     vector_db=vector_db,
 )
 
-# Load all documents into the vector database
+# 将所有文档加载到向量数据库中
 knowledge_base.load(recreate=True)
 
-# Step 2: Query the knowledge base with different filter combinations
+# 步骤2：使用不同筛选条件组合查询知识库
 
-# Option 1: Filters on the Agent
+# 选项1：智能体上的筛选器
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=False,
@@ -86,37 +85,62 @@ agent = Agent(
     knowledge_filters={"user_id": "jordan_mitchell"},
 )
 
-# Query for Jordan Mitchell's experience and skills
+# 查询 Jordan Mitchell 的经验与技能
 agent.print_response(
     "Tell me about Jordan Mitchell's experience and skills",
     markdown=True,
 )
 
-# Option 2: Filters on the run/print_response
-# agent = Agent(
-#     knowledge=knowledge_base,
-#     add_references=True,
-#     search_knowledge=False,
-# )
+# 选项2：运行/打印响应时的过滤器
+# 智能体 = 智能体(
+# 知识=知识库,
+# add_references=True,
+# search_knowledge=False,
+# （此处无内容可翻译，保持原样）
 
-# Query for Taylor Brooks as a candidate
-# agent.print_response(
-#     "Tell me about Taylor Brooks as a candidate",
-#     knowledge_filters={"user_id": "taylor_brooks"},
-#     markdown=True,
-# )
+# 查询候选人 Taylor Brooks
+# 智能体.打印响应(
+# "谈谈泰勒·布鲁克斯作为候选人的情况"，
+# knowledge_filters={"user_id": "taylor_brooks"},
+# # 技术文档翻译指南
+
+## 专业术语翻译规范
+1. **人工智能领域术语**
+   - `Agent` -> `智能体`
+   - `memory` -> `记忆`
+   - `knowledge` -> `知识`
+   - `reasoning` -> `推理`
+   - `context` -> `上下文`
+
+2. **系统架构术语**
+   - `flag` -> `标识`
+   - `image repository` -> `镜像仓库`
+   - `workspace` -> `workspace` (保留原词)
+
+## 保留规则
+1. **技术产品名称**
+   - 保留 `Agno`, `Agent API`, `FastAPI`, `PostgreSQL`, `Next.js`, `Vercel` 等专有名词
+
+2. **特殊占位符**
+   - 保持 `__PROTECTED_X__` 格式不变
+
+## 格式要求
+- 严格保留所有 Markdown 格式
+- 维持原始换行和标题层级结构
+- 仅输出翻译结果，不添加额外说明
+# 
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno lancedb openai
     ```
   </Step>
 
-  <Step title="Run the example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python filtering-traditional-RAG.py

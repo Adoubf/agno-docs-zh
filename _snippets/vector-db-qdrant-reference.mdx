@@ -1,17 +1,17 @@
-| Parameter | Type | Default | Description |
+| 参数 | 类型 | 默认值 | 描述 |
 | --------- | ---- | ------- | ----------- |
-| `collection` | `str` | Required | Name of the Qdrant collection |
-| `embedder` | `Optional[Embedder]` | `OpenAIEmbedder()` | Embedder instance to generate embeddings |
-| `distance` | `Distance` | `Distance.cosine` | Distance metric for vector comparisons |
-| `location` | `Optional[str]` | `None` | Local storage path for Qdrant |
-| `url` | `Optional[str]` | `None` | URL of the Qdrant server |
-| `port` | `Optional[int]` | `6333` | HTTP port for Qdrant server |
-| `grpc_port` | `int` | `6334` | gRPC port for Qdrant server |
-| `prefer_grpc` | `bool` | `False` | Use gRPC instead of HTTP |
-| `https` | `Optional[bool]` | `None` | Enable HTTPS connection |
-| `api_key` | `Optional[str]` | `None` | API key for authentication |
-| `prefix` | `Optional[str]` | `None` | URL prefix for Qdrant server |
-| `timeout` | `Optional[float]` | `None` | Request timeout in seconds |
-| `host` | `Optional[str]` | `None` | Host address of Qdrant server |
-| `path` | `Optional[str]` | `None` | Path to local storage |
-| `reranker` | `Optional[Reranker]` | `None` | Reranker for post-processing results |
+| `collection` | `str` | 必填 | Qdrant集合名称 |
+| `embedder` | `Optional[Embedder]` | `OpenAIEmbedder()` | 用于生成嵌入的嵌入器实例 |
+| `distance` | `Distance` | `Distance.cosine` | 向量比较的距离度量方式 |
+| `location` | `Optional[str]` | `None` | Qdrant的本地存储路径 |
+| `url` | `Optional[str]` | `None` | Qdrant服务器URL |
+| `port` | `Optional[int]` | `6333` | Qdrant服务器的HTTP端口 |
+| `grpc_port` | `int` | `6334` | Qdrant服务器的gRPC端口 |
+| `prefer_grpc` | `bool` | `False` | 使用gRPC而非HTTP |
+| `https` | `Optional[bool]` | `None` | 启用HTTPS连接 |
+| `api_key` | `Optional[str]` | `None` | 身份验证用的API密钥 |
+| `prefix` | `Optional[str]` | `None` | Qdrant服务器的URL前缀 |
+| `timeout` | `Optional[float]` | `None` | 请求超时时间（秒） |
+| `host` | `Optional[str]` | `None` | Qdrant服务器的主机地址 |
+| `path` | `Optional[str]` | `None` | 本地存储路径 |
+| `reranker` | `Optional[Reranker]` | `None` | 用于后处理结果的重新排序器 |

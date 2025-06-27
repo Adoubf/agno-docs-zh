@@ -1,10 +1,9 @@
 ---
-title: Agent Metrics
+title: 智能体指标
 ---
+本示例展示如何获取智能体运行的指标数据。
 
-This example shows how to get the metrics of an agent run.
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/other/agent_metrics.py
 from typing import Iterator
@@ -26,7 +25,7 @@ run_stream: Iterator[RunResponse] = agent.run(
 )
 pprint_run_response(run_stream, markdown=True)
 
-# Print metrics per message
+# 每条消息的打印指标
 if agent.run_response.messages:
     for message in agent.run_response.messages:
         if message.role == "assistant":
@@ -38,34 +37,34 @@ if agent.run_response.messages:
             pprint(message.metrics)
             print("---" * 20)
 
-# Print the metrics
+# 打印指标
 print("---" * 5, "Aggregated Metrics", "---" * 5)
 pprint(agent.run_response.metrics)
-# Print the session metrics
+# 打印会话指标
 print("---" * 5, "Session Metrics", "---" * 5)
 pprint(agent.session_metrics)
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno yfinance rich
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果
     python cookbook/agent_concepts/other/agent_metrics.py
     ```
 
@@ -74,4 +73,4 @@ pprint(agent.session_metrics)
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

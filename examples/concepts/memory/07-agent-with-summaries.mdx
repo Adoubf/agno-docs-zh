@@ -1,12 +1,11 @@
 ---
-title: Agent with Session Summaries
+title: 带会话摘要的智能体
 ---
+本示例演示如何创建会话摘要。
 
-This example demonstrates how to create session summaries.
+要启用此功能，请在智能体配置中设置 `enable_session_summaries=True`。
 
-To enable this, set `enable_session_summaries=True` in the Agent config.
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/memory/08_agent_with_summaries.py
 
@@ -24,10 +23,10 @@ memory = Memory(
     summarizer=SessionSummarizer(model=Claude(id="claude-3-5-sonnet-20241022")),
 )
 
-# Reset the memory for this example
+# 重置此示例的记忆
 memory.clear()
 
-# No session and user ID is specified, so they are generated automatically
+# 未指定会话和用户ID，系统将自动生成这些标识符
 agent = Agent(
     model=Claude(id="claude-3-5-sonnet-20241022"),
     memory=memory,
@@ -53,7 +52,7 @@ session_summary = agent.get_session_summary()
 pprint(session_summary)
 
 
-# Now lets do a new session with a different user
+# 现在让我们以不同用户身份开启一个新会话
 session_id_2 = "1002"
 mark_gonzales_id = "mark@example.com"
 
@@ -76,31 +75,31 @@ memories = memory.get_user_memories(user_id=mark_gonzales_id)
 print("Mark Gonzales's memories:")
 pprint(memories)
 
-# We can get the session summary from memory as well
+# 我们也可以从记忆（memory）中获取会话摘要。
 session_summary = memory.get_session_summary(
     session_id=session_id_2, user_id=mark_gonzales_id
 )
 pprint(session_summary)
 ```
 
-## Usage
+## 使用方式
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno openai
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/memory/08_agent_with_summaries.py

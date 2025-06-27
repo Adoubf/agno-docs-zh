@@ -1,12 +1,12 @@
-| Parameter | Type | Default | Description |
+| 参数 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `session_id` | `str` | Required | Session UUID |
-| `agent_id` | `Optional[str]` | `None` | ID of the agent that this session is associated with |
-| `user_id` | `Optional[str]` | `None` | ID of the user interacting with this agent |
-| `team_session_id` | `Optional[str]` | `None` | ID of the team session that this session is possibly associated with |
-| `memory` | `Optional[Dict[str, Any]]` | `None` | Agent Memory |
-| `agent_data` | `Optional[Dict[str, Any]]` | `None` | Agent Data: agent_id, name and model |
-| `session_data` | `Optional[Dict[str, Any]]` | `None` | Session Data: session_name, session_state, images, videos, audio |
-| `extra_data` | `Optional[Dict[str, Any]]` | `None` | Extra Data stored with this agent |
-| `created_at` | `Optional[int]` | `None` | The unix timestamp when this session was created |
-| `updated_at` | `Optional[int]` | `None` | The unix timestamp when this session was last updated |
+| `session_id` | `str` | 必填 | 会话UUID |
+| `agent_id` | `Optional[str]` | `None` | 与该会话关联的智能体ID |
+| `user_id` | `Optional[str]` | `None` | 与该智能体交互的用户ID |
+| `team_session_id` | `Optional[str]` | `None` | 该会话可能关联的团队会话ID |
+| `memory` | `Optional[Dict[str, Any]]` | `None` | 智能体记忆 |
+| `agent_data` | `Optional[Dict[str, Any]]` | `None` | 智能体数据：agent_id、名称和模型 |
+| `session_data` | `Optional[Dict[str, Any]]` | `None` | 会话数据：会话名称、会话状态、图像、视频、音频 |
+| `extra_data` | `Optional[Dict[str, Any]]` | `None` | 与该智能体一起存储的额外数据 |
+| `created_at` | `Optional[int]` | `None` | 该会话创建的Unix时间戳 |
+| `updated_at` | `Optional[int]` | `None` | 该会话最后更新的Unix时间戳 |

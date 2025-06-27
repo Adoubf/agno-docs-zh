@@ -1,8 +1,7 @@
 ---
-title: Discord Tools
+title: Discord 工具
 ---
-
-## Code
+## 代码
 
 ```python cookbook/tools/discord_tools.py
 from agno.agent import Agent
@@ -43,25 +42,25 @@ discord_agent.print_response(
 )
 ```
 
-## Usage
+## 使用方式
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your Discord token">
+  <Step title="设置您的 Discord 令牌">
     ```bash
     export DISCORD_BOT_TOKEN=xxx
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U discord.py openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/discord_tools.py

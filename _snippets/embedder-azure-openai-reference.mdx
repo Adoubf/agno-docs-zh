@@ -1,19 +1,19 @@
-### Parameters
+### 参数
 
-| Parameter | Type | Description | Default |
+| 参数 | 类型 | 描述 | 默认值 |
 |-----------|------|-------------|---------|
-| `id` | `str` | The model ID that matches your deployed model | `"text-embedding-3-small"` |
-| `dimensions` | `int` | Output dimensions of the embedding | `1536` |
-| `encoding_format` | `Literal["float", "base64"]` | Format of the embedding output | `"float"` |
-| `user` | `Optional[str]` | A unique identifier representing your end-user | `None` |
-| `api_key` | `Optional[str]` | Azure OpenAI API key | Environment variable `AZURE_EMBEDDER_OPENAI_API_KEY` |
-| `api_version` | `str` | Azure OpenAI API version | Environment variable `AZURE_EMBEDDER_OPENAI_API_VERSION` or `"2024-10-21"` |
-| `azure_endpoint` | `Optional[str]` | Azure OpenAI endpoint URL | Environment variable `AZURE_EMBEDDER_OPENAI_ENDPOINT` |
-| `azure_deployment` | `Optional[str]` | Azure OpenAI deployment name | Environment variable `AZURE_EMBEDDER_DEPLOYMENT` |
-| `base_url` | `Optional[str]` | Base URL for API requests | `None` |
-| `azure_ad_token` | `Optional[str]` | Azure AD token for authentication | `None` |
-| `azure_ad_token_provider` | `Optional[Any]` | Provider for Azure AD tokens | `None` |
-| `organization` | `Optional[str]` | Organization ID for API requests | `None` |
-| `request_params` | `Optional[Dict[str, Any]]` | Additional parameters for embedding requests | `None` |
-| `client_params` | `Optional[Dict[str, Any]]` | Additional parameters for client initialization | `None` |
-| `openai_client` | `Optional[AzureOpenAIClient]` | Pre-configured Azure OpenAI client | `None` |
+| `id` | `str` | 与您部署的模型相匹配的模型ID | `"text-embedding-3-small"` |
+| `dimensions` | `int` | 嵌入输出的维度 | `1536` |
+| `encoding_format` | `Literal["float", "base64"]` | 嵌入输出的格式 | `"float"` |
+| `user` | `Optional[str]` | 代表终端用户的唯一标识符 | `None` |
+| `api_key` | `Optional[str]` | Azure OpenAI API密钥 | 环境变量 `AZURE_EMBEDDER_OPENAI_API_KEY` |
+| `api_version` | `str` | Azure OpenAI API版本 | 环境变量 `AZURE_EMBEDDER_OPENAI_API_VERSION` 或 `"2024-10-21"` |
+| `azure_endpoint` | `Optional[str]` | Azure OpenAI端点URL | 环境变量 `AZURE_EMBEDDER_OPENAI_ENDPOINT` |
+| `azure_deployment` | `Optional[str]` | Azure OpenAI部署名称 | 环境变量 `AZURE_EMBEDDER_DEPLOYMENT` |
+| `base_url` | `Optional[str]` | API请求的基础URL | `None` |
+| `azure_ad_token` | `Optional[str]` | 用于身份验证的Azure AD令牌 | `None` |
+| `azure_ad_token_provider` | `Optional[Any]` | Azure AD令牌的提供者 | `None` |
+| `organization` | `Optional[str]` | API请求的组织ID | `None` |
+| `request_params` | `Optional[Dict[str, Any]]` | 嵌入请求的附加参数 | `None` |
+| `client_params` | `Optional[Dict[str, Any]]` | 客户端初始化的附加参数 | `None` |
+| `openai_client` | `Optional[AzureOpenAIClient]` | 预配置的Azure OpenAI客户端 | `None` |

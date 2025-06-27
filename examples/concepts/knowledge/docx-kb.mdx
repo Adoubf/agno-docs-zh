@@ -1,8 +1,7 @@
 ---
-title: DOCX Knowledge Base
+title: DOCX 知识库
 ---
-
-## Code
+## 代码
 
 ```python
 from pathlib import Path
@@ -13,7 +12,7 @@ from agno.vectordb.pgvector import PgVector
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
-# Create a knowledge base with the DOCX files from the data/docs directory
+# 用 data/docs 目录中的 DOCX 文件创建知识库
 knowledge_base = DocxKnowledgeBase(
     path=Path("data/docs"),
     vector_db=PgVector(
@@ -21,31 +20,31 @@ knowledge_base = DocxKnowledgeBase(
         db_url=db_url,
     ),
 )
-# Load the knowledge base
+# 加载知识库
 knowledge_base.load(recreate=False)
 
-# Create an agent with the knowledge base
+# 创建一个具有知识库的智能体
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
 )
 
-# Ask the agent about the knowledge base
+# 询问智能体关于知识库的信息
 agent.print_response("Ask me about something from the knowledge base", markdown=True)
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U sqlalchemy 'psycopg[binary]' pgvector python-docx agno
     ```
   </Step>
 
-  <Step title="Run PgVector">
+  <Step title="运行 PgVector">
     ```bash
     docker run -d \
       -e POSTGRES_DB=ai \
@@ -59,7 +58,7 @@ agent.print_response("Ask me about something from the knowledge base", markdown=
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/docx_kb.py

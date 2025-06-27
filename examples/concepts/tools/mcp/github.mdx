@@ -1,10 +1,8 @@
 ---
-title: GitHub MCP agent
+title: GitHub MCP 智能体
 sidebarTitle: GitHub
 ---
-
-Using the [GitHub MCP server](https://github.com/modelcontextprotocol/servers/tree/main/src/github) to create an Agent that can explore, analyze and provide insights about GitHub repositories:
-
+使用[GitHub MCP服务器](https://github.com/modelcontextprotocol/servers/tree/main/src/github)创建一个能探索、分析并提供GitHub仓库洞察的智能体：
 
 ```python
 """🐙 MCP GitHub Agent - Your Personal GitHub Explorer!
@@ -40,13 +38,13 @@ from mcp import StdioServerParameters
 async def run_agent(message: str) -> None:
     """Run the GitHub agent with the given message."""
 
-    # Initialize the MCP server
+    # 初始化MCP服务器
     server_params = StdioServerParameters(
         command="npx",
         args=["-y", "@modelcontextprotocol/server-github"],
     )
 
-    # Create a client session to connect to the MCP server
+    # 创建客户端会话以连接至MCP服务器
     async with MCPTools(server_params=server_params) as mcp_tools:
         agent = Agent(
             tools=[mcp_tools],
@@ -60,13 +58,13 @@ async def run_agent(message: str) -> None:
             show_tool_calls=True,
         )
 
-        # Run the agent
+        # 运行智能体
         await agent.aprint_response(message, stream=True)
 
 
-# Example usage
+# 示例用法
 if __name__ == "__main__":
-    # Pull request example
+    # 拉取请求示例
     asyncio.run(
         run_agent(
             "Tell me about Agno. Github repo: https://github.com/agno-agi/agno. You can read the README for more information."
@@ -74,7 +72,7 @@ if __name__ == "__main__":
     )
 
 
-# More example prompts to explore:
+# 更多示例提示可供探索：
 """
 Issue queries:
 1. "Find issues needing attention"

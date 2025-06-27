@@ -1,24 +1,23 @@
 ---
 title: WhatsApp
 ---
+**WhatsApp工具**使智能体能够与WhatsApp Business API交互，实现发送文本和模板消息的功能。
 
-**WhatsAppTools** enable an Agent to interact with the WhatsApp Business API, allowing it to send text and template messages.
+## 先决条件
 
-## Prerequisites
+本手册展示如何在Agno中使用WhatsApp集成。在运行示例前，
+您需要完成以下设置步骤：
 
-This cookbook demonstrates how to use WhatsApp integration with Agno. Before running this example,
-you'''ll need to complete these setup steps:
+1. 创建Meta开发者账号
+   - 访问[Meta开发者门户](https://developers.facebook.com/)并创建新账号
+   - 在[Meta应用仪表板](https://developers.facebook.com/apps/)创建新应用
+   - 在[此处](https://developers.facebook.com/docs/whatsapp/cloud-api/get-started)为应用启用WhatsApp集成
 
-1. Create Meta Developer Account
-   - Go to [Meta Developer Portal](https://developers.facebook.com/) and create a new account
-   - Create a new app at [Meta Apps Dashboard](https://developers.facebook.com/apps/)
-   - Enable WhatsApp integration for your app [here](https://developers.facebook.com/docs/whatsapp/cloud-api/get-started)
+2. 设置WhatsApp Business API
+   您可以从[业务设置](https://developers.facebook.com/docs/whatsapp/cloud-api/get-started)获取WhatsApp商业账号ID
 
-2. Set Up WhatsApp Business API
-   You can get your WhatsApp Business Account ID from [Business Settings](https://developers.facebook.com/docs/whatsapp/cloud-api/get-started)
-
-3. Configure Environment
-   - Set these environment variables:
+3. 配置环境
+   - 设置以下环境变量：
      ```shell
      export WHATSAPP_ACCESS_TOKEN=your_access_token          # Access Token
      export WHATSAPP_PHONE_NUMBER_ID=your_phone_number_id    # Phone Number ID
@@ -26,18 +25,18 @@ you'''ll need to complete these setup steps:
      export WHATSAPP_VERSION=your_whatsapp_version           # WhatsApp API Version (e.g. v22.0)
      ```
 
-Important Notes:
-- For first-time outreach, you must use pre-approved message templates
-  [here](https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-message-templates)
-- Test messages can only be sent to numbers that are registered in your test environment
+重要提示：
+- 首次外联必须使用预审核的模板消息
+  [参见](https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-message-templates)
+- 测试消息只能发送至测试环境中注册的号码
 
-The example below shows how to send a template message using Agno'''s WhatsApp tools.
-For more complex use cases, check out the WhatsApp Cloud API documentation:
-[here](https://developers.facebook.com/docs/whatsapp/cloud-api/overview)
+以下示例展示如何使用Agno的WhatsApp工具发送模板消息。
+更复杂的使用场景，请参阅WhatsApp Cloud API文档：
+[此处](https://developers.facebook.com/docs/whatsapp/cloud-api/overview)
 
-## Example
+## 示例
 
-The following agent will send a template message using WhatsApp:
+以下智能体将通过WhatsApp发送模板消息：
 
 ```python cookbook/tools/whatsapp_tool.py
 from agno.agent import Agent
@@ -51,34 +50,34 @@ agent = Agent(
     show_tool_calls=True
 )
 
-# Example: Send a template message
-# Note: Replace '''hello_world''' with your actual template name
-# and +91 1234567890 with the recipient's WhatsApp ID
+# 示例：发送模板消息
+# 注意：将 '''hello_world''' 替换为你的实际模板名称
+# 以及 +91 1234567890 加上收件人的 WhatsApp ID
 agent.print_response(
     "Send a template message using the '''hello_world''' template in English to +91 1234567890"
 )
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter         | Type          | Default   | Description                                                                                                |
+| 参数名         | 类型          | 默认值   | 描述                                                                                                |
 | ----------------- | ------------- | --------- | ---------------------------------------------------------------------------------------------------------- |
-| `access_token`    | `Optional[str]` | `None`    | WhatsApp Business API access token. If not provided, uses `WHATSAPP_ACCESS_TOKEN` environment variable.      |
-| `phone_number_id` | `Optional[str]` | `None`    | WhatsApp Business Account phone number ID. If not provided, uses `WHATSAPP_PHONE_NUMBER_ID` environment variable. |
-| `version`         | `str`         | `"v22.0"` | API version to use. If not provided, uses `WHATSAPP_VERSION` environment variable or defaults to "v22.0".     |
-| `recipient_waid`  | `Optional[str]` | `None`    | Default recipient WhatsApp ID (e.g., "1234567890"). If not provided, uses `WHATSAPP_RECIPIENT_WAID` environment variable. |
-| `async_mode`      | `bool`        | `False`   | Enable asynchronous methods for sending messages.                                                            |
+| `access_token`    | `Optional[str]` | `None`    | WhatsApp Business API访问令牌。如未提供，则使用`WHATSAPP_ACCESS_TOKEN`环境变量。      |
+| `phone_number_id` | `Optional[str]` | `None`    | WhatsApp商业账号电话号码ID。如未提供，则使用`WHATSAPP_PHONE_NUMBER_ID`环境变量。 |
+| `version`         | `str`         | `"v22.0"` | 使用的API版本。如未提供，则使用`WHATSAPP_VERSION`环境变量或默认"v22.0"。     |
+| `recipient_waid`  | `Optional[str]` | `None`    | 默认接收方WhatsApp ID（如"1234567890"）。如未提供，则使用`WHATSAPP_RECIPIENT_WAID`环境变量。 |
+| `async_mode`      | `bool`        | `False`   | 启用异步发送消息方法。                                                            |
 
-## Toolkit Functions
+## 工具包函数
 
-| Function                        | Description                                                                                                                               |
+| 函数名                        | 描述                                                                                                                               |
 | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `send_text_message_sync`        | Sends a text message to a WhatsApp user (synchronous). Parameters: `text` (str), `recipient` (Optional[str]), `preview_url` (bool), `recipient_type` (str). |
-| `send_template_message_sync`    | Sends a template message to a WhatsApp user (synchronous). Parameters: `recipient` (Optional[str]), `template_name` (str), `language_code` (str), `components` (Optional[List[Dict[str, Any]]]). |
-| `send_text_message_async`       | Sends a text message to a WhatsApp user (asynchronous). Parameters: `text` (str), `recipient` (Optional[str]), `preview_url` (bool), `recipient_type` (str). |
-| `send_template_message_async`   | Sends a template message to a WhatsApp user (asynchronous). Parameters: `recipient` (Optional[str]), `template_name` (str), `language_code` (str), `components` (Optional[List[Dict[str, Any]]]). |
+| `send_text_message_sync`        | 向WhatsApp用户发送文本消息（同步）。参数：`text` (str), `recipient` (Optional[str]), `preview_url` (bool), `recipient_type` (str)。 |
+| `send_template_message_sync`    | 向WhatsApp用户发送模板消息（同步）。参数：`recipient` (Optional[str]), `template_name` (str), `language_code` (str), `components` (Optional[List[Dict[str, Any]]])。 |
+| `send_text_message_async`       | 向WhatsApp用户发送文本消息（异步）。参数：`text` (str), `recipient` (Optional[str]), `preview_url` (bool), `recipient_type` (str)。 |
+| `send_template_message_async`   | 向WhatsApp用户发送模板消息（异步）。参数：`recipient` (Optional[str]), `template_name` (str), `language_code` (str), `components` (Optional[List[Dict[str, Any]]])。 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/whatsapp.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/whatsapp_tools.py)
+- 查看[工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/whatsapp.py)
+- 查看[手册](https://github.com/agno-agi/agno/blob/main/cookbook/tools/whatsapp_tools.py)

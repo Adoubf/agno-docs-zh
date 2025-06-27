@@ -1,8 +1,7 @@
 ---
-title: Reasoning Agent
+title: 推理智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/apps/slack/reasoning_agent.py
 from agno.agent import Agent
@@ -42,24 +41,24 @@ if __name__ == "__main__":
 
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的API密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno openai "uvicorn[standard]"
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/apps/slack/reasoning_agent.py
@@ -70,4 +69,4 @@ if __name__ == "__main__":
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

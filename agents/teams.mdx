@@ -1,14 +1,13 @@
 ---
-title: Agent Teams [Deprecated]
+title: 智能体团队 [已弃用]
 ---
-
 <Note>
-  Agent Teams were an initial implementation of our multi-agent architecture (2023-2025) that use a transfer/handoff mechanism. After 2 years of experimentation, we've learned that this mechanism is not scalable and do NOT recommend it for complex multi-agent systems.
+智能体团队是我们早期多智能体架构的实现方案（2023-2025年），采用任务转移/交接机制。经过两年的实验验证，我们发现该机制缺乏可扩展性，因此不建议在复杂多智能体系统中使用。
 
-  Please use the new [Teams](/teams) architecture instead.
+请改用全新的[团队架构](/teams)。
 </Note>
 
-We can combine multiple Agents to form a team and tackle tasks as a cohesive unit. Here's a simple example that converts an agent into a team to write an article about the top stories on hackernews.
+我们可以将多个智能体组合成团队，以协作单元的形式处理任务。以下是将智能体转为团队来撰写黑客新闻热门文章报道的简单示例。
 
 ```python hackernews_team.py
 from agno.agent import Agent
@@ -56,7 +55,7 @@ hn_team = Agent(
 hn_team.print_response("Write an article about the top 2 stories on hackernews", stream=True)
 ```
 
-Run the script to see the output.
+运行脚本查看输出结果。
 
 ```bash
 pip install -U openai duckduckgo-search newspaper4k lxml_html_clean agno
@@ -64,8 +63,8 @@ pip install -U openai duckduckgo-search newspaper4k lxml_html_clean agno
 python hackernews_team.py
 ```
 
-## How to build Agent Teams
+## 如何构建智能体团队
 
-1. Add a `name` and `role` parameter to the member Agents.
-2. Create a Team Leader that can delegate tasks to team-members.
-3. Use your Agent team just like you would use a regular Agent.
+1. 为成员智能体添加`name`和`role`参数  
+2. 创建能向团队成员分配任务的团队领导  
+3. 像使用普通智能体一样使用你的智能体团队

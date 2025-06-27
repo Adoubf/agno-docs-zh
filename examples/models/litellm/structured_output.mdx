@@ -1,8 +1,7 @@
 ---
-title: Agent with Structured Outputs
+title: 支持结构化输出的智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/litellm/structured_output.py
 from typing import List
@@ -42,24 +41,24 @@ json_mode_agent = Agent(
 json_mode_agent.print_response("New York")
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export LITELLM_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U litellm openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/litellm/structured_output.py

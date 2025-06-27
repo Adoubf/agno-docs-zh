@@ -1,15 +1,14 @@
 ---
 title: Vercel v0
-description: Learn how to use Vercel v0 models with Agno.
+description: 了解如何在 Agno 中使用 Vercel v0 模型。
 ---
+Vercel v0 API 提供大型语言模型服务，专为构建现代化网络应用而设计。它支持文本和图像输入，提供快速流式响应，并与 OpenAI 聊天补全 API 格式兼容。该接口针对前端和全栈网页开发的代码生成场景进行了优化。
 
-The Vercel v0 API provides large language models, designed for building modern web applications. It supports text and image inputs, provides fast streaming responses, and is compatible with the OpenAI Chat Completions API format. It is optimized for frontend and full-stack web development code generation.
+更多详情请参阅 [Vercel v0 API 官方文档](https://vercel.com/docs/v0/api)。
 
-For more details, refer to the [official Vercel v0 API documentation](https://vercel.com/docs/v0/api).
+## 认证
 
-## Authentication
-
-Set your `V0_API_KEY` environment variable. You can create an API key on [v0.dev](https://v0.dev/chat/settings/keys).
+设置您的 `V0_API_KEY` 环境变量。您可以在 [v0.dev](https://v0.dev/chat/settings/keys) 创建 API 密钥。
 
 <CodeGroup>
 
@@ -23,9 +22,9 @@ setx V0_API_KEY your-v0-api-key
 
 </CodeGroup>
 
-## Example
+## 示例
 
-Use `v0` with your `Agent`. The following example assumes you have the `v0` Python class (as you provided) located at `agno/models/vercel.py`.
+使用 `v0` 配合您的 `Agent`。以下示例假设您已将 `v0` Python 类（如您所提供）存放在 `agno/models/vercel.py` 路径。
 
 <CodeGroup>
 
@@ -38,19 +37,19 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response in the terminal
+# 在终端中打印响应
 agent.print_response("Create a simple web app that displays a random number between 1 and 100.")
 
-# agent.print_response("Create a webapp to fetch the weather of a city and display humidity, temperature, and wind speed in cards, use shadcn components and tailwind css")
+# 智能体打印响应("创建一个网页应用来获取城市天气并展示湿度、温度和风速卡片，使用shadcn组件和Tailwind CSS")
 
 ```
 
 </CodeGroup>
 
-<Note> View more examples [here](/examples/models/vercel). </Note>
+<Note> 查看更多示例请访问 [这里](/examples/models/vercel)。 </Note>
 
-## Params
+## 参数
 
 <Snippet file="model-v0-params.mdx" />
 
-v0 also supports the params of [OpenAI](/reference/models/openai).
+v0 同时支持 [OpenAI](/reference/models/openai) 的参数配置。

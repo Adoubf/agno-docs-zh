@@ -1,19 +1,16 @@
 ---
-title: Youtube Agent
+title: YouTube 智能体
 ---
+本示例展示如何创建一个智能YouTube内容分析器，提供详细的视频解析、时间戳标记和摘要生成。特别适合需要高效浏览视频内容的内容创作者、研究人员和观众。
 
-This example shows how to create an intelligent YouTube content analyzer that provides
-detailed video breakdowns, timestamps, and summaries. Perfect for content creators,
-researchers, and viewers who want to efficiently navigate video content.
+可尝试的示例提示：
+- "分析这段科技评测视频：[video_url]"
+- "获取这个编程教程的时间戳：[video_url]"
+- "分解这个讲座视频的关键点：[video_url]"
+- "概括这部纪录片的主要主题：[video_url]"
+- "从这个教育视频创建学习指南：[video_url]"
 
-Example prompts to try:
-- "Analyze this tech review: [video_url]"
-- "Get timestamps for this coding tutorial: [video_url]"
-- "Break down the key points of this lecture: [video_url]"
-- "Summarize the main topics in this documentary: [video_url]"
-- "Create a study guide from this educational video: [video_url]"
-
-## Code
+## 代码
 
 ```python youtube_agent.py
 from textwrap import dedent
@@ -68,13 +65,13 @@ youtube_agent = Agent(
     markdown=True,
 )
 
-# Example usage with different types of videos
+# 不同类型视频的示例用法
 youtube_agent.print_response(
     "Analyze this video: https://www.youtube.com/watch?v=zjkBMFhNj_g",
     stream=True,
 )
 
-# More example prompts to explore:
+# 更多可探索的示例提示：
 """
 Tutorial Analysis:
 1. "Break down this Python tutorial with focus on code examples"
@@ -102,24 +99,24 @@ Creative Content:
 """
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai youtube_transcript_api agno
     ```
   </Step>
 
-  <Step title="Set environment variables">
+  <Step title="设置环境变量">
     ```bash
     export OPENAI_API_KEY=****
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行智能体">
     ```bash
     python youtube_agent.py
     ```

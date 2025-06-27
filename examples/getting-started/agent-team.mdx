@@ -1,20 +1,19 @@
 ---
-title: Agent Team
+title: 智能体团队
 ---
+本示例展示如何创建一个协同工作的强大AI智能体团队，提供全面的金融分析与新闻报道。该团队包含：
+1. 网络智能体：搜索并分析最新新闻
+2. 金融智能体：分析财务数据和市场趋势
+3. 主编：协调并整合两个智能体的洞察
 
-This example shows how to create a powerful team of AI agents working together to provide comprehensive financial analysis and news reporting. The team consists of:
-1. Web Agent: Searches and analyzes latest news
-2. Finance Agent: Analyzes financial data and market trends
-3. Lead Editor: Coordinates and combines insights from both agents
+可尝试的示例提示：
+- "苹果公司(AAPL)的最新新闻和财务表现如何？"
+- "分析AI发展对英伟达(NVDA)股票的影响"
+- "电动车制造商表现如何？重点关注特斯拉(TSLA)和Rivian(RIVN)"
+- "AMD和英特尔等半导体公司的市场前景如何？"
+- "总结微软(MSFT)近期动态和股票表现"
 
-Example prompts to try:
-- "What's the latest news and financial performance of Apple (AAPL)?"
-- "Analyze the impact of AI developments on NVIDIA's stock (NVDA)"
-- "How are EV manufacturers performing? Focus on Tesla (TSLA) and Rivian (RIVN)"
-- "What's the market outlook for semiconductor companies like AMD and Intel?"
-- "Summarize recent developments and stock performance of Microsoft (MSFT)"
-
-## Code
+## 代码
 
 ```python agent_team.py
 from textwrap import dedent
@@ -111,7 +110,7 @@ agent_team = Agent(
     markdown=True,
 )
 
-# Example usage with diverse queries
+# 多样查询的示例用法
 agent_team.print_response(
     "Summarize analyst recommendations and share the latest news for NVDA", stream=True
 )
@@ -123,7 +122,7 @@ agent_team.print_response(
     "Analyze recent developments and financial performance of TSLA", stream=True
 )
 
-# More example prompts to try:
+# 更多示例提示词可供尝试：
 """
 Advanced queries to explore:
 1. "Compare the financial performance and recent news of major cloud providers (AMZN, MSFT, GOOGL)"
@@ -134,18 +133,18 @@ Advanced queries to explore:
 """
 ```
 
-## Usage
+## 使用
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai duckduckgo-search yfinance agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行智能体">
     ```bash
     python agent_team.py
     ```

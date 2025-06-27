@@ -1,14 +1,12 @@
 ---
-title: OpenAI Responses
-description: Learn how to use OpenAI Responses with Agno.
+title: OpenAI 响应
+description: 了解如何在 Agno 中使用 OpenAI 响应。
 ---
+`OpenAIResponses` 是一个通过 Responses API 与 OpenAI 模型交互的类。该类为使用 OpenAI 新版 Responses API（与传统 Chat API 不同）提供了简化的接口，支持工具调用、文件处理和知识检索等高级功能。
 
-`OpenAIResponses` is a class for interacting with OpenAI models using the Responses API. This class provides a streamlined interface for working with OpenAI's newer Responses API, which is distinct from the traditional Chat API. It supports advanced features like tool use, file processing, and knowledge retrieval.
+## 认证
 
-
-## Authentication
-
-Set your `OPENAI_API_KEY` environment variable. You can get one [from OpenAI here](https://platform.openai.com/account/api-keys).
+设置您的 `OPENAI_API_KEY` 环境变量。您可以从 [OpenAI 这里](https://platform.openai.com/account/api-keys) 获取密钥。
 
 <CodeGroup>
 
@@ -22,9 +20,9 @@ setx OPENAI_API_KEY sk-***
 
 </CodeGroup>
 
-## Example
+## 示例
 
-Use `OpenAIResponses` with your `Agent`:
+将 `OpenAIResponses` 与您的 `Agent` 配合使用：
 
 <CodeGroup>
 
@@ -49,12 +47,12 @@ agent.print_response(
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/openai/responses). </Note>
+<Note> 查看更多示例 [请访问此处](../examples/models/openai/responses)。 </Note>
 
-## Params
+## 参数
 
-For more information, please refer to the [OpenAI Responses docs](https://platform.openai.com/docs/api-reference/responses) as well.
+更多信息请参阅 [OpenAI Responses 文档](https://platform.openai.com/docs/api-reference/responses)。
 
 <Snippet file="model-openai-responses-params.mdx" />
 
-`OpenAIResponses` is a subclass of the [Model](/reference/models/model) class and has access to the same params.
+`OpenAIResponses` 是 [Model](/reference/models/model) 类的子类，拥有相同的参数访问权限。

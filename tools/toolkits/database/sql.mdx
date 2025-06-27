@@ -1,22 +1,21 @@
 ---
 title: SQL
 ---
+**SQLTools** 使智能体能够运行 SQL 查询并与数据库交互。
 
-**SQLTools** enable an Agent to run SQL queries and interact with databases.
+## 先决条件
 
-## Prerequisites
-
-The following example requires the `sqlalchemy` library and a database URL.
+以下示例需要 `sqlalchemy` 库和一个数据库连接 URL。
 
 ```shell
 pip install -U sqlalchemy
 ```
 
-You will also need to install the appropriate Python adapter for the specific database you intend to use.
+您还需要为计划使用的特定数据库安装相应的 Python 适配器。
 
 ### PostgreSQL
 
-For PostgreSQL, you can install the `psycopg2-binary` adapter:
+对于 PostgreSQL，您可以安装 `psycopg2-binary` 适配器：
 
 ```shell
 pip install -U psycopg2-binary
@@ -24,14 +23,14 @@ pip install -U psycopg2-binary
 
 ### MySQL
 
-For MySQL, you can install the `mysqlclient` adapter:
+对于 MySQL，您可以安装 `mysqlclient` 适配器：
 
 ```shell
 pip install -U mysqlclient
 ```
-The `mysqlclient` adapter may have additional system-level dependencies. Please consult the [official installation guide](https://github.com/PyMySQL/mysqlclient/blob/main/README.md#install) for more details.
+`mysqlclient` 适配器可能需要额外的系统级依赖项。请查阅 [官方安装指南](https://github.com/PyMySQL/mysqlclient/blob/main/README.md#install) 获取更多详情。
 
-You will also need a database. The following example uses a Postgres database running in a Docker container.
+您还需要一个数据库。以下示例使用在 Docker 容器中运行的 Postgres 数据库。
 
 ```shell
  docker run -d \
@@ -45,9 +44,9 @@ You will also need a database. The following example uses a Postgres database ru
   agno/pgvector:16
 ```
 
-## Example
+## 示例
 
-The following agent will run a SQL query to list all tables in the database and describe the contents of one of the tables.
+以下智能体将运行 SQL 查询，列出数据库中的所有表并描述其中一个表的内容。
 
 ```python cookbook/tools/sql_tools.py
 from agno.agent import Agent
@@ -59,32 +58,32 @@ agent = Agent(tools=[SQLTools(db_url=db_url)])
 agent.print_response("List the tables in the database. Tell me about contents of one of the tables", markdown=True)
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter        | Type             | Default | Description                                                                 |
-| ---------------- | ---------------- | ------- | --------------------------------------------------------------------------- |
-| `db_url`         | `str`            | -       | The URL for connecting to the database.                                     |
-| `db_engine`      | `Engine`         | -       | The database engine used for connections and operations.                    |
-| `user`           | `str`            | -       | The username for database authentication.                                   |
-| `password`       | `str`            | -       | The password for database authentication.                                   |
-| `host`           | `str`            | -       | The hostname or IP address of the database server.                          |
-| `port`           | `int`            | -       | The port number on which the database server is listening.                  |
-| `schema`         | `str`            | -       | The specific schema within the database to use.                             |
-| `dialect`        | `str`            | -       | The SQL dialect used by the database.                                       |
-| `tables`         | `Dict[str, Any]` | -       | A dictionary mapping table names to their respective metadata or structure. |
-| `list_tables`    | `bool`           | `True`  | Enables the functionality to list all tables in the database.               |
-| `describe_table` | `bool`           | `True`  | Enables the functionality to describe the schema of a specific table.       |
-| `run_sql_query`  | `bool`           | `True`  | Enables the functionality to execute SQL queries directly.                  |
+| 参数               | 类型             | 默认值  | 描述                                                                 |
+| ------------------ | ---------------- | ------- | -------------------------------------------------------------------- |
+| `db_url`   | `str` | -       | 用于连接数据库的 URL。                                               |
+| `db_engine`   | `Engine` | -       | 用于连接和操作的数据库引擎。                                         |
+| `user`   | `str` | -       | 用于数据库认证的用户名。                                             |
+| `password`   | `str` | -       | 用于数据库认证的密码。                                               |
+| `host`   | `str` | -       | 数据库服务器的主机名或 IP 地址。                                     |
+| `port`   | `int` | -       | 数据库服务器监听的端口号。                                           |
+| `schema`   | `str` | -       | 数据库中要使用的特定模式。                                           |
+| `dialect`   | `str` | -       | 数据库使用的 SQL 方言。                                              |
+| `tables`   | `Dict[str, Any]` | -       | 将表名映射到其元数据或结构的字典。                                   |
+| `list_tables`   | `bool` | `True` | 启用列出数据库中所有表的功能。                                       |
+| `describe_table`   | `bool` | `True` | 启用描述特定表模式的功能。                                           |
+| `run_sql_query`   | `bool` | `True` | 启用直接执行 SQL 查询的功能。                                        |
 
-## Toolkit Functions
+## 工具包功能
 
-| Function         | Description                               |
-| ---------------- | ----------------------------------------- |
-| `list_tables`    | Lists all tables in the database.         |
-| `describe_table` | Describes the schema of a specific table. |
-| `run_sql_query`  | Executes SQL queries directly.            |
+| 函数               | 描述                                |
+| ------------------ | ----------------------------------- |
+| `list_tables`   | 列出数据库中的所有表。              |
+| `describe_table`   | 描述特定表的模式。                  |
+| `run_sql_query`   | 直接执行 SQL 查询。                 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/sql.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/sql_tools.py)
+- 查看 [工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/sql.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/sql_tools.py)

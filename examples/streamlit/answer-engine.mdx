@@ -1,23 +1,22 @@
 ---
-title: "Sage: Answer Engine"
+title: "Sage：问答引擎"
 ---
+本示例展示如何构建Sage——一个类似Perplexity的智能应答引擎，它能根据用户查询智能判断应执行网页搜索还是使用ExaTools进行深度分析。
 
-This example shows how to build Sage, a Perplexity-like Answer Engine that intelligently determines whether to perform a web search or conduct a deep analysis using ExaTools based on the user's query.
+Sage功能：
+1. 结合实时网页搜索（DuckDuckGo）与深度上下文分析（ExaTools）提供全面解答
+2. 根据查询复杂度智能选择工具
+3. 提供交互式Streamlit UI，支持会话管理与聊天记录导出
+4. 兼容多LLM服务商（OpenAI、Anthropic、Google、Groq）
 
-Sage:
-1. Uses real-time web search (DuckDuckGo) and deep contextual analysis (ExaTools) to provide comprehensive answers
-2. Intelligently selects tools based on query complexity
-3. Provides an interactive Streamlit UI with session management and chat history export
-4. Supports multiple LLM providers (OpenAI, Anthropic, Google, Groq)
-
-## Key capabilities
-- Natural language query understanding and processing
-- Real-time web search integration with DuckDuckGo
-- Deep contextual analysis using ExaTools
-- Multiple LLM provider support
-- Session management using SQLite
-- Chat history export
-- Interactive Streamlit UI
+## 核心能力
+- 自然语言查询理解与处理
+- DuckDuckGo实时网页搜索集成
+- ExaTools深度上下文分析
+- 多LLM服务商支持
+- SQLite会话管理
+- 聊天记录导出
+- 交互式Streamlit界面
 
 <video
   autoPlay
@@ -27,79 +26,77 @@ Sage:
   src="/videos/answer-engine.mp4"
 ></video>
 
-## Simple queries to try
-- "Tell me about the tariffs the US is imposing in 2025"
-- "Which is a better reasoning model: o3-mini or DeepSeek R1?"
-- "Tell me about Agno"
-- "What are the latest trends in renewable energy?"
+## 简单查询示例
+- "告诉我美国2025年将实施的关税政策"
+- "o3-mini和DeepSeek R1哪个推理模型更好？"
+- "介绍一下Agno"
+- "可再生能源的最新趋势是什么？"
 
-## Advanced analysis queries
-- "Evaluate how emerging AI regulations could influence innovation"
-- "Compare the environmental impact of electric vs hydrogen vehicles"
-- "Analyze the global semiconductor supply chain challenges"
-- "Explain the implications of quantum computing on cryptography"
+## 深度分析查询
+- "评估新兴AI法规如何影响创新"
+- "对比电动车与氢能源车的环境影响"
+- "分析全球半导体供应链挑战"
+- "阐释量子计算对密码学的影响"
 
-## Code
+## 代码实现
+完整代码详见[Agno代码仓库](https://github.com/agno-agi/agno)。
 
-The complete code is available in the [Agno repository](https://github.com/agno-agi/agno).
-
-## Usage
+## 使用说明
 
 <Steps>
-  <Step title="Clone the repository">
+  <Step title="克隆仓库">
     ```bash
     git clone https://github.com/agno-agi/agno.git
     cd agno
     ```
   </Step>
 
-  <Step title="Create virtual environment">
+  <Step title="创建虚拟环境">
     ```bash
     python3 -m venv .venv
     source .venv/bin/activate  # On Windows: .venv\Scripts\activate
     ```
   </Step>
 
-  <Step title="Install dependencies">
+  <Step title="安装依赖项">
     ```bash
     pip install -r cookbook/examples/streamlit_apps/answer_engine/requirements.txt
     ```
   </Step>
 
-  <Step title="Set up API keys">
+  <Step title="设置API密钥">
     ```bash
-    # Required
+    # 必需
     export OPENAI_API_KEY=***
     export EXA_API_KEY=***
 
-    # Optional (for additional models)
+    # 可选（用于附加模型）
     export ANTHROPIC_API_KEY=***
     export GOOGLE_API_KEY=***
     export GROQ_API_KEY=***
     ```
-    We recommend using gpt-4o for optimal performance.
+    推荐使用gpt-4o以获得最佳性能
   </Step>
 
-  <Step title="Launch the app">
+  <Step title="启动应用">
     ```bash
     streamlit run cookbook/examples/streamlit_apps/answer_engine/app.py
     ```
-    Open [localhost:8501](http://localhost:8501) to start using Sage.
+    访问[localhost:8501](http://localhost:8501)开始使用Sage
   </Step>
 </Steps>
 
-## Model Selection
-The application supports multiple model providers:
-- OpenAI (o3-mini, gpt-4o)
-- Anthropic (claude-3-5-sonnet)
-- Google (gemini-2.0-flash-exp)
-- Groq (llama-3.3-70b-versatile)
+## 模型选择
+支持以下模型服务商：
+- OpenAI（o3-mini、gpt-4o）
+- Anthropic（claude-3-5-sonnet）
+- Google（gemini-2.0-flash-exp）
+- Groq（llama-3.3-70b-versatile）
 
-## Agent Configuration
-The agent configuration is in `agents.py` and the prompts are in `prompts.py`:
-- To modify prompts, update the `prompts.py` file
-- To add new tools or models, update the `agents.py` file
+## 智能体配置
+配置文件位于`agents.py`，提示词位于`prompts.py`：
+- 修改提示词需更新`prompts.py`文件
+- 添加新工具或模型需更新`agents.py`文件
 
-## Support
-
-Need help? Join our [Discourse community](https://community.agno.com) for support!
+## 支持服务
+需要帮助？请加入我们的[Discourse社区](https://community.agno.com)获取支持！

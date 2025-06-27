@@ -1,17 +1,17 @@
 ---
 title: vLLM
 ---
-[vLLM](https://docs.vllm.ai/en/latest/) is a fast and easy-to-use library for LLM inference and serving, designed for high-throughput and memory-efficient LLM serving. 
+[vLLM](https://docs.vllm.ai/en/latest/) 是一个快速易用的LLM推理与服务库，专为高吞吐量和内存高效的LLM服务设计。
 
-## Prerequisites
+## 前提条件
 
-Install vLLM and start serving a model:
+安装vLLM并启动模型服务：
 
-```bash install vLLM
+```bash 安装 vLLM
 pip install vllm
 ```
 
-```bash start vLLM server
+```bash 启动 vLLM 服务器
 vllm serve Qwen/Qwen2.5-7B-Instruct \
     --enable-auto-tool-choice \
     --tool-call-parser hermes \
@@ -20,15 +20,15 @@ vllm serve Qwen/Qwen2.5-7B-Instruct \
     --gpu-memory-utilization 0.9
 ```
 
-This spins up the vLLM server with an OpenAI-compatible API.
+这将启动带有OpenAI兼容API的vLLM服务器。
 
 <Note>
-  The default vLLM server URL is `http://localhost:8000/`
+  默认vLLM服务器地址是 `http://localhost:8000/`
 </Note>
 
-## Example  
+## 示例
 
-Basic Agent
+基础智能体
 <CodeGroup>
 
 ```python agent.py
@@ -48,11 +48,11 @@ agent.print_response("Share a 2 sentence horror story.")
 
 </CodeGroup>
 
-## Advanced Usage
+## 高级用法
 
-### With Tools
+### 工具集成
 
-vLLM models work seamlessly with Agno tools:
+vLLM模型与Agno工具无缝协作：
 
 ```python with_tools.py
 from agno.agent import Agent
@@ -69,12 +69,12 @@ agent = Agent(
 agent.print_response("What's the latest news about AI?")
 ```
 
-<Note> View more examples [here](../examples/models/vllm). </Note>
+<Note> 查看更多示例请访问[这里](../examples/models/vllm)。</Note>
 
-For the full list of supported models, see the [vLLM documentation](https://docs.vllm.ai/en/latest/models/supported_models.html).
+完整支持的模型列表请参阅[vLLM官方文档](https://docs.vllm.ai/en/latest/models/supported_models.html)。
 
-## Params
+## 参数
 
 <Snippet file="model-vllm-params.mdx" />
 
-`vLLM` is a subclass of the [Model](/reference/models/model) class and has access to the same params.
+`vLLM` 是[Model](/reference/models/model)类的子类，拥有相同的参数访问权限。

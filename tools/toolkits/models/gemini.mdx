@@ -1,34 +1,33 @@
 ---
-title: Gemini
-sidebarTitle: Gemini
+title: 双子座
+sidebarTitle: 双子星
 ---
+`GeminiTools` 是一套工具集，允许智能体通过 Google AI API 服务进行图像和视频生成。
 
-`GeminiTools` are a set of tools that allow an Agent to interact with Google AI API services for generating images and videos.
+## 前提条件
 
-## Prerequisites
+使用 `GeminiTools` 前，请确保已安装 `google-genai` 库并完成凭据配置。
 
-Before using `GeminiTools`, make sure to have the `google-genai` library installed and the credentials configured.
-
-1. **Install the library:**
+1. **安装库:**
    ```bash
    pip install google-genai agno
    ```
 
-2. **Set your credentials:**
-   - For Gemini API:
+2. **设置凭证:**
+   - Gemini API:
      ```bash
      export GOOGLE_API_KEY="your-google-genai-api-key"
      ```
-   - For Vertex AI:
+   - Vertex AI:
      ```bash
      export GOOGLE_CLOUD_PROJECT="your-google-cloud-project-id"
      export GOOGLE_CLOUD_LOCATION="your-google-cloud-location"
      export GOOGLE_GENAI_USE_VERTEXAI=true
      ```
 
-## Initialization
+## 初始化
 
-Import `GeminiTools` and add it to your Agent's tool list.
+导入 `GeminiTools` 并将其添加到智能体的工具列表中。
 
 ```python
 from agno.agent import Agent
@@ -40,10 +39,11 @@ agent = Agent(
 )
 ```
 
-## Usage Examples
+## 使用示例
 
-GeminiTools can be used for a variety of tasks. Here are some examples:
-### Image Generation
+GeminiTools 可执行多种任务，示例如下：
+
+### 图像生成
 
 ```python image_generation_agent.py
 from agno.agent import Agent
@@ -65,10 +65,10 @@ if response.images:
     save_base64_data(response.images[0].content, "tmp/cyberpunk_samurai.png")
 ```
 
-### Video Generation
+### 视频生成
 
 <Note>
-Video generation requires Vertex AI.
+视频生成需使用 Vertex AI。
 </Note>
 
 ```python video_generation_agent.py
@@ -93,17 +93,15 @@ if response.videos:
         save_base64_data(video.content, f"tmp/kitten_piano_{video.id}.mp4")
 ```
 
+## 工具包功能
 
+| 功能              | 描述                                                                                       |
+| ----------------- | ----------------------------------------------------------------------------------------- |
+| `generate_image` | 基于文本提示生成图像                                                                       |
+| `generate_video` | 基于文本提示生成视频                                                                       |
 
-## Toolkit Functions
+## 开发者资源
 
-| Function         | Description                                                                                 |
-| ---------------- | ------------------------------------------------------------------------------------------- |
-| `generate_image` | Generate an image based on a text prompt
-| `generate_video` | Generate a video based on a text prompt
-
-## Developer Resources
-
-- View [Toolkit](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/models/gemini.py)
-- View [Image Generation Guide](https://ai.google.dev/gemini-api/docs/image-generation)
-- View [Video Generation Guide](https://ai.google.dev/gemini-api/docs/video)
+- 查看 [工具包文档](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/models/gemini.py)
+- 查看 [图像生成指南](https://ai.google.dev/gemini-api/docs/image-generation)
+- 查看 [视频生成指南](https://ai.google.dev/gemini-api/docs/video)

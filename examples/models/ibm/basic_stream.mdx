@@ -1,8 +1,7 @@
 ---
-title: Streaming Basic Agent
+title: 基础智能体流式处理
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/ibm/watsonx/basic_stream.py
 from typing import Iterator
@@ -11,36 +10,36 @@ from agno.models.ibm import WatsonX
 
 agent = Agent(model=WatsonX(id="ibm/granite-20b-code-instruct"), markdown=True)
 
-# Get the response in a variable
-# run_response: Iterator[RunResponse] = agent.run("Share a 2 sentence horror story", stream=True)
+# 将响应存储到变量中
+# run_response: Iterator[RunResponse] = agent.run("分享一个两句话的恐怖故事", stream=True)
 # for chunk in run_response:
-#     print(chunk.content)
+# 打印(chunk.content)
 
-# Print the response in the terminal
+# 在终端中打印响应
 agent.print_response("Share a 2 sentence horror story", stream=True)
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的API密钥">
     ```bash
     export IBM_WATSONX_API_KEY=xxx
     export IBM_WATSONX_PROJECT_ID=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U ibm-watsonx-ai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果电脑
     python cookbook/models/ibm/watsonx/basic_stream.py
     ```
 
@@ -51,4 +50,4 @@ agent.print_response("Share a 2 sentence horror story", stream=True)
   </Step>
 </Steps>
 
-This example shows how to use streaming with IBM WatsonX. Setting `stream=True` when calling `print_response()` or `run()` enables token-by-token streaming, which can provide a more interactive user experience. 
+本示例展示了如何配合 IBM WatsonX 使用流式传输功能。在调用 `print_response()` 或 `run()` 时设置 `stream=True` 可启用逐令牌流式传输，从而提供更具交互性的用户体验。

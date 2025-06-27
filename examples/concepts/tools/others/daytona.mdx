@@ -1,9 +1,8 @@
 ---
-title: Daytona Code Execution
-description: Learn to use Agno's Daytona integration to run your Agent-generated code in a secure sandbox.
+title: Daytona 代码执行
+description: 学习使用 Agno 的 Daytona 集成功能，在安全沙箱中运行由智能体生成的代码。
 ---
-
-## Code
+## 代码
 
 ```python cookbook/tools/daytona_tools.py
 from agno.agent import Agent
@@ -12,7 +11,7 @@ from agno.tools.daytona import DaytonaTools
 
 daytona_tools = DaytonaTools()
 
-# Setup an Agent focused on coding tasks, with access to the Daytona tools
+# 设置一个专注于编码任务的智能体，并授予其访问Daytona工具的权限。
 agent = Agent(
     name="Coding Agent with Daytona tools",
     agent_id="coding-agent",
@@ -46,4 +45,3 @@ agent.print_response(
     "Write Python code to generate the first 10 Fibonacci numbers and calculate their sum and average"
 )
 ```
-

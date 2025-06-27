@@ -1,9 +1,8 @@
 ---
-title: Async User Confirmation
-description: This example demonstrates how to implement asynchronous user confirmation flows, allowing for non-blocking execution while waiting for user input.
+title: 异步用户确认
+description: 本示例演示如何实现异步用户确认流程，在等待用户输入的同时保持非阻塞执行。
 ---
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/user_control_flows/confirmation_required_async.py
 import asyncio
@@ -29,11 +28,11 @@ async def get_top_hackernews_stories(num_stories: int) -> str:
     Returns:
         str: JSON string containing story details
     """
-    # Fetch top story IDs
+    # 获取头条新闻ID
     response = httpx.get("https://hacker-news.firebaseio.com/v0/topstories.json")
     story_ids = response.json()
 
-    # Yield story details
+    # 产出故事详情
     all_stories = []
     for story_id in story_ids[:num_stories]:
         story_response = httpx.get(
@@ -54,7 +53,7 @@ agent = Agent(
 run_response = asyncio.run(agent.arun("Fetch the top 2 hackernews stories"))
 if run_response.is_paused:
     for tool in run_response.tools_requiring_confirmation:
-        # Ask for confirmation
+        # 请求确认
         console.print(
             f"Tool name [bold blue]{tool.tool_name}({tool.tool_args})[/] requires confirmation."
         )
@@ -73,26 +72,26 @@ run_response = asyncio.run(agent.acontinue_run(run_response=run_response))
 pprint.pprint_run_response(run_response)
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno httpx rich openai
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果
     python cookbook/agent_concepts/user_control_flows/confirmation_required_async.py
     ```
 
@@ -103,16 +102,16 @@ pprint.pprint_run_response(run_response)
   </Step>
 </Steps>
 
-## Key Features
+## 核心特性
 
-- Uses `agent.arun()` for asynchronous agent execution
-- Implements `agent.acontinue_run()` for async continuation
-- Maintains the same confirmation flow as synchronous version
-- Demonstrates how to handle async execution with user input
+- 使用 `agent.arun()` 实现异步智能体执行
+- 采用 `agent.acontinue_run()` 实现异步延续
+- 保持与同步版本相同的确认流程
+- 演示如何处理带用户输入的异步执行
 
-## Use Cases
+## 应用场景
 
-- Non-blocking user confirmation flows
-- High-performance applications requiring async execution
-- Web applications with user interaction
-- Long-running operations with user input 
+- 非阻塞式用户确认流程
+- 需要异步执行的高性能应用
+- 含用户交互的Web应用程序
+- 涉及用户输入的长时间运行操作

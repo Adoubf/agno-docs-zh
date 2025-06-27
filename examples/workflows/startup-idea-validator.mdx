@@ -1,49 +1,48 @@
 ---
-title: Startup Idea Validator
+title: 创业点子验证器
 ---
+该工作流通过以下方式帮助创业者验证其初创企业想法：
+1. 厘清并完善核心商业概念  
+2. 评估与现有解决方案相比的原创性  
+3. 定义明确的使命和目标  
+4. 开展全面的市场调研与分析  
 
-This workflow helps entrepreneurs validate their startup ideas by:
-1. Clarifying and refining the core business concept
-2. Evaluating originality compared to existing solutions
-3. Defining clear mission and objectives
-4. Conducting comprehensive market research and analysis
-
-Why is this helpful?
+为什么这很有帮助？
 --------------------------------------------------------------------------------
-• Get objective feedback on your startup idea before investing resources
-• Understand your total addressable market and target segments
-• Validate assumptions about market opportunity and competition
-• Define clear mission and objectives to guide execution
+• 在投入资源前获取关于初创想法的客观反馈  
+• 理解您的总可触达市场及目标细分领域  
+• 验证关于市场机遇和竞争的假设  
+• 定义明确的使命和目标以指导执行  
 
-Who should use this?
+适用对象：
 --------------------------------------------------------------------------------
-• Entrepreneurs and Startup Founders
-• Product Managers and Business Strategists
-• Innovation Teams
-• Angel Investors and VCs doing initial screening
+• 创业者与初创企业创始人  
+• 产品经理与商业策略师  
+• 创新团队  
+• 进行初步筛选的天使投资人与风险投资机构  
 
-Example use cases:
+典型用例：
 --------------------------------------------------------------------------------
-• New product/service validation
-• Market opportunity assessment
-• Competitive analysis
-• Business model validation
-• Target customer segmentation
-• Mission/vision refinement
+• 新产品/服务验证  
+• 市场机遇评估  
+• 竞争分析  
+• 商业模式验证  
+• 目标客户细分  
+• 使命/愿景完善  
 
-Quick Start:
+快速开始：
 --------------------------------------------------------------------------------
-1. Install dependencies:
+1. 安装依赖项：
    pip install openai agno
 
-2. Set environment variables:
+2. 设置环境变量：
    - export OPENAI_API_KEY="xxx"
 
-3. Run:
+3. 运行：
    python startup_idea_validator.py
 
-The workflow will guide you through validating your startup idea with AI-powered
-analysis and research. Use the insights to refine your concept and business plan!
+该工作流将引导您通过AI驱动的分析与研究验证初创想法。运用这些洞察来完善您的概念和商业计划！
+
 """
 
 ```python startup_idea_validator.py
@@ -139,10 +138,10 @@ class StartupIdeaValidator(Workflow):
         try:
             response: RunResponse = self.idea_clarifier_agent.run(startup_idea)
 
-            # Check if we got a valid response
+            # 检查是否收到有效响应
             if not response or not response.content:
                 logger.warning("Empty Idea Clarification response")
-            # Check if the response is of the expected type
+            # 检查响应是否符合预期类型
             if not isinstance(response.content, IdeaClarification):
                 logger.warning("Invalid response type")
 
@@ -163,11 +162,11 @@ class StartupIdeaValidator(Workflow):
                 json.dumps(agent_input, indent=4)
             )
 
-            # Check if we got a valid response
+            # 检查是否收到有效响应
             if not response or not response.content:
                 logger.warning("Empty Market Research response")
 
-            # Check if the response is of the expected type
+            # 检查响应是否为预期类型
             if not isinstance(response.content, MarketResearch):
                 logger.warning("Invalid response type")
 
@@ -188,7 +187,7 @@ class StartupIdeaValidator(Workflow):
                 json.dumps(agent_input, indent=4)
             )
 
-            # Check if we got a valid response
+            # 检查是否收到有效响应
             if not response or not response.content:
                 logger.warning("Empty Competitor Analysis response")
 
@@ -202,7 +201,7 @@ class StartupIdeaValidator(Workflow):
     def run(self, startup_idea: str) -> Iterator[RunResponse]:
         logger.info(f"Generating a startup validation report for: {startup_idea}")
 
-        # Clarify and quantify the idea
+        # 澄清并量化该想法
         idea_clarification: Optional[IdeaClarification] = self.get_idea_clarification(
             startup_idea
         )
@@ -214,7 +213,7 @@ class StartupIdeaValidator(Workflow):
             )
             return
 
-        # Do some market research
+        # 进行市场调研
         market_research: Optional[MarketResearch] = self.get_market_research(
             startup_idea, idea_clarification
         )
@@ -230,7 +229,7 @@ class StartupIdeaValidator(Workflow):
             startup_idea, market_research
         )
 
-        # Compile the final report
+        # 编译最终报告
         final_response: RunResponse = self.report_agent.run(
             json.dumps(
                 {
@@ -248,17 +247,17 @@ class StartupIdeaValidator(Workflow):
         )
 
 
-# Run the workflow if the script is executed directly
+# 如果脚本被直接执行则运行工作流
 if __name__ == "__main__":
     from rich.prompt import Prompt
 
-    # Get idea from user
+    # 从用户处获取创意
     idea = Prompt.ask(
         "[bold]What is your startup idea?[/bold]\n✨",
         default="A marketplace for Christmas Ornaments made from leather",
     )
 
-    # Convert the idea to a URL-safe string for use in session_id
+    # 将想法转换为 URL 安全的字符串用于 session_id
     url_safe_idea = idea.lower().replace(" ", "-")
 
     startup_idea_validator = StartupIdeaValidator(
@@ -275,18 +274,18 @@ if __name__ == "__main__":
     pprint_run_response(final_report, markdown=True)
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai agno
     ```
   </Step>
 
-  <Step title="Run the workflow">
+  <Step title="运行工作流">
     ```bash
     python startup_idea_validator.py
     ```

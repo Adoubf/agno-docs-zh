@@ -1,8 +1,7 @@
 ---
-title: Agent with Streaming
+title: 支持流式传输的智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/vllm/basic_stream.py
 from agno.agent import Agent
@@ -15,18 +14,18 @@ agent = Agent(
 agent.print_response("Share a 2 sentence horror story", stream=True)
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install Libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno openai vllm
     ```
   </Step>
 
-  <Step title="Start vLLM server">
+  <Step title="启动vLLM服务器">
     ```bash
     vllm serve Qwen/Qwen2.5-7B-Instruct \
         --enable-auto-tool-choice \
@@ -37,9 +36,9 @@ agent.print_response("Share a 2 sentence horror story", stream=True)
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     ```bash
     python cookbook/models/vllm/basic_stream.py
     ```
   </Step>
-</Steps> 
+</Steps>

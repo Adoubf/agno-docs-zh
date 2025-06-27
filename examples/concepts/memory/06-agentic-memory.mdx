@@ -1,14 +1,13 @@
 ---
-title: Agentic Memory
+title: 智能体记忆
 ---
+本示例展示如何在智能体中使用持久化记忆。
 
-This example shows you how to use persistent memory with an Agent.
+每次运行时，智能体都能创建/更新/删除用户记忆。
 
-During each run the Agent can create/update/delete user memories.
+要启用此功能，请在智能体配置中设置 `enable_agentic_memory=True`。
 
-To enable this, set `enable_agentic_memory=True` in the Agent config.
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/memory/07_agentic_memory.py
 from agno.agent.agent import Agent
@@ -19,10 +18,10 @@ from rich.pretty import pprint
 
 memory_db = SqliteMemoryDb(table_name="memory", db_file="tmp/memory.db")
 
-# No need to set the model, it gets set by the agent to the agent's model
+# 无需设置模型，该模型将由智能体自动设置为智能体自身使用的模型
 memory = Memory(db=memory_db)
 
-# Reset the memory for this example
+# 重置此示例的记忆
 memory.clear()
 
 john_doe_id = "john_doe@example.com"
@@ -75,24 +74,24 @@ print("Memories about John Doe:")
 pprint(memories)
 ```
 
-## Usage
+## 使用方式
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno google-generativeai
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/memory/07_agentic_memory.py

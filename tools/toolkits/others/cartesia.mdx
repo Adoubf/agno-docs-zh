@@ -1,13 +1,12 @@
 ---
-title: "Cartesia"
-description: "Tools for interacting with Cartesia Voice AI services including text-to-speech and voice localization"
+title: "卡提西亚"
+description: "用于与Cartesia语音AI服务交互的工具，包括文本转语音和语音本地化功能"
 ---
+**CartesiaTools** 使智能体能够执行文本转语音、列出可用音色以及使用 [Cartesia](https://docs.cartesia.ai/) 进行音色本地化。
 
-**CartesiaTools** enable an Agent to perform text-to-speech, list available voices, and localize voices using [Cartesia](https://docs.cartesia.ai/).
+## 前提条件
 
-## Prerequisites
-
-The following example requires the `cartesia` library and an API key.
+以下示例需要 `cartesia` 库和一个 API 密钥。
 
 ```bash
 pip install cartesia
@@ -17,7 +16,7 @@ pip install cartesia
 export CARTESIA_API_KEY="your_api_key_here"
 ```
 
-## Example
+## 示例
 
 ```python
 from agno.agent import Agent
@@ -41,9 +40,9 @@ if response.audio:
     )
 ```
 
-## Advanced Example: Translation and Voice Localization
+## 高级示例：翻译与音色本地化
 
-This example demonstrates how to translate text, analyze emotion, localize a new voice, and generate a voice note using CartesiaTools.
+本示例演示如何翻译文本、分析情感、本地化新音色并使用 CartesiaTools 生成语音笔记。
 
 ```python
 from textwrap import dedent
@@ -85,26 +84,26 @@ if response.audio:
     )
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter                | Type             | Default                                    | Description                                                                                       |
-|--------------------------|------------------|--------------------------------------------|---------------------------------------------------------------------------------------------------|
-| `api_key`                | `str`            | `None`                                     | The Cartesia API key for authentication. If not provided, uses the `CARTESIA_API_KEY` env variable. |
-| `model_id`               | `str`            | `sonic-2`                                  | The model ID to use for text-to-speech.                                                         |
-| `default_voice_id`       | `str`            | `78ab82d5-25be-4f7d-82b3-7ad64e5b85b2`      | The default voice ID to use for text-to-speech and localization.                                 |
-| `text_to_speech_enabled` | `bool`           | `True`                                     | Enable text-to-speech functionality.                                                             |
-| `list_voices_enabled`    | `bool`           | `True`                                     | Enable listing available voices functionality.                                                   |
-| `voice_localize_enabled` | `bool`           | `False`                                    | Enable voice localization functionality.                                                         |
+| 参数                | 类型             | 默认值                                    | 描述                                                                                       |
+|---------------------|------------------|-------------------------------------------|-------------------------------------------------------------------------------------------|
+| `api_key`     | `str`  | `None`                          | 用于身份验证的 Cartesia API 密钥。若未提供，则使用 `CARTESIA_API_KEY` 环境变量。              |
+| `model_id`     | `str` | `sonic-2`                        | 用于文本转语音的模型 ID。                                                                 |
+| `default_voice_id`    | `str` | `78ab82d5-25be-4f7d-82b3-7ad64e5b85b2`                         | 用于文本转语音和本地化的默认音色 ID。                                                     |
+| `text_to_speech_enabled`    | `bool` | `True`                         | 启用文本转语音功能。                                                                      |
+| `list_voices_enabled`    | `bool` | `True`                         | 启用列出可用音色功能。                                                                    |
+| `voice_localize_enabled`    | `bool` | `False`                         | 启用音色本地化功能。                                                                      |
 
-## Toolkit Functions
+## 工具包函数
 
-| Function         | Description                                                                                                                                                                 |
-|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `list_voices`    | List available voices from Cartesia.                 |
-| `text_to_speech` | Converts text to speech.  |
-| `localize_voice` | Create a new localized voice. |
+| 函数               | 描述                                                                                                               |
+|--------------------|-------------------------------------------------------------------------------------------------------------------|
+| `list_voices`   | 列出 Cartesia 中可用的音色。                                                                                      |
+| `text_to_speech`   | 将文本转换为语音。                                                                                                |
+| `localize_voice`   | 创建新的本地化音色。                                                                                              |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/cartesia.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/cartesia_tools.py)
+- 查看 [工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/cartesia.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/cartesia_tools.py)

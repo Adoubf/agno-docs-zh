@@ -1,13 +1,12 @@
 ---
-title: Singlestore Workflow Storage
+title: Singlestore 工作流存储
 sidebarTitle: Singlestore
 ---
+Agno支持使用Singlestore作为Workflows的存储后端，通过`SingleStoreStorage`类实现。
 
-Agno supports using Singlestore as a storage backend for Workflows using the `SingleStoreStorage` class.
+## 使用方法
 
-## Usage
-
-Obtain the credentials for Singlestore from [here](https://portal.singlestore.com/)
+从[这里](https://portal.singlestore.com/)获取Singlestore的凭证
 
 ```python singlestore_storage_for_workflow.py
 import json
@@ -64,11 +63,11 @@ class HackerNewsReporter(Workflow):
             str: JSON string of top stories.
         """
 
-        # Fetch top story IDs
+        # 获取头条新闻ID
         response = httpx.get("https://hacker-news.firebaseio.com/v0/topstories.json")
         story_ids = response.json()
 
-        # Fetch story details
+        # 获取故事详情
         stories = []
         for story_id in story_ids[:num_stories]:
             story_response = httpx.get(
@@ -80,7 +79,7 @@ class HackerNewsReporter(Workflow):
         return json.dumps(stories)
 
     def run(self, num_stories: int = 5) -> Iterator[RunResponse]:
-        # Set the tools for hn_agent here to avoid circular reference
+        # 在此设置 hn_agent 的工具以避免循环引用
         self.hn_agent.tools = [self.get_top_hackernews_stories]
 
         logger.info(f"Getting top {num_stories} stories from HackerNews.")
@@ -103,7 +102,7 @@ if __name__ == "__main__":
     DATABASE = getenv("SINGLESTORE_DATABASE")
     SSL_CERT = getenv("SINGLESTORE_SSL_CERT", None)
 
-    # Download the certificate if SSL_CERT is not provided
+    # 如果未提供 SSL_CERT 则下载证书
     if not SSL_CERT:
         SSL_CERT = download_cert(
             cert_url="https://portal.singlestore.com/static/ca/singlestore_bundle.pem",
@@ -112,14 +111,14 @@ if __name__ == "__main__":
         if SSL_CERT:
             os.environ["SINGLESTORE_SSL_CERT"] = SSL_CERT
 
-    # SingleStore DB URL
+    # SingleStore DB 连接 URL
     db_url = f"mysql+pymysql://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}?charset=utf8mb4"
     if SSL_CERT:
         db_url += f"&ssl_ca={SSL_CERT}&ssl_verify_cert=true"
 
-    # Create a DB engine
+    # 创建数据库引擎
     db_engine = create_engine(db_url)
-    # Run workflow
+    # 运行工作流
     report: Iterator[RunResponse] = HackerNewsReporter(
         storage=SingleStoreStorage(
             table_name="workflow_sessions",
@@ -129,14 +128,14 @@ if __name__ == "__main__":
         ),
         debug_mode=False,
     ).run(num_stories=5)
-    # Print the report
+    # 打印报告
     pprint_run_response(report, markdown=True, show_time=True)
 ```
 
-## Params
+## 参数配置
 
 <Snippet file="storage-s2-params.mdx" />
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/singlestore_storage/singlestore_storage_for_workflow.py)
+- 查看[Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/singlestore_storage/singlestore_storage_for_workflow.py)

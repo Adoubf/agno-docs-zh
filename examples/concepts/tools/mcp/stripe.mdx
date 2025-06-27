@@ -1,10 +1,8 @@
 ---
-title: Stripe MCP agent
+title: Stripe MCP 智能体
 sidebarTitle: Stripe
 ---
-
-
-Using the [Stripe MCP server](https://github.com/stripe/agent-toolkit/tree/main/modelcontextprotocol) to create an Agent that can interact with the Stripe API:
+使用 [Stripe MCP 服务器](https://github.com/stripe/agent-toolkit/tree/main/modelcontextprotocol) 创建一个可与 Stripe API 交互的智能体：
 
 ```python
 """💵 Stripe MCP Agent - Manage Your Stripe Operations
@@ -32,7 +30,7 @@ async def run_agent(message: str) -> None:
     """
     Sets up the Stripe MCP server and initialize the Agno agent
     """
-    # Verify Stripe API Key is available
+    # 验证 Stripe API 密钥是否可用
     stripe_api_key = os.getenv("STRIPE_SECRET_KEY")
     if not stripe_api_key:
         log_error("STRIPE_SECRET_KEY environment variable not set.")
@@ -40,11 +38,11 @@ async def run_agent(message: str) -> None:
 
     enabled_tools = "paymentLinks.create,products.create,prices.create,customers.create,customers.read"
 
-    # handle different Operating Systems
+    # 处理不同操作系统
     npx_command = "npx.cmd" if os.name == "nt" else "npx"
 
     try:
-        # Initialize MCP toolkit with Stripe server
+        # 用 Stripe 服务器初始化 MCP 工具包
         async with MCPTools(
             command=f"{npx_command} -y @stripe/mcp --tools={enabled_tools} --api-key={stripe_api_key}"
         ) as mcp_toolkit:
@@ -65,7 +63,7 @@ async def run_agent(message: str) -> None:
                 show_tool_calls=True,
             )
 
-            # Run the agent with the provided task
+            # 运行智能体以执行提供的任务
             log_info(f"Running agent with assignment: '{message}'")
             await agent.aprint_response(message, stream=True)
 
@@ -81,7 +79,7 @@ if __name__ == "__main__":
     asyncio.run(run_agent(task))
 
 
-# Example prompts:
+# 示例提示：
 """
 Customer Management:
 - "Create a customer. Name: ACME Corp, Email: billing@acme.example.com"
@@ -106,4 +104,3 @@ Combined Tasks:
 
 
 ```
-

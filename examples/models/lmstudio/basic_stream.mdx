@@ -1,8 +1,8 @@
 ---
-title: Streaming Agent
+title: 流式智能体
 ---
 
-## Code
+## 代码
 
 ```python cookbook/models/lmstudio/basic_stream.py
 from typing import Iterator  # noqa
@@ -11,28 +11,27 @@ from agno.models.lmstudio import LMStudio
 
 agent = Agent(model=LMStudio(id="qwen2.5-7b-instruct-1m"), markdown=True)
 
-# Get the response in a variable
-# run_response: Iterator[RunResponse] = agent.run("Share a 2 sentence horror story", stream=True)
+# 将响应存储到变量中
+# run_response: Iterator[RunResponse] = agent.run("分享一个两句话的恐怖故事", stream=True)
 # for chunk in run_response:
 #     print(chunk.content)
 
-# Print the response in the terminal
+# 在终端打印响应
 agent.print_response("Share a 2 sentence horror story", stream=True)
 ```
 
-## Usage
+## 使用指南
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-<Step title="Install LM Studio">
-  Install LM Studio from [here](https://lmstudio.ai/download) and download the
-  model you want to use.
+<Step title="安装 LM Studio">
+    从 [官网](https://lmstudio.ai/download) 下载安装 LM Studio，并获取您需要使用的模型。
 </Step>
 
 <Step title="Install libraries">```bash pip install -U agno ```</Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/lmstudio/basic_stream.py

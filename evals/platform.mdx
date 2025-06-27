@@ -1,30 +1,29 @@
 ---
-title: Evals on the Agno platform
-description: You can track your evaluation runs on the Agno platform
-sidebarTitle: Platform
+title: Agno 平台上的评估测试
+description: 您可以在Agno平台上追踪您的评估运行记录
+sidebarTitle: 平台
 ---
-
 <img height="200" src="/images/accuracy-eval-on-platform.png" style={{ borderRadius: "8px" }} />
 
 
-## Track your evaluations
+## 追踪评估结果
 
-Apart from running your evaluations on the CLI, you can also track them on the Agno platform. This is useful to keep track of results and share them with your team.
-Do it following these steps:
+除了通过CLI运行评估外，您还可以在Agno平台上追踪评估结果。这有助于记录结果并与团队共享。
+请按照以下步骤操作：
 
 <Steps>
 
-<Step title="Authenticate">
-  You can authenticate using your CLI or API key.
+<Step title="身份验证">
+  您可以使用CLI或API密钥进行身份验证。
 
-  **Using your CLI:**
+  **使用CLI:**
 ```bash
 ag setup
 ```
 
-**Using your API key:**
+**使用API密钥:**
 
-Get your API key from [Agno App](https://app.agno.com/settings) and use it to link your locally running agents to the Agno platform.
+从[Agno应用](https://app.agno.com/settings)获取您的API密钥，用于将本地运行的智能体与Agno平台关联。
 
 ```bash
 export AGNO_API_KEY=your_api_key_here
@@ -32,8 +31,8 @@ export AGNO_API_KEY=your_api_key_here
 
 </Step>
 
-<Step title="Track your evaluations">
-  When running an evaluation, set `monitoring=True` to track all its runs on the Agno platform:
+<Step title="跟踪您的评估">
+  运行评估时，设置`monitoring=True`以在Agno平台上追踪所有运行记录:
   ```python
 from agno.agent import Agent
 from agno.eval.accuracy import AccuracyEval
@@ -47,17 +46,17 @@ evaluation = AccuracyEval(
     monitoring=True, # This activates monitoring
 )
 
-# This run will be tracked on the Agno platform
+# 该运行将被记录在 Agno 平台上
 result = evaluation.run(print_results=True)
   ```
 
-  You can also set the `AGNO_MONITOR` environment variable to `true` to track all evaluation runs.
+  您也可以将环境变量`AGNO_MONITOR`设置为`true`来追踪所有评估运行。
 </Step>
 
-<Step title="View your evaluations">
-    You can now view your evaluations on the Agno platform at [app.agno.com/evaluations](https://app.agno.com/evaluations).
+<Step title="查看您的评估记录">
+    现在您可以在Agno平台[app.agno.com/evaluations](https://app.agno.com/evaluations)查看评估结果。
 </Step>
 </Steps>
 
 
-<Info>Facing issues? Check out our [troubleshooting guide](/faq/cli-auth)</Info>
+<Info>遇到问题？请查看我们的[故障排除指南](/faq/cli-auth)</Info>

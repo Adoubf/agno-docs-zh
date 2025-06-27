@@ -1,10 +1,11 @@
 ---
-title: Non-Reasoning Model Agent
+title: 非推理模型智能体
 ---
-This example demonstrates how it works when you pass a non-reasoning model as a reasoning model.
-It defaults to using the default OpenAI reasoning model.
-We recommend using the appropriate reasoning model or passing `reasoning=True` to use the default Chain-of-Thought reasoning.
-## Code
+本示例演示了当您将非推理模型作为推理模型传入时的工作机制。
+系统将默认使用OpenAI的预设推理模型。
+我们建议使用合适的推理模型，或传入`reasoning=True`以使用默认的思维链(Chain-of-Thought)推理方法。
+
+## 代码实现
 
 ```python cookbook/reasoning/agents/default_chain_of_thought.py
 from agno.agent import Agent
@@ -24,7 +25,7 @@ reasoning_agent.print_response(
 )
 
 
-# It uses the default model of the Agent
+# 它使用智能体的默认模型
 reasoning_agent = Agent(
     model=OpenAIChat(id="gpt-4o", max_tokens=1200),
     reasoning=True,
@@ -39,24 +40,24 @@ reasoning_agent.print_response(
 
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/reasoning/agents/default_chain_of_thought.py

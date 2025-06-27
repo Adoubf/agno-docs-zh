@@ -1,8 +1,8 @@
-| Parameter  | Type            | Default                                    | Description                                                                                                              |
+| 参数        | 类型            | 默认值                                    | 描述                                                                                                              |
 | ---------- | --------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `id`       | `str`           | `"sonar-pro"`            | The specific model ID used for generating responses.                                                                     |
-| `name`     | `str`           | `"Perplexity"`                                 | The name identifier for the Perplexity agent.                                                                                |
-| `provider` | `str`           | `"Perplexity" + id`                                           | The provider of the model, combining "Perplexity" with the model ID.                                                         |
-| `api_key`  | `Optional[str]` | -                                          | The API key for authenticating requests to the Perplexity service. Retrieved from the environment variable `PERPLEXITY_API_KEY`. |
-| `base_url` | `str`           | `"https://api.perplexity.ai/"`    | The base URL for making API requests to the Perplexity service.                                                              |
-| `max_tokens` | `int`           | `1024`    | The maximum number of tokens to generate in the response.                                                                     |
+| `id`       | `str`           | `"sonar-pro"`            | 用于生成回答的特定模型ID。                                                                     |
+| `name`     | `str`           | `"Perplexity"`                                 | Perplexity智能体的名称标识符。                                                                                |
+| `provider` | `str`           | `"Perplexity" + id`                                           | 模型供应商，由"Perplexity"与模型ID组合而成。                                                         |
+| `api_key`  | `Optional[str]` | -                                          | 用于验证Perplexity服务请求的API密钥。从环境变量`PERPLEXITY_API_KEY`中获取。 |
+| `base_url` | `str`           | `"https://api.perplexity.ai/"`    | 向Perplexity服务发起API请求的基础URL。                                                              |
+| `max_tokens` | `int`           | `1024`    | 生成响应中包含的最大token数量。                                                                     |

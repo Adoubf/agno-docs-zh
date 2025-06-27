@@ -1,12 +1,11 @@
 ---
-title: LlamaIndex Knowledge Base
-description: Learn how to use a LlamaIndex retriever or vector store as a knowledge base.
+title: LlamaIndex 知识库
+description: 学习如何将LlamaIndex检索器或向量存储用作知识库。
 sidebarTitle: LlamaIndex
 ---
+**LlamaIndexKnowledgeBase** 允许我们使用 LlamaIndex 检索器或向量存储作为知识库。
 
-The **LlamaIndexKnowledgeBase** allows us to use a LlamaIndex retriever or vector store as a knowledge base.
-
-## Usage
+## 使用方法
 
 ```shell
 pip install llama-index-core llama-index-readers-file llama-index-embeddings-openai
@@ -57,25 +56,25 @@ index = VectorStoreIndex(nodes=nodes, storage_context=storage_context)
 
 retriever = VectorIndexRetriever(index)
 
-# Create a knowledge base from the vector store
+# 从向量存储创建知识库
 knowledge_base = LlamaIndexKnowledgeBase(retriever=retriever)
 
-# Create an agent with the knowledge base
+# 创建一个带有知识库的智能体
 agent = Agent(knowledge_base=knowledge_base, search_knowledge=True, debug_mode=True, show_tool_calls=True)
 
-# Use the agent to ask a question and print a response.
+# 使用智能体提问并打印响应。
 agent.print_response("Explain what this text means: low end eats the high end", markdown=True)
 ```
 
-## Params
+## 参数配置
 
-| Parameter   | Type                 | Default | Description                                                           |
-| ----------- | -------------------- | ------- | --------------------------------------------------------------------- |
-| `retriever` | `BaseRetriever`      | `None`  | LlamaIndex retriever used for querying the knowledge base.            |
-| `loader`    | `Optional[Callable]` | `None`  | Optional callable function to load documents into the knowledge base. |
+| 参数        | 类型                 | 默认值   | 描述                                                                 |
+| ----------- | -------------------- | ------- | -------------------------------------------------------------------- |
+| `retriever` | `BaseRetriever`      | `None`  | 用于查询知识库的 LlamaIndex 检索器。                                  |
+| `loader`    | `Optional[Callable]` | `None`  | 可选的可调用函数，用于将文档加载到知识库中。                           |
 
-`LlamaIndexKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+`LlamaIndexKnowledgeBase` 是 [AgentKnowledge](/reference/knowledge/base) 类的子类，具有相同的参数访问权限。
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/llamaindex_kb.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/llamaindex_kb.py)

@@ -1,9 +1,9 @@
-| Parameter    | Type                             | Default           | Description                                                                            |
+| 参数         | 类型                             | 默认值           | 描述                                                                                   |
 | ------------ | -------------------------------- | ----------------- | -------------------------------------------------------------------------------------- |
-| `collection` | `str`                            | -                 | Name of the collection to store vector data                                            |
-| `schema`     | `Optional[str]`                  | `"ai"`            | Database schema name                                                                   |
-| `db_url`     | `Optional[str]`                  | `None`            | Database connection URL                                                                |
-| `db_engine`  | `Optional[Engine]`               | `None`            | SQLAlchemy database engine                                                             |
-| `embedder`   | `Optional[Embedder]`             | `None`            | Embedder instance for creating embeddings (defaults to OpenAIEmbedder if not provided) |
-| `distance`   | `Distance`                       | `Distance.cosine` | Distance metric for vector comparisons                                                 |
-| `index`      | `Optional[Union[Ivfflat, HNSW]]` | `HNSW()`          | Vector index configuration                                                             |
+| `collection` | `str`                            | -                 | 用于存储向量数据的集合名称                                                            |
+| `schema`     | `Optional[str]`                  | `"ai"`            | 数据库模式名称                                                                        |
+| `db_url`     | `Optional[str]`                  | `None`            | 数据库连接URL                                                                         |
+| `db_engine`  | `Optional[Engine]`               | `None`            | SQLAlchemy数据库引擎                                                                  |
+| `embedder`   | `Optional[Embedder]`             | `None`            | 用于创建嵌入的嵌入器实例（未提供时默认使用OpenAIEmbedder）                            |
+| `distance`   | `Distance`                       | `Distance.cosine` | 向量比较的距离度量                                                                    |
+| `index`      | `Optional[Union[Ivfflat, HNSW]]` | `HNSW()`          | 向量索引配置                                                                          |

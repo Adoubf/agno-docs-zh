@@ -1,8 +1,7 @@
 ---
-title: Basic Agent
+title: 基础智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/aws/claude/basic.py
 from agno.agent import Agent, RunResponse  # noqa
@@ -12,20 +11,20 @@ agent = Agent(
     model=Claude(id="anthropic.claude-3-5-sonnet-20240620-v1:0"), markdown=True
 )
 
-# Get the response in a variable
-# run: RunResponse = agent.run("Share a 2 sentence horror story")
-# print(run.content)
+# 将响应存储在变量中
+# 运行：RunResponse = 智能体.run("分享一个两句话的恐怖故事")
+# 打印(run.content)
 
-# Print the response in the terminal
+# 在终端中打印响应
 agent.print_response("Share a 2 sentence horror story")
 ```
 
-## Usage
+## 使用指南
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your AWS Credentials">
+  <Step title="设置您的 AWS 凭证">
     ```bash
     export AWS_ACCESS_KEY_ID=***
     export AWS_SECRET_ACCESS_KEY=***
@@ -33,15 +32,15 @@ agent.print_response("Share a 2 sentence horror story")
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U anthropic[bedrock] agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果电脑
     python cookbook/models/aws/claude/basic.py
     ```
 

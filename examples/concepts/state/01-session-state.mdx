@@ -1,8 +1,9 @@
 ---
-title: Basic State Management
+title: 基础状态管理
 ---
-This is a basic agent state management example which shows how to manage and update agent state by maintaining a dynamic shopping list.
-## Code
+这是一个基础的智能体状态管理示例，展示如何通过维护动态购物清单来管理和更新智能体状态。
+
+## 代码
 
 ```python cookbook/agent_concepts/state/session_state.py
 from agno.agent import Agent
@@ -15,45 +16,45 @@ def add_item(agent: Agent, item: str) -> str:
     return f"The shopping list is now {agent.session_state['shopping_list']}"
 
 
-# Create an Agent that maintains state
+# 创建一个能维护状态的智能体
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
-    # Initialize the session state with a counter starting at 0
+    # 用计数器初始化会话状态，初始值为0
     session_state={"shopping_list": []},
     tools=[add_item],
-    # You can use variables from the session state in the instructions
+    # 您可以在指令中使用会话状态中的变量。
     instructions="Current state (shopping list) is: {shopping_list}",
-    # Important: Add the state to the messages
+    # 重要提示：将状态添加到消息中
     add_state_in_messages=True,
     markdown=True,
 )
 
-# Example usage
+# 示例用法
 agent.print_response("Add milk, eggs, and bread to the shopping list", stream=True)
 print(f"Final session state: {agent.session_state}")
 
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的API密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
-    ```bash Mac
+    ```bash Mac（苹果电脑操作系统）
     python cookbook/agent_concepts/state/session_state.py
     ```
 

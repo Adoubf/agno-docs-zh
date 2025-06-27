@@ -1,10 +1,9 @@
 ---
-title: Capture Reasoning Content
+title: 捕捉推理内容
 ---
+本示例演示如何在使用 `reasoning=True` 或设置特定 `reasoning_model` 时访问并打印 `reasoning_content`。
 
-This example demonstrates how to access and print the `reasoning_content`
-when using either `reasoning=True` or setting a specific `reasoning_model`.
-## Code
+## 代码
 
 ```python cookbook/reasoning/agents/capture_reasoning_content_default_COT.py
 
@@ -13,18 +12,18 @@ from agno.models.openai import OpenAIChat
 
 print("\n=== Example 1: Using reasoning=True (default COT) ===\n")
 
-# Create agent with reasoning=True (default model COT)
+# 创建智能体并启用推理功能（默认模型为COT）
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     reasoning=True,
     markdown=True,
 )
 
-# Run the agent (non-streaming)
+# 运行智能体（非流式）
 print("Running with reasoning=True (non-streaming)...")
 response = agent.run("What is the sum of the first 10 natural numbers?")
 
-# Print the reasoning_content
+# 打印推理内容
 print("\n--- reasoning_content from response ---")
 if hasattr(response, "reasoning_content") and response.reasoning_content:
     print(response.reasoning_content)
@@ -34,20 +33,20 @@ else:
 
 print("\n\n=== Example 2: Using a custom reasoning_model ===\n")
 
-# Create agent with a specific reasoning_model
+# 创建具有特定推理模型的智能体
 agent_with_reasoning_model = Agent(
     model=OpenAIChat(id="gpt-4o"),
     reasoning_model=OpenAIChat(id="gpt-4o"),  # Should default to manual COT
     markdown=True,
 )
 
-# Run the agent (non-streaming)
+# 运行智能体（非流式模式）
 print("Running with reasoning_model specified (non-streaming)...")
 response = agent_with_reasoning_model.run(
     "What is the sum of the first 10 natural numbers?"
 )
 
-# Print the reasoning_content
+# 输出推理内容
 print("\n--- reasoning_content from response ---")
 if hasattr(response, "reasoning_content") and response.reasoning_content:
     print(response.reasoning_content)
@@ -57,14 +56,14 @@ else:
 
 print("\n\n=== Example 3: Streaming with reasoning=True ===\n")
 
-# Create a fresh agent for streaming
+# 创建一个用于流式传输的新智能体
 streaming_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     reasoning=True,
     markdown=True,
 )
 
-# Print response (which includes processing streaming responses)
+# 打印响应（包含处理流式响应）
 print("Running with reasoning=True (streaming)...")
 streaming_agent.print_response(
     "What is the value of 5! (factorial)?",
@@ -72,7 +71,7 @@ streaming_agent.print_response(
     show_full_reasoning=True,
 )
 
-# Access reasoning_content from the agent's run_response after streaming
+# 从智能体的 run_response 中获取 reasoning_content 流式响应内容
 print("\n--- reasoning_content from agent.run_response after streaming ---")
 if (
     hasattr(streaming_agent, "run_response")
@@ -87,14 +86,14 @@ else:
 
 print("\n\n=== Example 4: Streaming with reasoning_model ===\n")
 
-# Create a fresh agent with reasoning_model for streaming
+# 创建一个配备流式推理模型的新智能体
 streaming_agent_with_model = Agent(
     model=OpenAIChat(id="gpt-4o"),
     reasoning_model=OpenAIChat(id="gpt-4o"),
     markdown=True,
 )
 
-# Print response (which includes processing streaming responses)
+# 打印响应（包含处理流式响应）
 print("Running with reasoning_model specified (streaming)...")
 streaming_agent_with_model.print_response(
     "What is the value of 5! (factorial)?",
@@ -102,7 +101,7 @@ streaming_agent_with_model.print_response(
     show_full_reasoning=True,
 )
 
-# Access reasoning_content from the agent's run_response after streaming
+# 从智能体的 run_response 中获取 reasoning_content 流式传输后的内容
 print("\n--- reasoning_content from agent.run_response after streaming ---")
 if (
     hasattr(streaming_agent_with_model, "run_response")
@@ -116,26 +115,26 @@ else:
 
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果（Mac）
     python cookbook/reasoning/agents/capture_reasoning_content_default_COT.py
     ```
 

@@ -1,15 +1,14 @@
 ---
-title: Postgres Agent Storage
-sidebarTitle: Postgres
+title: Postgres 智能体存储
+sidebarTitle: PostgreSQL
 ---
+Agno 支持使用 PostgreSQL 作为智能体的存储后端，通过 `PostgresStorage` 类实现。
 
-Agno supports using PostgreSQL as a storage backend for Agents using the `PostgresStorage` class.
+## 使用方法
 
-## Usage
+### 运行 PgVector
 
-### Run PgVector
-
-Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) and run **PgVector** on port **5532** using:
+安装 [docker desktop](https://docs.docker.com/desktop/install/mac-install/) 并通过以下命令在 **5532** 端口运行 **PgVector**：
 
 ```bash
 docker run -d \
@@ -28,22 +27,22 @@ from agno.storage.postgres import PostgresStorage
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
-# Create a storage backend using the Postgres database
+# 使用PostgreSQL数据库创建存储后端
 storage = PostgresStorage(
-    # store sessions in the ai.sessions table
+    # 将会话存储在 ai.sessions 表中
     table_name="agent_sessions",
-    # db_url: Postgres database URL
+    # db_url: PostgreSQL 数据库 URL
     db_url=db_url,
 )
 
-# Add storage to the Agent
+# 为智能体添加存储功能
 agent = Agent(storage=storage)
 ```
 
-## Params
+## 参数说明
 
 <Snippet file="storage-postgres-params.mdx" />
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/postgres_storage/postgres_storage_for_agent.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/postgres_storage/postgres_storage_for_agent.py)

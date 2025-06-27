@@ -1,26 +1,25 @@
 ---
-title: MoviePy Video Tools
-description: Agno MoviePyVideoTools enable an Agent to process videos, extract audio, generate SRT caption files, and embed rich, word-highlighted captions.
+title: MoviePy 视频工具
+description: Agno MoviePyVideoTools 使智能体能够处理视频、提取音频、生成 SRT 字幕文件并嵌入带单词高亮的丰富字幕。
 ---
+## 前提条件
 
-## Prerequisites
-
-To use `MoviePyVideoTools`, you need to install `moviepy` and its dependency `ffmpeg`:
+要使用 `MoviePyVideoTools`，您需要安装 `moviepy` 及其依赖项 `ffmpeg`：
 
 ```shell
 pip install moviepy ffmpeg
 ```
 
-**Important for Captioning Workflow:**
-The `create_srt` and `embed_captions` tools require a transcription of the video's audio. `MoviePyVideoTools` itself does not perform speech-to-text. You'll typically use another tool, such as `OpenAITools` with its `transcribe_audio` function, to generate the transcription (often in SRT format) which is then used by these tools.
+**字幕工作流重要说明：**
+`create_srt` 和 `embed_captions` 工具需要视频音频的转录文本。`MoviePyVideoTools` 本身不提供语音转文本功能。您通常需要使用其他工具（例如带有 `transcribe_audio` 功能的 `OpenAITools`）生成转录文本（通常为SRT格式），这些工具随后会使用该转录文本。
 
-## Example
+## 示例
 
-The following example demonstrates a complete workflow where an agent uses `MoviePyVideoTools` in conjunction with `OpenAITools` to:
-1. Extract audio from a video file
-2. Transcribe the audio using OpenAI's speech-to-text
-3. Generate an SRT caption file from the transcription
-4. Embed the captions into the video with word-level highlighting
+以下示例演示了一个完整工作流，其中智能体结合使用 `MoviePyVideoTools` 和 `OpenAITools` 实现：
+1. 从视频文件中提取音频
+2. 使用OpenAI的语音转文本功能转录音频
+3. 根据转录文本生成SRT字幕文件
+4. 将字幕嵌入视频并实现词级高亮效果
 
 ```python
 from agno.agent import Agent
@@ -58,27 +57,27 @@ video_caption_agent.print_response(
 )
 ```
 
-## Toolkit Functions
+## 工具包函数
 
-These are the functions exposed by `MoviePyVideoTools`:
+以下是 `MoviePyVideoTools` 提供的函数：
 
-| Function          | Description                                                                                                |
+| 函数名          | 描述                                                                                                |
 | ----------------- | ---------------------------------------------------------------------------------------------------------- |
-| `extract_audio`   | Extracts the audio track from a video file and saves it to a specified output path.                        |
-| `create_srt`      | Saves a given transcription (expected in SRT format) to a `.srt` file at the specified output path.          |
-| `embed_captions`  | Embeds captions from an SRT file into a video, creating a new video file with word-level highlighting.     |
+| `extract_audio`   | 从视频文件中提取音轨并保存到指定输出路径。                        |
+| `create_srt`      | 将给定转录文本（需为SRT格式）保存为 `.srt` 文件到指定输出路径。          |
+| `embed_captions`  | 将SRT文件中的字幕嵌入视频，生成带有词级高亮效果的新视频文件。     |
 
-## Toolkit Parameters
+## 工具包参数
 
-These parameters are passed to the `MoviePyVideoTools` constructor:
+以下是传递给 `MoviePyVideoTools` 构造函数的参数：
 
-| Parameter           | Type   | Default | Description                                              |
+| 参数名           | 类型   | 默认值 | 描述                                              |
 | ------------------- | ------ | ------- | -------------------------------------------------------- |
-| `process_video`     | `bool` | `True`  | Enables the `extract_audio` tool.                        |
-| `generate_captions` | `bool` | `True`  | Enables the `create_srt` tool.                           |
-| `embed_captions`    | `bool` | `True`  | Enables the `embed_captions` tool.                       |
+| `process_video`     | `bool` | `True`  | 启用 `extract_audio` 工具。                        |
+| `generate_captions` | `bool` | `True`  | 启用 `create_srt` 工具。                           |
+| `embed_captions`    | `bool` | `True`  | 启用 `embed_captions` 工具。                       |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/moviepy_video.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/moviepy_video_tools.py)
+- 查看 [工具文档](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/moviepy_video.py)
+- 查看 [开发手册](https://github.com/agno-agi/agno/blob/main/cookbook/tools/moviepy_video_tools.py)

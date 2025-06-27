@@ -1,16 +1,15 @@
 ---
-title: S3 Text Knowledge Base
-description: Learn how to use text files from an S3 bucket in your knowledge base.
-sidebarTitle: S3 Text
+title: S3 文本知识库
+description: 了解如何在知识库中使用来自 S3 存储桶的文本文件。
+sidebarTitle: S3 文本
 ---
+**S3TextKnowledgeBase** 从 S3 存储桶读取**文本**文件，将其转换为向量嵌入并加载到向量数据库中。
 
-The **S3TextKnowledgeBase** reads **text** files from an S3 bucket, converts them into vector embeddings and loads them to a vector database.
-
-## Usage
+## 使用方式
 
 <Note>
 
-We are using a local PgVector database for this example. [Make sure it's running](https://docs.agno.com/vectordb/pgvector)
+本示例使用本地 PgVector 数据库。[确保其处于运行状态](https://docs.agno.com/vectordb/pgvector)
 
 </Note>
 
@@ -31,7 +30,7 @@ knowledge_base = S3TextKnowledgeBase(
 )
 ```
 
-Then use the `knowledge_base` with an `Agent`:
+然后配合 `knowledge_base` 使用 `Agent`：
 
 ```python
 from agno.agent import Agent
@@ -46,17 +45,17 @@ agent.knowledge.load(recreate=False)
 agent.print_response("How to make Hummus?")
 ```
 
-## Params
+## 参数
 
-| Parameter     | Type           | Default             | Description                                                                               |
+| 参数          | 类型           | 默认值             | 描述                                                                               |
 | ------------- | -------------- | ------------------- | ----------------------------------------------------------------------------------------- |
-| `bucket_name` | `str`          | `None`              | The name of the S3 Bucket where the files are.                                            |
-| `key`         | `str`          | `None`              | The key of the file in the bucket.                                                        |
-| `formats`     | `List[str]`    | `[".doc", ".docx"]` | Formats accepted by this knowledge base.                                                  |
-| `reader`      | `S3TextReader` | `S3TextReader()`    | A `S3TextReader` that converts the `Text` files into `Documents` for the vector database. |
+| `bucket_name` | `str`          | `None`              | 文件所在的 S3 存储桶名称。                                            |
+| `key`         | `str`          | `None`              | 文件在存储桶中的键名。                                                        |
+| `formats`     | `List[str]`    | `[".doc", ".docx"]` | 该知识库接受的格式。                                                  |
+| `reader`      | `S3TextReader` | `S3TextReader()`    | 用于将 `Text` 文件转换为向量数据库所需的 `Documents` 的 `S3TextReader`。 |
 
-`S3TextKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+`S3TextKnowledgeBase` 是 [AgentKnowledge](/reference/knowledge/base) 类的子类，可访问相同参数。
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/s3_text_kb.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/s3_text_kb.py)

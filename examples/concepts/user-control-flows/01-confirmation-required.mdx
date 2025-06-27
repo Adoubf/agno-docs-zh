@@ -1,9 +1,8 @@
 ---
-title: User Confirmation Required
-description: This example demonstrates how to implement human-in-the-loop functionality by requiring user confirmation before executing tool calls.
+title: 需要用户确认
+description: 本示例演示了如何通过在执行工具调用前要求用户确认，来实现人机交互（human-in-the-loop）功能。
 ---
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/user_control_flows/confirmation_required.py
 import json
@@ -28,11 +27,11 @@ def get_top_hackernews_stories(num_stories: int) -> str:
     Returns:
         str: JSON string containing story details
     """
-    # Fetch top story IDs
+    # 获取热门新闻ID列表
     response = httpx.get("https://hacker-news.firebaseio.com/v0/topstories.json")
     story_ids = response.json()
 
-    # Yield story details
+    # 获取故事详情
     all_stories = []
     for story_id in story_ids[:num_stories]:
         story_response = httpx.get(
@@ -53,7 +52,7 @@ agent = Agent(
 agent.run("Fetch the top 2 hackernews stories.")
 if agent.is_paused:
     for tool in agent.run_response.tools_requiring_confirmation:
-        # Ask for confirmation
+        # 请求确认
         console.print(
             f"Tool name [bold blue]{tool.tool_name}({tool.tool_args})[/] requires confirmation."
         )
@@ -72,26 +71,26 @@ run_response = agent.continue_run()
 pprint.pprint_run_response(run_response)
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno httpx rich openai
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果电脑
     python cookbook/agent_concepts/user_control_flows/confirmation_required.py
     ```
 
@@ -102,11 +101,11 @@ pprint.pprint_run_response(run_response)
   </Step>
 </Steps>
 
-## Key Features
+## 核心特性
 
-- Uses `@tool(requires_confirmation=True)` to mark tools that need user confirmation
-- Demonstrates how to continue agent execution after user input
+- 使用 `@tool(requires_confirmation=True)` 标记需要用户确认的工具
+- 演示如何在用户输入后继续执行智能体
 
-## Use Cases
+## 应用场景
 
-- Confirming sensitive operations before execution
+- 在执行敏感操作前进行确认

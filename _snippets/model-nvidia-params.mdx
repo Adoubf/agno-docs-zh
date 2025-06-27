@@ -1,7 +1,7 @@
-| Parameter  | Type            | Default                                    | Description                                                                                                              |
+| 参数        | 类型            | 默认值                                    | 描述                                                                                                              |
 | ---------- | --------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `id`       | `str`           | `"meta/llama-3.3-70b-instruct"`            | The specific model ID used for generating responses.                                                                     |
-| `name`     | `str`           | `"Nvidia"`                                 | The name identifier for the Nvidia agent.                                                                                |
-| `provider` | `str`           | `"Nvidia" + id`                                           | The provider of the model, combining "Nvidia" with the model ID.                                                         |
-| `api_key`  | `Optional[str]` | -                                          | The API key for authenticating requests to the Nvidia service. Retrieved from the environment variable `NVIDIA_API_KEY`. |
-| `base_url` | `str`           | `"https://integrate.api.nvidia.com/v1"`    | The base URL for making API requests to the Nvidia service.                                                              |
+| `id`       | `str`           | `"meta/llama-3.3-70b-instruct"`            | 用于生成响应的特定模型ID。                                                                     |
+| `name`     | `str`           | `"Nvidia"`                                 | Nvidia智能体的名称标识符。                                                                                |
+| `provider` | `str`           | `"Nvidia" + id`                                           | 模型提供商，由"Nvidia"与模型ID组合而成。                                                         |
+| `api_key`  | `Optional[str]` | -                                          | 用于认证Nvidia服务请求的API密钥。从环境变量`NVIDIA_API_KEY`中获取。 |
+| `base_url` | `str`           | `"https://integrate.api.nvidia.com/v1"`    | 向Nvidia服务发起API请求的基础URL。                                                              |

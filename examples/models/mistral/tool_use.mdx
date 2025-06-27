@@ -1,8 +1,7 @@
 ---
-title: Agent with Tools
+title: 带工具的智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/mistral/tool_use.py
 from agno.agent import Agent
@@ -21,32 +20,32 @@ agent = Agent(
 agent.print_response("Whats happening in France?", stream=True)
 ```
 
-## Usage
+## 使用说明
 
-<Steps>
-  <Snippet file="create-venv-step.mdx" />
+<Steps>  
+  <Snippet file="create-venv-step.mdx" />  
 
-  <Step title="Set your API key">
+  <Step title="设置您的API密钥">  
     ```bash
     export MISTRAL_API_KEY=xxx
-    ```
-  </Step>
+    ```  
+  </Step>  
 
-  <Step title="Install libraries">
+  <Step title="安装库">  
     ```bash
     pip install -U mistralai duckduckgo-search agno
-    ```
-  </Step>
+    ```  
+  </Step>  
 
-  <Step title="Run Agent">
-    <CodeGroup>
-    ```bash Mac
+  <Step title="运行智能体">  
+    <CodeGroup>  
+    ```bash Mac（中文通常直接使用英文名称，不翻译）
     python cookbook/models/mistral/tool_use.py
-    ```
+    ```  
 
     ```bash Windows
     python cookbook/models/mistral/tool_use.py
-    ```
-    </CodeGroup>
-  </Step>
+    ```  
+    </CodeGroup>  
+  </Step>  
 </Steps>

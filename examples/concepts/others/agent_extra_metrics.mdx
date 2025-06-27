@@ -1,10 +1,9 @@
 ---
-title: Agent Extra Metrics
+title: 智能体额外指标
 ---
+本示例展示如何获取特殊token的计量数据，例如音频token、缓存token和推理token。
 
-This example shows how to get special token metrics like audio, cached and reasoning tokens.
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/other/agent_extra_metrics.py
 import requests
@@ -12,7 +11,7 @@ from agno.agent import Agent
 from agno.media import Audio
 from agno.models.openai import OpenAIChat
 
-# Fetch the audio file and convert it to a base64 encoded string
+# 获取音频文件并将其转换为 base64 编码字符串
 url = "https://openaiassets.blob.core.windows.net/$web/API/docs/audio/alloy.wav"
 response = requests.get(url)
 response.raise_for_status()
@@ -31,7 +30,7 @@ agent.print_response(
     "What's in these recording?",
     audio=[Audio(content=wav_data, format="wav")],
 )
-# Showing input audio, output audio and total audio tokens metrics
+# 显示输入音频、输出音频及总音频令牌指标
 print(f"Input audio tokens: {agent.run_response.metrics['input_audio_tokens']}")
 print(f"Output audio tokens: {agent.run_response.metrics['output_audio_tokens']}")
 print(f"Audio tokens: {agent.run_response.metrics['audio_tokens']}")
@@ -47,7 +46,7 @@ agent.print_response(
     "Solve the trolley problem. Evaluate multiple ethical frameworks. Include an ASCII diagram of your solution.",
     stream=False,
 )
-# Showing reasoning tokens metrics
+# 展示推理令牌指标
 print(f"Reasoning tokens: {agent.run_response.metrics['reasoning_tokens']}")
 
 
@@ -56,30 +55,30 @@ agent = Agent(
 )
 agent.run("Share a 2 sentence horror story" * 150)
 agent.print_response("Share a 2 sentence horror story" * 150)
-# Showing cached tokens metrics
+# 显示缓存的令牌指标
 print(f"Cached tokens: {agent.run_response.metrics['cached_tokens']}")
 ```
 
-## Usage
+## 使用方式
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的API密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U requests openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果
     python cookbook/agent_concepts/other/agent_extra_metrics.py
     ```
 
@@ -88,4 +87,4 @@ print(f"Cached tokens: {agent.run_response.metrics['cached_tokens']}")
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

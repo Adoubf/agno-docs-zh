@@ -1,20 +1,19 @@
 ---
-title: Website Tools
+title: 网站工具
 ---
+**网站工具**能让智能体解析网站内容并将其添加到知识库中。
 
-**WebsiteTools** enable an Agent to parse a website and add its contents to the knowledge base.
+## 前提条件
 
-## Prerequisites
-
-The following example requires the `beautifulsoup4` library.
+以下示例需要使用 `beautifulsoup4` 库。
 
 ```shell
 pip install -U beautifulsoup4
 ```
 
-## Example
+## 示例
 
-The following agent will read the contents of a website and add it to the knowledge base.
+以下智能体会读取网站内容并将其添加到知识库。
 
 ```python cookbook/tools/website_tools.py
 from agno.agent import Agent
@@ -24,20 +23,20 @@ agent = Agent(tools=[WebsiteTools()], show_tool_calls=True)
 agent.print_response("Search web page: 'https://docs.agno.com/introduction'", markdown=True)
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter        | Type                   | Default | Description                                                                                                            |
+| 参数        | 类型                   | 默认值 | 描述                                                                                                            |
 | ---------------- | ---------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `knowledge_base` | `WebsiteKnowledgeBase` | -       | The knowledge base associated with the website, containing various data and resources linked to the website's content. |
+| `knowledge_base` | `WebsiteKnowledgeBase` | -       | 与网站关联的知识库，包含与网站内容相关的各种数据和资源。 |
 
-## Toolkit Functions
+## 工具包函数
 
-| Function                        | Description                                                                                                                                                                                                          |
+| 函数                        | 描述                                                                                                                                                                                                          |
 | ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `add_website_to_knowledge_base` | This function adds a website's content to the knowledge base. **NOTE:** The website must start with `https://` and should be a valid website. Use this function to get information about products from the internet. |
-| `read_url`                      | This function reads a URL and returns the contents.                                                                                                                                                                  |
+| `add_website_to_knowledge_base` | 该函数将网站内容添加到知识库。**注意：**网站必须以 `https://` 开头且应为有效网站。使用此函数可从互联网获取产品信息。 |
+| `read_url`                      | 该函数读取URL并返回其内容。                                                                                                                                                                  |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/website.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/website_tools.py)
+- 查看 [工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/website.py)
+- 查看 [教程集](https://github.com/agno-agi/agno/blob/main/cookbook/tools/website_tools.py)

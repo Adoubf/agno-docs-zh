@@ -1,14 +1,13 @@
 ---
-title: Custom Memory
+title: 自定义记忆
 ---
+本示例展示如何分别配置记忆管理器和摘要生成器的模型。
 
-This example shows how you can configure the Memory Manager and Summarizer models individually. 
+在此示例中，我们使用OpenRouter平台的LLama 3.3-70b-instruct作为记忆管理器，Claude 3.5 Sonnet作为摘要生成器，同时采用Gemini作为智能体模型。
 
-In this example, we use OpenRouter and LLama 3.3-70b-instruct for the memory manager and Claude 3.5 Sonnet for the summarizer, while using Gemini for the Agent. 
+我们还为记忆管理器和摘要生成器设置了自定义系统提示。
 
-We also set custom system prompts for the memory manager and summarizer.
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/memory/10_custom_memory.py
 from agno.agent.agent import Agent
@@ -21,7 +20,7 @@ from rich.pretty import pprint
 
 memory_db = SqliteMemoryDb(table_name="memory", db_file="tmp/memory.db")
 
-# You can also override the entire `system_message` for the memory manager
+# 你也可以为记忆管理器覆写整个 `system_message`
 memory_manager = MemoryManager(
     model=OpenRouter(id="meta-llama/llama-3.3-70b-instruct"),
     additional_instructions="""
@@ -29,7 +28,7 @@ memory_manager = MemoryManager(
     """,
 )
 
-# You can also override the entire `system_message` for the session summarizer
+# 你也可以为会话摘要器完全覆盖 `system_message`
 session_summarizer = SessionSummarizer(
     model=Claude(id="claude-3-5-sonnet-20241022"),
     additional_instructions="""
@@ -43,7 +42,7 @@ memory = Memory(
     summarizer=session_summarizer,
 )
 
-# Reset the memory for this example
+# 重置此示例的记忆
 memory.clear()
 
 john_doe_id = "john_doe@example.com"
@@ -72,18 +71,18 @@ print("Session summary:")
 pprint(summary)
 ```
 
-## Usage
+## 使用
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno rich
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/memory/10_custom_memory.py
@@ -94,4 +93,4 @@ pprint(summary)
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

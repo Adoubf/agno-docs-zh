@@ -1,15 +1,14 @@
 ---
-title: Prompt Caching
-description: Learn how to use prompt caching with Anthropic models and Agno.
+title: 提示缓存
+description: 了解如何在Anthropic模型与Agno中使用提示缓存功能。
 ---
+提示词缓存功能有助于降低处理时间和成本。如果您在任何流程中多次使用相同的提示词，可以考虑启用该功能。
 
-Prompt caching can help reducing processing time and costs. Consider it if you are using the same prompt multiple times in any flow.
+您可以在此处查阅关于Anthropic模型提示词缓存的更多信息[链接](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching)。
 
-You can read more about prompt caching with Anthropic models [here](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching).
+## 使用方法
 
-## Usage
-
-To use prompt caching in your Agno setup, pass the `cache_system_prompt` argument when initializing the `Claude` model:
+要在Agno配置中使用提示词缓存功能，请在初始化`Claude`模型时传入`cache_system_prompt`参数：
 
 ```python
 from agno.agent import Agent
@@ -23,12 +22,11 @@ agent = Agent(
 )
 ```
 
-Notice that for prompt caching to work, the prompt needs to be of a certain length. You can read more about this on Anthropic's [docs](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching#cache-limitations).
+请注意，提示词缓存功能需要满足一定的提示词长度要求。您可以在Anthropic的[文档](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching#cache-limitations)中查阅更多相关信息。
 
+## 扩展缓存
 
-## Extended cache
-
-You can also use Anthropic's extended cache beta feature. This updates the cache duration from 5 minutes to 1 hour. To activate it, pass the `extended_cache_time` argument and the following beta header:
+您还可以使用Anthropic的扩展缓存测试版功能。该功能将缓存持续时间从5分钟延长至1小时。要启用该功能，请传入`extended_cache_time`参数和以下测试版标头：
 
 ```python
 from agno.agent import Agent
@@ -44,7 +42,7 @@ agent = Agent(
 )
 ```
 
-## Working example
+## 工作示例
 
 ```python cookbook/models/anthropic/prompt_caching_extended.py
 from pathlib import Path
@@ -53,7 +51,7 @@ from agno.agent import Agent
 from agno.models.anthropic import Claude
 from agno.utils.media import download_file
 
-# Load an example large system message from S3. A large prompt like this would benefit from caching.
+# 从 S3 加载示例大型系统消息。此类大型提示将从缓存机制中受益。
 txt_path = Path(__file__).parent.joinpath("system_promt.txt")
 download_file(
     "https://agno-public.s3.amazonaws.com/prompts/system_promt.txt",
@@ -74,13 +72,13 @@ agent = Agent(
 )
 
 
-# First run - this will create the cache
+# 首次运行 - 这将创建缓存
 response = agent.run(
     "Explain the difference between REST and GraphQL APIs with examples"
 )
 print(f"First run cache write tokens = {response.metrics['cache_write_tokens']}")  # type: ignore
 
-# Second run - this will use the cached system prompt
+# 第二次运行 - 这将使用缓存的系统提示
 response = agent.run(
     "What are the key principles of clean code and how do I apply them in Python?"
 )

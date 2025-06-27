@@ -1,12 +1,12 @@
 ---
-title: Team with Knowledge Tools
+title: 知识工具赋能团队
 ---
-This is a team reasoning example with knowledge tools.
+这是一个使用知识工具进行团队推理的示例。
 <Tip>
-Enabling the reasoning option on the team leader helps optimize delegation and enhances multi-agent collaboration by selectively invoking deeper reasoning when required.
+在团队领导者上启用推理选项，有助于优化任务委派并通过选择性调用深度推理来增强多智能体协作。
 </Tip>
 
-## Code
+## 代码
 
 ```python cookbook/reasoning/teams/knowledge_tool_team.py
 from textwrap import dedent
@@ -22,7 +22,7 @@ from agno.vectordb.lancedb import LanceDb, SearchType
 
 agno_docs = UrlKnowledge(
     urls=["https://www.paulgraham.com/read.html"],
-    # Use LanceDB as the vector database and store embeddings in the `agno_docs` table
+    # 使用 LanceDB 作为向量数据库，并将嵌入向量存储在 `agno_docs` 表中
     vector_db=LanceDb(
         uri="tmp/lancedb",
         table_name="agno_docs",
@@ -80,7 +80,7 @@ team_leader = Team(
 
 
 def run_team(task: str):
-    # Comment out after first run
+    # 初次运行后注释掉
     agno_docs.load(recreate=True)
     team_leader.print_response(
         task,
@@ -94,24 +94,24 @@ if __name__ == "__main__":
     run_team("What does Paul Graham talk about the need to read in this essay?")
 ```
 
-## Usage
+## 使用方式
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/reasoning/teams/knowledge_tool_team.py

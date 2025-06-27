@@ -1,35 +1,34 @@
 ---
-title: Apify
+title: 艾匹夫
 ---
+本指南演示如何在Agno框架中集成并使用[Apify](https://apify.com/actors) Actors，为您的AI智能体增强网页抓取、爬虫、数据提取和网页自动化能力。
 
-This guide demonstrates how to integrate and use [Apify](https://apify.com/actors) Actors within the Agno framework to enhance your AI agents with web scraping, crawling, data extraction, and web automation capabilities.
+## Apify是什么？
 
-## What is Apify?
+[Apify](https://apify.com/)是一个提供以下服务的平台：
+- 面向AI智能体的数据采集服务，专精于从社交媒体、搜索引擎、在线地图、电商网站、旅游门户或通用网站提取数据
+- 提供现成可用的Actors（专项工具）市场，适用于各类数据任务
+- 可运行并变现自有AI智能体的基础设施
 
-[Apify](https://apify.com/) is a platform that provides:
-- Data collection services for AI Agents, specializing in extracting data from social media, search engines, online maps, e-commerce sites, travel portals, or general websites
-- A marketplace of ready-to-use Actors (specialized tools) for various data tasks
-- Infrastructure to run and monetize our own AI Agents
+## 前提条件
 
-## Prerequisites
-
-1. Sign up for an [Apify account](https://console.apify.com/sign-up)
-2. Obtain your Apify API token (can be obtained from [Apify](https://docs.apify.com/platform/integrations/api))
-3. Install the required packages:
+1. 注册[Apify账户](https://console.apify.com/sign-up)
+2. 获取Apify API令牌（可从[Apify文档](https://docs.apify.com/platform/integrations/api)获取）
+3. 安装所需软件包：
 
 ```bash
 pip install agno apify-client
 ```
 
-## Basic Usage
+## 基础用法
 
-The Agno framework makes it easy to integrate Apify Actors into your agents. Here's a simple example:
+Agno框架可轻松将Apify Actors集成至您的智能体。以下简单示例：
 
 ```python
 from agno.agent import Agent
 from agno.tools.apify import ApifyTools
 
-# Create an agent with ApifyTools
+# 使用 ApifyTools 创建智能体
 agent = Agent(
     tools=[
         ApifyTools(
@@ -41,17 +40,17 @@ agent = Agent(
     markdown=True
 )
 
-# Use the agent to get website content
+# 使用智能体获取网站内容
 agent.print_response("What information can you find on https://docs.agno.com/introduction ?", markdown=True)
 ```
 
-## Available Apify Tools
+## 可用Apify工具
 
-You can easily integrate any Apify Actor as a tool. Here are some examples:
+您可便捷地将任何Apify Actor作为工具集成。以下示例：
 
-### 1. RAG Web Browser
+### 1. RAG网页浏览器
 
-The [RAG Web Browser](https://apify.com/apify/rag-web-browser) Actor is specifically designed for AI and LLM applications. It searches the web for a query or processes a URL, then cleans and formats the content for your agent. This tool is enabled by default.
+[RAG网页浏览器](https://apify.com/apify/rag-web-browser) Actor专为AI和LLM应用设计。它根据查询搜索网页或处理URL，随后清理并格式化内容供智能体使用。该工具默认启用。
 
 ```python
 from agno.agent import Agent
@@ -65,13 +64,13 @@ agent = Agent(
     markdown=True
 )
 
-# Search for information and process the results
+# 搜索信息并处理结果
 agent.print_response("What are the latest developments in large language models?", markdown=True)
 ```
 
-### 2. Website Content Crawler
+### 2. 网站内容爬虫
 
-This tool uses Apify's [Website Content Crawler](https://apify.com/apify/website-content-crawler) Actor to extract text content from websites, making it perfect for RAG applications.
+该工具使用Apify的[网站内容爬虫](https://apify.com/apify/website-content-crawler) Actor来提取网站文本内容，特别适合RAG应用。
 
 ```python
 from agno.agent import Agent
@@ -84,13 +83,13 @@ agent = Agent(
     markdown=True
 )
 
-# Ask the agent to process web content
+# 让智能体处理网页内容
 agent.print_response("Summarize the content from https://docs.agno.com/introduction", markdown=True)
 ```
 
-### 3. Google Places Crawler
+### 3. 谷歌地点爬虫
 
-The [Google Places Crawler](https://apify.com/compass/crawler-google-places) extracts data about businesses from Google Maps and Google Places.
+[谷歌地点爬虫](https://apify.com/compass/crawler-google-places)从Google地图和Google Places提取商业数据。
 
 ```python
 from agno.agent import Agent
@@ -103,15 +102,15 @@ agent = Agent(
     show_tool_calls=True
 )
 
-# Find business information in a specific location
+# 在特定位置查找商业信息
 agent.print_response("What are the top-rated restaurants in San Francisco?", markdown=True)
 agent.print_response("Find coffee shops in Prague", markdown=True)
 ```
 
-## Example Scenarios
+## 示例场景
 
-### RAG Web Browser + Google Places Crawler
-This example combines web search with local business data to provide comprehensive information about a topic:
+### RAG网页浏览器 + 谷歌地点爬虫
+此示例结合网页搜索与本地商业数据，提供主题的全面信息：
 
 ```python
 from agno.agent import Agent
@@ -127,7 +126,7 @@ agent = Agent(
     show_tool_calls=True
 )
 
-# Get general information and local businesses
+# 获取通用信息及本地商家数据
 agent.print_response(
     """
     I'm traveling to Tokyo next month.
@@ -139,20 +138,20 @@ agent.print_response(
 )
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter                    | Type                | Default | Description                                                        |
+| 参数名                       | 类型                | 默认值  | 描述                                                               |
 | ---------------------------- | ------------------- | ------- | ------------------------------------------------------------------ |
-| `apify_api_token`            | `str`               | `None`  | Apify API token (or set via APIFY_API_TOKEN environment variable)  |
-| `actors`                     | `str` or `List[str]`| `None`  | Single Actor ID or list of Actor IDs to register                   |
+| `apify_api_token`            | `str`               | `None`  | Apify API令牌（或通过APIFY_API_TOKEN环境变量设置）                 |
+| `actors`                     | `str`或`List[str]`| `None`  | 需注册的单个Actor ID或Actor ID列表                                 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/apify.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/apify_tools.py)
+- 查看[工具文档](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/apify.py)
+- 查看[Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/apify_tools.py)
 
-## Resources
+## 资源链接
 
-- [Apify Actor Documentation](https://docs.apify.com/Actors)
-- [Apify Store - Browse available Actors](https://apify.com/store)
-- [How to build and monetize an AI agent on Apify](https://blog.apify.com/how-to-build-an-ai-agent/)
+- [Apify Actor文档](https://docs.apify.com/Actors)
+- [Apify商店-浏览可用Actors](https://apify.com/store)
+- [如何在Apify上构建并变现AI智能体](https://blog.apify.com/how-to-build-an-ai-agent/)

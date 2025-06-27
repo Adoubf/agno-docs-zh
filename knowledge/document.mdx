@@ -1,16 +1,15 @@
 ---
-title: Document Knowledge Base
-description: Learn how to use local documents in your knowledge base.
-sidebarTitle: Document
+title: 文档知识库
+description: 了解如何在知识库中使用本地文档。
+sidebarTitle: 文档
 ---
+**DocumentKnowledgeBase** 读取**本地文档**文件，将其转换为向量嵌入并加载到向量数据库中。
 
-The **DocumentKnowledgeBase** reads **local docs** files, converts them into vector embeddings and loads them to a vector database.
-
-## Usage
+## 使用方法
 
 <Note>
 
-We are using a local PgVector database for this example. [Make sure it's running](https://docs.agno.com/vectordb/pgvector)
+本示例我们使用本地PgVector数据库。[确保数据库已运行](https://docs.agno.com/vectordb/pgvector)
 
 </Note>
 
@@ -24,7 +23,7 @@ from agno.vectordb.pgvector import PgVector
 
 knowledge_base = DocumentKnowledgeBase(
     path="data/docs",
-    # Table name: ai.documents
+    # 表名：ai.documents
     vector_db=PgVector(
         table_name="documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -32,7 +31,7 @@ knowledge_base = DocumentKnowledgeBase(
 )
 ```
 
-Then use the `knowledge_base` with an `Agent`:
+然后通过 `knowledge_base` 结合 `Agent` 使用：
 
 ```python
 from agno.agent import Agent
@@ -47,15 +46,15 @@ agent.knowledge.load(recreate=False)
 agent.print_response("Ask me about something from the knowledge base")
 ```
 
-## Params
+## 参数说明
 
-| Parameter   | Type             | Default | Description                                               |
-| ----------- | ---------------- | ------- | --------------------------------------------------------- |
-| `documents` | `List[Document]` | -       | List of Document objects to be used as the knowledge base |
+| 参数        | 类型               | 默认值  | 描述                                                  |
+| ----------- | ------------------ | ------- | ----------------------------------------------------- |
+| `documents` | `List[Document]` | -       | 用作知识库的Document对象列表                          |
 
-`DocumentKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+`DocumentKnowledgeBase` 是 [AgentKnowledge](/reference/knowledge/base) 类的子类，拥有相同的参数访问权限。
 
-## Developer Resources
+## 开发者资源
 
-- View [Sync loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/doc_kb.py)
-- View [Async loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/doc_kb_async.py)
+- 查看 [同步加载操作指南](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/doc_kb.py)
+- 查看 [异步加载操作指南](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/doc_kb_async.py)

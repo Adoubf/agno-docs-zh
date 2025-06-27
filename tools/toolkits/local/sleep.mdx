@@ -1,38 +1,37 @@
 ---
-title: Sleep
+title: 睡眠
 ---
+## 示例
 
-## Example
-
-The following agent will use the `sleep` tool to pause execution for a given number of seconds.
+以下智能体将使用 `sleep` 工具来暂停执行指定的秒数。
 
 ```python cookbook/tools/sleep_tools.py
 from agno.agent import Agent
 from agno.tools.sleep import SleepTools
 
-# Create an Agent with the Sleep tool
+# 创建带有休眠工具的智能体
 agent = Agent(tools=[SleepTools()], name="Sleep Agent")
 
-# Example 1: Sleep for 2 seconds
+# 示例1：休眠2秒
 agent.print_response("Sleep for 2 seconds")
 
-# Example 2: Sleep for a longer duration
+# 示例 2：长时间休眠
 agent.print_response("Sleep for 5 seconds")
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter | Type  | Default   | Description          |
-| --------- | ----- | --------- | -------------------- |
-| `name`    | `str` | `"sleep"` | The name of the tool |
+| 参数      | 类型   | 默认值    | 描述               |
+| --------- | ------ | --------- | ------------------ |
+| `name`    | `str` | `"sleep"` | 工具的名称         |
 
-## Toolkit Functions
+## 工具包函数
 
-| Function | Description                                        |
-| -------- | -------------------------------------------------- |
-| `sleep`  | Pauses execution for a specified number of seconds |
+| 函数      | 描述                                        |
+| --------- | ------------------------------------------- |
+| `sleep`  | 暂停执行指定的秒数                          |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/sleep.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/sleep_tools.py)
+- 查看 [工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/sleep.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/sleep_tools.py)

@@ -1,15 +1,14 @@
 ---
-title: Agent Session
+title: 智能体会话
 ---
+本示例展示如何创建一个具备持久化记忆的智能体，其记忆存储于SQLite数据库。当恢复对话时，我们会为智能体设置session_id，这样就能保留之前的聊天记录。
 
-This example shows how to create an agent with persistent memory stored in a SQLite database. We set the session_id on the agent when resuming the conversation, this way the previous chat history is preserved.
+核心特性：
+- 将对话历史存储于SQLite数据库
+- 支持跨多个会话的持续对话
+- 在回复中引用先前上下文
 
-Key features:
-- Stores conversation history in a SQLite database
-- Continues conversations across multiple sessions
-- References previous context in responses
-
-## Code
+## 代码
 
 ```python agent_session.py
 import json
@@ -31,10 +30,10 @@ console = Console()
 def create_agent(user: str = "user"):
     session_id: Optional[str] = None
 
-    # Ask if user wants to start new session or continue existing one
+    # 询问用户希望开始新会话还是继续现有会话
     new = typer.confirm("Do you want to start a new session?")
 
-    # Get existing session if user doesn't want a new one
+    # 如果用户不希望创建新会话，则获取现有会话
     agent_storage = SqliteStorage(
         table_name="agent_sessions", db_file="tmp/agents.db"
     )
@@ -46,11 +45,11 @@ def create_agent(user: str = "user"):
 
     agent = Agent(
         user_id=user,
-        # Set the session_id on the agent to resume the conversation
+        # 在智能体上设置 session_id 以恢复对话
         session_id=session_id,
         model=OpenAIChat(id="gpt-4o"),
         storage=agent_storage,
-        # Add chat history to messages
+        # 将聊天历史添加到消息
         add_history_to_messages=True,
         num_history_responses=3,
         markdown=True,
@@ -105,18 +104,18 @@ if __name__ == "__main__":
     typer.run(main)
 ```
 
-## Usage
+## 使用方式
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装依赖库">
     ```bash
     pip install openai sqlalchemy agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行智能体">
     ```bash
     python agent_session.py
     ```

@@ -1,10 +1,9 @@
 ---
-title: Agent With User Memory
+title: 带用户记忆的智能体
 ---
+这个示例展示了如何在 WhatsApp 应用中结合记忆功能使用。
 
-This example shows how to use  memory with whatsapp app.
-
-## Code
+## 代码
 
 ```python cookbook/apps/whatsapp/agent_with_user_memory.py
 from textwrap import dedent
@@ -37,7 +36,7 @@ memory = Memory(
 )
 
 
-# Reset the memory for this example
+# 为这个示例重置记忆
 memory.clear()
 
 personal_agent = Agent(
@@ -73,24 +72,24 @@ if __name__ == "__main__":
 
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno google-generativeai google-api-python-client "uvicorn[standard]"
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/apps/whatsapp/agent_with_user_memory.py
@@ -101,4 +100,4 @@ if __name__ == "__main__":
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

@@ -1,35 +1,34 @@
 ---
-title: MLX Transcribe
+title: MLX 转录
 ---
+**MLX Transcribe** 是一款基于 MLX Whisper 的音频文件转录工具。
 
-**MLX Transcribe** is a tool for transcribing audio files using MLX Whisper.
+## 前提条件
 
-## Prerequisites
-
-1. **Install ffmpeg**
+1. **安装 ffmpeg**
 
    - macOS: `brew install ffmpeg`
    - Ubuntu: `sudo apt-get install ffmpeg`
-   - Windows: Download from https://ffmpeg.org/download.html
+   - Windows: 从 https://ffmpeg.org/download.html 下载
 
-2. **Install mlx-whisper library**
+2. **安装 mlx-whisper 库**
 
    ```shell
    pip install mlx-whisper
    ```
 
-3. **Prepare audio files**
+3. **准备音频文件**
 
-   - Create a 'storage/audio' directory
-   - Place your audio files in this directory
-   - Supported formats: mp3, mp4, wav, etc.
+   - 创建 'storage/audio' 目录
+   - 将音频文件放入该目录
+   - 支持格式: mp3, mp4, wav 等
 
-4. **Download sample audio** (optional)
-   - Visit the [audio-samples](https://audio-samples.github.io/) (as an example) and save the audio file to the `storage/audio` directory.
+4. **下载示例音频**（可选）
+   - 访问 [audio-samples](https://audio-samples.github.io/)（示例）并将音频文件保存到 `storage/audio` 目录。
 
-## Example
+## 示例
 
-The following agent will use MLX Transcribe to transcribe audio files.
+以下智能体将使用 MLX Transcribe 转录音频文件。
 
 ```python cookbook/tools/mlx_transcribe_tools.py
 
@@ -38,7 +37,7 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.mlx_transcribe import MLXTranscribeTools
 
-# Get audio files from storage/audio directory
+# 从 storage/audio 目录获取音频文件
 agno_root_dir = Path(__file__).parent.parent.parent.resolve()
 audio_storage_dir = agno_root_dir.joinpath("storage/audio")
 if not audio_storage_dir.exists():
@@ -58,35 +57,35 @@ agent = Agent(
 agent.print_response("Summarize the reid hoffman ted talk, split into sections", stream=True)
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter                         | Type                           | Default                                  | Description                                 |
+| 参数                         | 类型                           | 默认值                                  | 描述                                 |
 | --------------------------------- | ------------------------------ | ---------------------------------------- | ------------------------------------------- |
-| `base_dir`                        | `Path`                         | `Path.cwd()`                             | Base directory for audio files              |
-| `read_files_in_base_dir`          | `bool`                         | `True`                                   | Whether to register the read_files function |
-| `path_or_hf_repo`                 | `str`                          | `"mlx-community/whisper-large-v3-turbo"` | Path or HuggingFace repo for the model      |
-| `verbose`                         | `bool`                         | `None`                                   | Enable verbose output                       |
-| `temperature`                     | `float` or `Tuple[float, ...]` | `None`                                   | Temperature for sampling                    |
-| `compression_ratio_threshold`     | `float`                        | `None`                                   | Compression ratio threshold                 |
-| `logprob_threshold`               | `float`                        | `None`                                   | Log probability threshold                   |
-| `no_speech_threshold`             | `float`                        | `None`                                   | No speech threshold                         |
-| `condition_on_previous_text`      | `bool`                         | `None`                                   | Whether to condition on previous text       |
-| `initial_prompt`                  | `str`                          | `None`                                   | Initial prompt for transcription            |
-| `word_timestamps`                 | `bool`                         | `None`                                   | Enable word-level timestamps                |
-| `prepend_punctuations`            | `str`                          | `None`                                   | Punctuations to prepend                     |
-| `append_punctuations`             | `str`                          | `None`                                   | Punctuations to append                      |
-| `clip_timestamps`                 | `str` or `List[float]`         | `None`                                   | Clip timestamps                             |
-| `hallucination_silence_threshold` | `float`                        | `None`                                   | Hallucination silence threshold             |
-| `decode_options`                  | `dict`                         | `None`                                   | Additional decoding options                 |
+| `base_dir`                        | `Path`                         | `Path.cwd()`                             | 音频文件基础目录              |
+| `read_files_in_base_dir`          | `bool`                         | `True`                                   | 是否注册 read_files 功能 |
+| `path_or_hf_repo`                 | `str`                          | `"mlx-community/whisper-large-v3-turbo"` | 模型路径或 HuggingFace 仓库      |
+| `verbose`                         | `bool`                         | `None`                                   | 启用详细输出                       |
+| `temperature`                     | `float` 或 `Tuple[float, ...]` | `None`                                   | 采样温度                    |
+| `compression_ratio_threshold`     | `float`                        | `None`                                   | 压缩比阈值                 |
+| `logprob_threshold`               | `float`                        | `None`                                   | 对数概率阈值                   |
+| `no_speech_threshold`             | `float`                        | `None`                                   | 无语音阈值                         |
+| `condition_on_previous_text`      | `bool`                         | `None`                                   | 是否基于前文进行条件判断       |
+| `initial_prompt`                  | `str`                          | `None`                                   | 转录初始提示            |
+| `word_timestamps`                 | `bool`                         | `None`                                   | 启用单词级时间戳                |
+| `prepend_punctuations`            | `str`                          | `None`                                   | 前置标点符号                     |
+| `append_punctuations`             | `str`                          | `None`                                   | 后置标点符号                      |
+| `clip_timestamps`                 | `str` 或 `List[float]`         | `None`                                   | 剪辑时间戳                             |
+| `hallucination_silence_threshold` | `float`                        | `None`                                   | 幻觉静音阈值             |
+| `decode_options`                  | `dict`                         | `None`                                   | 额外解码选项                 |
 
-## Toolkit Functions
+## 工具包功能
 
-| Function     | Description                                 |
+| 函数     | 描述                                 |
 | ------------ | ------------------------------------------- |
-| `transcribe` | Transcribes an audio file using MLX Whisper |
-| `read_files` | Lists all audio files in the base directory |
+| `transcribe` | 使用 MLX Whisper 转录音频文件 |
+| `read_files` | 列出基础目录中的所有音频文件 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/mlx_transcribe.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/mlx_transcribe_tools.py)
+- 查看 [工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/mlx_transcribe.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/mlx_transcribe_tools.py)

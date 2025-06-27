@@ -1,10 +1,9 @@
 ---
 title: Cal.com
 ---
+## 先决条件
 
-## Prerequisites
-
-The following example requires the `pytz` and `requests` libraries.
+以下示例需要 `pytz` 和 `requests` 库。
 
 ```shell
 pip install requests pytz
@@ -15,9 +14,9 @@ export CALCOM_API_KEY="your_api_key"
 export CALCOM_EVENT_TYPE_ID="your_event_type_id"
 ```
 
-## Example
+## 示例
 
-The following agent will use Cal.com to list all events in your Cal.com account for tomorrow.
+以下智能体将使用 Cal.com 列出您 Cal.com 账户中明天的所有日程事件。
 
 ```python cookbook/tools/calcom_tools.py
 
@@ -42,31 +41,31 @@ agent = Agent(
 agent.print_response("What are my bookings for tomorrow?")
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter               | Type   | Default | Description                               |
+| 参数               | 类型   | 默认值 | 描述                               |
 | ----------------------- | ------ | ------- | ----------------------------------------- |
-| `api_key`               | `str`  | `None`  | Cal.com API key                           |
-| `event_type_id`         | `int`  | `None`  | Event type ID for scheduling              |
-| `user_timezone`         | `str`  | `None`  | User's timezone (e.g. "America/New_York") |
-| `get_available_slots`   | `bool` | `True`  | Enable getting available time slots       |
-| `create_booking`        | `bool` | `True`  | Enable creating new bookings              |
-| `get_upcoming_bookings` | `bool` | `True`  | Enable getting upcoming bookings          |
-| `reschedule_booking`    | `bool` | `True`  | Enable rescheduling bookings              |
-| `cancel_booking`        | `bool` | `True`  | Enable canceling bookings                 |
+| `api_key`               | `str`  | `None`  | Cal.com API密钥                           |
+| `event_type_id`         | `int`  | `None`  | 用于调度的事件类型ID              |
+| `user_timezone`         | `str`  | `None`  | 用户时区 (例如 "America/New_York") |
+| `get_available_slots`   | `bool` | `True`  | 启用获取可用时间段功能       |
+| `create_booking`        | `bool` | `True`  | 启用创建新预约功能              |
+| `get_upcoming_bookings` | `bool` | `True`  | 启用获取即将到来的预约功能          |
+| `reschedule_booking`    | `bool` | `True`  | 启用重新调度预约功能              |
+| `cancel_booking`        | `bool` | `True`  | 启用取消预约功能                 |
 
-## Toolkit Functions
+## 工具包函数
 
-| Function                | Description                                      |
+| 函数                | 描述                                      |
 | ----------------------- | ------------------------------------------------ |
-| `get_available_slots`   | Gets available time slots for a given date range |
-| `create_booking`        | Creates a new booking with provided details      |
-| `get_upcoming_bookings` | Gets list of upcoming bookings                   |
-| `get_booking_details`   | Gets details for a specific booking              |
-| `reschedule_booking`    | Reschedules an existing booking                  |
-| `cancel_booking`        | Cancels an existing booking                      |
+| `get_available_slots`   | 获取指定日期范围内的可用时间段 |
+| `create_booking`        | 用提供的详情创建新预约      |
+| `get_upcoming_bookings` | 获取即将到来的预约列表                   |
+| `get_booking_details`   | 获取特定预约的详细信息              |
+| `reschedule_booking`    | 重新调度现有预约                  |
+| `cancel_booking`        | 取消现有预约                      |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/calcom.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/calcom_tools.py)
+- 查看 [工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/calcom.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/calcom_tools.py)

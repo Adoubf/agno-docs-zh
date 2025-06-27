@@ -1,110 +1,109 @@
 ---
-title: Introduction
+title: 介绍
 ---
+本指南将带您了解使用Agno构建智能体的基础知识。
 
-This guide walks through the basics of building Agents with Agno.
+这些示例循序渐进地构建，逐步引入新概念和功能。每个示例都包含详细注释、示例提示和所需依赖项。
 
-The examples build on each other, introducing new concepts and capabilities progressively. Each example contains detailed comments, example prompts, and required dependencies.
+## 环境设置
 
-## Setup
-
-Create a virtual environment:
+创建虚拟环境：
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-Install the required dependencies:
+安装所需依赖项：
 
 ```bash
 pip install openai duckduckgo-search yfinance lancedb tantivy pypdf requests exa-py newspaper4k lxml_html_clean sqlalchemy agno
 ```
 
-Export your OpenAI API key:
+导出您的OpenAI API密钥：
 
 ```bash
 export OPENAI_API_KEY=your_api_key
 ```
 
-## Examples
+## 示例集
 
 <CardGroup cols={3}>
-  <Card title="Basic Agent" icon="robot" iconType="duotone" href="./basic-agent">
-    Build a news reporter with a vibrant personality. This Agent only shows basic LLM inference.
+  <Card title="基础智能体" icon="robot" iconType="duotone" href="./basic-agent">
+    构建具有鲜明个性的新闻记者智能体。该示例仅展示基础LLM推理能力。
   </Card>
 
-  <Card title="Agent with Tools" icon="toolbox" iconType="duotone" href="./agent-with-tools">
-    Add web search capabilities using DuckDuckGo for real-time information gathering.
+  <Card title="带工具的智能体" icon="toolbox" iconType="duotone" href="./agent-with-tools">
+    使用DuckDuckGo添加网络搜索功能，实现实时信息搜集。
   </Card>
 
-  <Card title="Agent with Knowledge" icon="brain" iconType="duotone" href="./agent-with-knowledge">
-    Add a vector database to your agent to store and search knowledge.
+  <Card title="带知识的智能体" icon="brain" iconType="duotone" href="./agent-with-knowledge">
+    为智能体添加向量数据库，实现知识存储与检索。
   </Card>
 
-  <Card title="Agent with Storage" icon="database" iconType="duotone" href="./agent-with-storage">
-    Add persistence to your agents with session management and history capabilities.
+  <Card title="带存储功能的智能体" icon="database" iconType="duotone" href="./agent-with-storage">
+    通过会话管理和历史记录功能，为智能体添加持久化能力。
   </Card>
 
-  <Card title="Agent Team" icon="users" iconType="duotone" href="./agent-team">
-    Create an agent team specializing in market research and financial analysis.
+  <Card title="智能体团队" icon="users" iconType="duotone" href="./agent-team">
+    创建专门从事市场研究和金融分析的智能体团队。
   </Card>
 
-  <Card title="Structured Output" icon="code" iconType="duotone" href="./structured-output">
-    Generate a structured output using a Pydantic model.
+  <Card title="结构化输出" icon="code" iconType="duotone" href="./structured-output">
+    使用Pydantic模型生成结构化输出。
   </Card>
 
-  <Card title="Custom Tools" icon="wrench" iconType="duotone" href="./custom-tools">
-    Create and integrate custom tools with your agent.
+  <Card title="自定义工具" icon="wrench" iconType="duotone" href="./custom-tools">
+    创建自定义工具并与智能体集成。
   </Card>
 
-  <Card title="Research Agent" icon="magnifying-glass" iconType="duotone" href="./research-agent">
-    Build an AI research agent using Exa with controlled output steering.
+  <Card title="研究型智能体" icon="magnifying-glass" iconType="duotone" href="./research-agent">
+    使用Exa构建具备输出控制能力的AI研究智能体。
   </Card>
 
-  <Card title="Research Workflow" icon="diagram-project" iconType="duotone" href="./research-workflow">
-    Create a research workflow combining web searches and content scraping.
+  <Card title="研究流程" icon="diagram-project" iconType="duotone" href="./research-workflow">
+    创建结合网络搜索和内容抓取的研究工作流。
   </Card>
 
-  <Card title="Image Agent" icon="image" iconType="duotone" href="./image-agent">
-    Create an agent that can understand images.
+  <Card title="镜像智能体" icon="image" iconType="duotone" href="./image-agent">
+    创建具备图像理解能力的智能体。
   </Card>
 
-  <Card title="Image Generation" icon="paintbrush" iconType="duotone" href="./image-generation">
-    Create an Agent that can generate images using DALL-E.
+  <Card title="图像生成" icon="paintbrush" iconType="duotone" href="./image-generation">
+    创建可使用DALL-E生成图像的智能体。
   </Card>
 
-  <Card title="Video Generation" icon="video" iconType="duotone" href="./video-generation">
-    Create an Agent that can generate videos using ModelsLabs.
+  <Card title="视频生成" icon="video" iconType="duotone" href="./video-generation">
+    创建可使用ModelsLabs生成视频的智能体。
   </Card>
 
-  <Card title="Audio Agent" icon="microphone" iconType="duotone" href="./audio-agent">
-    Create an Agent that can process audio input and generate responses.
+  <Card title="音频智能体" icon="microphone" iconType="duotone" href="./audio-agent">
+    创建可处理音频输入并生成响应的智能体。
   </Card>
 
-  <Card title="Agent with State" icon="database" iconType="duotone" href="./agent-state">
-    Create an Agent with session state management.
+  <Card title="带状态的智能体" icon="database" iconType="duotone" href="./agent-state">
+    创建具备会话状态管理功能的智能体。
   </Card>
 
-  <Card title="Agent Context" icon="sitemap" iconType="duotone" href="./agent-context">
-    Evaluate dependencies at agent.run and inject them into the instructions.
+  <Card title="智能体上下文" icon="sitemap" iconType="duotone" href="./agent-context">
+    在agent.run时评估依赖项并将其注入指令中。
   </Card>
 
-  <Card title="Agent Session" icon="clock-rotate-left" iconType="duotone" href="./agent-session">
-    Create an Agent with persistent session memory across conversations.
+  <Card title="智能体会话" icon="clock-rotate-left" iconType="duotone" href="./agent-session">
+    创建具备跨会话持久记忆的智能体。
   </Card>
 
-  <Card title="User Memories" icon="memory" iconType="duotone" href="./user-memories">
-    Create an Agent that stores user memories and summaries.
+  <Card title="用户记忆" icon="memory" iconType="duotone" href="./user-memories">
+    创建可存储用户记忆和摘要的智能体。
   </Card>
 
-  <Card title="Function Retries" icon="rotate" iconType="duotone" href="./retry-functions">
-    Handle function retries for failed or unsatisfactory outputs.
+  <Card title="功能重试" icon="rotate" iconType="duotone" href="./retry-functions">
+    处理失败或输出不理想的函数重试机制。
   </Card>
 
-  <Card title="Human in the Loop" icon="user-check" iconType="duotone" href="./human-in-the-loop">
-    Add user confirmation and safety checks for interactive agent control.
+  <Card title="人在循环" icon="user-check" iconType="duotone" href="./human-in-the-loop">
+    添加用户确认和安全检查机制，实现交互式智能体控制。
   </Card>
 </CardGroup>
 
-Each example includes runnable code and detailed explanations. We recommend following them in order, as concepts build upon previous examples.
+每个示例都包含可运行代码和详细说明。由于概念基于先前示例构建，我们建议按顺序学习。

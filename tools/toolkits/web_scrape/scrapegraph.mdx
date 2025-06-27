@@ -1,26 +1,24 @@
 ---
 title: ScrapeGraph
-description: Agno ScrapeGraphTools enable an Agent to extract structured data from webpages for LLMs in markdown format.
+description: Agno ScrapeGraphTools 允许智能体从网页中提取结构化数据，并以 Markdown 格式提供给大语言模型（LLMs）。
 ---
+## 先决条件
 
-
-## Prerequisites
-
-The following examples require the `scrapegraph-py` library.
+以下示例需要 `scrapegraph-py` 库。
 
 ```shell
 pip install -U scrapegraph-py
 ```
 
-Optionally, if your ScrapeGraph configuration or specific models require an API key, set the `SGAI_API_KEY` environment variable:
+可选配置：如果您的 ScrapeGraph 配置或特定模型需要 API 密钥，请设置 `SGAI_API_KEY` 环境变量：
 
 ```shell
 export SGAI_API_KEY="YOUR_SGAI_API_KEY"
 ```
 
-## Example
+## 示例
 
-The following agent uses `ScrapeGraphTools` to extract specific information from a webpage using the `smartscraper` functionality.
+以下智能体使用 `ScrapeGraphTools` 通过 `smartscraper` 功能从网页提取特定信息。
 
 ```python
 from agno.agent import Agent
@@ -42,24 +40,24 @@ agent.print_response("""
 )
 ```
 
-## Toolkit Functions
+## 工具包函数
 
-| Function       | Description                                                                    |
-| -------------- | ------------------------------------------------------------------------------ |
-| `smartscraper` | Extracts structured data from a webpage using an LLM and a natural language prompt. Returns a JSON string of the result or an error. |
-| `markdownify`  | Converts a webpage to markdown format. Returns the markdown string or an error.   |
+| 函数          | 描述                                                                        |
+| ------------- | -------------------------------------------------------------------------- |
+| `smartscraper` | 使用 LLM 和自然语言提示从网页提取结构化数据。返回结果的 JSON 字符串或错误信息。 |
+| `markdownify`  | 将网页转换为 markdown 格式。返回 markdown 字符串或错误信息。                  |
 
-## Toolkit Parameters
+## 工具包参数
 
-These parameters are passed to the `ScrapeGraphTools` constructor.
+这些参数将传递给 `ScrapeGraphTools` 构造函数。
 
-| Parameter      | Type            | Default | Description                                                                                                                             |
-| -------------- | --------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| `api_key`      | `Optional[str]` | `None`  | API key for ScrapeGraph services. If not provided, it defaults to the `SGAI_API_KEY` environment variable.                             |
-| `smartscraper` | `bool`          | `True`  | Enable the `smartscraper` tool.                                                                                                         |
-| `markdownify`  | `bool`          | `False` | Enable the `markdownify` tool. |
+| 参数           | 类型            | 默认值   | 描述                                                                                                                             |
+| -------------- | --------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `api_key`      | `Optional[str]` | `None`  | ScrapeGraph 服务的 API 密钥。若未提供，则默认使用 `SGAI_API_KEY` 环境变量。                                                     |
+| `smartscraper` | `bool`          | `True`  | 启用 `smartscraper` 工具。                                                                                                       |
+| `markdownify`  | `bool`          | `False` | 启用 `markdownify` 工具。 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools Source](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/scrapegraph.py)
-- View [Cookbook Example](https://github.com/agno-agi/agno/blob/main/cookbook/tools/scrapegraph_tools.py) 
+- 查看 [工具源代码](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/scrapegraph.py)
+- 查看 [Cookbook 示例](https://github.com/agno-agi/agno/blob/main/cookbook/tools/scrapegraph_tools.py)

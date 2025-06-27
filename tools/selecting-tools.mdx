@@ -1,10 +1,9 @@
 ---
-title: Selecting tools
+title: 选择工具
 ---
+您可以通过使用 `include_tools` 和 `exclude_tools` 参数来指定包含或排除 `Toolkit` 中的工具。这对于限制智能体可用的工具数量非常有用。
 
-You can specify which tools to include or exclude from a `Toolkit` by using the `include_tools` and `exclude_tools` parameters. This can be very useful to limit the number of tools that are available to an Agent.
-
-For example, here's how to include only the `get_latest_emails` tool in the `GmailTools` toolkit:
+例如，以下是如何在 `GmailTools` 工具包中仅包含 `get_latest_emails` 工具：
 
 ```python
 agent = Agent(
@@ -12,7 +11,7 @@ agent = Agent(
 )
 ```
 
-Similarly, here's how to exclude the `create_draft_email` tool from the `GmailTools` toolkit:
+类似地，以下是如何从 `GmailTools` 工具包中排除 `create_draft_email` 工具：
 
 ```python
 agent = Agent(
@@ -20,9 +19,9 @@ agent = Agent(
 )
 ```
 
-## Example
+## 示例
 
-Here's an example of how to use the `include_tools` and `exclude_tools` parameters to limit the number of tools that are available to an Agent:
+以下是一个使用 `include_tools` 和 `exclude_tools` 参数来限制智能体可用工具数量的示例：
 
 ```python include_exclude_tools.py
 
@@ -49,8 +48,3 @@ agent.print_response(
     "Search the web for a difficult sum that can be done with normal arithmetic and solve it.",
 )
 ```
-
-
-
-
-

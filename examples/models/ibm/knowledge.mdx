@@ -1,8 +1,7 @@
 ---
-title: RAG Agent
+title: RAG 智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/ibm/watsonx/knowledge.py
 from agno.agent import Agent
@@ -26,29 +25,29 @@ agent = Agent(
 agent.print_response("How to make Thai curry?", markdown=True)
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的API密钥">
     ```bash
     export IBM_WATSONX_API_KEY=xxx
     export IBM_WATSONX_PROJECT_ID=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U ibm-watsonx-ai sqlalchemy pgvector psycopg pypdf openai agno
     ```
   </Step>
 
-  <Step title="Set up PostgreSQL with pgvector">
-    You need a PostgreSQL database with the pgvector extension installed. Adjust the `db_url` in the code to match your database configuration.
+  <Step title="设置带 pgvector 的 PostgreSQL">
+    您需要一个已安装 pgvector 扩展的 PostgreSQL 数据库。请调整代码中的 `db_url` 以匹配您的数据库配置。
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/ibm/watsonx/knowledge.py
@@ -60,11 +59,11 @@ agent.print_response("How to make Thai curry?", markdown=True)
     </CodeGroup>
   </Step>
 
-  <Step title="For subsequent runs">
-    After the first run, comment out the `knowledge_base.load(recreate=True)` line to avoid reloading the PDF.
+  <Step title="对于后续运行">
+    首次运行后，请注释掉 `knowledge_base.load(recreate=True)` 行以避免重新加载 PDF。
   </Step>
 </Steps>
 
-This example shows how to integrate a knowledge base with IBM WatsonX. It loads a PDF from a URL, processes it into a vector database (PostgreSQL with pgvector in this case), and then creates an agent that can query this knowledge base.
+本示例展示了如何将知识库与 IBM WatsonX 集成。它会从 URL 加载 PDF 文件，将其处理至向量数据库（本例使用带 pgvector 的 PostgreSQL），然后创建一个能查询该知识库的智能体。
 
-Note: You need to install several packages (`pgvector`, `pypdf`, etc.) and have a PostgreSQL database with the pgvector extension available. 
+注意：您需要安装多个包（`pgvector`、`pypdf` 等）并准备一个支持 pgvector 扩展的 PostgreSQL 数据库。

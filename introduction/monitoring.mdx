@@ -1,39 +1,38 @@
 ---
-title: Monitoring & Debugging
-description: Monitor your Agents, Teams and Workflows in real-time.
+title: 监控与调试
+description: 实时监控您的智能体、团队和工作流。
 ---
+# 监控
 
-# Monitoring
+您可以在 [app.agno.com](https://app.agno.com) 实时追踪智能体状态。
 
-You can track your Agent in real-time on [app.agno.com](https://app.agno.com).
+## 身份验证
+请通过 [agno.com](https://app.agno.com) 进行身份验证以开启会话监控。
+参阅[身份验证指南](how-to/authentication)获取 Agno 平台的认证操作指引。
 
-## Authenticate
-Authenticate with [agno.com](https://app.agno.com) to start monitoring your sessions.
-Check out [Authentication guide](how-to/authentication) for instructions on how to Authenticate with Agno.
+## 启用监控功能
 
-## Enable Monitoring
+通过设置 `AGNO_MONITOR=true` 可为单个智能体或全局所有智能体启用监控。
 
-Enable monitoring for a single agent or globally for all agents by setting `AGNO_MONITOR=true`.
-
-### For a Specific Agent
+### 针对单个智能体
 
 ```python
 agent = Agent(markdown=True, monitoring=True)
 ```
 
-### Globally for all Agents
+### 全局所有智能体
 
 ```bash
 export AGNO_MONITOR=true
 ```
 
-## Monitor Your Agents
+## 监控智能体
 
-Run your agent and view the sessions on the [sessions page](https://app.agno.com/sessions).
+运行智能体后，可在[会话页面](https://app.agno.com/sessions)查看会话记录。
 
 <Steps>
 
-<Step title="Create a file with sample code">
+<Step title="创建一个包含示例代码的文件">
 
 ```python monitoring.py
 from agno.agent import Agent
@@ -44,7 +43,7 @@ agent.print_response("Share a 2 sentence horror story")
 
 </Step>
 
-<Step title="Run your Agent">
+<Step title="运行你的智能体">
 
 ```shell
 python monitoring.py
@@ -52,9 +51,9 @@ python monitoring.py
 
 </Step>
 
-<Step title="View your sessions">
+<Step title="查看您的会话">
 
-View your sessions at [app.agno.com/sessions](https://app.agno.com/sessions)
+访问 [app.agno.com/sessions](https://app.agno.com/sessions) 查看会话记录
 
 <img height="200" src="/images/monitoring.png" style={{ borderRadius: "8px" }} />
 
@@ -62,13 +61,13 @@ View your sessions at [app.agno.com/sessions](https://app.agno.com/sessions)
 
 </Steps>
 
-<Info>Facing issues? Check out our [troubleshooting guide](/faq/cli-auth)</Info>
+<Info>遇到问题？请查阅[故障排除指南](/faq/cli-auth)</Info>
 
-## Debug Logs
+## 调试日志
 
-Want to see the system prompt, user messages and tool calls?
+需要查看系统提示、用户消息和工具调用记录？
 
-Agno includes a built-in debugger that will print debug logs in the terminal. Set `debug_mode=True` on any agent or set `AGNO_DEBUG=true` in your environment.
+Agno 内置调试器可在终端打印调试日志。为任意智能体设置 `debug_mode=True` 或在环境中配置 `AGNO_DEBUG=true`。
 
 ```python debug_logs.py
 from agno.agent import Agent
@@ -85,7 +84,7 @@ agent = Agent(
 agent.print_response("What is the stock price of Apple?", stream=True)
 ```
 
-Run the agent to view debug logs in the terminal:
+运行智能体后，终端将显示调试日志：
 
 ```shell
 python debug_logs.py
@@ -99,4 +98,3 @@ python debug_logs.py
    style={{ borderRadius: '8px' }}
    src="/videos/debug_logs.mp4"
 ></video>
-

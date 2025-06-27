@@ -1,15 +1,14 @@
 ---
-title: Perplexity
-description: Learn how to use Perplexity with Agno.
+title: 困惑度
+description: 了解如何在 Agno 中使用 Perplexity。
 ---
+Perplexity 提供具备内置网络搜索功能的强大语言模型，可实现高级研究和问答功能。
 
-Perplexity offers powerful language models with built-in web search capabilities, enabling advanced research and Q&A functionality. 
+探索 Perplexity 的模型[请点击此处](https://docs.perplexity.ai/guides/model-cards)。
 
-Explore Perplexity’s models [here](https://docs.perplexity.ai/guides/model-cards).
+## 认证
 
-## Authentication
-
-Set your `PERPLEXITY_API_KEY` environment variable. Get your key [from Perplexity here](https://www.perplexity.ai/settings/api).
+设置您的`PERPLEXITY_API_KEY`环境变量。获取密钥[请访问 Perplexity 这里](https://www.perplexity.ai/settings/api)。
 
 <CodeGroup>
 
@@ -23,9 +22,9 @@ setx PERPLEXITY_API_KEY ***
 
 </CodeGroup>
 
-## Example
+## 示例
 
-Use `Perplexity` with your `Agent`:
+使用`Perplexity`配合您的`Agent`：
 
 <CodeGroup>
 
@@ -35,17 +34,17 @@ from agno.models.perplexity import Perplexity
 
 agent = Agent(model=Perplexity(id="sonar-pro"), markdown=True)
 
-# Print the response in the terminal
+# 在终端中打印响应
 agent.print_response("Share a 2 sentence horror story")
 
 ```
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/perplexity). </Note>
+<Note> 查看更多示例[请访问此处](../examples/models/perplexity)。</Note>
 
-## Params
+## 参数
 
 <Snippet file="model-perplexity-params.mdx" />
 
-`Perplexity` also supports the params of [OpenAI](/reference/models/openai).
+`Perplexity` 同时支持[OpenAI](/reference/models/openai)的参数。

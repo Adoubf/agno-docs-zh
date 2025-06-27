@@ -1,8 +1,7 @@
 ---
-title: Fal Tools
+title: Fal 工具
 ---
-
-## Code
+## 代码
 
 ```python cookbook/tools/fal_tools.py
 from agno.agent import Agent
@@ -27,25 +26,25 @@ fal_agent = Agent(
 fal_agent.print_response("Generate video of balloon in the ocean")
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API keys">
+  <Step title="设置您的 API 密钥">
     ```bash
     export FAL_KEY=xxx
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U fal openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/fal_tools.py

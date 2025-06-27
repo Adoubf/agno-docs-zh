@@ -1,32 +1,31 @@
 ---
 title: Docker
 ---
+[Docker](https://docs.docker.com/get-started/overview/) 是一项革命性技术，它使我们能够在本地运行应用程序。我们将[应用](/workspaces/apps/introduction)打包成**容器**，其中包含运行应用所需的一切。
 
-[Docker](https://docs.docker.com/get-started/overview/) is a game-changing technology that enables us to run applications locally. We package our [Apps](/workspaces/apps/introduction) into **Containers** that include everything needed to run the application
+## Docker资源
 
-## Docker Resources
+Agno允许我们将docker资源定义为pydantic对象，从而可以完全用python构建应用层。大多数情况下您无需直接创建**Docker资源**，而是通过[应用](/workspaces/apps/introduction)来为我们创建这些资源。
 
-Agno enables us to define docker resources as pydantic objects so we can build our application layer purely in python. In most cases you will not be creating the **Docker Resources** directly, instead we'll use [Apps](/workspaces/apps/introduction) to create the resources for us.
+<Accordion title="与 docker-compose 的区别">
 
-<Accordion title="difference from docker-compose">
+Docker Compose更为成熟，它将资源定义为"yaml配置"，而agno允许我们将资源定义为"python对象"。
 
-Docker Compose is more mature and defines resources as a "yaml configuration" whereas agno allows us to define resources as "python objects".
-
-We still love docker-compose, just want to elevate the experience. With agno we rarely define the resources directly, instead we use Apps to create the resources for us.
+我们依然热爱docker-compose，只是希望提升使用体验。在agno中我们很少直接定义资源，而是通过应用来创建资源。
 
 </Accordion>
 
-### Benefits
+### 优势
 
-- Define containers and images as pydantic objects with input and type validation.
-- Allows re-use and testing of resources.
-- Import them in software layer like regular python objects.
-- Package multiple resources into [Apps](/workspaces/apps/introduction) so we can define **"Applications as Code"**.
-- Enable AI features that interact with the resource from python code.
+- 将容器和镜像定义为具备输入和类型验证的pydantic对象
+- 允许资源的复用和测试
+- 像常规python对象一样在软件层中导入它们
+- 将多个资源打包成[应用](/workspaces/apps/introduction)，实现**"代码即应用"**
+- 支持从python代码与资源交互的AI功能
 
-## Container
+## 容器
 
-The `DockerContainer` class defines a container, for example use the following code to define a container running the [whoami](https://github.com/traefik/whoami) image. Start it using `ag start resources.py`
+`DockerContainer`类定义了一个容器，例如以下代码定义了一个运行[whoami](https://github.com/traefik/whoami)镜像的容器。使用`ag start resources.py`启动它
 
 ```python resources.py
 from agno.docker.resource.container import DockerContainer
@@ -38,13 +37,13 @@ whoami = DockerContainer(
 )
 ```
 
-Test it by opening [http://localhost:80](http://localhost:80) or using:
+通过访问[http://localhost:80](http://localhost:80)或使用以下命令进行测试：
 
 ```bash
 curl -X POST http://localhost:80
 ```
 
-The same can be defined as an `App`:
+同样的配置也可以定义为`App`：
 
 ```python resources.py
 from agno.docker.app.whoami import Whoami
@@ -52,11 +51,11 @@ from agno.docker.app.whoami import Whoami
 whoami = Whoami()
 ```
 
-Stop resources using `ag stop resources.py`
+使用`ag stop resources.py`停止资源
 
-## Image
+## 镜像
 
-The `DockerImage` class defines an image, for example use the following code create your own python image and run it in a container. Build it using `ag start resources.py`
+`DockerImage`类定义了一个镜像，例如以下代码创建您自己的python镜像并在容器中运行它。使用`ag start resources.py`构建它
 
 <CodeGroup>
 
@@ -89,6 +88,6 @@ CMD ["chill"]
 
 <Note>
 
-Make sure to add the `Dockerfile` in the current directory.
+请确保在当前目录添加`Dockerfile`。
 
 </Note>

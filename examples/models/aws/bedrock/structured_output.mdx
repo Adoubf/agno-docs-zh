@@ -1,8 +1,7 @@
 ---
-title: Agent with Structured Outputs
+title: 结构化输出的智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/aws/bedrock/structured_output.py
 from typing import List
@@ -38,19 +37,19 @@ movie_agent = Agent(
     response_model=MovieScript,
 )
 
-# Get the response in a variable
-# movie_agent: RunResponse = movie_agent.run("New York")
+# 将响应存入变量
+# movie_agent: RunResponse = movie_agent.run("纽约")
 # pprint(movie_agent.content)
 
 movie_agent.print_response("New York")
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your AWS Credentials">
+  <Step title="设置您的 AWS 凭证">
     ```bash
     export AWS_ACCESS_KEY_ID=***
     export AWS_SECRET_ACCESS_KEY=***
@@ -58,13 +57,13 @@ movie_agent.print_response("New York")
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U boto3 agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/aws/bedrock/structured_output.py

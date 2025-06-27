@@ -1,23 +1,22 @@
 ---
-title: Mistral
-description: Learn how to use Mistral models in Agno.
+title: 米斯特拉尔
+description: 了解如何在Agno中使用Mistral模型。
 ---
+Mistral是一个为大语言模型提供端点服务的平台。  
+查看其模型库[请点击此处](https://docs.mistral.ai/getting-started/models/models_overview/)。
 
-Mistral is a platform for providing endpoints for Large Language models.
-See their library of models [here](https://docs.mistral.ai/getting-started/models/models_overview/).
+我们建议通过实验来寻找最适合您使用场景的模型。以下是一些通用建议：
 
-We recommend experimenting to find the best-suited model for your use-case. Here are some general recommendations:
+- `codestral` 模型擅长代码生成与编辑。
+- `mistral-large-latest` 模型适用于大多数用例。
+- `open-mistral-nemo` 是免费模型，适用于大多数用例。
+- `pixtral-12b-2409` 是视觉模型，适用于OCR、文档转录和图像比对。其工具调用能力可能受限。
 
-- `codestral` model is good for code generation and editing.
-- `mistral-large-latest` model is good for most use-cases.
-- `open-mistral-nemo` is a free model that is good for most use-cases.
-- `pixtral-12b-2409` is a vision model that is good for OCR, transcribing documents, and image comparison. It is not always capable at tool calling.
+Mistral采用分级速率限制。详见[文档](https://docs.mistral.ai/deployment/laplateforme/tier/)。
 
-Mistral has tier-based rate limits. See the [docs](https://docs.mistral.ai/deployment/laplateforme/tier/) for more information.
+## 身份验证
 
-## Authentication
-
-Set your `MISTRAL_API_KEY` environment variable. Get your key from [here](https://console.mistral.ai/api-keys/).
+设置您的 `MISTRAL_API_KEY` 环境变量。密钥获取地址[在此](https://console.mistral.ai/api-keys/)。
 
 <CodeGroup>
 
@@ -31,9 +30,9 @@ setx MISTRAL_API_KEY ***
 
 </CodeGroup>
 
-## Example
+## 示例
 
-Use `Mistral` with your `Agent`:
+配合您的 `Agent` 使用 `Mistral`：
 
 <CodeGroup>
 
@@ -53,17 +52,17 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response in the terminal
+# 在终端打印响应
 agent.print_response("Share a 2 sentence horror story.")
 
 ```
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/mistral). </Note>
+<Note> 查看更多示例[请访问](../examples/models/mistral)。 </Note>
 
-## Params
+## 参数
 
 <Snippet file="model-mistral-params.mdx" />
 
-`MistralChat` is a subclass of the [Model](/reference/models/model) class and has access to the same params.
+`MistralChat` 是[Model](/reference/models/model)类的子类，拥有相同参数访问权限。

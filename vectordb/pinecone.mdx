@@ -1,23 +1,20 @@
 ---
-title: Pinecone Agent Knowledge
+title: Pinecone 智能体知识库
 sidebarTitle: Pinecone
 ---
+## 配置
 
-## Setup
-
-Follow the instructions in the [Pinecone Setup Guide](https://docs.pinecone.io/guides/get-started/quickstart) to get started quickly with Pinecone.
+按照 [Pinecone 快速入门指南](https://docs.pinecone.io/guides/get-started/quickstart) 中的说明快速开始使用 Pinecone。
 
 ```shell
 pip install pinecone
 ```
 
 <Info>
-  We do not yet support Pinecone v6.x.x. We are actively working to achieve
-  compatibility. In the meantime, we recommend using **Pinecone v5.4.2** for the
-  best experience.
+  我们目前暂不支持 Pinecone v6.x.x 版本。我们正在积极开发以实现兼容性。在此期间，建议使用 **Pinecone v5.4.2** 版本以获得最佳体验。
 </Info>
 
-## Example
+## 示例
 
 ```python agent_with_knowledge.py
 import os
@@ -71,16 +68,16 @@ def pinecone_agent(user: str = "user"):
         agent.print_response(message)
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 首次运行后注释掉
     knowledge_base.load(recreate=True, upsert=True)
 
     typer.run(pinecone_agent)
 ```
 
-<Card title="Async Support ⚡">
+<Card title="异步支持 ⚡">
   <div className="mt-2">
     <p>
-      Pinecone also supports asynchronous operations, enabling concurrency and leading to better performance.
+      Pinecone 同样支持异步操作，可实现并发并提升性能表现。
     </p>
     
     ```python async_pinecone.py
@@ -109,33 +106,33 @@ if __name__ == "__main__":
 
     agent = Agent(
         knowledge=knowledge_base,
-        # Show tool calls in the response
+        # 在响应中显示工具调用
         show_tool_calls=True,
-        # Enable the agent to search the knowledge base
+        # 启用智能体搜索知识库功能
         search_knowledge=True,
-        # Enable the agent to read the chat history
+        # 使智能体能够读取聊天历史
         read_chat_history=True,
     )
 
     if __name__ == "__main__":
-        # Comment out after first run
+        # 首次运行后注释掉
         asyncio.run(knowledge_base.aload(recreate=False, upsert=True))
 
-        # Create and use the agent
+        # 创建并使用智能体
         asyncio.run(agent.aprint_response("How to make Tom Kha Gai", markdown=True))
     ```
     
     <Tip className="mt-4">
-      Use <code>aload()</code> and <code>aprint_response()</code> methods with <code>asyncio.run()</code> for non-blocking operations in high-throughput applications.
+      在高吞吐量应用中，使用 <code>aload()</code> 和 <code>aprint_response()</code> 方法配合 <code>asyncio.run()</code> 实现非阻塞操作。
     </Tip>
   </div>
 </Card>
 
-## PineconeDb Params
+## PineconeDb 参数
 
 <Snippet file="vectordb_pineconedb_params.mdx" />
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook (Sync)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/pinecone_db/pinecone_db.py)
-- View [Cookbook (Async)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/pinecone_db/async_pinecone_db.py)
+- 查看 [同步版 Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/pinecone_db/pinecone_db.py)
+- 查看 [异步版 Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/pinecone_db/async_pinecone_db.py)

@@ -1,10 +1,9 @@
 ---
-title: Intermediate Steps
+title: 中间步骤
 ---
+本示例展示如何在智能体中使用中间步骤。
 
-This example shows how to use intermediate steps in an agent.
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/other/intermediate_steps.py
 from typing import Iterator
@@ -28,24 +27,24 @@ for chunk in run_stream:
     print("---" * 20)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno yfinance rich
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/other/intermediate_steps.py
@@ -56,4 +55,4 @@ for chunk in run_stream:
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

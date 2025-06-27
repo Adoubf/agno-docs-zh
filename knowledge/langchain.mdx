@@ -1,12 +1,11 @@
 ---
-title: LangChain Knowledge Base
-description: Learn how to use a LangChain retriever or vector store as a knowledge base.
+title: LangChain 知识库
+description: 了解如何使用 LangChain 检索器或向量数据库作为知识库。
 sidebarTitle: LangChain
 ---
+**LangchainKnowledgeBase** 允许我们将 LangChain 检索器或向量存储用作知识库。
 
-The **LangchainKnowledgeBase** allows us to use a LangChain retriever or vector store as a knowledge base.
-
-## Usage
+## 使用方法
 
 ```shell
 pip install langchain
@@ -26,38 +25,38 @@ chroma_db_dir = "./chroma_db"
 
 def load_vector_store():
     state_of_the_union = ws_settings.ws_root.joinpath("data/demo/state_of_the_union.txt")
-    # -*- Load the document
+    # -*- 加载文档
     raw_documents = TextLoader(str(state_of_the_union)).load()
-    # -*- Split it into chunks
+    # -*- 分割成若干块
     text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
     documents = text_splitter.split_documents(raw_documents)
-    # -*- Embed each chunk and load it into the vector store
+    # -*- 对每个文本块进行嵌入并将其加载到向量存储中
     Chroma.from_documents(documents, OpenAIEmbeddings(), persist_directory=str(chroma_db_dir))
 
 
-# -*- Get the vectordb
+# -*- 获取向量数据库
 db = Chroma(embedding_function=OpenAIEmbeddings(), persist_directory=str(chroma_db_dir))
-# -*- Create a retriever from the vector store
+# -*- 从向量存储创建检索器
 retriever = db.as_retriever()
 
-# -*- Create a knowledge base from the vector store
+# -*- 从向量存储创建知识库
 knowledge_base = LangChainKnowledgeBase(retriever=retriever)
 
 agent = Agent(knowledge_base=knowledge_base, add_references_to_prompt=True)
 conv.print_response("What did the president say about technology?")
 ```
 
-## Params
+## 参数
 
-| Parameter       | Type                 | Default | Description                                                               |
+| 参数            | 类型                 | 默认值  | 描述                                                                     |
 | --------------- | -------------------- | ------- | ------------------------------------------------------------------------- |
-| `loader`        | `Optional[Callable]` | `None`  | LangChain loader.                                                         |
-| `vectorstore`   | `Optional[Any]`      | `None`  | LangChain vector store used to create a retriever.                        |
-| `search_kwargs` | `Optional[dict]`     | `None`  | Search kwargs when creating a retriever using the langchain vector store. |
-| `retriever`     | `Optional[Any]`      | `None`  | LangChain retriever.                                                      |
+| `loader` | `Optional[Callable]` | `None`  | LangChain 加载器。                                                         |
+| `vectorstore` | `Optional[Any]`      | `None`  | 用于创建检索器的 LangChain 向量存储。                                       |
+| `search_kwargs` | `Optional[dict]`     | `None`  | 使用 LangChain 向量存储创建检索器时的搜索参数。                              |
+| `retriever` | `Optional[Any]`      | `None`  | LangChain 检索器。                                                         |
 
-`LangChainKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+`LangChainKnowledgeBase` 是 [AgentKnowledge](/reference/knowledge/base) 类的子类，可以访问相同的参数。
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/langchain_kb.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/langchain_kb.py)

@@ -1,19 +1,18 @@
 ---
-title: Thinking Tools
-sidebarTitle: Thinking Tools
+title: 思考工具
+sidebarTitle: 思维工具
 ---
+`ThinkingTools` 工具包为智能体在执行过程中提供了一个专门的反思空间。该工具包使智能体能够使用草稿板来思考问题、列出规则、核对信息、验证合规性，并在采取行动前评估结果。
 
-The `ThinkingTools` toolkit provides Agents with a dedicated space for reflection during execution. This toolkit enables an Agent to use a scratchpad for thinking through problems, listing rules, checking information, verifying compliance, and evaluating results before taking actions.
+不同于让智能体立即响应或行动的方法，这个工具包鼓励深思熟虑，给予智能体空间去"思考"其行为，检查自身响应，并在整个对话过程中记录其思维过程。
 
-Unlike approaches that have agents immediately respond or take action, this toolkit encourages thoughtful consideration by giving the Agent space to "think" about its actions, examine its own responses, and maintain a log of its thought process throughout the conversation.
+该工具包含有以下工具：
 
-The toolkit includes the following tool:
+- `think`：该工具作为智能体的草稿板，用于推理问题、列出适用规则、验证收集的信息，并评估计划行动是否符合规范和正确性。
 
-- `think`: This tool serves as a scratchpad for the Agent to reason through problems, list applicable rules, verify collected information, and evaluate planned actions for compliance and correctness.
+## 示例
 
-## Example
-
-Here's an example of how to use the `ThinkingTools` toolkit:
+以下是使用 `ThinkingTools` 工具包的示例：
 
 ```python
 from agno.agent import Agent
@@ -40,7 +39,7 @@ thinking_agent = Agent(
 thinking_agent.print_response("Write a report comparing NVDA to TSLA", stream=True)
 ```
 
-The toolkit comes with default instructions to help the Agent use the tool effectively. Here is how you can enable them:
+该工具包附带默认指令以帮助智能体有效使用工具。以下是启用方法：
 
 ```python
 thinking_agent = Agent(
@@ -54,7 +53,7 @@ thinking_agent = Agent(
 )
 ```
 
-`ThinkingTools` can be used with any model provider that supports function calling. Here is an example with of a thinking Agent using `OpenAIChat`:
+`ThinkingTools` 可与任何支持函数调用的模型提供商配合使用。以下是使用 `OpenAIChat` 进行思考的智能体示例：
 
 ```python
 from textwrap import dedent
@@ -92,7 +91,7 @@ thinking_agent = Agent(
 )
 ```
 
-This Agent can be used to address complex problems where careful consideration is needed:
+该智能体可用于处理需要仔细考虑的复杂问题：
 
 ```python
 thinking_agent.print_response(
@@ -101,7 +100,7 @@ thinking_agent.print_response(
 )
 ```
 
-or,
+或，
 
 ```python
 thinking_agent.print_response(

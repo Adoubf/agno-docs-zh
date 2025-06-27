@@ -1,43 +1,40 @@
 ---
-title: What are Agents?
-sidebarTitle: Overview
-description: Learn about Agno Agents and how they work.
+title: 什么是智能体？
+sidebarTitle: 概述
+description: 了解 Agno 智能体及其工作原理。
 ---
+**智能体**是能够自主运行的人工智能程序。传统软件遵循预先编程的步骤序列，而智能体则通过机器学习**模型**动态决定其行动路径。
 
-**Agents** are AI programs that operate autonomously. Traditional software follows a pre-programmed sequence of steps. Agents dynamically determine their course of action using a machine learning **model**.
+智能体的核心由**模型**、**工具**和**指令**构成：
 
-The core of an Agent is the **model**, **tools** and **instructions**:
+- **模型**：控制执行流程。它决定何时进行推理、采取行动或作出响应。
+- **工具**：使智能体能够执行操作并与外部系统交互。
+- **指令**：是我们编程智能体的方式，教导其如何使用工具和作出响应。
 
-- **Model:** controls the flow of execution. It decides whether to reason, act or respond.
-- **Tools:** enable an Agent to take actions and interact with external systems.
-- **Instructions:** are how we program the Agent, teaching it how to use tools and respond.
+智能体还具备**记忆**、**知识**、**存储**和**推理**能力：
 
-Agents also have **memory**, **knowledge**, **storage** and the ability to **reason**:
-
-- **Reasoning:** enables Agents to "think" before responding and "analyze" the results of their actions (i.e. tool calls), this improves reliability and quality of responses.
-- **Knowledge:** is domain-specific information that the Agent can **search at runtime** to make better decisions and provide accurate responses (RAG). Knowledge is stored in a vector database and this **search at runtime** pattern is known as Agentic RAG/Agentic Search.
-- **Storage:** is used by Agents to save session history and state in a database. Model APIs are stateless and storage enables us to continue conversations from where they left off. This makes Agents stateful, enabling multi-turn, long-term conversations.
-- **Memory:** gives Agents the ability to store and recall information from previous interactions, allowing them to learn user preferences and personalize their responses.
+- **推理**：使智能体在响应前能"思考"，并"分析"其行动结果（如工具调用），从而提高响应的可靠性和质量。
+- **知识**：是特定领域的信息，智能体可在**运行时进行搜索**以做出更优决策并提供准确响应（RAG）。知识存储在向量数据库中，这种**运行时搜索**模式被称为Agentic RAG/Agentic Search。
+- **存储**：用于将会话历史记录和状态保存到数据库中。模型API是无状态的，存储使我们能从中断处继续对话。这让智能体具备状态性，支持多轮长期对话。
+- **记忆**：赋予智能体存储和调用先前交互信息的能力，使其能学习用户偏好并个性化响应。
 
 <img height="200" src="/images/agent.png" style={{ borderRadius: "8px" }} />
 
 <Check>
-If this is your first time building agents, [follow these examples](/introduction/agents#basic-agent) before diving into advanced concepts.
+如果是首次构建智能体，[请先参考这些示例](/introduction/agents#basic-agent)再学习进阶概念。
 </Check>
 
-## Example: Research Agent
+## 示例：研究型智能体
 
-Let's build a research agent using Exa to showcase how to guide the Agent to produce the report in a specific format. In advanced cases, we should use [Structured Outputs](/agents/structured-output) instead.
+我们将使用Exa构建一个研究型智能体，演示如何引导智能体生成特定格式的报告。在高级场景中，应改用[结构化输出](/agents/structured-output)。
 
 <Note>
-  The description and instructions are converted to the system message and the
-  input is passed as the user message. Set `debug_mode=True` to view logs behind
-  the scenes.
+  描述和指令会被转换为系统消息，输入则作为用户消息传递。设置 `debug_mode=True` 可查看后台日志。
 </Note>
 
 <Steps>
-  <Step title="Create Research Agent">
-    Create a file `research_agent.py`
+  <Step title="创建研究型智能体">
+    创建文件 `research_agent.py`
 
     ```python research_agent.py
     from datetime import datetime
@@ -75,29 +72,29 @@ Let's build a research agent using Exa to showcase how to guide the Agent to pro
         expected_output=dedent("""\
         A professional research report in markdown format:
 
-        # {Compelling Title That Captures the Topic's Essence}
+        # {引人注目且精准概括主题的标题}
 
-        ## Executive Summary
+        # # 执行摘要
         {Brief overview of key findings and significance}
 
-        ## Introduction
+        # # 简介
         {Context and importance of the topic}
         {Current state of research/discussion}
 
-        ## Key Findings
+        # # 关键发现
         {Major discoveries or developments}
         {Supporting evidence and analysis}
 
-        ## Implications
+        # # 影响
         {Impact on field/society}
         {Future directions}
 
-        ## Key Takeaways
+        # # 核心要点
         - {Bullet point 1}
         - {Bullet point 2}
         - {Bullet point 3}
 
-        ## References
+        # # 参考文献
         - [Source 1](link) - Key finding/quote
         - [Source 2](link) - Key finding/quote
         - [Source 3](link) - Key finding/quote
@@ -112,14 +109,14 @@ Let's build a research agent using Exa to showcase how to guide the Agent to pro
         add_datetime_to_instructions=True,
     )
 
-    # Example usage
+    # 示例用法
     if __name__ == "__main__":
-        # Generate a research report on a cutting-edge topic
+        # 生成一份前沿技术主题的研究报告
         agent.print_response(
             "Research the latest developments in brain-computer interfaces", stream=True
         )
 
-    # More example prompts to try:
+    # 更多可尝试的示例提示：
     """
     Try these research topics:
     1. "Analyze the current state of solid-state batteries"
@@ -131,14 +128,14 @@ Let's build a research agent using Exa to showcase how to guide the Agent to pro
     ```
 
   </Step>
-  <Step title="Run the agent">
-    Install libraries
+  <Step title="运行智能体">
+    安装库
 
     ```shell
     pip install openai exa-py agno
     ```
 
-    Run the agent
+    运行智能体
 
     ```shell
     python research_agent.py

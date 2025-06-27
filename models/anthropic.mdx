@@ -1,21 +1,19 @@
 ---
 title: Anthropic Claude
-description: Learn how to use Anthropic Claude models in Agno.
+description: 了解如何在 Agno 中使用 Anthropic Claude 模型。
 ---
+Claude是Anthropic开发的基础AI模型系列，适用于多种应用场景。
+请参阅其[模型对比表](https://docs.anthropic.com/en/docs/about-claude/models#model-comparison-table)了解各模型差异。
 
-Claude is a family of foundational AI models by Anthropic that can be used in a variety of applications.
-See their model comparisons [here](https://docs.anthropic.com/en/docs/about-claude/models#model-comparison-table).
+我们建议通过实验选择最适合您用例的模型。以下是一些通用建议：
+- `claude-3-5-sonnet-20241022` 模型适用于大多数场景并支持图像输入
+- `claude-3-5-haiku-20241022` 模型是其速度最快的版本
 
-We recommend experimenting to find the best-suited model for your use-case. Here are some general recommendations:
+Anthropic的API设有速率限制，详见官方[文档说明](https://docs.anthropic.com/en/api/rate-limits#response-headers)。
 
-- `claude-3-5-sonnet-20241022` model is good for most use-cases and supports image input.
-- `claude-3-5-haiku-20241022` model is their fastest model.
+## 认证配置
 
-Anthropic has rate limits on their APIs. See the [docs](https://docs.anthropic.com/en/api/rate-limits#response-headers) for more information.
-
-## Authentication
-
-Set your `ANTHROPIC_API_KEY` environment. You can get one [from Anthropic here](https://console.anthropic.com/settings/keys).
+设置您的 `ANTHROPIC_API_KEY` 环境变量。可通过[Anthropic控制台](https://console.anthropic.com/settings/keys)获取密钥。
 
 <CodeGroup>
 
@@ -29,9 +27,9 @@ setx ANTHROPIC_API_KEY ***
 
 </CodeGroup>
 
-## Example
+## 使用示例
 
-Use `Claude` with your `Agent`:
+使用 `Claude` 搭配您的 `Agent`：
 
 <CodeGroup>
 
@@ -44,13 +42,13 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response on the terminal
+# 在终端打印响应
 agent.print_response("Share a 2 sentence horror story.")
 ```
 
-## Prompt caching
+## 提示缓存
 
-You can enable system prompt caching with our `Claude` model by setting `cache_system_prompt` to `True`:
+通过设置 `cache_system_prompt` 为 `True`，可启用我们的 `Claude` 模型的系统提示缓存功能：
 
 ```python
 from agno.agent import Agent
@@ -64,14 +62,14 @@ agent = Agent(
 )
 ```
 
-Read more about prompt caching with Agno's `Claude` model [here](https://docs.agno.com/examples/models/anthropic/prompt_caching).
+了解更多关于Agno `Claude` 模型的提示缓存技术，请参阅[此文档](https://docs.agno.com/examples/models/anthropic/prompt_caching)。
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/anthropic). </Note>
+<Note> 查看更多示例请访问[此链接](../examples/models/anthropic)。 </Note>
 
-## Params
+## 参数说明
 
 <Snippet file="model-claude-params.mdx" />
 
-`Claude` is a subclass of the [Model](/reference/models/model) class and has access to the same params.
+`Claude` 是[Model](/reference/models/model)类的子类，具有相同的参数访问权限。

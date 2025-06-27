@@ -1,10 +1,9 @@
 ---
-title: Agent With Media
+title: 支持多媒体交互的智能体
 ---
+本示例展示如何在 WhatsApp 应用中集成文件功能。
 
-This example shows how to use the files with whatsapp app.
-
-## Code
+## 代码
 
 ```python cookbook/apps/whatsapp/agent_with_media.py
 from agno.agent import Agent
@@ -34,24 +33,24 @@ if __name__ == "__main__":
 
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno google-generativeai "uvicorn[standard]"
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/apps/whatsapp/agent_with_media.py
@@ -62,4 +61,4 @@ if __name__ == "__main__":
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

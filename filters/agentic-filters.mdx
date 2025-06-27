@@ -1,12 +1,12 @@
-# Agentic Knowledge Filters
+# 智能体知识过滤器
 
-Agentic filtering lets the Agent automatically extract filter criteria from your query text, making the experience more natural and interactive.
+智能过滤功能让智能体自动从查询文本中提取筛选条件，使交互体验更自然流畅。
 
-## Step 1: Attach Metadata
+## 第一步：附加元数据
 
-There are two ways to attach metadata to your documents:
+有两种方式为文档附加元数据：
 
-1. **Attach Metadata When Initializing the Knowledge Base**
+1. **初始化知识库时附加元数据**
 
     ```python
     knowledge_base = PDFKnowledgeBase(
@@ -19,30 +19,30 @@ There are two ways to attach metadata to your documents:
                     "year": 2025,
                 },
             },
-            # ... more documents ...
+            # ...更多文档...
         ],
         vector_db=vector_db,
     )
     knowledge_base.load(recreate=True)
     ```
 
-2. **Attach Metadata When Loading Documents One by One**
+2. **逐篇加载文档时附加元数据**
 
     ```python
-    # Initialize the PDFKnowledgeBase
+    # 初始化 PDFKnowledgeBase
     knowledge_base = PDFKnowledgeBase(
         vector_db=vector_db,
         num_documents=5,
     )
 
-    # Load first document with user_1 metadata
+    # 加载带有 user_1 元数据的第一份文档
     knowledge_base.load_document(
         path=path/to/cv1.pdf,
         metadata={"user_id": "jordan_mitchell", "document_type": "cv", "year": 2025},
         recreate=True,  # Set to True only for the first run, then set to False
     )
 
-    # Load second document with user_2 metadata
+    # 加载带有 user_2 元数据的第二份文档
     knowledge_base.load_document(
         path=path/to/cv2.pdf,
         metadata={"user_id": "taylor_brooks", "document_type": "cv", "year": 2025},
@@ -51,11 +51,11 @@ There are two ways to attach metadata to your documents:
 
 ---
 
-## How It Works
+## 工作原理
 
-When you enable agentic filtering (`enable_agentic_knowledge_filters=True`), the Agent analyzes your query and applies filters based on the metadata it detects.
+启用智能过滤功能后（`enable_agentic_knowledge_filters=True`），智能体会分析查询语句并根据检测到的元数据应用筛选条件。
 
-**Example:**
+**示例：**
 ```python
 agent = Agent(
     knowledge=knowledge_base,
@@ -68,34 +68,34 @@ agent.print_response(
 )
 ```
 
-In this example, the Agent will automatically use:
+本例中，智能体将自动使用：
 - `user_id = "jordan_mitchell"`
 - `document_type = "cv"`
 
 ---
 
-## 🌟 See Agentic Filters in Action!
+## 🌟 观看智能过滤器实战演示！
 
-Experience how agentic filters automatically extract relevant metadata from your query.
+体验智能过滤器如何自动从查询中提取相关元数据。
 
-![Agentic Filters in Action](/images/agentic_filters.png)
+![智能过滤器实战](/images/agentic_filters.png)
 
-*The Agent intelligently narrows down results based on your query.*
-
----
-
-## When to Use Agentic Filtering
-
-- When you want a more conversational, user-friendly experience.
-- When users may not know the exact filter syntax.
-
-## Try It Out!
-
-- Enable `enable_agentic_knowledge_filters=True` on your Agent.
-- Ask questions naturally, including filter info in your query.
-- See how the Agent narrows down results automatically!
+*智能体根据您的查询语句智能缩小结果范围*
 
 ---
 
-## Developer Resources
-- [Agentic filtering](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/filters/pdf/agentic_filtering.py)
+## 适用场景
+
+- 需要更对话式、用户友好的交互体验时
+- 用户可能不熟悉具体筛选语法时
+
+## 立即体验！
+
+- 在智能体上启用 `enable_agentic_knowledge_filters=True`
+- 用自然语言提问，在查询中包含筛选信息
+- 观察智能体如何自动精准筛选结果！
+
+---
+
+## 开发者资源
+- [智能过滤功能](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/filters/pdf/agentic_filtering.py)

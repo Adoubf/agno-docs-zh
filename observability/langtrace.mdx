@@ -1,38 +1,37 @@
 ---
 title: Langtrace
-description: Integrate Agno with Langtrace to send traces and gain insights into your agent's performance.
+description: 将 Agno 与 Langtrace 集成，发送追踪数据并获取智能体性能的深入洞察。
 ---
+## 将 Agno 与 Langtrace 集成
 
-## Integrating Agno with Langtrace
+Langtrace 提供了一个强大的平台用于追踪和监控 AI 模型调用。通过将 Agno 与 Langtrace 集成，您可以深入了解智能体的性能和行为。
 
-Langtrace provides a powerful platform for tracing and monitoring AI model calls. By integrating Agno with Langtrace, you can gain insights into your agent's performance and behavior.
+## 先决条件
 
-## Prerequisites
+1. **安装依赖**
 
-1. **Install Dependencies**
-
-   Ensure you have the necessary package installed:
+   确保已安装必要的软件包：
 
    ```bash
    pip install langtrace-python-sdk
    ```
 
-2. **Create a Langtrace Account**
+2. **创建 Langtrace 账户**
 
-   - Sign up for an account at [Langtrace](https://app.langtrace.ai/).
-   - Obtain your API key from the Langtrace dashboard.
+   - 在 [Langtrace](https://app.langtrace.ai/) 注册账户。
+   - 从 Langtrace 仪表板获取您的 API 密钥。
 
-3. **Set Environment Variables**
+3. **设置环境变量**
 
-   Configure your environment with the Langtrace API key:
+   配置环境变量以包含 Langtrace API 密钥：
 
    ```bash
    export LANGTRACE_API_KEY=<your-key>
    ```
 
-## Sending Traces to Langtrace
+## 向 Langtrace 发送追踪数据
 
-This example demonstrates how to instrument your Agno agent with Langtrace.
+以下示例演示如何用 Langtrace 对 Agno 智能体进行埋点：
 
 ```python
 from agno.agent import Agent
@@ -41,10 +40,10 @@ from agno.tools.yfinance import YFinanceTools
 from langtrace_python_sdk import langtrace
 from langtrace_python_sdk.utils.with_root_span import with_langtrace_root_span
 
-# Initialize Langtrace
+# 初始化 Langtrace
 langtrace.init()
 
-# Create and configure the agent
+# 创建并配置智能体
 agent = Agent(
     name="Stock Price Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
@@ -53,13 +52,13 @@ agent = Agent(
     debug_mode=True,
 )
 
-# Use the agent
+# 使用智能体
 agent.print_response("What is the current price of Tesla?")
 ```
 
-## Notes
+## 注意事项
 
-- **Environment Variables**: Ensure your environment variable is correctly set for the API key.
-- **Initialization**: Call `langtrace.init()` to initialize Langtrace before using the agent.
+- **环境变量**：确保正确设置 API 密钥对应的环境变量。
+- **初始化**：使用智能体前需调用 `langtrace.init()` 初始化 Langtrace。
 
-By following these steps, you can effectively integrate Agno with Langtrace, enabling comprehensive observability and monitoring of your AI agents.
+遵循上述步骤，您即可高效完成 Agno 与 Langtrace 的集成，实现对 AI 智能体的全面可观测性监控。

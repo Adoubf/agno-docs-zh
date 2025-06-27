@@ -1,12 +1,11 @@
 ---
 title: Confluence
 ---
+**Confluence工具集**使智能体能够检索、创建和更新Confluence页面，同时支持探索空间和页面详情。
 
-**ConfluenceTools** enable an Agent to retrieve, create, and update pages in Confluence. They also allow you to explore spaces and page details.
+## 前提条件
 
-## Prerequisites
-
-The following example requires the `atlassian-python-api` library and Confluence credentials. You can obtain an API token by going [here](https://id.atlassian.com/manage-profile/security).
+以下示例需要`atlassian-python-api`库和Confluence凭证。您可通过访问[此链接](https://id.atlassian.com/manage-profile/security)获取API令牌。
 
 ```shell
 pip install atlassian-python-api
@@ -16,12 +15,12 @@ pip install atlassian-python-api
 export CONFLUENCE_URL="https://your-confluence-instance"
 export CONFLUENCE_USERNAME="your-username"
 export CONFLUENCE_PASSWORD="your-password"
-# or
+# 或
 export CONFLUENCE_API_KEY="your-api-key"
 ```
 
-## Example
-The following agent will retrieve the number of spaces and their names.
+## 示例
+以下智能体将获取空间数量及其名称。
 
 ```python
 from agno.agent import Agent
@@ -37,28 +36,28 @@ agent = Agent(
 agent.print_response("How many spaces are there and what are their names?")
 ```
 
-## Toolkit Functions
+## 工具包参数
 
-| Parameter | Type     | Default | Description                                                                                                                    |
-| --------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `username`| `str`    | -  | Confluence username. Can also be set via environment variable CONFLUENCE_USERNAME.                                           |
-| `password`| `str`    | -  | Confluence password or API key. Can also be set via environment variables CONFLUENCE_API_KEY or CONFLUENCE_PASSWORD.       |
-| `url`     | `str`    | -  | Confluence instance URL. Can also be set via environment variable CONFLUENCE_URL.                                            |
-| `api_key` | `str`    | -  | Confluence API key (alternative to password).                                                                                 |
-| `ssl_verify` | `bool`    | `True`  | If True, verify the SSL certificate.                                                                                 |
+| 参数名       | 类型     | 默认值 | 描述                                                                                                                     |
+| ------------ | -------- | ------ | ----------------------------------------------------------------------------------------------------------------------- |
+| `username`| `str`    | -      | Confluence用户名。也可通过环境变量CONFLUENCE_USERNAME设置。                                                             |
+| `password`| `str`    | -      | Confluence密码或API密钥。也可通过环境变量CONFLUENCE_API_KEY或CONFLUENCE_PASSWORD设置。                                  |
+| `url`     | `str`    | -      | Confluence实例URL。也可通过环境变量CONFLUENCE_URL设置。                                                                 |
+| `api_key` | `str`    | -      | Confluence API密钥（可替代密码）。                                                                                     |
+| `ssl_verify` | `bool`    | `True`  | 若为True，则验证SSL证书。                                                                                              |
 
-## Toolkit Functions
+## 工具包函数
 
-| Function                                                         | Description                                                                                                                                         |
-| ---------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `get_page_content` | Gets the content of a specific page.                                |
-| `get_all_space_detail`                                         | Gets details about all Confluence spaces.                                                     |
-| `get_space_key`                                 | Gets the Confluence key for the specified space.                                                        |
-| `get_all_page_from_space`                       | Gets details of all pages from the specified space.                                                     |
-| `create_page` | Creates a new Confluence page with the provided title and body.       |
-| `update_page`               | Updates an existing Confluence page.                                    |
+| 函数                                                           | 描述                                                                                                                                            |
+| -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `get_page_content` | 获取指定页面的内容。                                     |
+| `get_all_space_detail`                                         | 获取所有Confluence空间的详细信息。                                                      |
+| `get_space_key`                                 | 获取指定空间的Confluence密钥。                                                              |
+| `get_all_page_from_space`                       | 获取指定空间内所有页面的详细信息。                                                      |
+| `create_page` | 用指定标题和正文创建新Confluence页面。     |
+| `update_page`               | 更新现有Confluence页面。                                    |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/confluence.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/confluence.py)
+- 查看[工具文档](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/confluence.py)
+- 查看[操作手册](https://github.com/agno-agi/agno/blob/main/cookbook/tools/confluence.py)

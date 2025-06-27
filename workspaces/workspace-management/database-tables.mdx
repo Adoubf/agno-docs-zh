@@ -1,17 +1,16 @@
 ---
-title: Database Tables
+title: 数据库表
 ---
+Agno模板已预配置[SqlAlchemy](https://www.sqlalchemy.org/)和[alembic](https://alembic.sqlalchemy.org/en/latest/)来管理数据库。添加表的标准工作流程如下：
 
-Agno templates come pre-configured with [SqlAlchemy](https://www.sqlalchemy.org/) and [alembic](https://alembic.sqlalchemy.org/en/latest/) to manage databases. The general workflow to add a table is:
+1. 将表定义添加到`db/tables`目录。
+2. 在`db/tables/__init__.py`文件中导入表类。
+3. 创建数据库迁移。
+4. 运行数据库迁移。
 
-1. Add table definition to the `db/tables` directory.
-2. Import the table class in the `db/tables/__init__.py` file.
-3. Create a database migration.
-4. Run database migration.
+## 表定义
 
-## Table Definition
-
-Let's create a `UsersTable`, copy the following code to `db/tables/user.py`
+我们创建一个`UsersTable`，将以下代码复制到`db/tables/user.py`
 
 ```python db/tables/user.py
 from datetime import datetime
@@ -42,32 +41,32 @@ class UsersTable(Base):
     )
 ```
 
-Update the `db/tables/__init__.py` file:
+更新`db/tables/__init__.py`文件：
 
 ```python db/tables/__init__.py
 from db.tables.base import Base
 from db.tables.user import UsersTable
 ```
 
-## Creat a database revision
+## 创建数据库版本
 
-Run the alembic command to create a database migration in the dev container:
+在开发容器中运行alembic命令创建数据库迁移：
 
 ```bash
 docker exec -it ai-api alembic -c db/alembic.ini revision --autogenerate -m "Initialize DB"
 ```
 
-## Migrate dev database
+## 迁移开发数据库
 
-Run the alembic command to migrate the dev database:
+运行alembic命令迁移开发数据库：
 
 ```bash
 docker exec -it ai-api alembic -c db/alembic.ini upgrade head
 ```
 
-### Optional: Add test user
+### 可选：添加测试用户
 
-Now lets's add a test user. Copy the following code to `db/tables/test_add_user.py`
+现在添加一个测试用户。将以下代码复制到`db/tables/test_add_user.py`
 
 ```python db/tables/test_add_user.py
 from typing import Optional
@@ -104,64 +103,64 @@ if __name__ == "__main__":
 
 ```
 
-Run the script to add a test adding a user:
+运行脚本添加测试用户：
 
 ```bash
 docker exec -it ai-api python db/tables/test_add_user.py
 ```
 
-## Migrate production database
+## 迁移生产数据库
 
-We recommended migrating the production database by setting the environment variable `MIGRATE_DB = True` and restarting the production service. This runs `alembic -c db/alembic.ini upgrade head` from the entrypoint script at container startup.
+我们建议通过设置环境变量`MIGRATE_DB = True`并重启生产服务来迁移生产数据库。这会在容器启动时从入口脚本运行`alembic -c db/alembic.ini upgrade head`。
 
-### Update the `workspace/prd_resources.py` file
+### 更新`workspace/prd_resources.py`文件
 
 ```python workspace/prd_resources.py
 ...
-# -*- Build container environment
+# -*- 构建容器环境
 container_env = {
     ...
-    # Migrate database on startup using alembic
+    # 启动时使用 alembic 迁移数据库
     "MIGRATE_DB": ws_settings.prd_db_enabled,
 }
 ...
 ```
 
-### Update the ECS Task Definition
+### 更新ECS任务定义
 
-Because we updated the Environment Variables, we need to update the Task Definition:
+由于我们更新了环境变量，需要更新任务定义：
 
 <CodeGroup>
 
-```bash terminal
+```bash 终端
 ag ws patch --env prd --infra aws --name td
 ```
 
-```bash shorthand
+```bash 速记
 ag ws patch -e prd -i aws -n td
 ```
 
 </CodeGroup>
 
-### Update the ECS Service
+### 更新ECS服务
 
-After updating the task definition, redeploy the production application:
+更新任务定义后，重新部署生产应用：
 
 <CodeGroup>
 
-```bash terminal
+```bash 终端
 ag ws patch --env prd --infra aws --name service
 ```
 
-```bash shorthand
+```bash 速记
 ag ws patch -e prd -i aws -n service
 ```
 
 </CodeGroup>
 
-## Manually migrate prodution database
+## 手动迁移生产数据库
 
-Another approach is to SSH into the production container to run the migration manually. Your ECS tasks are already enabled with SSH access. Run the alembic command to migrate the production database:
+另一种方法是SSH登录生产容器手动运行迁移。您的ECS任务已启用SSH访问。运行alembic命令迁移生产数据库：
 
 ```bash
 ECS_CLUSTER=ai-app-prd-cluster
@@ -176,29 +175,29 @@ aws ecs execute-command --cluster $ECS_CLUSTER \
 ```
 
 ---
-## How the migrations directory was created
+## 迁移目录创建方式
 
 <Note>
 
-These commands have been run and are described for completeness
+这些命令已执行，此处说明仅为完整性
 
 </Note>
 
-The migrations directory was created using:
+使用以下命令创建迁移目录：
 
 ```bash
 docker exec -it ai-api cd db && alembic init migrations
 ```
 
-- After running the above command, the `db/migrations` directory should be created.
-- Update `alembic.ini`
-  - set `script_location = db/migrations`
-  - uncomment `black` hook in `[post_write_hooks]`
-- Update `db/migrations/env.py` file following [this link](https://alembic.sqlalchemy.org/en/latest/autogenerate.html)
-- Add the following function to `configure` to only include tables in the target_metadata
+- 运行上述命令后，应创建`db/migrations`目录。
+- 更新`alembic.ini`
+  - 设置`script_location = db/migrations`
+  - 取消注释`black`中的`[post_write_hooks]`钩子
+- 按照[此链接](https://alembic.sqlalchemy.org/en/latest/autogenerate.html)更新`db/migrations/env.py`文件
+- 在`configure`中添加以下函数以仅包含target_metadata中的表
 
 ```python db/migrations/env.py
-# -*- Only include tables that are in the target_metadata
+# -*- 仅包含 target_metadata 中的表
 def include_name(name, type_, parent_names):
     if type_ == "table":
         return name in target_metadata.tables

@@ -1,75 +1,75 @@
-### Parameters
+### 参数
 
-| Parameter | Type | Default | Description |
+| 参数 | 类型 | 默认值 | 描述 |
 |-----------|------|-------------|---------|
-| `runs` | `List[TeamRun]` | `[]` | List of team conversation runs |
-| `messages` | `List[Message]` | `[]` | List of messages sent to the model |
-| `update_system_message_on_change` | `bool` | `True` | Whether to update system message when it changes |
-| `team_context` | `Optional[TeamContext]` | `None` | Context shared among team members |
-| `create_user_memories` | `bool` | `False` | Whether to create personalized memories for users |
-| `update_user_memories_after_run` | `bool` | `True` | Whether to update memories after each run |
-| `db` | `Optional[MemoryDb]` | `None` | Database for storing personalized memories |
-| `user_id` | `Optional[str]` | `None` | User identifier for personalized memories |
-| `retrieval` | `MemoryRetrieval` | `MemoryRetrieval.last_n` | Memory retrieval strategy |
-| `memories` | `Optional[List[Memory]]` | `None` | List of retrieved memories |
-| `classifier` | `Optional[MemoryClassifier]` | `None` | Classifier for memory importance |
-| `manager` | `Optional[MemoryManager]` | `None` | Manager for memory operations |
-| `num_memories` | `Optional[int]` | `None` | Number of memories to retrieve |
+| `runs` | `List[TeamRun]` | `[]` | 团队对话运行记录列表 |
+| `messages` | `List[Message]` | `[]` | 发送至模型的消息列表 |
+| `update_system_message_on_change` | `bool` | `True` | 系统消息变更时是否更新 |
+| `team_context` | `Optional[TeamContext]` | `None` | 团队成员共享的上下文 |
+| `create_user_memories` | `bool` | `False` | 是否为用户创建个性化记忆 |
+| `update_user_memories_after_run` | `bool` | `True` | 每次运行后是否更新记忆 |
+| `db` | `Optional[MemoryDb]` | `None` | 存储个性化记忆的数据库 |
+| `user_id` | `Optional[str]` | `None` | 个性化记忆的用户标识符 |
+| `retrieval` | `MemoryRetrieval` | `MemoryRetrieval.last_n` | 记忆检索策略 |
+| `memories` | `Optional[List[Memory]]` | `None` | 检索到的记忆列表 |
+| `classifier` | `Optional[MemoryClassifier]` | `None` | 记忆重要性分类器 |
+| `manager` | `Optional[MemoryManager]` | `None` | 记忆操作管理器 |
+| `num_memories` | `Optional[int]` | `None` | 需检索的记忆数量 |
 
 ### TeamRun
 
-| Parameter | Type | Default | Description |
+| 参数 | 类型 | 默认值 | 描述 |
 |-----------|------|-------------|---------|
-| `message` | `Optional[Message]` | `None` | Message associated with the team run |
-| `member_runs` | `Optional[List[AgentRun]]` | `None` | List of member agent runs |
-| `response` | `Optional[TeamRunResponse]` | `None` | Response generated during the team run |
+| `message` | `Optional[Message]` | `None` | 团队运行关联的消息 |
+| `member_runs` | `Optional[List[AgentRun]]` | `None` | 成员智能体运行列表 |
+| `response` | `Optional[TeamRunResponse]` | `None` | 团队运行期间生成的响应 |
 
 ### TeamContext
 
-| Parameter | Type | Default | Description |
+| 参数 | 类型 | 默认值 | 描述 |
 |-----------|------|-------------|---------|
-| `member_interactions` | `List[TeamMemberInteraction]` | `[]` | List of interactions between team members |
-| `text` | `Optional[str]` | `None` | Shared text context for the team |
+| `member_interactions` | `List[TeamMemberInteraction]` | `[]` | 团队成员间的交互记录 |
+| `text` | `Optional[str]` | `None` | 团队共享的文本上下文 |
 
 ### TeamMemberInteraction
 
-| Parameter | Type | Description |
+| 参数 | 类型 | 描述 |
 |-----------|------|-------------|
-| `member_name` | `str` | Name of the team member |
-| `task` | `str` | Task assigned to the team member |
-| `response` | `RunResponse` | Response from the team member |
+| `member_name` | `str` | 团队成员名称 |
+| `task` | `str` | 分配给成员的任务 |
+| `response` | `RunResponse` | 团队成员的响应 |
 
-### Memory Retrieval
+### 记忆检索
 
-| Parameter | Type | Description |
+| 参数 | 类型 | 描述 |
 |-----------|------|-------------|
-| `last_n` | `str` | Retrieve the last N memories from history |
-| `first_n` | `str` | Retrieve the first N memories from history |
-| `semantic` | `str` | Retrieve memories based on semantic similarity |
+| `last_n` | `str` | 从历史记录中检索最后N条记忆 |
+| `first_n` | `str` | 从历史记录中检索前N条记忆 |
+| `semantic` | `str` | 基于语义相似性检索记忆 |
 
-### Memory
+### 记忆
 
-| Parameter | Type | Description | Default |
+| 参数 | 类型 | 描述 | 默认值 |
 |-----------|------|-------------|---------|
-| `memory` | `str` | The actual memory content | Required |
-| `id` | `Optional[str]` | Unique identifier for the memory | `None` |
-| `topic` | `Optional[str]` | Topic or category of the memory | `None` |
-| `input` | `Optional[str]` | Original input that generated the memory | `None` |
+| `memory` | `str` | 记忆的实际内容 | 必填 |
+| `id` | `Optional[str]` | 记忆的唯一标识符 | `None` |
+| `topic` | `Optional[str]` | 记忆的主题或分类 | `None` |
+| `input` | `Optional[str]` | 生成记忆的原始输入 | `None` |
 
-### Memory Classifier
+### 记忆分类器
 
-| Parameter | Type | Description | Default |
+| 参数 | 类型 | 描述 | 默认值 |
 |-----------|------|-------------|---------|
-| `model` | `Optional[Model]` | Model used for classifying memories | `None` |
-| `system_message` | `Optional[str]` | Custom system prompt for the classifier | `None` |
-| `existing_memories` | `Optional[List[Memory]]` | List of existing memories to check against | `None` |
+| `model` | `Optional[Model]` | 用于记忆分类的模型 | `None` |
+| `system_message` | `Optional[str]` | 分类器的自定义系统提示 | `None` |
+| `existing_memories` | `Optional[List[Memory]]` | 用于比对的现有记忆列表 | `None` |
 
-### Memory Manager
+### 记忆管理器
 
-| Parameter | Type | Description | Default |
+| 参数 | 类型 | 描述 | 默认值 |
 |-----------|------|-------------|---------|
-| `model` | `Optional[Model]` | Model used for managing memories | `None` |
-| `user_id` | `Optional[str]` | Unique identifier for the user | `None` |
-| `system_message` | `Optional[str]` | Custom system prompt for the memory manager | `None` |
-| `db` | `Optional[MemoryDb]` | Database for storing memories | `None` |
-| `input_message` | `Optional[str]` | Current input message being processed | `None` |
+| `model` | `Optional[Model]` | 用于管理记忆的模型 | `None` |
+| `user_id` | `Optional[str]` | 用户的唯一标识符 | `None` |
+| `system_message` | `Optional[str]` | 记忆管理器的自定义系统提示 | `None` |
+| `db` | `Optional[MemoryDb]` | 存储记忆的数据库 | `None` |
+| `input_message` | `Optional[str]` | 当前正在处理的输入消息 | `None` |

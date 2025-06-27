@@ -1,16 +1,15 @@
 ---
-title: Wikipedia KnowledgeBase
-description: Learn how to use Wikipedia topics in your knowledge base.
-sidebarTitle: Wikipedia
+title: 维基百科知识库
+description: 了解如何在知识库中使用维基百科主题。
+sidebarTitle: 维基百科
 ---
+**WikipediaKnowledgeBase** 读取维基百科主题，将其转换为向量嵌入并加载到向量数据库中。
 
-The **WikipediaKnowledgeBase** reads wikipedia topics, converts them into vector embeddings and loads them to a vector database.
-
-## Usage
+## 使用方法
 
 <Note>
 
-We are using a local PgVector database for this example. [Make sure it's running](http://localhost:3333/vectordb/pgvector)
+本示例使用本地 PgVector 数据库。[确保数据库已运行](http://localhost:3333/vectordb/pgvector)
 
 </Note>
 
@@ -24,7 +23,7 @@ from agno.vectordb.pgvector import PgVector
 
 knowledge_base = WikipediaKnowledgeBase(
     topics=["Manchester United", "Real Madrid"],
-    # Table name: ai.wikipedia_documents
+    # 表名：ai.wikipedia_documents
     vector_db=PgVector(
         table_name="wikipedia_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -32,7 +31,7 @@ knowledge_base = WikipediaKnowledgeBase(
 )
 ```
 
-Then use the `knowledge_base` with an Agent:
+然后通过智能体使用 `knowledge_base`：
 
 ```python agent.py
 from agno.agent import Agent
@@ -47,15 +46,15 @@ agent.knowledge.load(recreate=False)
 agent.print_response("Ask me about something from the knowledge base")
 ```
 
-## Params
+## 参数
 
-| Parameter | Type        | Default | Description    |
-| --------- | ----------- | ------- | -------------- |
-| `topics`  | `List[str]` | []      | Topics to read |
+| 参数        | 类型         | 默认值  | 描述             |
+| ----------- | ------------ | ------- | ---------------- |
+| `topics`  | `List[str]` | []      | 要读取的主题列表 |
 
-`WikipediaKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+`WikipediaKnowledgeBase` 是 [AgentKnowledge](/reference/knowledge/base) 类的子类，拥有相同的参数访问权限。
 
-## Developer Resources
+## 开发者资源
 
-- View [Sync loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/wikipedia_kb.py)
-- View [Async loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/wikipedia_kb_async.py)
+- 查看 [同步加载教程](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/wikipedia_kb.py)
+- 查看 [异步加载教程](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/wikipedia_kb_async.py)

@@ -1,18 +1,14 @@
 ---
-title: Travel Agent
+title: 旅行智能体
 ---
+本示例展示如何创建一个提供全方位行程规划与推荐的高级旅行规划智能体。该智能体整合目的地调研、住宿选择、活动安排和当地洞察，为各类旅行需求提供个性化行程方案。
 
-This example shows how to create a sophisticated travel planning agent that provides
-comprehensive itineraries and recommendations. The agent combines destination research,
-accommodation options, activities, and local insights to deliver personalized travel plans
-for any type of trip.
-
-Example prompts to try:
-- "Plan a 5-day cultural exploration trip to Kyoto for a family of 4"
-- "Create a romantic weekend getaway in Paris with a $2000 budget"
-- "Organize a 7-day adventure trip to New Zealand for solo travel"
-- "Design a tech company offsite in Barcelona for 20 people"
-- "Plan a luxury honeymoon in Maldives for 10 days"
+可尝试的示例提示：
+- "为四口之家规划京都5天文化探索之旅"
+- "预算2000美元设计巴黎浪漫周末度假"
+- "组织新西兰7天单人冒险旅行"
+- "设计巴塞罗那20人科技公司团建活动"
+- "规划马尔代夫10天奢华蜜月行程"
 
 ```python travel_planner.py
 from textwrap import dedent
@@ -95,41 +91,41 @@ travel_agent = Agent(
         - Note advance booking requirements
         - Include local tips and cultural notes"""),
     expected_output=dedent("""\
-        # {Destination} Travel Itinerary 🌎
+        # {目的地}旅行行程 🌎
 
-        ## Overview
+        # # 概述
         - **Dates**: {dates}
         - **Group Size**: {size}
         - **Budget**: {budget}
         - **Trip Style**: {style}
 
-        ## Accommodation 🏨
+        # # 住宿 🏨
         {Detailed accommodation options with pros and cons}
 
-        ## Daily Itinerary
+        # # 每日行程
 
-        ### Day 1
+        # ## 第 1 天
         {Detailed schedule with times and activities}
 
-        ### Day 2
+        # ## 第二天
         {Detailed schedule with times and activities}
 
         [Continue for each day...]
 
-        ## Budget Breakdown 💰
+        # # 预算明细 💰
         - Accommodation: {cost}
         - Activities: {cost}
         - Transportation: {cost}
         - Food & Drinks: {cost}
         - Miscellaneous: {cost}
 
-        ## Important Notes ℹ️
+        # # 重要说明 ℹ️
         {Key information and tips}
 
-        ## Booking Requirements 📋
+        # # 预订要求 📋
         {What needs to be booked in advance}
 
-        ## Local Tips 🗺️
+        # # 本地使用技巧 🗺️
         {Insider advice and cultural notes}
 
         ---
@@ -139,7 +135,7 @@ travel_agent = Agent(
     show_tool_calls=True,
 )
 
-# Example usage with different types of travel queries
+# 不同类型旅行查询的示例用法
 if __name__ == "__main__":
     travel_agent.print_response(
         "I want to plan an offsite for 14 people for 3 days (28th-30th March) in London "
@@ -148,7 +144,7 @@ if __name__ == "__main__":
         stream=True,
     )
 
-# More example prompts to explore:
+# 更多示例提示供探索：
 """
 Corporate Events:
 1. "Plan a team-building retreat in Costa Rica for 25 people"
@@ -175,25 +171,25 @@ Luxury Experiences:
 4. "Organize a luxury train journey through Europe"
 """
 ```
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai exa_py agno
     ```
   </Step>
 
-  <Step title="Set environment variables">
+  <Step title="设置环境变量">
     ```bash
     export OPENAI_API_KEY=****
     export EXA_API_KEY=****
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行智能体">
     ```bash
     python travel_planner.py
     ```

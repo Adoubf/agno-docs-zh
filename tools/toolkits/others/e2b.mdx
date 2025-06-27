@@ -1,13 +1,12 @@
 ---
 title: E2B
-description: Enable your Agents to run code in a remote, secure sandbox.
+description: 为您的智能体启用远程安全沙箱代码运行能力。
 ---
+**E2B工具**让智能体能在安全的沙箱环境中执行代码，支持Python、文件操作及网络服务器功能。
 
-**E2BTools** enable an Agent to execute code in a secure sandboxed environment with support for Python, file operations, and web server capabilities.
+## 前提条件
 
-## Prerequisites
-
-The E2B tools require the `e2b_code_interpreter` Python package and an E2B API key.
+使用E2B工具需要安装`e2b_code_interpreter` Python包并持有E2B API密钥。
 
 ```shell
 pip install e2b_code_interpreter
@@ -17,9 +16,9 @@ pip install e2b_code_interpreter
 export E2B_API_KEY=your_api_key
 ```
 
-## Example
+## 示例
 
-The following example demonstrates how to create an agent that can run Python code in a secure sandbox:
+以下示例展示如何创建能在安全沙箱中运行Python代码的智能体：
 
 ```python cookbook/tools/e2b_tools.py
 from agno.agent import Agent
@@ -57,81 +56,81 @@ agent = Agent(
     ],
 )
 
-# Example: Generate Fibonacci numbers
+# 示例：生成斐波那契数列
 agent.print_response(
     "Write Python code to generate the first 10 Fibonacci numbers and calculate their sum and average"
 )
 
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter            | Type   | Default | Description                                        |
-| -------------------- | ------ | ------- | -------------------------------------------------- |
-| `api_key`            | `str`  | `None`  | E2B API key. If not provided, uses E2B_API_KEY env var. |
-| `run_code`           | `bool` | `True`  | Whether to register the run_code function          |
-| `upload_file`        | `bool` | `True`  | Whether to register the upload_file function       |
-| `download_result`    | `bool` | `True`  | Whether to register the download_result functions  |
-| `filesystem`         | `bool` | `False` | Whether to register filesystem operations          |
-| `internet_access`    | `bool` | `False` | Whether to register internet access functions      |
-| `sandbox_management` | `bool` | `False` | Whether to register sandbox management functions   |
-| `timeout`            | `int`  | `300`   | Timeout in seconds for the sandbox (default: 5 minutes) |
-| `sandbox_options`    | `dict` | `None`  | Additional options to pass to the Sandbox constructor |
-| `command_execution`  | `bool` | `False` | Whether to register command execution functions    |
+| 参数名               | 类型   | 默认值  | 描述                                                         |
+| -------------------- | ------ | ------- | ------------------------------------------------------------ |
+| `api_key`      | `str`  | `None`  | E2B API密钥。未提供时使用E2B_API_KEY环境变量                 |
+| `run_code`      | `bool` | `True`  | 是否注册run_code函数                                         |
+| `upload_file`     | `bool` | `True`  | 是否注册upload_file函数                                      |
+| `download_result`     | `bool` | `True`  | 是否注册download_result系列函数                              |
+| `filesystem`     | `bool` | `False` | 是否注册文件系统操作功能                                     |
+| `internet_access`     | `bool` | `False` | 是否注册网络访问功能                                         |
+| `sandbox_management`     | `bool` | `False` | 是否注册沙箱管理功能                                         |
+| `timeout`     | `int`  | `300`   | 沙箱超时时间（秒），默认5分钟                                |
+| `sandbox_options`     | `dict` | `None`  | 传递给Sandbox构造函数的附加选项                              |
+| `command_execution`     | `bool` | `False` | 是否注册命令执行功能                                         |
 
-## Toolkit Functions
+## 工具包功能
 
-### Code Execution
+### 代码执行
 
-| Function           | Description                                                  |
+| 函数名           | 描述                                                  |
 | ------------------ | ------------------------------------------------------------ |
-| `run_python_code`  | Run Python code in the E2B sandbox environment               |
+| `run_python_code`  | 在E2B沙箱环境中运行Python代码                              |
 
-### File Operations
+### 文件操作
 
-| Function                     | Description                                              |
+| 函数名                     | 描述                                              |
 | ---------------------------- | -------------------------------------------------------- |
-| `upload_file`                | Upload a file to the sandbox                             |
-| `download_png_result`        | Add a PNG image result as an ImageArtifact to the agent  |
-| `download_chart_data`        | Extract chart data from an interactive chart in results  |
-| `download_file_from_sandbox` | Download a file from the sandbox to the local system     |
+| `upload_file`                | 上传文件至沙箱                                   |
+| `download_png_result`        | 将PNG图像结果添加为智能体的ImageArtifact         |
+| `download_chart_data`        | 从交互式图表结果中提取数据                       |
+| `download_file_from_sandbox` | 将沙箱文件下载至本地系统                         |
 
-### Filesystem Operations
+### 文件系统操作
 
-| Function             | Description                                              |
+| 函数名             | 描述                                              |
 | -------------------- | -------------------------------------------------------- |
-| `list_files`         | List files and directories in a path in the sandbox      |
-| `read_file_content`  | Read the content of a file from the sandbox              |
-| `write_file_content` | Write text content to a file in the sandbox              |
-| `watch_directory`    | Watch a directory for changes for a specified duration   |
+| `list_files`         | 列出沙箱路径下的文件和目录                       |
+| `read_file_content`  | 读取沙箱文件内容                                 |
+| `write_file_content` | 向沙箱文件写入文本内容                           |
+| `watch_directory`    | 监控目录变更（持续指定时长）                     |
 
-### Command Execution
+### 命令执行
 
-| Function                | Description                                             |
+| 函数名                | 描述                                             |
 | ----------------------- | ------------------------------------------------------- |
-| `run_command`           | Run a shell command in the sandbox environment          |
-| `stream_command`        | Run a shell command and stream its output               |
-| `run_background_command`| Run a shell command in the background                   |
-| `kill_background_command`| Kill a background command                              |
+| `run_command`           | 在沙箱中运行shell命令                            |
+| `stream_command`        | 运行shell命令并实时输出                          |
+| `run_background_command`| 在后台运行shell命令                              |
+| `kill_background_command`| 终止后台命令                                    |
 
-### Internet Access
+### 网络访问
 
-| Function           | Description                                                  |
+| 函数名           | 描述                                                  |
 | ------------------ | ------------------------------------------------------------ |
-| `get_public_url`   | Get a public URL for a service running in the sandbox        |
-| `run_server`       | Start a server in the sandbox and return its public URL      |
+| `get_public_url`   | 获取沙箱内服务的公开URL                              |
+| `run_server`       | 在沙箱启动服务器并返回其公开URL                      |
 
-### Sandbox Management
+### 沙箱管理
 
-| Function                | Description                                             |
+| 函数名                | 描述                                             |
 | ----------------------- | ------------------------------------------------------- |
-| `set_sandbox_timeout`   | Update the timeout for the sandbox                      |
-| `get_sandbox_status`    | Get the current status of the sandbox                   |
-| `shutdown_sandbox`      | Shutdown the sandbox immediately                        |
-| `list_running_sandboxes`| List all running sandboxes                              |
+| `set_sandbox_timeout`   | 更新沙箱超时时间                                |
+| `get_sandbox_status`    | 获取沙箱当前状态                                |
+| `shutdown_sandbox`      | 立即关闭沙箱                                    |
+| `list_running_sandboxes`| 列出所有运行中的沙箱                            |
 
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/e2b.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/e2b_tools.py)
+- 查看[工具文档](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/e2b.py)
+- 查看[代码示例库](https://github.com/agno-agi/agno/blob/main/cookbook/tools/e2b_tools.py)

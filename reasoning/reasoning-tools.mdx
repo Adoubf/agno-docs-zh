@@ -1,16 +1,15 @@
 ---
-title: Reasoning Tools
+title: 推理工具
 ---
+一类新兴研究表明，为模型提供结构化思考工具（如草稿板）可显著提升其推理能力。
 
-A new class of research is emerging where giving models tools for structured thinking, like a scratchpad, greatly improves their reasoning capabilities.
+例如，通过赋予模型**"思考工具"**，我们能为问题解决提供专属空间，从而大幅增强其推理能力。这是一种简单高效的方法，可为非推理模型添加推理功能。
 
-For example, by giving a model a **"think" tool**, we can greatly improve its reasoning capabilities by providing a dedicated space for working through the problem. This is a simple, yet effective approach to add reasoning to non-reasoning models.
+该技术最早由Anthropic在[这篇博客](https://www.anthropic.com/engineering/claude-think-tool)中发表，但在此之前已有多位AI工程师（包括我们团队）长期实践。
 
-First published by Anthropic in [this blog post](https://www.anthropic.com/engineering/claude-think-tool), this technique has been practiced by many AI Engineers (including our own team) long before it was published.
+## v0: 思考工具
 
-## v0: The Think Tool
-
-The first version of the Think Tool was published by Anthropic in [this blog post](https://www.anthropic.com/engineering/claude-think-tool).
+思考工具的首个版本由Anthropic发布于[这篇博客](https://www.anthropic.com/engineering/claude-think-tool)。
 
 ```python claude_thinking_tools.py
 from agno.agent import Agent
@@ -42,11 +41,11 @@ if __name__ == "__main__":
     )
 ```
 
-## v1: The Reasoning Tools
+## v1: 推理工具
 
-While the v0 Think Tool is a great start, it is limited in that it only allows for a thinking space. The v1 Reasoning Tools take this one step further by allowing the Agent to **analyze** the results of their actions (i.e. tool calls), greatly improving the Agents' ability to solve problems that require sequential tool calls.
+虽然v0思考工具是良好开端，但其局限在于仅提供思考空间。v1推理工具更进一步，允许智能体**分析**其行为结果（即工具调用），显著提升智能体解决需要连续工具调用问题的能力。
 
-**ReasoningTools = `think` + `analyze`**
+**推理工具 = `think` + `analyze`**
 
 ```python claude_reasoning_tools.py
 from agno.agent import Agent
@@ -67,11 +66,11 @@ reasoning_agent.print_response(
 )
 ```
 
-## v2: The Knowledge Tools
+## v2: 知识工具
 
-The Knowledge Tools take the v1 Reasoning Tools one step further by allowing the Agent to **search** a knowledge base and **analyze** the results of their actions.
+知识工具在v1推理工具基础上再次升级，允许智能体**检索**知识库并**分析**其行为结果。
 
-**KnowledgeTools = `think` + `search` + `analyze`** 
+**知识工具 = `think` + `search` + `analyze`**
 
 ```python knowledge_tools.py
 import os
@@ -118,11 +117,9 @@ agno_docs.load(recreate=True)
 agent.print_response("How do I build multi-agent teams with Agno?", stream=True)
 ```
 
-## Developer Resources
+## 开发者资源
 
-
-
-- View [Agents with Reasoning Tools Examples](/examples/concepts/reasoning/tools)
-- View [Agents with Reasoning Tools Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/reasoning/tools)
-- View [Teams with Reasoning Tools Examples](/examples/concepts/reasoning/teams)
-- View [Teams with Reasoning Tools Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/reasoning/teams)
+- 查看[配备推理工具的智能体示例](/examples/concepts/reasoning/tools)
+- 查看[配备推理工具的智能体烹饪指南](https://github.com/agno-agi/agno/tree/main/cookbook/reasoning/tools)
+- 查看[配备推理工具的团队示例](/examples/concepts/reasoning/teams)
+- 查看[配备推理工具的团队烹饪指南](https://github.com/agno-agi/agno/tree/main/cookbook/reasoning/teams)

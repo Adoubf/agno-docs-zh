@@ -1,6 +1,6 @@
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| model | str | "rerank-multilingual-v3.0" | The Cohere model to use for reranking. |
-| api_key | Optional[str] | None | The Cohere API key. If not provided, will attempt to use environment variables. |
-| cohere_client | Optional[CohereClient] | None | An optional pre-configured Cohere client instance. |
-| top_n | Optional[int] | None | The maximum number of documents to return after reranking. If None, returns all documents. |
+| 参数       | 类型                | 默认值                     | 描述                                                                 |
+|------------|---------------------|---------------------------|---------------------------------------------------------------------|
+| model      | str                 | "rerank-multilingual-v3.0" | 用于重排序的 Cohere 模型。                                           |
+| api_key    | Optional[str]       | None                      | Cohere API 密钥。若未提供，将尝试使用环境变量获取。                   |
+| cohere_client | Optional[CohereClient] | None                  | 可选预配置的 Cohere 客户端实例。                                      |
+| top_n      | Optional[int]       | None                      | 重排序后返回的最大文档数量。若为 None，则返回所有文档。                |

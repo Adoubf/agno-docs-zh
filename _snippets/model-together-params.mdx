@@ -1,8 +1,8 @@
-| Parameter      | Type            | Default                                  | Description                                                                                       |
+| 参数           | 类型            | 默认值                                   | 描述                                                                                              |
 | -------------- | --------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| `id`           | `str`           | `"mistralai/Mixtral-8x7B-Instruct-v0.1"` | The id of the Together model to use.                                                              |
-| `name`         | `str`           | `"Together"`                             | The name of this chat model instance.                                                             |
-| `provider`     | `str`           | `"Together " + id`                       | The provider of the model.                                                                        |
-| `api_key`      | `Optional[str]` | `None`                                   | The API key to authorize requests to Together. Defaults to environment variable TOGETHER_API_KEY. |
-| `base_url`     | `str`           | `"https://api.together.xyz/v1"`          | The base URL for API requests.                                                                    |
-| `monkey_patch` | `bool`          | `False`                                  | Whether to apply monkey patching.                                                                 |
+| `id`           | `str`           | `"mistralai/Mixtral-8x7B-Instruct-v0.1"` | 指定使用的Together模型ID。                                                                         |
+| `name`         | `str`           | `"Together"`                             | 该聊天模型实例的名称。                                                                            |
+| `provider`     | `str`           | `"Together " + id`                       | 模型供应商名称。                                                                                  |
+| `api_key`      | `Optional[str]` | `None`                                   | 用于授权Together请求的API密钥。默认为环境变量TOGETHER_API_KEY。                                   |
+| `base_url`     | `str`           | `"https://api.together.xyz/v1"`          | API请求的基础URL。                                                                                |
+| `monkey_patch` | `bool`          | `False`                                  | 是否启用monkey patching。                                                                         |

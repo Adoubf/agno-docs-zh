@@ -1,12 +1,11 @@
 ---
-title: Image OCR with Structured Output
-description: Example of extracting structured data from images using OCR capabilities
+title: 带结构化输出的图像OCR识别
+description: 使用OCR功能从图像中提取结构化数据的示例
 ---
+## 概述  
+本示例演示如何使用 Mistral 的视觉模型对图像执行 OCR 识别，并通过 Pydantic 模型以结构化格式返回提取的信息。  
 
-## Overview
-This example demonstrates how to use Mistral's vision model to perform OCR on images and return the extracted information in a structured format using Pydantic models.
-
-## Code
+## 代码  
 
 ```python cookbook/models/mistral/image_ocr_with_structured_output.py
 from typing import List
@@ -16,7 +15,7 @@ from agno.agent import Agent
 from agno.media import Image
 from agno.models.mistral.mistral import MistralChat
 
-# Define data structures for the extracted information
+# 定义提取信息的数据结构
 class GroceryItem(BaseModel):
     item_name: str
     price: float
@@ -35,41 +34,41 @@ agent = Agent(
     markdown=True,
 )
 
-# Process image and extract structured data
+# 处理图像并提取结构化数据
 agent.print_response(
     "From this restaurant bill, extract the bill number, item names and associated prices, and total price and return it as a string in a Json object",
     images=[
         Image(url="https://i.imghippo.com/files/kgXi81726851246.jpg")
     ],
 )
-```
+```  
 
-## Usage
+## 使用说明  
 
-<Steps>
-  <Snippet file="create-venv-step.mdx" />
+<Steps>  
+  <Snippet file="create-venv-step.mdx" />  
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">  
     ```bash
     export MISTRAL_API_KEY=xxx
-    ```
-  </Step>
+    ```  
+  </Step>  
 
-  <Step title="Install libraries">
+  <Step title="安装库">  
     ```bash
     pip install -U mistralai agno
-    ```
-  </Step>
+    ```  
+  </Step>  
 
-  <Step title="Run Agent">
-    <CodeGroup>
+  <Step title="运行智能体">  
+    <CodeGroup>  
     ```bash Mac
     python cookbook/models/mistral/image_ocr_with_structured_output.py
-    ```
+    ```  
 
     ```bash Windows
     python cookbook/models/mistral/image_ocr_with_structured_output.py
-    ```
-    </CodeGroup>
-  </Step>
-</Steps> 
+    ```  
+    </CodeGroup>  
+  </Step>  
+</Steps>

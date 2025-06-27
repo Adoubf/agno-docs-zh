@@ -1,22 +1,21 @@
 ---
-title: Session Storage
+title: 会话存储
 ---
-
-Use **Session Storage** to persist Agent sessions and state to a database or file.
+使用**会话存储**将智能体会话及状态持久化到数据库或文件中。
 
 <Tip>
-**Why do we need Session Storage?**
+**为什么需要会话存储？**
 
-Agents are ephemeral and the built-in memory only lasts for the current execution cycle.
+智能体是临时性的，其内置记忆仅持续当前执行周期。
 
-In production environments, we serve (or trigger) Agents via an API and need to continue the same session across multiple requests. Storage persists the session history and state in a database and allows us to pick up where we left off.
+在生产环境中，我们通过API提供（或触发）智能体服务，并需要在多个请求间保持同一会话。存储功能将会话历史与状态持久化至数据库，使我们能从中断处继续执行。
 
-Storage also let's us inspect and evaluate Agent sessions, extract few-shot examples and build internal monitoring tools. It lets us **look at the data** which helps us build better Agents.
+存储还允许我们检查和评估智能体会话、提取少样本示例并构建内部监控工具。它让我们能够**查看数据**，从而构建更优质的智能体。
 </Tip>
 
-Adding storage to an Agent, Team or Workflow is as simple as providing a `Storage` driver and Agno handles the rest. You can use Sqlite, Postgres, Mongo or any other database you want.
+为智能体、团队或工作流添加存储只需提供`Storage`驱动，其余由Agno自动处理。您可以使用Sqlite、Postgres、Mongo或任意其他数据库。
 
-Here's a simple example that demostrates persistence across execution cycles:
+以下示例展示跨执行周期的持久化：
 
 ```python storage.py
 from agno.agent import Agent
@@ -26,7 +25,7 @@ from rich.pretty import pprint
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
-    # Fix the session id to continue the same session across execution cycles
+    # 修复会话 ID 以在执行周期之间维持同一会话
     session_id="fixed_id_for_demo",
     storage=SqliteStorage(table_name="agent_sessions", db_file="tmp/data.db"),
     add_history_to_messages=True,
@@ -38,34 +37,34 @@ agent.print_response("What was my last question?")
 pprint(agent.get_messages_for_session())
 ```
 
-The first time you run this, the answer to "What was my last question?" will not be available. But run it again and the Agent will able to answer properly. Because we have fixed the session id, the Agent will continue from the same session every time you run the script.
+首次运行时，智能体无法回答"我上次的问题是什么？"。但再次运行时即可正确应答。由于我们固定了会话ID，每次运行脚本时智能体会从同一会话继续执行。
 
-## Benefits of Storage
+## 存储的优势
 
-Storage has typically been an under-discussed part of Agent Engineering -- but we see it as the unsung hero of production agentic applications.
+存储通常是智能体工程中被低估的环节——但我们视其为生产级智能体应用的无名英雄。
 
-In production, you need storage to:
+在生产环境中，您需要存储来实现：
 
-- Continue sessions: retrieve sessions history and pick up where you left off.
-- Get list of sessions: To continue a previous session, you need to maintain a list of sessions available for that agent.
-- Save state between runs: save the Agent's state to a database or file so you can inspect it later.
+- 会话延续：检索会话历史并从中断处继续
+- 获取会话列表：要延续先前会话，需维护该智能体的可用会话列表
+- 保存运行间状态：将智能体状态保存至数据库或文件以供后续检查
 
-But there is so much more:
+但还有更多价值：
 
-- Storage saves our Agent's session data for inspection and evaluations.
-- Storage helps us extract few-shot examples, which can be used to improve the Agent.
-- Storage enables us to build internal monitoring tools and dashboards.
+- 存储保留智能体会话数据供检查评估
+- 存储帮助我们提取少样本示例以改进智能体
+- 存储使我们能构建内部监控工具和仪表盘
 
 <Warning>
-Storage is such a critical part of your Agentic infrastructure that it should never be offloaded to a third party. You should almost always use your own storage layer for your Agents.
+存储是智能体基础设施的关键部分，绝不应外包给第三方。您几乎总应为智能体使用自建的存储层。
 </Warning>
 
-## Example: Use Postgres for storage
+## 示例：使用Postgres存储
 
 <Steps>
-  <Step title="Run Postgres">
+  <Step title="运行 PostgreSQL">
 
-    Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) and run **Postgres** on port **5532** using:
+    安装[docker桌面版](https://docs.docker.com/desktop/install/mac-install/)并通过以下命令在**5532**端口运行**Postgres**：
 
     ```bash
     docker run -d \
@@ -80,8 +79,8 @@ Storage is such a critical part of your Agentic infrastructure that it should ne
     ```
 
   </Step>
-  <Step title="Create an Agent with Storage">
-    Create a file `agent_with_storage.py` with the following contents
+  <Step title="创建具有存储功能的智能体">
+    创建`agent_with_storage.py`文件并写入以下内容
 
     ```python
     import typer
@@ -111,16 +110,16 @@ Storage is such a critical part of your Agentic infrastructure that it should ne
             user_id=user,
             knowledge=knowledge_base,
             storage=storage,
-            # Show tool calls in the response
+            # 在响应中显示工具调用
             show_tool_calls=True,
-            # Enable the agent to read the chat history
+            # 使智能体能够读取聊天记录
             read_chat_history=True,
-            # We can also automatically add the chat history to the messages sent to the model
-            # But giving the model the chat history is not always useful, so we give it a tool instead
-            # to only use when needed.
+            # 我们还可以自动将聊天记录添加到发送给模型的消息中
+            # 但提供聊天历史记录并不总是有用，所以我们改为提供一个工具
+            # 仅在需要时使用。
             # add_history_to_messages=True,
-            # Number of historical responses to add to the messages.
-            # num_history_responses=3,
+            # 添加到消息中的历史响应数量。
+            # 历史响应数=3,
         )
         if session_id is None:
             session_id = agent.session_id
@@ -128,24 +127,24 @@ Storage is such a critical part of your Agentic infrastructure that it should ne
         else:
             print(f"Continuing Session: {session_id}\n")
 
-        # Runs the agent as a cli app
+        # 将智能体作为命令行应用程序运行
         agent.cli_app(markdown=True)
 
 
     if __name__ == "__main__":
-        # Load the knowledge base: Comment after first run
+        # 加载知识库：首次运行后注释
         knowledge_base.load(upsert=True)
 
         typer.run(pdf_agent)
     ```
 
   </Step>
-  <Step title="Run the agent">
-    Install libraries
+  <Step title="运行智能体">
+    安装依赖库
 
     <CodeGroup>
 
-    ```bash Mac
+    ```bash 苹果
     pip install -U agno openai pgvector pypdf "psycopg[binary]" sqlalchemy
     ```
 
@@ -155,27 +154,27 @@ Storage is such a critical part of your Agentic infrastructure that it should ne
 
     </CodeGroup>
 
-    Run the agent
+    运行智能体
 
     ```bash
     python agent_with_storage.py
     ```
 
-    Now the agent continues across sessions. Ask a question:
+    现在智能体会话可跨次持续。尝试提问：
 
     ```
     How do I make pad thai?
     ```
 
-    Then message `bye` to exit, start the app again and ask:
+    然后输入`bye`退出，重新启动应用并提问：
 
     ```
     What was my last message?
     ```
 
   </Step>
-  <Step title="Start a new run">
-    Run the `agent_with_storage.py` file with the `--new` flag to start a new run.
+  <Step title="开始新的运行">
+    使用`--new`标识运行`agent_with_storage.py`文件以启动新会话。
 
     ```bash
     python agent_with_storage.py --new
@@ -184,25 +183,25 @@ Storage is such a critical part of your Agentic infrastructure that it should ne
   </Step>
 </Steps>
 
-## Schema Upgrades
+## 模式升级
 
-When using `AgentStorage`, the SQL-based storage classes have fixed schemas. As new Agno features are released, the schemas might need to be updated.
+使用`AgentStorage`时，基于SQL的存储类具有固定模式。随着Agno新功能发布，可能需要更新模式。
 
-Upgrades can either be done manually or automatically.
+升级可手动或自动完成。
 
-### Automatic Upgrades
+### 自动升级
 
-Automatic upgrades are done when the `auto_upgrade_schema` parameter is set to `True` in the storage class constructor.
-You only need to set this once for an agent run and the schema would be upgraded.
+当存储类构造函数中`auto_upgrade_schema`参数设为`True`时将执行自动升级。
+只需在智能体运行时设置一次即可完成模式升级。
 
 ```python
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 storage = PostgresStorage(table_name="agent_sessions", db_url=db_url, auto_upgrade_schema=True)
 ```
 
-### Manual Upgrades
+### 手动升级
 
-Manual schema upgrades can be done by calling the `upgrade_schema` method on the storage class.
+手动模式升级可通过调用存储类的`upgrade_schema`方法完成。
 
 ```python
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
@@ -210,12 +209,12 @@ storage = PostgresStorage(table_name="agent_sessions", db_url=db_url)
 storage.upgrade_schema()
 ```
 
-## Params
+## 参数说明
 
-| Parameter | Type | Default | Description |
+| 参数 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `storage` | `Optional[AgentStorage]` | `None` | Storage mechanism for the agent. |
+| `storage` | `Optional[AgentStorage]` | `None` | 智能体的存储机制 |
 
- ## Developer Resources
+ ## 开发者资源
 
-- View [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/storage)
+- 查看[烹饪手册](https://github.com/agno-agi/agno/tree/main/cookbook/storage)

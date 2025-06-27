@@ -1,8 +1,7 @@
 ---
-title: Qdrant FastEmbed Embedder
+title: Qdrant FastEmbed 嵌入器
 ---
-
-## Code
+## 代码
 
 ```python
 from agno.agent import AgentKnowledge
@@ -13,11 +12,11 @@ embeddings = FastEmbedEmbedder().get_embedding(
     "The quick brown fox jumps over the lazy dog."
 )
 
-# Print the embeddings and their dimensions
+# 打印嵌入向量及其维度
 print(f"Embeddings: {embeddings[:5]}")
 print(f"Dimensions: {len(embeddings)}")
 
-# Example usage:
+# 示例用法：
 knowledge_base = AgentKnowledge(
     vector_db=PgVector(
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -28,18 +27,18 @@ knowledge_base = AgentKnowledge(
 )
 ```
 
-## Usage
+## 使用方式
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U sqlalchemy 'psycopg[binary]' pgvector fastembed agno
     ```
   </Step>
 
-  <Step title="Run PgVector">
+  <Step title="运行 PgVector">
     ```bash
     docker run -d \
       -e POSTGRES_DB=ai \
@@ -53,9 +52,9 @@ knowledge_base = AgentKnowledge(
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果
     python cookbook/agent_concepts/knowledge/embedders/qdrant_fastembed.py
     ```
 

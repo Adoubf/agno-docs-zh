@@ -1,28 +1,27 @@
 ---
-title: Filtering on load with Pdf-Url
-description: Learn how to filter knowledge base at load time using Pdf-Url documents with user-specific metadata.
+title: 通过 Pdf-Url 加载时进行筛选
+description: 了解如何在使用带有用户特定元数据的Pdf-Url文档时，在加载时过滤知识库。
 ---
-
-## Code
+## 代码
 
 ```python
 from agno.agent import Agent
 from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
 from agno.vectordb.lancedb import LanceDb
 
-# Initialize LanceDB
-# By default, it stores data in /tmp/lancedb
+# 初始化LanceDB
+# 默认情况下，它将数据存储在 /tmp/lancedb 中
 vector_db = LanceDb(
     table_name="recipes",
     uri="tmp/lancedb",  # You can change this path to store data elsewhere
 )
 
-# Step 1: Initialize knowledge base with documents and metadata
-# ------------------------------------------------------------------------------
-# When loading the knowledge base, we can attach metadata that will be used for filtering
-# This metadata can include user IDs, document types, dates, or any other attributes
+# 第一步：用文档和元数据初始化知识库
+# -------------------------------------------------------------------------------
+# 加载知识库时，我们可以附加用于过滤的元数据
+# 此元数据可包含用户ID、文档类型、日期或任何其他属性
 
-# Initialize knowledge base
+# 初始化知识库
 knowledge_base = PDFUrlKnowledgeBase(
     vector_db=vector_db,
 )
@@ -39,8 +38,8 @@ knowledge_base.load_document(
 )
 
 
-# Option 1: Filters on the Agent
-# Initialize the Agent with the knowledge base
+# 选项 1：智能体上的过滤器
+# 初始化智能体并加载知识库
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
@@ -53,28 +52,28 @@ agent.print_response(
     markdown=True,
 )
 
-# # # Option 2: Filters on the run/print_response
-# agent = Agent(
-#     knowledge=knowledge_base,
-#     search_knowledge=True,
-# )
-# agent.print_response(
-#     "Tell me how to make Cape Malay Curry",
-#     knowledge_filters={"cuisine": "Cape"},
-#     markdown=True,
-# )
+# # 选项 2：运行/打印响应时的过滤器
+# 智能体 = 智能体(
+# knowledge=knowledge_base,
+# search_knowledge=True,
+# （此处应为空括号，按原文格式保留）
+# 智能体.打印响应(
+# “告诉我怎么做开普马来咖喱”
+# 知识过滤器={"cuisine": "开普"},
+# markdown格式=True
+# （保留原样，无需翻译）
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno openai lancedb
     ```
   </Step>
 
-  <Step title="Run the example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/filters/pdf_url/filtering_on_load.py
@@ -85,4 +84,4 @@ agent.print_response(
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

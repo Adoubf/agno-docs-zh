@@ -1,20 +1,19 @@
 ---
-title: Custom API
+title: 自定义 API
 ---
+**CustomApiTools** 允许智能体向任何外部API发起HTTP请求，并支持自定义认证和参数配置。
 
-**CustomApiTools** enable an Agent to make HTTP requests to any external API with customizable authentication and parameters.
+## 前提条件
 
-## Prerequisites
-
-The following example requires the `requests` library.
+以下示例需要 `requests` 库。
 
 ```shell
 pip install requests
 ```
 
-## Example
+## 示例
 
-The following agent will use CustomApiTools to make API calls to the Dog CEO API.
+以下智能体将使用CustomApiTools工具向Dog CEO API发起调用。
 
 ```python cookbook/tools/custom_api_tools.py
 from agno.agent import Agent
@@ -30,27 +29,26 @@ agent.print_response(
 )
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter     | Type                | Default | Description                                                |
-| ------------- | ------------------- | ------- | ---------------------------------------------------------- |
-| `base_url`    | `str`               | `None`  | Base URL for API calls                                     |
-| `username`    | `str`               | `None`  | Username for basic authentication                          |
-| `password`    | `str`               | `None`  | Password for basic authentication                          |
-| `api_key`     | `str`               | `None`  | API key for bearer token authentication                    |
-| `headers`     | `Dict[str, str]`    | `{}`    | Default headers to include in requests                     |
-| `verify_ssl`  | `bool`              | `True`  | Whether to verify SSL certificates                         |
-| `timeout`     | `int`               | `30`    | Request timeout in seconds                                 |
-| `make_request`| `bool`              | `True`  | Whether to register the make_request function              |
+| 参数名       | 类型                | 默认值 | 描述                                                         |
+| ------------- | ------------------- | ------- | ------------------------------------------------------------ |
+| `base_url`    | `str`               | `None`  | API调用的基础URL                                              |
+| `username`    | `str`               | `None`  | 基础认证的用户名                                              |
+| `password`    | `str`               | `None`  | 基础认证的密码                                                |
+| `api_key`     | `str`               | `None`  | 用于Bearer Token认证的API密钥                                 |
+| `headers`     | `Dict[str, str]`    | `{}`    | 请求中包含的默认头信息                                        |
+| `verify_ssl`  | `bool`              | `True`  | 是否验证SSL证书                                               |
+| `timeout`     | `int`               | `30`    | 请求超时时间（秒）                                            |
+| `make_request`| `bool`              | `True`  | 是否注册make_request函数                                      |
 
-## Toolkit Functions
+## 工具包函数
 
-| Function       | Description                                                                                                                                                |
-| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `make_request` | Makes an HTTP request to the API. Takes method (GET, POST, etc.), endpoint, and optional params, data, headers, and json_data parameters.                  |
+| 函数名        | 描述                                                                                                                                                |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `make_request` | 向API发起HTTP请求。接收方法（GET、POST等）、端点路径参数，以及可选的params、data、headers和json_data参数。                                          |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/api.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/custom_api_tools.py)
-```
+- 查看[工具文档](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/api.py)
+- 查看[操作手册](https://github.com/agno-agi/agno/blob/main/cookbook/tools/custom_api_tools.py)

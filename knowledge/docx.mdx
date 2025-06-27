@@ -1,16 +1,15 @@
 ---
-title: Docx Knowledge Base
-description: Learn how to use local docx files in your knowledge base.
+title: Docx 知识库
+description: 了解如何在知识库中使用本地 docx 文件。
 sidebarTitle: Docx
 ---
+**DocxKnowledgeBase** 读取**本地 docx**文件，将其转换为向量嵌入并加载至向量数据库。
 
-The **DocxKnowledgeBase** reads **local docx** files, converts them into vector embeddings and loads them to a vector database.
-
-## Usage
+## 使用方式
 
 <Note>
 
-We are using a local PgVector database for this example. [Make sure it's running](https://docs.agno.com/vectordb/pgvector)
+本示例使用本地 PgVector 数据库。[确保其已运行](https://docs.agno.com/vectordb/pgvector)
 
 </Note>
 
@@ -24,7 +23,7 @@ from agno.vectordb.pgvector import PgVector
 
 knowledge_base = DocxKnowledgeBase(
     path="data/docs",
-    # Table name: ai.docx_documents
+    # 表名：ai.docx_documents
     vector_db=PgVector(
         table_name="docx_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -32,7 +31,7 @@ knowledge_base = DocxKnowledgeBase(
 )
 ```
 
-Then use the `knowledge_base` with an `Agent`:
+随后配合 `knowledge_base` 使用 `Agent`：
 
 ```python
 from agno.agent import Agent
@@ -47,13 +46,13 @@ agent.knowledge.load(recreate=False)
 agent.print_response("Ask me about something from the knowledge base")
 ```
 
-#### DocxKnowledgeBase also supports async loading.
+#### DocxKnowledgeBase 也支持异步加载
 
 ```shell
 pip install qdrant-client
 ```
 
-We are using a local Qdrant database for this example. [Make sure it's running](https://docs.agno.com/vectordb/qdrant)
+本示例使用本地 Qdrant 数据库。[确保其已运行](https://docs.agno.com/vectordb/qdrant)
 
 ```python async_knowledge_base.py
 import asyncio
@@ -63,7 +62,7 @@ from agno.agent import Agent
 from agno.knowledge.docx import DocxKnowledgeBase
 from agno.vectordb.lancedb import LanceDb, SearchType
 
-# Create a knowledge base with the DOCX files from the data/docs directory
+# 使用数据/docs目录中的DOCX文件创建知识库
 knowledge_base = DocxKnowledgeBase(
     path=Path("tmp/docs"),
     vector_db=LanceDb(
@@ -73,7 +72,7 @@ knowledge_base = DocxKnowledgeBase(
     ),
 )
 
-# Create an agent with the knowledge base
+# 创建带有知识库的智能体
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
@@ -89,18 +88,17 @@ if __name__ == "__main__":
     )
 ```
 
-## Params
+## 参数
 
-| Parameter | Type               | Default             | Description                                                                           |
-| --------- | ------------------ | ------------------- | ------------------------------------------------------------------------------------- |
-| `path`    | `Union[str, Path]` | -                   | Path to text files. Can point to a single docx file or a directory of docx files.     |
-| `formats` | `List[str]`        | `[".doc", ".docx"]` | Formats accepted by this knowledge base.                                              |
-| `reader`  | `DocxReader`       | `DocxReader()`      | A `DocxReader` that converts the docx files into `Documents` for the vector database. |
+| 参数        | 类型               | 默认值             | 描述                                                                                   |
+| ----------- | ------------------ | ------------------- | ------------------------------------------------------------------------------------- |
+| `path`    | `Union[str, Path]` | -                   | 文本文件路径。可指向单个 docx 文件或包含多个 docx 文件的目录。                          |
+| `formats` | `List[str]`        | `[".doc", ".docx"]` | 该知识库支持的文件格式。                                                               |
+| `reader`  | `DocxReader`       | `DocxReader()`      | 用于将 docx 文件转换为向量数据库所需的 `Documents` 的 `DocxReader`。            |
 
-`DocxKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+`DocxKnowledgeBase` 是 [AgentKnowledge](/reference/knowledge/base) 类的子类，拥有相同的参数访问权限。
 
-## Developer Resources
+## 开发者资源
 
-- View [Sync loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/docx_kb.py)
-- View [Async loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/docx_kb_async.py)
-
+- 查看 [同步加载 Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/docx_kb.py)
+- 查看 [异步加载 Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/docx_kb_async.py)

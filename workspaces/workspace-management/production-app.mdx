@@ -1,165 +1,164 @@
 ---
-title: Production Application
+title: 生产环境应用
 ---
+您的生产应用程序运行在AWS上，其资源定义于`workspace/prd_resources.py`文件中。本指南将说明如何：
 
-Your production application runs on AWS and its resources are defined in the `workspace/prd_resources.py` file. This guide shows how to:
+1. [构建生产镜像](#build-your-production-image)  
+2. [更新ECS任务定义](#ecs-task-definition)  
+3. [更新ECS服务](#ecs-service)
 
-1. [Build a production image](#build-your-production-image)
-2. [Update ECS Task Definitions](#ecs-task-definition)
-3. [Update ECS Services](#ecs-service)
+## 工作区设置
 
-## Workspace Settings
+`workspace/settings.py`文件中的`WorkspaceSettings`对象定义了工作区应用和资源使用的通用设置。
 
-The `WorkspaceSettings` object in the `workspace/settings.py` file defines common settings used by your workspace apps and resources.
+## 构建生产镜像
 
-## Build your production image
+您的应用程序默认使用`agno`镜像。如需使用自定义镜像：
 
-Your application uses the `agno` images by default. To use your own image:
+- 在`ECR`创建镜像仓库并完成认证，或使用`Dockerhub`  
+- 打开`workspace/settings.py`文件  
+- 将`image_repo`更新为您的镜像仓库地址  
+- 设置`build_images=True`和`push_images=True`  
+- 可选 - 设置`build_images=False`和`push_images=False`以使用仓库中的现有镜像
 
-- Create a Repository in `ECR` and authenticate or use `Dockerhub`.
-- Open `workspace/settings.py` file
-- Update the `image_repo` to your image repository
-- Set `build_images=True` and `push_images=True`
-- Optional - Set `build_images=False` and `push_images=False` to use an existing image in the repository
+### 创建ECR镜像仓库
 
-### Create an ECR Repository
+使用ECR前需**创建镜像仓库并完成ECR认证**才能推送镜像。
 
-To use ECR, **create the image repo and authenticate with ECR** before pushing images.
+**1. 在ECR创建镜像仓库**  
 
-**1. Create the image repository in ECR**
+仓库名称应与`ws_name`保持一致。若使用默认工作区名称，则仓库名应为`ai`。  
 
-The repo name should match the `ws_name`. Meaning if you're using the default workspace name, the repo name would be `ai`.
+<img src="/images/create-ecr-image.png" alt="create-ecr-image" />  
 
-<img src="/images/create-ecr-image.png" alt="create-ecr-image" />
+**2. ECR认证**  
 
-**2. Authenticate with ECR**
-
-```bash Authenticate with ECR
+```bash 使用 ECR 进行身份验证
 aws ecr get-login-password --region [region] | docker login --username AWS --password-stdin [account].dkr.ecr.[region].amazonaws.com
-```
+```  
 
-You can also use a helper script to avoid running the full command
+也可使用辅助脚本简化认证流程：  
 
-<Note>
+<Note>  
 
-Update the script with your ECR repo before running.
+运行前请更新脚本中的ECR仓库地址。  
 
-</Note>
+</Note>  
 
-<CodeGroup>
+<CodeGroup>  
 
 ```bash Mac
 ./scripts/auth_ecr.sh
-```
+```  
 
-</CodeGroup>
+</CodeGroup>  
 
-### Update the `WorkspaceSettings`
+### 更新`WorkspaceSettings`  
 
 ```python workspace/settings.py
 ws_settings = WorkspaceSettings(
     ...
-    # Subnet IDs in the aws_region
+    # aws_region 中的子网 ID
     subnet_ids=["subnet-xyz", "subnet-xyz"],
-    # -*- Image Settings
-    # Repository for images
+    # -*- 镜像设置
+    # 镜像仓库
     image_repo="your-image-repo",
-    # Build images locally
+    # 本地构建镜像
     build_images=True,
-    # Push images after building
+    # 构建后推送镜像
     push_images=True,
 )
-```
+```  
 
-<Note>
+<Note>  
 
-The `image_repo` defines the repo for your image.
+`image_repo`定义了镜像仓库地址：  
 
-- If using dockerhub it would be something like `agno`.
-- If using ECR it would be something like `[ACCOUNT_ID].dkr.ecr.us-east-1.amazonaws.com`
+- 使用Dockerhub时格式类似`agno`  
+- 使用ECR时格式类似`[ACCOUNT_ID].dkr.ecr.us-east-1.amazonaws.com`  
 
-</Note>
+</Note>  
 
-### Build a new image
+### 构建新镜像  
 
-Build the production image using:
+使用以下命令构建生产镜像：  
 
-<CodeGroup>
+<CodeGroup>  
 
-```bash terminal
+```bash 终端
 ag ws up --env prd --infra docker --type image
-```
+```  
 
-```bash shorthand
+```bash 速记
 ag ws up -e prd -i docker -t image
-```
+```  
 
-</CodeGroup>
+</CodeGroup>  
 
-To `force` rebuild images, use the `--force` or `-f` flag
+如需`force`重建镜像，可使用`--force`或`-f`标识  
 
-<CodeGroup>
+<CodeGroup>  
 
-```bash terminal
+```bash 终端
 ag ws up --env prd --infra docker --type image --force
-```
+```  
 
-```bash shorthand
+```bash 速记
 ag ws up -e prd -i docker -t image -f
-```
+```  
 
-</CodeGroup>
+</CodeGroup>  
 
-Because the only docker resources in the production env are docker images, you can also use:
+由于生产环境仅需Docker镜像，也可直接使用：  
 
-<CodeGroup>
+<CodeGroup>  
 
-```bash Build Images
+```bash 构建镜像
 ag ws up prd:docker
-```
+```  
 
-```bash Force Build Images
+```bash 强制构建镜像
 ag ws up prd:docker -f
-```
+```  
 
-</CodeGroup>
+</CodeGroup>  
 
-## ECS Task Definition
+## ECS任务定义  
 
-If you updated the Image, CPU, Memory or Environment Variables, update the Task Definition using:
+若更新了镜像、CPU、内存或环境变量，需通过以下命令更新任务定义：  
 
-<CodeGroup>
+<CodeGroup>  
 
-```bash terminal
+```bash 终端
 ag ws patch --env prd --infra aws --name td
-```
+```  
 
-```bash shorthand
+```bash 速记
 ag ws patch -e prd -i aws -n td
-```
+```  
 
-</CodeGroup>
+</CodeGroup>  
 
-## ECS Service
+## ECS服务  
 
-To redeploy the production application, update the ECS Service using:
+要重新部署生产应用，请更新ECS服务：  
 
-<CodeGroup>
+<CodeGroup>  
 
-```bash terminal
+```bash 终端
 ag ws patch --env prd --infra aws --name service
-```
+```  
 
-```bash shorthand
+```bash 速记
 ag ws patch -e prd -i aws -n service
-```
+```  
 
-</CodeGroup>
+</CodeGroup>  
 
-<br />
+<br />  
 
-<Note>
+<Note>  
 
-If you **ONLY** rebuilt the image, you do not need to update the task definition and can just patch the service to pickup the new image.
+若**仅**重建了镜像，无需更新任务定义，直接修补服务即可获取新镜像：  
 
 </Note>

@@ -1,20 +1,16 @@
 ---
-title: Recipe Creator
+title: 食谱生成器
 ---
+本示例展示如何构建一个智能食谱推荐系统，该系统可根据您的现有食材、饮食偏好和时间限制提供详细的个性化食谱。该智能体结合了烹饪知识、营养数据和烹饪技法，以生成全面的烹饪指导。
 
-This example shows how to create an intelligent recipe recommendation system that provides
-detailed, personalized recipes based on your ingredients, dietary preferences, and time constraints.
-The agent combines culinary knowledge, nutritional data, and cooking techniques to deliver
-comprehensive cooking instructions.
+可尝试的示例提示：
+- "我有鸡肉、米饭和蔬菜。30分钟内能做什么菜？"
+- "用蘑菇和菠菜设计一份素食意面食谱"
+- "推荐用燕麦和水果制作的健康早餐选项"
+- "如何利用剩下的火鸡肉和土豆做菜？"
+- "需要一份用巧克力和香蕉制作的快手甜点食谱"
 
-Example prompts to try:
-- "I have chicken, rice, and vegetables. What can I make in 30 minutes?"
-- "Create a vegetarian pasta recipe with mushrooms and spinach"
-- "Suggest healthy breakfast options with oats and fruits"
-- "What can I make with leftover turkey and potatoes?"
-- "Need a quick dessert recipe using chocolate and bananas"
-
-## Code
+## 代码
 
 ```python recipe_creator.py
 from textwrap import dedent
@@ -88,13 +84,13 @@ recipe_agent = Agent(
     show_tool_calls=True,
 )
 
-# Example usage with different types of recipe queries
+# 不同类型食谱查询的示例用法
 recipe_agent.print_response(
     "I have chicken breast, broccoli, garlic, and rice. Need a healthy dinner recipe that takes less than 45 minutes.",
     stream=True,
 )
 
-# More example prompts to explore:
+# 更多可供探索的示例提示:
 """
 Quick Meals:
 1. "15-minute dinner ideas with pasta and vegetables"
@@ -134,26 +130,26 @@ Batch Cooking:
 """
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
 
     <Snippet file="create-venv-step.mdx" />
 
-    <Step title="Install required libraries">
+    <Step title="安装所需库">
         ```bash
         pip install agno openai exa_py
         ```
     </Step>
 
-    <Step title="Set environment variables">
+    <Step title="设置环境变量">
         ```bash
         export OPENAI_API_KEY=****
         export EXA_API_KEY=****
         ```
     </Step>
 
-    <Step title="Run the agent">
+    <Step title="运行智能体">
         ```bash
         python recipe_creator.py
         ```

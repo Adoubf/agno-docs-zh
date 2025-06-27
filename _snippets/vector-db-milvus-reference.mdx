@@ -1,7 +1,7 @@
-| Parameter | Type | Default | Description |
+| 参数 | 类型 | 默认值 | 描述 |
 | --------- | ---- | ------- | ----------- |
-| `collection` | `str` | `None` | Name of the Milvus collection to store vectors and metadata |
-| `embedder` | `Optional[Embedder]` | `OpenAIEmbedder()` | Embedder instance to generate embeddings |
-| `distance` | `Distance` | `Distance.cosine` | Distance metric to use for similarity search |
-| `uri` | `str` | `"http://localhost:19530"` | URI of the Milvus server. Can be a local file path for Milvus Lite, server address for self-hosted Milvus, or Zilliz Cloud endpoint |
-| `token` | `Optional[str]` | `None` | Token for authentication. Format as "username:password" for self-hosted Milvus with auth enabled, or API key for Zilliz Cloud |
+| `collection` | `str` | `None` | 用于存储向量和元数据的 Milvus 集合名称 |
+| `embedder` | `Optional[Embedder]` | `OpenAIEmbedder()` | 用于生成嵌入的嵌入器实例 |
+| `distance` | `Distance` | `Distance.cosine` | 相似性搜索使用的距离度量方式 |
+| `uri` | `str` | `"http://localhost:19530"` | Milvus 服务器 URI。可以是 Milvus Lite 的本地文件路径、自托管 Milvus 的服务器地址或 Zilliz Cloud 端点 |
+| `token` | `Optional[str]` | `None` | 认证令牌。启用认证的自托管 Milvus 需格式化为"用户名:密码"，Zilliz Cloud 则使用 API 密钥 |

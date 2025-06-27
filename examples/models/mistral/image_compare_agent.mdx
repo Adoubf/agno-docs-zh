@@ -1,13 +1,12 @@
 ---
-title: Image Compare Agent
-description: Example of using Mistral's vision model to compare two images and identify differences
+title: 镜像比对智能体
+description: 使用Mistral视觉模型对比两幅图像并识别差异的示例
 ---
+## 概览
+本示例演示如何使用 Mistral 视觉模型分析和比较两张不同图片。
+该智能体会识别并描述图片间的差异，使其适用于视觉对比任务。
 
-## Overview
-This example demonstrates how to use the Mistral vision model to analyze and compare two different images. 
-The agent will identify and describe the differences between the images, making it useful for visual comparison tasks.
-
-## Code
+## 代码
 
 ```python cookbook/models/mistral/image_compare_agent.py
 from agno.agent import Agent
@@ -19,7 +18,7 @@ agent = Agent(
     markdown=True,
 )
 
-# Compare two different images of the Eiffel Tower
+# 比较两张不同的埃菲尔铁塔图片
 agent.print_response(
     "what are the differences between two images?",
     images=[
@@ -30,24 +29,24 @@ agent.print_response(
 )
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export MISTRAL_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U mistralai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/mistral/image_compare_agent.py
@@ -58,4 +57,4 @@ agent.print_response(
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

@@ -1,18 +1,17 @@
 ---
 title: Discord
 ---
+**Discord工具** 使智能体能够在Discord中发送消息、读取消息历史、管理频道以及删除消息。
 
-**DiscordTools** enable an agent to send messages, read message history, manage channels, and delete messages in Discord.
+## 前提条件
 
-## Prerequisites
-
-The following example requires a Discord bot token which can be obtained from [here](https://discord.com/developers/applications).
+以下示例需要从[此处](https://discord.com/developers/applications)获取Discord机器人令牌。
 
 ```shell
 export DISCORD_BOT_TOKEN=***
 ```
 
-## Example
+## 示例
 
 ```python cookbook/tools/discord.py
 from agno.agent import Agent
@@ -26,27 +25,27 @@ agent = Agent(
 
 agent.print_response("Send 'Hello World!' to channel 1234567890", markdown=True)
 ```
-## Toolkit Params
+## 工具包参数
 
-| Parameter                   | Type    | Default | Description                                                                           |
+| 参数                   | 类型    | 默认值 | 描述                                                                           |
 | --------------------------- | ------- | ------- | ------------------------------------------------------------------------------------- |
-| `bot_token`                 | `str`   | -  | Discord bot token for authentication.                                                 |
-| `enable_messaging`          | `bool`  | `True`  | Whether to enable sending messages to channels.                                       |
-| `enable_history`            | `bool`  | `True`  | Whether to enable retrieving message history from channels.                           |
-| `enable_channel_management` | `bool`  | `True`  | Whether to enable fetching channel info and listing channels.                         |
-| `enable_message_management` | `bool`  | `True`  | Whether to enable deleting messages from channels.                                    |
+| `bot_token`                 | `str`   | -  | 用于身份验证的Discord机器人令牌。                                                 |
+| `enable_messaging`          | `bool`  | `True`  | 是否启用向频道发送消息功能。                                       |
+| `enable_history`            | `bool`  | `True`  | 是否启用从频道检索消息历史功能。                           |
+| `enable_channel_management` | `bool`  | `True`  | 是否启用获取频道信息及列出频道功能。                         |
+| `enable_message_management` | `bool`  | `True`  | 是否启用从频道删除消息功能。                                    |
 
-## Toolkit Functions
+## 工具包函数
 
-| Function                                          | Description                                                                                                   |
+| 函数                                          | 描述                                                                                                   |
 | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `send_message`     | Send a message to a specified channel. Returns a success or error message.                                    |
-| `get_channel_info`               | Retrieve information about a specified channel. Returns the channel info as a JSON string.                    |
-| `list_channels`                    | List all channels in a specified server (guild). Returns the list of channels as JSON.                        |
-| `get_channel_messages`| Retrieve message history from a specified channel. Returns messages as a JSON string.                         |
-| `delete_message`| Delete a specific message by ID from a specified channel. Returns a success or error message.                 |
+| `send_message`     | 向指定频道发送消息。返回成功或错误信息。                                    |
+| `get_channel_info`               | 获取指定频道的信息。以JSON字符串形式返回频道信息。                    |
+| `list_channels`                    | 列出指定服务器（公会）中的所有频道。以JSON形式返回频道列表。                        |
+| `get_channel_messages`| 从指定频道检索消息历史。以JSON字符串形式返回消息。                         |
+| `delete_message`| 通过ID从指定频道删除特定消息。返回成功或错误信息。                 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/discord.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/discord.py)
+- 查看[工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/discord.py)
+- 查看[Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/discord.py)

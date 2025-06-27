@@ -1,13 +1,12 @@
 ---
 title: OpenRouter
-description: Learn how to use OpenRouter with Agno.
+description: 学习如何将 OpenRouter 与 Agno 结合使用。
 ---
+OpenRouter是一个为大型语言模型提供接入端点的平台。
 
-OpenRouter is a platform for providing endpoints for Large Language models.
+## 认证
 
-## Authentication
-
-Set your `OPENROUTER_API_KEY` environment variable. Get your key from [here](https://openrouter.ai/settings/keys).
+设置你的`OPENROUTER_API_KEY`环境变量。从[这里](https://openrouter.ai/settings/keys)获取密钥。
 
 <CodeGroup>
 
@@ -21,9 +20,9 @@ setx OPENROUTER_API_KEY ***
 
 </CodeGroup>
 
-## Example
+## 示例
 
-Use `OpenRouter` with your `Agent`:
+使用`OpenRouter`配合你的`Agent`：
 
 <CodeGroup>
 
@@ -36,20 +35,20 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response in the terminal
+# 在终端中打印响应
 agent.print_response("Share a 2 sentence horror story.")
 
 ```
 
 </CodeGroup>
 
-## Params
+## 参数
 
 <Snippet file="model-openrouter-params.mdx" />
 
-`OpenRouter` also supports the params of [OpenAI](/reference/models/openai).
+`OpenRouter`同时支持[OpenAI](/reference/models/openai)的参数。
 
-## Prompt caching
+## 提示缓存
 
-Prompt caching will happen automatically using our `OpenRouter` model, when the used provider supports it. In other cases you can activate it via the `cache_control` header.
-You can read more about prompt caching with OpenRouter in [their docs](https://openrouter.ai/docs/features/prompt-caching).
+当使用的服务提供商支持时，我们的`OpenRouter`模型会自动进行提示缓存。其他情况下，你可以通过`cache_control`请求头来激活该功能。
+你可以在[OpenRouter文档](https://openrouter.ai/docs/features/prompt-caching)中阅读更多关于提示缓存的内容。

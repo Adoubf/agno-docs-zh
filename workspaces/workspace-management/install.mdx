@@ -1,17 +1,16 @@
 ---
-title: Install & Setup
+title: 安装与设置
 ---
+## 安装 Agno
 
-## Install Agno
+我们强烈建议：
 
-We highly recommend:
-
-- Installing `agno` using `pip` in a python virtual environment.
-- Creating an `ai` directory for your ai workspaces
+- 在 Python 虚拟环境中使用 `pip` 安装 `agno`
+- 为 AI 工作空间创建 `ai` 目录
 
 <Steps>
-  <Step title="Create a virtual environment">
-    Open the `Terminal` and create an `ai` directory with a python virtual environment.
+  <Step title="创建一个虚拟环境">
+    打开 `Terminal` 并创建带有 Python 虚拟环境的 `ai` 目录。
 
     <CodeGroup>
 
@@ -32,8 +31,8 @@ We highly recommend:
     </CodeGroup>
 
   </Step>
-  <Step title="Install Agno">
-    Install `agno` using pip
+  <Step title="安装 Agno">
+    使用 pip 安装 `agno`
 
     <CodeGroup>
 
@@ -48,8 +47,8 @@ We highly recommend:
     </CodeGroup>
 
   </Step>
-  <Step title="Install Docker">
-    Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) to run apps locally
+  <Step title="安装 Docker">
+    安装 [docker desktop](https://docs.docker.com/desktop/install/mac-install/) 以本地运行应用
   </Step>
 </Steps>
 
@@ -57,32 +56,32 @@ We highly recommend:
 
 <Note>
 
-If you encounter errors, try updating pip using `python -m pip install --upgrade pip`
+如果遇到错误，请尝试使用 `python -m pip install --upgrade pip` 更新 pip
 
 </Note>
 
 ---
-## Upgrade Agno
+## 升级 Agno
 
-To upgrade `agno`, run this in your virtual environment
+要升级 `agno`，请在虚拟环境中运行以下命令
 
 ```bash
 pip install -U agno --no-cache-dir
 ```
 
 ---
-## Setup workspace
+## 设置工作空间
 
-If you have an existing `agno` workspace, set it up using
+如果您已有 `agno` 工作空间，请使用以下命令进行设置
 
 ```bash
 ag ws setup
 ```
 
 ---
-## Reset Agno
+## 重置 Agno
 
-To reset the agno config, run
+要重置 agno 配置，请运行
 
 ```bash
 ag init -r
@@ -90,6 +89,6 @@ ag init -r
 
 <Note>
 
-This does not delete any physical data
+此操作不会删除任何物理数据
 
 </Note>

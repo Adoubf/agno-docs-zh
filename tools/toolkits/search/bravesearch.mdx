@@ -1,12 +1,11 @@
 ---
-title: Brave Search
+title: Brave 搜索
 ---
+**BraveSearch** 使智能体能够使用 Brave 搜索引擎在互联网上搜索信息。
 
-**BraveSearch** enables an Agent to search the web for information using the Brave search engine.
+## 先决条件
 
-## Prerequisites
-
-The following examples requires the `brave-search` library.
+以下示例需要 `brave-search` 库。
 
 ```shell
 pip install -U brave-search
@@ -15,8 +14,7 @@ pip install -U brave-search
 export BRAVE_API_KEY=***
 ```
 
-## Example
-
+## 示例
 
 ```python cookbook/tools/bravesearch_tools.py
 from agno.agent import Agent
@@ -34,21 +32,21 @@ agent.print_response("AI Agents", markdown=True)
 
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter           | Type  | Default | Description                                         |
+| 参数           | 类型  | 默认值 | 说明                                         |
 | ------------------- | ----- | ------- | --------------------------------------------------- |
-| `fixed_max_results` | `int` | `None`  | Optional fixed maximum number of results to return. |
-| `fixed_language`    | `str` | `None`  | Optional fixed language for the requests.           |
+| `fixed_max_results` | `int` | `None`  | 可选固定返回的最大结果数。 |
+| `fixed_language`    | `str` | `None`  | 可选固定请求语言。           |
 
 
-## Toolkit Functions
+## 工具包函数
 
-| Function        | Description                                                                                                                                                                                                                                                                            |
+| 函数        | 说明                                                                                                                                                                                                                                                                            |
 | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `brave_search` | Searches Brave for a specified query. Parameters include `query` for the search term, `max_results` for the maximum number of results (default is 5),`country` for the geographic region (default is "US") of the search results and `language` for the language of the search results (default is "en"). Returns the search results as a JSON formatted string. |
+| `brave_search` | 在 Brave 中搜索指定查询。参数包括 `query`（搜索关键词）、`max_results`（最大结果数，默认为 5）、`country`（搜索结果的地理区域，默认为 "US"）以及 `language`（搜索结果的语言，默认为 "en"）。返回的搜索结果以 JSON 格式化字符串呈现。 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/bravesearch.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/bravesearch_tools.py)
+- 查看 [工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/bravesearch.py)
+- 查看 [烹饪书](https://github.com/agno-agi/agno/blob/main/cookbook/tools/bravesearch_tools.py)

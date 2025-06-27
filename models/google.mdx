@@ -1,25 +1,24 @@
 ---
-title: Gemini
-description: Learn how to use Gemini models in Agno.
+title: 双子座
+description: 了解如何在 Agno 中使用 Gemini 模型。
 ---
+通过[Google AI Studio](https://ai.google.dev/gemini-api/docs)或[Google Cloud Vertex AI](https://cloud.google.com/vertex-ai/generative-ai/docs/overview)使用谷歌的Gemini模型——这两个平台提供对大语言模型及其他服务的访问权限。
 
-Use Google's Gemini models through [Google AI Studio](https://ai.google.dev/gemini-api/docs) or [Google Cloud Vertex AI](https://cloud.google.com/vertex-ai/generative-ai/docs/overview) - platforms that provide access to large language models and other services.
+我们建议通过实验来找到最适合您应用场景的模型。以下是Gemini `2.x`系列模型的一些通用推荐：
 
-We recommend experimenting to find the best-suited model for your use case. Here are some general recommendations in the Gemini `2.x` family of models:
+- `gemini-2.0-flash` 适用于大多数场景
+- `gemini-2.0-flash-lite` 是性价比最高的模型
+- `gemini-2.5-pro-exp-03-25` 是最强大的多模态模型
 
-- `gemini-2.0-flash` is good for most use-cases.
-- `gemini-2.0-flash-lite` is the most cost-effective model.
-- `gemini-2.5-pro-exp-03-25` is the strongest multi-modal model.
+关于可用模型版本的信息，请参阅[Google AI Studio文档](https://ai.google.dev/gemini-api/docs/models)和[Vertex AI文档](https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models)。
 
-Refer to the [Google AI Studio documentation](https://ai.google.dev/gemini-api/docs/models) and the [Vertex AI documentation](https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models) for information on available model versions.
+## 身份验证
 
-## Authentication
-
-You can use Gemini models through either Google AI Studio or Google Cloud's Vertex AI:
+您可以通过Google AI Studio或Google Cloud Vertex AI使用Gemini模型：
 
 ### Google AI Studio
 
-Set the `GOOGLE_API_KEY` environment variable. You can get one [from Google AI Studio](https://ai.google.dev/gemini-api/docs/api-key).
+设置`GOOGLE_API_KEY`环境变量。您可以从[Google AI Studio](https://ai.google.dev/gemini-api/docs/api-key)获取密钥。
 
 <CodeGroup>
 
@@ -35,19 +34,19 @@ setx GOOGLE_API_KEY ***
 
 ### Vertex AI
 
-To use Vertex AI in Google Cloud:
+要在Google Cloud中使用Vertex AI：
 
-1. Refer to the [Vertex AI documentation](https://cloud.google.com/vertex-ai/docs/start/cloud-environment) to set up a project and development environment.
+1. 参考[Vertex AI文档](https://cloud.google.com/vertex-ai/docs/start/cloud-environment)设置项目和开发环境。
 
-2. Install the `gcloud` CLI and authenticate (refer to the [quickstart](https://cloud.google.com/vertex-ai/generative-ai/docs/start/quickstarts/quickstart-multimodal) for more details):
+2. 安装`gcloud` CLI并进行身份验证（详情参阅[快速入门](https://cloud.google.com/vertex-ai/generative-ai/docs/start/quickstarts/quickstart-multimodal)）：
 
 ```bash
 gcloud auth application-default login
 ```
 
-3. Enable Vertex AI API and set the project ID environment variable (alternatively, you can set `project_id` in the `Agent` config):
+3. 启用Vertex AI API并设置项目ID环境变量（或者您可以在`Agent`配置中设置`project_id`）：
 
-Export the following variables:
+导出以下变量：
 
 ```bash
 export GOOGLE_GENAI_USE_VERTEXAI="true"
@@ -55,7 +54,7 @@ export GOOGLE_CLOUD_PROJECT="your-gcloud-project-id"
 export GOOGLE_CLOUD_LOCATION="your-gcloud-location"
 ```
 
-Or update your Agent configuration:
+或更新您的Agent配置：
 
 ```python
 agent = Agent(
@@ -68,9 +67,9 @@ agent = Agent(
 )
 ```
 
-## Example
+## 示例
 
-Use `Gemini` with your `Agent`:
+使用`Gemini`搭配您的`Agent`：
 
 <CodeGroup>
 
@@ -78,13 +77,13 @@ Use `Gemini` with your `Agent`:
 from agno.agent import Agent
 from agno.models.google import Gemini
 
-# Using Google AI Studio
+# 使用 Google AI Studio
 agent = Agent(
     model=Gemini(id="gemini-2.0-flash"),
     markdown=True,
 )
 
-# Or using Vertex AI
+# 或使用 Vertex AI
 agent = Agent(
     model=Gemini(
         id="gemini-2.0-flash",
@@ -95,21 +94,21 @@ agent = Agent(
     markdown=True,
 )
 
-# Print the response in the terminal
+# 在终端中打印响应
 agent.print_response("Share a 2 sentence horror story.")
 ```
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/gemini). </Note>
+<Note> 查看更多示例[请访问](../examples/models/gemini)。 </Note>
 
-## Grounding and Search
+## 基础检索与搜索
 
-Gemini models support grounding and search capabilities through optional parameters. This automatically sends tools for grounding or search to Gemini. See more details [here](https://ai.google.dev/gemini-api/docs/grounding?lang=python).
+Gemini模型通过可选参数支持基础检索和搜索功能。这会自动向Gemini发送基础检索或搜索工具。详见[此处](https://ai.google.dev/gemini-api/docs/grounding?lang=python)。
 
-To enable these features, set the corresponding parameter when initializing the Gemini model:
+要启用这些功能，请在初始化Gemini模型时设置相应参数：
 
-To use grounding:
+启用基础检索：
 
 <CodeGroup>
 
@@ -128,7 +127,7 @@ agent.print_response("Any news from USA?")
 
 </CodeGroup>
 
-To use search:
+启用搜索功能：
 
 <CodeGroup>
 
@@ -147,10 +146,10 @@ agent.print_response("What's happening in France?")
 
 </CodeGroup>
 
-Set `show_tool_calls=True` in your Agent configuration to see the grounding or search results in the output.
+在Agent配置中设置`show_tool_calls=True`以在输出中查看基础检索或搜索结果。
 
-## Parameters
+## 参数
 
 <Snippet file="model-google-params.mdx" />
 
-`Gemini` is a subclass of the [Model](/reference/models/model) class and has access to the same params.
+`Gemini`是[Model](/reference/models/model)类的子类，拥有相同参数的访问权限。

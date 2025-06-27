@@ -1,9 +1,8 @@
 ---
-title: External Tool Execution
-description: This example demonstrates how to execute tool calls outside of the agent's control, allowing for custom execution logic and security measures.
+title: 外部工具执行
+description: 本示例演示了如何在智能体控制之外执行工具调用，从而支持自定义执行逻辑与安全措施。
 ---
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/user_control_flows/external_tool_execution.py
 import subprocess
@@ -39,33 +38,33 @@ if run_response.is_paused:
     for tool in run_response.tools_awaiting_external_execution:
         if tool.tool_name == execute_shell_command.name:
             print(f"Executing {tool.tool_name} with args {tool.tool_args} externally")
-            # We execute the tool ourselves. You can also execute something completely external here.
+            # 我们会自行执行该工具。此处您也可以执行完全外部的操作。
             result = execute_shell_command.entrypoint(**tool.tool_args)
-            # We have to set the result on the tool execution object so that the agent can continue
+            # 我们需要在工具执行对象上设置结果，以便智能体可以继续执行
             tool.result = result
 
     run_response = agent.continue_run()
     pprint.pprint_run_response(run_response)
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno openai
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/user_control_flows/external_tool_execution.py
@@ -78,12 +77,12 @@ if run_response.is_paused:
   </Step>
 </Steps>
 
-## Key Features
+## 核心特性
 
-- Uses `@tool(external_execution=True)` to mark tools that need external execution
-- Demonstrates how to handle tool execution results
+- 使用 `@tool(external_execution=True)` 标记需要外部执行的工具
+- 演示如何处理工具执行结果
 
-## Use Cases
+## 应用场景
 
-- Executing sensitive operations outside agent control
-- Executing long-running operations outside agent control
+- 在智能体控制之外执行敏感操作
+- 在智能体控制之外执行长时间运行的操作

@@ -1,8 +1,7 @@
 ---
-title: Video Caption Agent
+title: 视频字幕智能体
 ---
-
-## Code
+## 代码
 
 ```python
 from agno.agent import Agent
@@ -39,26 +38,26 @@ video_caption_agent.print_response(
 )
 ```
 
-## Usage
+## 使用方式
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai moviepy ffmpeg agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果
     python cookbook/agent_concepts/multimodal/video_caption_agent.py
     ```
 

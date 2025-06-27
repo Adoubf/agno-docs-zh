@@ -1,19 +1,18 @@
 ---
-title: Structured Output
+title: 结构化输出
 ---
+本示例展示如何利用AI智能体的结构化输出来生成格式规范的电影剧本概念。演示两种方法：
+1. JSON模式：传统的JSON响应解析
+2.结构化输出：增强的结构化数据处理
 
-This example shows how to use structured outputs with AI agents to generate well-formatted movie script concepts. It shows two approaches:
-1. JSON Mode: Traditional JSON response parsing
-2. Structured Output: Enhanced structured data handling
+可尝试的示例提示：
+- "东京" - 获取以未来日本为背景的高科技惊悚片
+- "古罗马" - 体验宏大的历史剧
+- "曼哈顿" - 探索现代浪漫喜剧
+- "亚马逊雨林" - 在异域秘境冒险
+- "火星殖民地" - 太空定居点的科幻故事
 
-Example prompts to try:
-- "Tokyo" - Get a high-tech thriller set in futuristic Japan
-- "Ancient Rome" - Experience an epic historical drama
-- "Manhattan" - Explore a modern romantic comedy
-- "Amazon Rainforest" - Adventure in an exotic location
-- "Mars Colony" - Science fiction in a space settlement
-
-## Code
+## 代码
 
 ```python structured_output.py
 from textwrap import dedent
@@ -51,7 +50,7 @@ class MovieScript(BaseModel):
     )
 
 
-# Agent that uses JSON mode
+# 使用JSON模式的智能体
 json_mode_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     description=dedent("""\
@@ -89,7 +88,7 @@ json_mode_agent = Agent(
     response_model=MovieScript,
 )
 
-# Agent that uses structured outputs
+# 使用结构化输出的智能体
 structured_output_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     description=dedent("""\
@@ -127,11 +126,11 @@ structured_output_agent = Agent(
     response_model=MovieScript,
 )
 
-# Example usage with different locations
+# 不同位置的使用示例
 json_mode_agent.print_response("Tokyo", stream=True)
 structured_output_agent.print_response("Ancient Rome", stream=True)
 
-# More examples to try:
+# 更多示例尝试：
 """
 Creative location prompts to explore:
 1. "Underwater Research Station" - For a claustrophobic sci-fi thriller
@@ -141,27 +140,27 @@ Creative location prompts to explore:
 5. "Caribbean Island" - For a tropical adventure romance
 """
 
-# To get the response in a variable:
+# 要将响应存入变量：
 # from rich.pretty import pprint
 
-# json_mode_response: RunResponse = json_mode_agent.run("New York")
+# json_mode_response: RunResponse = json_mode_agent.run("纽约")
 # pprint(json_mode_response.content)
-# structured_output_response: RunResponse = structured_output_agent.run("New York")
-# pprint(structured_output_response.content)
+# 结构化输出响应：RunResponse = 结构化输出智能体.run("纽约")
+# pprint(结构化输出响应.content)
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行智能体">
     ```bash
     python structured_output.py
     ```

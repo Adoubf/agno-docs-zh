@@ -1,16 +1,16 @@
-| Parameter | Type | Default | Description |
+| 参数 | 类型 | 默认值 | 描述 |
 | --------- | ---- | ------- | ----------- |
-| `table_name` | `str` | Required | Name of the table to store vectors and metadata |
-| `schema` | `str` | `"ai"` | Database schema name |
-| `db_url` | `Optional[str]` | `None` | Database connection URL |
-| `db_engine` | `Optional[Engine]` | `None` | SQLAlchemy database engine |
-| `embedder` | `Optional[Embedder]` | `OpenAIEmbedder()` | Embedder instance to generate embeddings |
-| `search_type` | `SearchType` | `SearchType.vector` | Type of search to perform (vector, keyword, or hybrid) |
-| `vector_index` | `Union[Ivfflat, HNSW]` | `HNSW()` | Vector index configuration |
-| `distance` | `Distance` | `Distance.cosine` | Distance metric for vector comparisons |
-| `prefix_match` | `bool` | `False` | Enable prefix matching for full-text search |
-| `vector_score_weight` | `float` | `0.5` | Weight for vector similarity in hybrid search |
-| `content_language` | `str` | `"english"` | Language for full-text search |
-| `schema_version` | `int` | `1` | Version of the database schema |
-| `auto_upgrade_schema` | `bool` | `False` | Automatically upgrade schema if True |
-| `reranker` | `Optional[Reranker]` | `None` | Reranker instance for post-processing search results |
+| `table_name` | `str` | 必填 | 存储向量和元数据的表名 |
+| `schema` | `str` | `"ai"` | 数据库模式名称 |
+| `db_url` | `Optional[str]` | `None` | 数据库连接URL |
+| `db_engine` | `Optional[Engine]` | `None` | SQLAlchemy数据库引擎 |
+| `embedder` | `Optional[Embedder]` | `OpenAIEmbedder()` | 用于生成嵌入的嵌入器实例 |
+| `search_type` | `SearchType` | `SearchType.vector` | 执行的搜索类型（向量、关键词或混合） |
+| `vector_index` | `Union[Ivfflat, HNSW]` | `HNSW()` | 向量索引配置 |
+| `distance` | `Distance` | `Distance.cosine` | 向量比较的距离度量标准 |
+| `prefix_match` | `bool` | `False` | 启用全文检索的前缀匹配功能 |
+| `vector_score_weight` | `float` | `0.5` | 混合搜索中向量相似度的权重 |
+| `content_language` | `str` | `"english"` | 全文检索的语言设置 |
+| `schema_version` | `int` | `1` | 数据库模式版本 |
+| `auto_upgrade_schema` | `bool` | `False` | 如果设为True则自动升级模式 |
+| `reranker` | `Optional[Reranker]` | `None` | 用于搜索结果后处理的reranker实例 |

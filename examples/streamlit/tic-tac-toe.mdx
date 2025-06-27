@@ -1,14 +1,13 @@
 ---
-title: Tic Tac Toe Battle
+title: 井字棋对战
 ---
+井字棋对战是一款由多个AI智能体相互博弈的游戏，展示了多智能体系统在复杂游戏环境中的强大能力。
 
-Tic Tac Toe Battle is a tic-tac-toe game where multiple AI agents compete against each other, demonstrating the power of multi-agent systems in complex game environments.
-
-### Key Capabilities
-- Multi-Agent System: Features X and O Piece Agents for move selection
-- Move Validation: Dedicated Board Agent ensures game rule compliance
-- Game Coordination: Master Agent oversees the game flow and end conditions
-- Interactive UI: Built with Streamlit for real-time game visualization
+### 核心能力
+- 多智能体系统：包含X棋子智能体和O棋子智能体进行落子决策
+- 走子验证：专用的棋盘智能体确保游戏规则合规
+- 游戏协调：主控智能体负责管理游戏流程和结束条件
+- 交互式界面：使用Streamlit构建实时游戏可视化界面
 
 <video
   autoPlay
@@ -18,68 +17,68 @@ Tic Tac Toe Battle is a tic-tac-toe game where multiple AI agents compete agains
   src="/videos/tic-tac-toe.mp4"
 ></video>
 
-### System Components
-- X Piece Agent: Strategizes and selects moves for X pieces
-- O Piece Agent: Controls and determines moves for O pieces
-- Board Agent: Validates all proposed moves against game rules
-- Master Agent: Coordinates the game flow and monitors game status
+### 系统组件
+- X棋子智能体：为X棋子制定策略并选择落子位置
+- O棋子智能体：控制并确定O棋子的移动位置
+- 棋盘智能体：根据游戏规则验证所有拟议的走子
+- 主控智能体：协调游戏流程并监控游戏状态
 
-### Advanced Features
-The system demonstrates complex agent interactions where each AI component has a specific role. The agents communicate and coordinate to create a complete tic-tac-toe experience, showcasing how multiple specialized AIs can work together effectively.
+### 高级特性
+该系统展示了复杂的智能体交互，每个AI组件都有特定职责。智能体通过通信与协作共同完成井字棋游戏，呈现了多个专业化AI如何高效协同工作。
 
-### Code
-The complete code is available in the [Agno repository](https://github.com/agno-agi/agno/tree/main/cookbook/examples/streamlit_apps/tic_tac_toe).
+### 代码
+完整代码已发布于[Agno代码仓库](https://github.com/agno-agi/agno/tree/main/cookbook/examples/streamlit_apps/tic_tac_toe)。
 
-### Usage
+### 使用说明
 <Steps>
-  <Step title="Clone the repository">
+  <Step title="克隆该仓库">
     ```bash
     git clone https://github.com/agno-agi/agno.git
     cd agno
     ```
   </Step>
 
-  <Step title="Create a Virtual Environment">
+  <Step title="创建虚拟环境">
     ```bash
     python3 -m venv .venv
     source .venv/bin/activate  # On Windows use: .venv\Scripts\activate
     ```
   </Step>
 
-  <Step title="Install Dependencies">
+  <Step title="安装依赖">
     ```bash
     pip install -r cookbook/examples/streamlit_apps/tic_tac_toe/requirements.txt
     ```
   </Step>
 
-  <Step title="Set up API Keys">
-    The Tic Tac Toe Battle supports multiple AI models:
+  <Step title="设置 API 密钥">
+    井字棋对战支持多种AI模型：
 
     ```bash
-    # Required for OpenAI models (GPT-4, GPT-3.5)
+    # OpenAI模型（GPT-4、GPT-3.5）必备
     export OPENAI_API_KEY=your_api_key_here
     
-    # Optional - for additional models
+    # 可选 - 用于其他模型
     export ANTHROPIC_API_KEY=your_api_key_here  # For Claude models
     export GOOGLE_API_KEY=your_api_key_here     # For Gemini models
     export GROQ_API_KEY=your_api_key_here       # For Groq models
     ```
   </Step>
 
-  <Step title="Launch the App">
+  <Step title="启动应用">
     ```bash
     streamlit run cookbook/examples/streamlit_apps/tic_tac_toe/app.py
     ```
   </Step>
 
-  <Step title="Open the App">
-    Then, open http://localhost:8501 in your browser to start watching the AI agents play tic-tac-toe.
+  <Step title="打开应用">
+    然后在浏览器中打开 http://localhost:8501 即可观看AI智能体进行井字棋对战。
   </Step>
 </Steps>
 
-### Pro Tips
-- Watch Complete Games: Observe full matches to understand agent decision-making
-- Monitor Agent Interactions: Pay attention to how agents communicate and coordinate
-- Try Different Models: Experiment with various AI models to see different playing styles
+### 专业建议
+- 观察完整对局：通过完整比赛理解智能体的决策逻辑
+- 关注智能体交互：注意智能体间的通信与协调方式
+- 尝试不同模型：体验不同AI模型带来的多样化对战风格
 
-Need help? Join our [Discourse community](https://agno.link/community) for support!
+需要帮助？欢迎加入我们的[Discourse社区](https://agno.link/community)获取支持！

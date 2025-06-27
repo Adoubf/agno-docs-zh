@@ -1,12 +1,11 @@
 ---
-title: Pubmed
+title: PubMed
 ---
+**Pubmed工具**使智能体能够检索PubMed数据库中的文献。
 
-**PubmedTools** enable an Agent to search for Pubmed for articles.
+## 示例
 
-## Example
-
-The following agent will search Pubmed for articles related to "ulcerative colitis".
+以下智能体将搜索PubMed中与"溃疡性结肠炎"相关的文献。
 
 ```python cookbook/tools/pubmed.py
 from agno.agent import Agent
@@ -16,20 +15,20 @@ agent = Agent(tools=[PubmedTools()], show_tool_calls=True)
 agent.print_response("Tell me about ulcerative colitis.")
 ```
 
-## Toolkit Params
+## 工具参数
 
-| Parameter     | Type  | Default                    | Description                                                            |
-| ------------- | ----- | -------------------------- | ---------------------------------------------------------------------- |
-| `email`       | `str` | `"your_email@example.com"` | Specifies the email address to use.                                    |
-| `max_results` | `int` | `None`                     | Optional parameter to specify the maximum number of results to return. |
+| 参数         | 类型   | 默认值                   | 描述                                                                 |
+| ------------ | ------ | ------------------------ | -------------------------------------------------------------------- |
+| `email`       | `str` | `"your_email@example.com"` | 指定使用的电子邮箱地址。                                              |
+| `max_results` | `int` | `None`                     | 可选参数，指定返回结果的最大数量。                                    |
 
-## Toolkit Functions
+## 工具函数
 
-| Function        | Description                                                                                                                                                                                                                                                                                 |
-| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `search_pubmed` | Searches PubMed for articles based on a specified query. Parameters include `query` for the search term and `max_results` for the maximum number of results to return (default is 10). Returns a JSON string containing the search results, including publication date, title, and summary. |
+| 函数           | 描述                                                                                                                                                                                                                                                                                     |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `search_pubmed` | 根据指定查询条件搜索PubMed文献。参数包括用于搜索关键词的`query`和限制返回结果数量的`max_results`（默认值为10）。返回包含检索结果的JSON字符串，包括发表日期、标题和摘要信息。 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/pubmed.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/pubmed_tools.py)
+- 查看[工具文档](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/pubmed.py)
+- 查看[使用手册](https://github.com/agno-agi/agno/blob/main/cookbook/tools/pubmed_tools.py)

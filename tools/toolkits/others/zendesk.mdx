@@ -1,12 +1,11 @@
 ---
 title: Zendesk
 ---
+**Zendesk工具**使智能体能够访问Zendesk API以搜索文章。
 
-**ZendeskTools** enable an Agent to access Zendesk API to search for articles.
+## 前提条件
 
-## Prerequisites
-
-The following example requires the `requests` library and auth credentials.
+以下示例需要`requests`库和认证凭证。
 
 ```shell
 pip install -U requests
@@ -18,9 +17,9 @@ export ZENDESK_PW=***
 export ZENDESK_COMPANY_NAME=***
 ```
 
-## Example
+## 示例
 
-The following agent will run seach Zendesk for "How do I login?" and print the response.
+以下智能体将在Zendesk中搜索"如何登录？"并打印响应。
 
 ```python cookbook/tools/zendesk_tools.py
 from agno.agent import Agent
@@ -30,21 +29,21 @@ agent = Agent(tools=[ZendeskTools()], show_tool_calls=True)
 agent.print_response("How do I login?", markdown=True)
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter      | Type  | Default | Description                                                             |
+| 参数      | 类型  | 默认值 | 描述                                                             |
 | -------------- | ----- | ------- | ----------------------------------------------------------------------- |
-| `username`     | `str` | -       | The username used for authentication or identification purposes.        |
-| `password`     | `str` | -       | The password associated with the username for authentication purposes.  |
-| `company_name` | `str` | -       | The name of the company related to the user or the data being accessed. |
+| `username`     | `str` | -       | 用于认证或识别目的的用户名。        |
+| `password`     | `str` | -       | 与用户名关联的密码，用于认证目的。  |
+| `company_name` | `str` | -       | 与用户或所访问数据相关的公司名称。 |
 
-## Toolkit Functions
+## 工具包功能
 
-| Function         | Description                                                                                    |
+| 功能         | 描述                                                                                    |
 | ---------------- | ---------------------------------------------------------------------------------------------- |
-| `search_zendesk` | This function searches for articles in Zendesk Help Center that match the given search string. |
+| `search_zendesk` | 该函数在Zendesk帮助中心搜索与给定字符串匹配的文章。 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/zendesk.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/zendesk_tools.py)
+- 查看[工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/zendesk.py)
+- 查看[手册](https://github.com/agno-agi/agno/blob/main/cookbook/tools/zendesk_tools.py)

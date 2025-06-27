@@ -1,11 +1,10 @@
 ---
-title: YAML Workflow Storage
+title: YAML 工作流存储
 sidebarTitle: YAML
 ---
+Agno支持使用本地YAML文件作为工作流的存储后端，通过`YamlStorage`类实现。
 
-Agno supports using local YAML files as a storage backend for Workflows using the `YamlStorage` class.
-
-## Usage
+## 使用方法
 
 ```python yaml_storage_for_workflow.py
 import json
@@ -58,11 +57,11 @@ class HackerNewsReporter(Workflow):
             str: JSON string of top stories.
         """
 
-        # Fetch top story IDs
+        # 获取热门故事ID
         response = httpx.get("https://hacker-news.firebaseio.com/v0/topstories.json")
         story_ids = response.json()
 
-        # Fetch story details
+        # 获取故事详情
         stories = []
         for story_id in story_ids[:num_stories]:
             story_response = httpx.get(
@@ -74,7 +73,7 @@ class HackerNewsReporter(Workflow):
         return json.dumps(stories)
 
     def run(self, num_stories: int = 5) -> Iterator[RunResponse]:
-        # Set the tools for hn_agent here to avoid circular reference
+        # 在此设置 hn_agent 的工具以避免循环引用
         self.hn_agent.tools = [self.get_top_hackernews_stories]
 
         logger.info(f"Getting top {num_stories} stories from HackerNews.")
@@ -90,18 +89,18 @@ class HackerNewsReporter(Workflow):
 
 
 if __name__ == "__main__":
-    # Run workflow
+    # 运行工作流
     report: Iterator[RunResponse] = HackerNewsReporter(
         storage=YamlStorage(dir_path="tmp/workflow_sessions_yaml"), debug_mode=False
     ).run(num_stories=5)
-    # Print the report
+    # 打印报告
     pprint_run_response(report, markdown=True, show_time=True)
 ```
 
-## Params
+## 参数说明
 
 <Snippet file="storage-yaml-params.mdx" />
 
-## Developer Resources
+## 开发资源
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/yaml_storage/yaml_storage_for_workflow.py)
+- 查看[Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/yaml_storage/yaml_storage_for_workflow.py)

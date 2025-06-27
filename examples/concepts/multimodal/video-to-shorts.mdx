@@ -1,8 +1,7 @@
 ---
-title: Video to Shorts Agent
+title: 短视频智能体
 ---
-
-## Code
+## 代码
 
 ```python
 import subprocess
@@ -36,13 +35,13 @@ agent = Agent(
     ],
 )
 
-# Upload and process video
+# 上传并处理视频
 video_file = upload_file(video_path)
 while video_file.state.name == "PROCESSING":
     time.sleep(2)
     video_file = get_file(video_file.name)
 
-# Multimodal Query for Video Analysis
+# 视频分析的多模态查询
 query = """
 You are an expert in video content creation, specializing in crafting engaging short-form content for platforms like YouTube Shorts and Instagram Reels. Your task is to analyze the provided video and identify segments that maximize viewer engagement.
 
@@ -71,14 +70,14 @@ For each video, you'll:
 Your goal is to identify moments that are visually compelling, emotionally engaging, and perfectly optimized for short-form platforms.
 """
 
-# Generate Video Analysis
+# 生成视频分析
 response = agent.run(query, videos=[Video(content=video_file)])
 
-# Create output directory
+# 创建输出目录
 output_dir = Path(output_dir)
 output_dir.mkdir(parents=True, exist_ok=True)
 
-# Extract and cut video segments
+# 提取并剪辑视频片段
 def extract_segments(response_text):
     import re
 
@@ -128,10 +127,10 @@ def extract_segments(response_text):
 
 logger.debug(f"{response.content}")
 
-# Process segments
+# 进程分段
 shorts = extract_segments(response.content)
 
-# Print results
+# 打印结果
 print("\n--- Generated Shorts ---")
 for short in shorts:
     print(f"Short at {short['path']}")
@@ -139,37 +138,37 @@ for short in shorts:
     print(f"Engagement Score: {short['score']}/10\n")
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U opencv-python google-generativeai sqlalchemy ffmpeg-python agno
     ```
   </Step>
 
-  <Step title="Install ffmpeg">
+  <Step title="安装 ffmpeg">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果电脑
     brew install ffmpeg
     ```
 
     ```bash Windows
-    # Install ffmpeg using chocolatey or download from https://ffmpeg.org/download.html
+    # 使用 chocolatey 安装 ffmpeg 或从 https://ffmpeg.org/download.html 下载
     choco install ffmpeg
     ```
     </CodeGroup>
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/multimodal/video_to_shorts.py

@@ -1,19 +1,18 @@
 ---
-title: Azure Cosmos DB MongoDB vCore Agent Knowledge
+title: Azure Cosmos DB MongoDB vCore 智能体知识
 sidebarTitle: Azure Cosmos DB MongoDB vCore
 ---
+## 设置
 
-## Setup
+按照 [Azure Cosmos DB 设置指南](https://learn.microsoft.com/en-us/azure/cosmos-db/mongodb/vcore) 中的说明获取连接字符串。
 
-Follow the instructions in the [Azure Cosmos DB Setup Guide](https://learn.microsoft.com/en-us/azure/cosmos-db/mongodb/vcore) to get the connection string.
-
-Install MongoDB packages:
+安装 MongoDB 软件包：
 
 ```shell
 pip install "pymongo[srv]"
 ```
 
-## Example
+## 示例
 
 ```python agent_with_knowledge.py
 import urllib.parse
@@ -21,7 +20,7 @@ from agno.agent import Agent
 from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
 from agno.vectordb.mongodb import MongoDb
 
-# Azure Cosmos DB MongoDB connection string
+# Azure Cosmos DB MongoDB 连接字符串
 """
 Example connection strings:
 "mongodb+srv://<username>:<encoded_password>@cluster0.mongocluster.cosmos.azure.com/?tls=true&authMechanism=SCRAM-SHA-256&retrywrites=false&maxIdleTimeMS=120000"
@@ -38,21 +37,21 @@ knowledge_base = PDFUrlKnowledgeBase(
     ),
 )
 
-# Comment out after first run
+# 首次运行后注释掉
 knowledge_base.load(recreate=True)
 
-# Create and use the agent
+# 创建并使用智能体
 agent = Agent(knowledge=knowledge_base, show_tool_calls=True)
 agent.print_response("How to make Thai curry?", markdown=True)
 ```
 
-## MongoDB Params
+## MongoDB 参数
 
-- `collection_name`: The name of the collection in the database.
-- `db_url`: The connection string for the MongoDB database.
-- `search_index_name`: The name of the search index to use.
-- `cosmos_compatibility`: Set to `True` for Azure Cosmos DB compatibility.
+- `collection_name`: 数据库中的集合名称。
+- `db_url`: MongoDB 数据库的连接字符串。
+- `search_index_name`: 要使用的搜索索引名称。
+- `cosmos_compatibility`: 设置为 `True` 以实现 Azure Cosmos DB 兼容性。
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook (Sync)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/mongo_db/cosmos_mongodb_vcore.py)
+- 查看 [Cookbook (Sync)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/mongo_db/cosmos_mongodb_vcore.py)

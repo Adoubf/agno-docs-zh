@@ -1,17 +1,16 @@
 ---
-title: Pandas
+title: Pandas（Python数据分析库）
 ---
-
-**PandasTools** enable an Agent to perform data manipulation tasks using the Pandas library.
+**PandasTools** 使智能体能够使用 Pandas 库执行数据操作任务。
 
 ```python cookbook/tools/pandas_tool.py
 from agno.agent import Agent
 from agno.tools.pandas import PandasTools
 
-# Create an agent with PandasTools
+# 创建带有 PandasTools 的智能体
 agent = Agent(tools=[PandasTools()])
 
-# Example: Create a dataframe with sample data and get the first 5 rows
+# 示例：创建包含样本数据的数据框并获取前5行
 agent.print_response("""
 Please perform these tasks:
 1. Create a pandas dataframe named 'sales_data' using DataFrame() with this sample data:
@@ -23,22 +22,22 @@ Please perform these tasks:
 """)
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter                 | Type                      | Default | Description                                                    |
+| 参数                 | 类型                      | 默认值 | 描述                                                    |
 | ------------------------- | ------------------------- | ------- | -------------------------------------------------------------- |
-| `dataframes`              | `Dict[str, pd.DataFrame]` | `{}`    | A dictionary to store Pandas DataFrames, keyed by their names. |
-| `create_pandas_dataframe` | `function`                | -       | Registers a function to create a Pandas DataFrame.             |
-| `run_dataframe_operation` | `function`                | -       | Registers a function to run operations on a Pandas DataFrame.  |
+| `dataframes`              | `Dict[str, pd.DataFrame]` | `{}`    | 用于存储 Pandas 数据帧的字典，以其名称作为键。 |
+| `create_pandas_dataframe` | `function`                | -       | 注册一个函数来创建 Pandas 数据帧。             |
+| `run_dataframe_operation` | `function`                | -       | 注册一个函数在 Pandas 数据帧上运行操作。  |
 
-## Toolkit Functions
+## 工具包功能
 
-| Function                  | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| 函数                  | 描述                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `create_pandas_dataframe` | Creates a Pandas DataFrame named `dataframe_name` by using the specified function `create_using_function` with parameters `function_parameters`. Parameters include 'dataframe_name' for the name of the DataFrame, 'create_using_function' for the function to create it (e.g., 'read_csv'), and 'function_parameters' for the arguments required by the function. Returns the name of the created DataFrame if successful, otherwise returns an error message. |
-| `run_dataframe_operation` | Runs a specified operation `operation` on a DataFrame `dataframe_name` with the parameters `operation_parameters`. Parameters include 'dataframe_name' for the DataFrame to operate on, 'operation' for the operation to perform (e.g., 'head', 'tail'), and 'operation_parameters' for the arguments required by the operation. Returns the result of the operation if successful, otherwise returns an error message.                                          |
+| `create_pandas_dataframe` | 使用指定的函数 `create_using_function` 和参数 `function_parameters` 创建一个名为 `dataframe_name` 的 Pandas 数据帧。参数包括 'dataframe_name'（数据帧名称）、'create_using_function'（用于创建数据帧的函数，例如 'read_csv'）和 'function_parameters'（函数所需的参数）。如果成功，则返回所创建数据帧的名称，否则返回错误消息。 |
+| `run_dataframe_operation` | 在数据帧 `dataframe_name` 上运行指定的操作 `operation` 并使用参数 `operation_parameters`。参数包括 'dataframe_name'（要操作的数据帧）、'operation'（要执行的操作，例如 'head'、'tail'）和 'operation_parameters'（操作所需的参数）。如果成功，则返回操作结果，否则返回错误消息。                                          |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/pandas.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/pandas_tools.py)
+- 查看 [工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/pandas.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/pandas_tools.py)

@@ -1,26 +1,25 @@
 ---
 title: Trello
-description: Agno TrelloTools helps to integrate Trello functionalities into your agents, enabling management of boards, lists, and cards.
+description: Agno TrelloTools 帮助将 Trello 功能集成到您的智能体中，实现对面板、列表和卡片的管理。
 ---
+## 前提条件
 
-## Prerequisites
-
-The following examples require the `trello` library and Trello API credentials which can be obtained by following Trello's developer documentation.
+以下示例需要 `trello` 库和 Trello API 凭证，可通过遵循 Trello 开发者文档获取。
 
 ```shell
 pip install -U trello
 ```
 
-Set the following environment variables:
+设置以下环境变量：
 ```shell
 export TRELLO_API_KEY="YOUR_API_KEY"
 export TRELLO_API_SECRET="YOUR_API_SECRET"
 export TRELLO_TOKEN="YOUR_TOKEN"
 ```
 
-## Example
+## 示例 
 
-The following agent will create a board called `ai-agent` and inside it create list called `todo` and `doing` and inside each of them create card called `create agent`.
+以下智能体将创建一个名为 `ai-agent` 的看板，并在其中创建名为 `todo` 和 `doing` 的列表，每个列表内创建名为 `create agent` 的卡片。
 
 ```python
 from agno.agent import Agent
@@ -48,46 +47,46 @@ agent.print_response(
 
 ```
 
-## Toolkit Functions
+## 工具包函数
 
-| Function          | Description                                                      |
-| ----------------- | ---------------------------------------------------------------- |
-| `create_card`     | Creates a new card in a specified board and list.                |
-| `get_board_lists` | Retrieves all lists on a specified Trello board.                 |
-| `move_card`       | Moves a card to a different list.                                |
-| `get_cards`       | Retrieves all cards from a specified list.                       |
-| `create_board`    | Creates a new Trello board.                                      |
-| `create_list`     | Creates a new list on a specified board.                         |
-| `list_boards`     | Lists all Trello boards accessible by the authenticated user.    |
+| 函数               | 描述                                                          |
+| ------------------ | ------------------------------------------------------------ |
+| `create_card`    | 在指定看板和列表中创建新卡片。                                |
+| `get_board_lists`    | 获取指定 Trello 看板的所有列表。                              |
+| `move_card`   | 将卡片移动到其他列表。                                        |
+| `get_cards`   | 获取指定列表中的所有卡片。                                    |
+| `create_board`   | 创建新的 Trello 看板。                                        |
+| `create_list`   | 在指定看板中创建新列表。                                      |
+| `list_boards`   | 列出认证用户可访问的所有 Trello 看板。                        |
 
-## Toolkit Parameters
+## 工具包参数
 
-These parameters are passed to the `TrelloTools` constructor.
+这些参数需传递给 `TrelloTools` 构造函数。
 
-| Parameter         | Type          | Default | Description                                                                 |
-| ----------------- | ------------- | ------- | --------------------------------------------------------------------------- |
-| `api_key`         | `Optional[str]` | `None`  | Trello API key. Defaults to `TRELLO_API_KEY` environment variable.        |
-| `api_secret`      | `Optional[str]` | `None`  | Trello API secret. Defaults to `TRELLO_API_SECRET` environment variable.    |
-| `token`           | `Optional[str]` | `None`  | Trello token. Defaults to `TRELLO_TOKEN` environment variable.              |
-| `create_card`     | `bool`        | `True`  | Enable the `create_card` tool.                                              |
-| `get_board_lists` | `bool`        | `True`  | Enable the `get_board_lists` tool.                                          |
-| `move_card`       | `bool`        | `True`  | Enable the `move_card` tool.                                                |
-| `get_cards`       | `bool`        | `True`  | Enable the `get_cards` tool.                                                |
-| `create_board`    | `bool`        | `True`  | Enable the `create_board` tool.                                             |
-| `create_list`     | `bool`        | `True`  | Enable the `create_list` tool.                                              |
-| `list_boards`     | `bool`        | `True`  | Enable the `list_boards` tool.                                              |
+| 参数               | 类型            | 默认值   | 描述                                                                 |
+| ------------------ | --------------- | -------- | ------------------------------------------------------------------- |
+| `api_key`   | `Optional[str]` | `None`  | Trello API 密钥。默认为 `TRELLO_API_KEY` 环境变量。                |
+| `api_secret`   | `Optional[str]` | `None`  | Trello API 密钥。默认为 `TRELLO_API_SECRET` 环境变量。                |
+| `token`   | `Optional[str]` | `None`  | Trello 令牌。默认为 `TRELLO_TOKEN` 环境变量。                    |
+| `create_card`   | `bool` | `True`  | 启用 `create_card` 工具。                                        |
+| `get_board_lists`   | `bool` | `True`  | 启用 `get_board_lists` 工具。                                        |
+| `move_card`   | `bool` | `True`  | 启用 `move_card` 工具。                                        |
+| `get_cards`   | `bool` | `True`  | 启用 `get_cards` 工具。                                        |
+| `create_board`   | `bool` | `True`  | 启用 `create_board` 工具。                                        |
+| `create_list`   | `bool` | `True`  | 启用 `create_list` 工具。                                        |
+| `list_boards`   | `bool` | `True`  | 启用 `list_boards` 工具。                                        |
 
-### Board Filter Options for `list_boards`
+### `list_boards` 的看板筛选选项
 
-The `list_boards` function accepts a `board_filter` argument with the following options:
-- `all` (default)
+`list_boards` 函数接受 `board_filter` 参数，具有以下选项：
+- `all`（默认）
 - `open`
 - `closed`
 - `organization`
 - `public`
 - `starred`
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools Source](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/trello.py)
-- View [Cookbook Example](https://github.com/agno-agi/agno/blob/main/cookbook/tools/trello_tools.py)
+- 查看 [工具源代码](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/trello.py)
+- 查看 [示例代码库](https://github.com/agno-agi/agno/blob/main/cookbook/tools/trello_tools.py)

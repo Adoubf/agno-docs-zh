@@ -1,36 +1,35 @@
 ---
-title: Basic Agent
+title: 基础智能体
 ---
 
-## Code
+## 代码
 
-```python cookbook/models/lmstudio/basic.py
+```python
 from agno.agent import Agent, RunResponse  # noqa
 from agno.models.lmstudio import LMStudio
 
 agent = Agent(model=LMStudio(id="qwen2.5-7b-instruct-1m"), markdown=True)
 
-# Get the response in a variable
-# run: RunResponse = agent.run("Share a 2 sentence horror story")
-# print(run.content)
+# 将响应存储到变量中
+# 运行：RunResponse = agent.run("分享一个两句话的恐怖故事")
+# 打印(run.content)
 
-# Print the response in the terminal
+# 在终端打印响应
 agent.print_response("Share a 2 sentence horror story")
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-<Step title="Install LM Studio">
-  Install LM Studio from [here](https://lmstudio.ai/download) and download the
-  model you want to use.
-</Step>
+  <Step title="安装 LM Studio">
+    从 <a href="https://lmstudio.ai/download">此链接</a> 安装 LM Studio 并下载您要使用的模型。
+  </Step>
 
-<Step title="Install libraries">```bash pip install -U agno ```</Step>
+<Step title="安装库">```bash pip install -U agno ```</Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/lmstudio/basic.py

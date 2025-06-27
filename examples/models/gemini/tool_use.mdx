@@ -1,8 +1,7 @@
 ---
-title: Agent with Tools
+title: 具备工具的智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/google/gemini/tool_use.py
 from agno.agent import Agent
@@ -18,26 +17,26 @@ agent = Agent(
 agent.print_response("Whats happening in France?", stream=True)
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U google-genai duckduckgo-search agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
-    ```bash Mac
+    ```bash Mac（中文通常直接使用英文名称）
     python cookbook/models/google/gemini/tool_use.py
     ```
 

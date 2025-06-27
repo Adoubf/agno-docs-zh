@@ -1,14 +1,14 @@
-### Parameters
+### 参数
 
-| Parameter | Type | Description | Default |
+| 参数 | 类型 | 描述 | 默认值 |
 |-----------|------|-------------|---------|
-| `id` | `str` | The model ID to use for embeddings | `"text-embedding-3-small"` |
-| `dimensions` | `int` | Output dimensions of the embedding (for text-embedding-3 models) | `1536` |
-| `encoding_format` | `Literal["float", "base64"]` | Format of the embedding output | `"float"` |
-| `user` | `Optional[str]` | A unique identifier representing your end-user | `None` |
-| `api_key` | `Optional[str]` | OpenAI API key | Environment variable `OPENAI_API_KEY` |
-| `organization` | `Optional[str]` | Organization ID for API requests | `None` |
-| `base_url` | `Optional[str]` | Base URL for API requests | `None` |
-| `request_params` | `Optional[Dict[str, Any]]` | Additional parameters for embedding requests | `None` |
-| `client_params` | `Optional[Dict[str, Any]]` | Additional parameters for client initialization | `None` |
-| `openai_client` | `Optional[OpenAIClient]` | Pre-configured OpenAI client | `None` |
+| `id` | `str` | 用于生成嵌入的模型ID | `"text-embedding-3-small"` |
+| `dimensions` | `int` | 嵌入输出的维度（适用于text-embedding-3模型） | `1536` |
+| `encoding_format` | `Literal["float", "base64"]` | 嵌入输出的格式 | `"float"` |
+| `user` | `Optional[str]` | 代表终端用户的唯一标识符 | `None` |
+| `api_key` | `Optional[str]` | OpenAI API密钥 | 环境变量 `OPENAI_API_KEY` |
+| `organization` | `Optional[str]` | API请求的组织ID | `None` |
+| `base_url` | `Optional[str]` | API请求的基础URL | `None` |
+| `request_params` | `Optional[Dict[str, Any]]` | 嵌入请求的附加参数 | `None` |
+| `client_params` | `Optional[Dict[str, Any]]` | 客户端初始化的附加参数 | `None` |
+| `openai_client` | `Optional[OpenAIClient]` | 预配置的OpenAI客户端 | `None` |

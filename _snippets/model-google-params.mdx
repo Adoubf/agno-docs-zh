@@ -1,28 +1,28 @@
-| Parameter                 | Type                                  | Default                  | Description                                            |
+| 参数                     | 类型                                  | 默认值                  | 描述                                                   |
 | ------------------------- | ------------------------------------- | ------------------------ | ------------------------------------------------------ |
-| `id`                      | `str`                                 | `"gemini-2.0-flash-exp"` | The specific Gemini model ID to use.                   |
-| `name`                    | `str`                                 | `"Gemini"`               | The name of this Gemini model instance.                |
-| `provider`                | `str`                                 | `"Google"`               | The provider of the model.                             |
-| `function_declarations`   | `Optional[List[FunctionDeclaration]]` | `None`                   | List of function declarations for the model.           |
-| `generation_config`       | `Optional[Any]`                       | `None`                   | Configuration for text generation.                     |
-| `safety_settings`         | `Optional[Any]`                       | `None`                   | Safety settings for the model.                         |
-| `generative_model_kwargs` | `Optional[Dict[str, Any]]`           | `None`                   | Additional keyword arguments for the generative model. |
-| `grounding`               | `bool`                                | `False`                  | Whether to use grounding. |
-| `search`                  | `bool`                                | `False`                  | Whether to use search. |
-| `grounding_dynamic_threshold` | `Optional[float]`                       | `None`                   | The dynamic threshold for grounding. |
-| `api_key`                 | `Optional[str]`                       | `None`                   | API key for authentication.                            |
-| `vertexai`               | `bool`                                | `False`                  | Whether to use Vertex AI instead of Google AI Studio. |
-| `project_id`             | `Optional[str]`                       | `None`                   | Google Cloud project ID for Vertex AI. |
-| `location`               | `Optional[str]`                       | `None`                   | Google Cloud region for Vertex AI. |
-| `client_params`           | `Optional[Dict[str, Any]]`           | `None`                   | Additional parameters for the client.                  |
-| `client`                  | `Optional[GeminiClient]`              | `None`                   | The underlying generative model client.                |
-| `temperature`             | `Optional[float]`                     | `None`                   | Controls randomness in the output. Higher values (e.g., 0.8) make the output more random, while lower values (e.g., 0.2) make it more focused and deterministic. |
-| `top_p`                   | `Optional[float]`                     | `None`                   | Nucleus sampling parameter. Only consider tokens whose cumulative probability exceeds this value. |
-| `top_k`                   | `Optional[int]`                       | `None`                   | Only consider the top k tokens for text generation. |
-| `max_output_tokens`       | `Optional[int]`                       | `None`                   | The maximum number of tokens to generate in the response. |
-| `stop_sequences`          | `Optional[list[str]]`                | `None`                   | List of sequences where the model should stop generating further tokens. |
-| `logprobs`               | `Optional[bool]`                      | `None`                   | Whether to return log probabilities of the output tokens. |
-| `presence_penalty`        | `Optional[float]`                     | `None`                   | Penalizes new tokens based on whether they appear in the text so far. |
-| `frequency_penalty`       | `Optional[float]`                     | `None`                   | Penalizes new tokens based on their frequency in the text so far. |
-| `seed`                    | `Optional[int]`                       | `None`                   | Random seed for deterministic text generation. |
-| `request_params`          | `Optional[Dict[str, Any]]`           | `None`                   | Additional parameters for the request. |
+| `id`           | `str`                      | `"gemini-2.0-flash-exp"`          | 所使用的特定Gemini模型ID。                             |
+| `name`           | `str`                      | `"Gemini"`          | 该Gemini模型实例的名称。                               |
+| `provider`           | `str`                      | `"Google"`          | 模型的提供方。                                         |
+| `function_declarations`           | `Optional[List[FunctionDeclaration]]`                     | `None`         | 模型的功能声明列表。                                   |
+| `generation_config`          | `Optional[Any]`                     | `None`         | 文本生成的配置。                                       |
+| `safety_settings`          | `Optional[Any]`                     | `None`         | 模型的安全设置。                                       |
+| `generative_model_kwargs`          | `Optional[Dict[str, Any]]`                     | `None`         | 生成模型的附加关键字参数。                             |
+| `grounding`          | `bool`                     | `False`         | 是否使用基础数据。                                     |
+| `search`          | `bool`                     | `False`         | 是否使用搜索功能。                                     |
+| `grounding_dynamic_threshold`          | `Optional[float]`                     | `None`         | 基础数据的动态阈值。                                   |
+| `api_key`          | `Optional[str]`                     | `None`         | 用于身份验证的API密钥。                                |
+| `vertexai`          | `bool`                     | `False`         | 是否使用Vertex AI而非Google AI Studio。                |
+| `project_id`          | `Optional[str]`                     | `None`         | Vertex AI的Google Cloud项目ID。                        |
+| `location`          | `Optional[str]`                     | `None`         | Vertex AI的Google Cloud区域。                          |
+| `client_params`          | `Optional[Dict[str, Any]]`                     | `None`         | 客户端的附加参数。                                     |
+| `client`          | `Optional[GeminiClient]`                     | `None`         | 底层生成模型客户端。                                   |
+| `temperature`          | `Optional[float]`                     | `None`         | 控制输出的随机性。较高的值（如0.8）会使输出更随机，较低的值（如0.2）会使输出更集中和确定。 |
+| `top_p`          | `Optional[float]`                     | `None`         | 核心采样参数。仅考虑累积概率超过此值的token。          |
+| `top_k`          | `Optional[int]`                     | `None`         | 仅考虑前k个token用于文本生成。                         |
+| `max_output_tokens`          | `Optional[int]`                     | `None`         | 响应中生成的最大token数。                              |
+| `stop_sequences`          | `Optional[list[str]]`                     | `None`         | 模型应停止生成后续token的序列列表。                    |
+| `logprobs`          | `Optional[bool]`                     | `None`         | 是否返回输出token的对数概率。                          |
+| `presence_penalty`          | `Optional[float]`                     | `None`         | 根据token是否已在文本中出现来惩罚新token。             |
+| `frequency_penalty`          | `Optional[float]`                     | `None`         | 根据token在文本中的出现频率来惩罚新token。             |
+| `seed`          | `Optional[int]`                     | `None`         | 用于确定性文本生成的随机种子。                         |
+| `request_params`          | `Optional[Dict[str, Any]]`                     | `None`         | 请求的附加参数。                                       |

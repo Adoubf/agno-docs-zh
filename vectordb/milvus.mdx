@@ -1,24 +1,22 @@
 ---
-title: Milvus Agent Knowledge
+title: Milvus 智能体知识库
 sidebarTitle: Milvus
 ---
-
-## Setup
+## 配置
 
 ```shell
 pip install pymilvus
 ```
 
-## Initialize Milvus
+## 初始化 Milvus
 
-Set the uri and token for your Milvus server.
+为您的 Milvus 服务器设置 uri 和 token。
 
-- If you only need a local vector database for small scale data or prototyping, setting the uri as a local file, e.g.`./milvus.db`, is the most convenient method, as it automatically utilizes [Milvus Lite](https://milvus.io/docs/milvus_lite.md) to store all data in this file.
-- If you have large scale data, say more than a million vectors, you can set up a more performant Milvus server on [Docker or Kubernetes](https://milvus.io/docs/quickstart.md).
-  In this setup, please use the server address and port as your uri, e.g.`http://localhost:19530`. If you enable the authentication feature on Milvus, use `your_username:your_password` as the token, otherwise don't set the token.
-- If you use [Zilliz Cloud](https://zilliz.com/cloud), the fully managed cloud service for Milvus, adjust the `uri` and `token`, which correspond to the [Public Endpoint and API key](https://docs.zilliz.com/docs/on-zilliz-cloud-console#cluster-details) in Zilliz Cloud.
+- 若仅需本地向量数据库处理小规模数据或原型设计，将 uri 设置为本地文件路径（例如`./milvus.db`）是最便捷的方法，该方式会自动使用 [Milvus Lite](https://milvus.io/docs/milvus_lite.md) 将所有数据存储在该文件中。
+- 若需处理大规模数据（例如超过百万级向量），可通过 [Docker 或 Kubernetes](https://milvus.io/docs/quickstart.md) 部署更高性能的 Milvus 服务器。在此配置中，请使用服务器地址和端口作为 uri（例如`http://localhost:19530`）。若在 Milvus 中启用了认证功能，则使用 `your_username:your_password` 作为 token，否则无需设置 token。
+- 若使用 [Zilliz Cloud](https://zilliz.com/cloud)（Milvus 全托管云服务），需调整 `uri` 和 `token`，这两个参数分别对应 Zilliz Cloud 中的 [公共端点与 API 密钥](https://docs.zilliz.com/docs/on-zilliz-cloud-console#cluster-details)。
 
-## Example
+## 示例
 
 ```python agent_with_knowledge.py
 from agno.agent import Agent
@@ -29,7 +27,7 @@ vector_db = Milvus(
     collection="recipes",
     uri="./milvus.db",
 )
-# Create knowledge base
+# 创建知识库
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
     vector_db=vector_db,
@@ -37,62 +35,62 @@ knowledge_base = PDFUrlKnowledgeBase(
 
 knowledge_base.load(recreate=False)  # Comment out after first run
 
-# Create and use the agent
+# 创建并使用智能体
 agent = Agent(knowledge=knowledge_base, use_tools=True, show_tool_calls=True)
 agent.print_response("How to make Tom Kha Gai", markdown=True)
 agent.print_response("What was my last question?", stream=True)
 ```
 
-<Card title="Async Support ⚡">
+<Card title="异步支持 ⚡">
   <div className="mt-2">
     <p>
-      Milvus also supports asynchronous operations, enabling concurrency and leading to better performance.
+      Milvus 同时支持异步操作，可实现并发处理以获得更优性能。
     </p>
     
     ```python async_milvus_db.py
-    # install pymilvus - `pip install pymilvus`
+    # 安装 pymilvus - `pip install pymilvus`
     import asyncio
 
     from agno.agent import Agent
     from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
     from agno.vectordb.milvus import Milvus
 
-    # Initialize Milvus with local file
+    # 初始化 Milvus 本地文件
     vector_db = Milvus(
         collection="recipes",
         uri="tmp/milvus.db",  # For local file-based storage
     )
 
-    # Create knowledge base
+    # 创建知识库
     knowledge_base = PDFUrlKnowledgeBase(
         urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
         vector_db=vector_db,
     )
 
-    # Create agent with knowledge base
+    # 创建带有知识库的智能体
     agent = Agent(knowledge=knowledge_base)
 
     if __name__ == "__main__":
-        # Load knowledge base asynchronously
+        # 异步加载知识库
         asyncio.run(knowledge_base.aload(recreate=False))  # Comment out after first run
 
-        # Query the agent asynchronously
+        # 异步查询智能体
         asyncio.run(agent.aprint_response("How to make Tom Kha Gai", markdown=True))
     ```
     
     <Tip className="mt-4">
-      Use <code>aload()</code> and <code>aprint_response()</code> methods with <code>asyncio.run()</code> for non-blocking operations in high-throughput applications.
+      在高吞吐场景中，使用 <code>aload()</code> 和 <code>aprint_response()</code> 方法配合 <code>asyncio.run()</code> 可实现非阻塞操作。
     </Tip>
   </div>
 </Card>
 
-## Milvus Params
+## Milvus 参数
 
 <Snippet file="vectordb_milvus_params.mdx" />
 
-Advanced options can be passed as additional keyword arguments to the `MilvusClient` constructor.
+可通过额外关键字参数向 `MilvusClient` 构造函数传递高级选项。
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook (Sync)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/milvus_db/milvus_db.py)
-- View [Cookbook (Async)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/milvus_db/async_milvus_db.py)
+- 查看 [同步操作手册](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/milvus_db/milvus_db.py)
+- 查看 [异步操作手册](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/milvus_db/async_milvus_db.py)

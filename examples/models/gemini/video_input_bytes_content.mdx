@@ -1,8 +1,7 @@
 ---
-title:  Video Input (Bytes Content)
+title: 视频输入（字节内容）
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/google/gemini/video_input_bytes_content.py
 import requests
@@ -17,7 +16,7 @@ agent = Agent(
 
 url = "https://videos.pexels.com/video-files/5752729/5752729-uhd_2560_1440_30fps.mp4"
 
-# Download the video file from the URL as bytes
+# 从URL下载视频文件为字节数据
 response = requests.get(url)
 video_content = response.content
 
@@ -27,26 +26,26 @@ agent.print_response(
 )
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U google-genai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
-    ```bash Mac
+    ```bash Mac（苹果电脑）
     python cookbook/models/google/gemini/video_input_bytes_content.py
     ```
 
@@ -55,4 +54,4 @@ agent.print_response(
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

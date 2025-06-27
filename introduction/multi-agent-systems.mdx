@@ -1,14 +1,13 @@
 ---
-title: Multi Agent Systems
-description: "Teams of Agents working together towards a common goal."
-sidebarTitle: Multi Agent Systems
+title: 多智能体系统
+description: "由多个智能体组成的团队协作实现共同目标。"
+sidebarTitle: 多智能体系统
 ---
+## 第四层级：具备推理与协作能力的智能体团队
 
-## Level 4: Agent Teams that can reason and collaborate
+智能体是工作的原子单元，当它们聚焦于狭窄范围且仅需少量工具时，工作效率最佳。当工具数量超过模型处理能力或需要处理多重概念时，可通过组建智能体团队来分摊负载。
 
-Agents are the atomic unit of work, and work best when they have a narrow scope and a small number of tools. When the number of tools grows beyond what the model can handle or you need to handle multiple concepts, use a team of agents to spread the load.
-
-Agno provides an industry leading multi-agent architecture that allows you to build Agent Teams that can reason, collaborate and coordinate. In this example, we'll build a team of 2 agents to analyze the semiconductor market performance, reasoning step by step.
+Agno提供业界领先的多智能体架构，使您能构建具备推理、协作与协调能力的智能体团队。本示例将创建包含2个智能体的团队，逐步推理分析半导体市场表现。
 
 ```python level_4_team.py
 from agno.agent import Agent
@@ -73,10 +72,10 @@ if __name__ == "__main__":
     )
 ```
 
-Install dependencies and run the Agent team
+安装依赖并运行智能体团队
 
 <Steps>
-  <Step title="Install dependencies">
+  <Step title="安装依赖">
 
     <CodeGroup>
     ```bash Mac
@@ -89,7 +88,7 @@ Install dependencies and run the Agent team
     </CodeGroup>
 
   </Step>
-  <Step title="Export your API keys">
+  <Step title="导出您的 API 密钥">
 
     <CodeGroup>
     ```bash Mac
@@ -104,7 +103,7 @@ Install dependencies and run the Agent team
     </CodeGroup>
 
   </Step>
-  <Step title="Run the agent team">
+  <Step title="运行智能体团队">
 
     ```shell
     python level_4_team.py
@@ -113,22 +112,21 @@ Install dependencies and run the Agent team
   </Step>
 </Steps>
 
-## Level 5: Agentic Workflows with state and determinism
+## 第五层级：具备状态与确定性的智能工作流
 
-Workflows are deterministic, stateful, multi-agent programs built for production applications. We write the workflow in pure python, giving us extreme control over the execution flow.
+工作流是为生产应用构建的确定性、有状态的多智能体程序。我们使用纯Python编写工作流，从而对执行流程实现极致控制。
 
-Having built 100s of agentic systems, **no framework or step based approach will give you the flexibility and reliability of pure-python**. Want loops - use while/for, want conditionals - use if/else, want exceptional handling - use try/except.
-
+在构建了数百个智能系统后，我们发现**没有任何框架或基于步骤的方法能提供纯Python的灵活性与可靠性**。需要循环？使用while/for；需要条件判断？使用if/else；需要异常处理？使用try/except。
 
 <Check>
 
-Because the workflow logic is a python function, AI code editors can vibe code workflows for you.
+由于工作流逻辑是Python函数，AI代码编辑器可为您即时生成工作流代码。
 
-Add `https://docs.agno.com` as a document source and vibe away.
+添加`https://docs.agno.com`作为文档源即可快速生成。
 
 </Check>
 
-Here's a simple workflow that caches previous outputs, you control every step: what gets cached, what gets streamed, what gets logged and what gets returned.
+这是一个缓存先前输出的简单工作流，您可控制每个步骤：哪些内容被缓存、哪些被流式传输、哪些被记录以及哪些被返回。
 
 ```python level_5_workflow.py
 from typing import Iterator
@@ -140,13 +138,13 @@ from agno.workflow import Workflow
 
 
 class CacheWorkflow(Workflow):
-    # Add agents or teams as attributes on the workflow
+    # 在工作流中将智能体或团队添加为属性
     agent = Agent(model=OpenAIChat(id="gpt-4o-mini"))
 
-    # Write the logic in the `run()` method
+    # 在 `run()` 方法中编写逻辑
     def run(self, message: str) -> Iterator[RunResponse]:
         logger.info(f"Checking cache for '{message}'")
-        # Check if the output is already cached
+        # 检查输出是否已缓存
         if self.session_state.get(message):
             logger.info(f"Cache hit for '{message}'")
             yield RunResponse(
@@ -155,33 +153,33 @@ class CacheWorkflow(Workflow):
             return
 
         logger.info(f"Cache miss for '{message}'")
-        # Run the agent and yield the response
+        # 运行智能体并生成响应
         yield from self.agent.run(message, stream=True)
 
-        # Cache the output after response is yielded
+        # 在响应生成后缓存输出
         self.session_state[message] = self.agent.run_response.content
 
 
 if __name__ == "__main__":
     workflow = CacheWorkflow()
-    # Run workflow (this is takes ~1s)
+    # 运行工作流程（耗时约1秒）
     response: Iterator[RunResponse] = workflow.run(message="Tell me a joke.")
-    # Print the response
+    # 输出响应
     pprint_run_response(response, markdown=True, show_time=True)
-    # Run workflow again (this is immediate because of caching)
+    # 再次运行工作流程（由于缓存机制将立即执行）
     response: Iterator[RunResponse] = workflow.run(message="Tell me a joke.")
-    # Print the response
+    # 输出响应
     pprint_run_response(response, markdown=True, show_time=True)
 ```
 
-Run the workflow
+运行工作流
 
 ```shell
 python level_5_workflow.py
 ```
 
-## Next
+## 后续步骤
 
-- Checkout the [Agent Playground](/introduction/playground) to interact with your Agents, Teams and Workflows.
-- Learn how to [Monitor](/introduction/monitoring) your Agents, Teams and Workflows.
-- Get help from the [Community](/introduction/community).
+- 访问[智能体演练场](/introduction/playground)与您的智能体、团队及工作流进行交互
+- 学习如何[监控](/introduction/monitoring)您的智能体、团队及工作流
+- 从[社区](/introduction/community)获取帮助

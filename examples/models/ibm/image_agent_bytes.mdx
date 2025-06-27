@@ -1,8 +1,7 @@
 ---
-title: Image Agent
+title: 镜像智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/ibm/watsonx/image_agent_bytes.py
 from pathlib import Path
@@ -20,7 +19,7 @@ agent = Agent(
 
 image_path = Path(__file__).parent.joinpath("sample.jpg")
 
-# Read the image file content as bytes
+# 以字节形式读取图像文件内容
 with open(image_path, "rb") as img_file:
     image_bytes = img_file.read()
 
@@ -33,29 +32,29 @@ agent.print_response(
 )
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export IBM_WATSONX_API_KEY=xxx
     export IBM_WATSONX_PROJECT_ID=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U ibm-watsonx-ai duckduckgo-search agno
     ```
   </Step>
 
-  <Step title="Add sample image">
-    Place a sample image named "sample.jpg" in the same directory as the script.
+  <Step title="添加示例图片">
+    在脚本同级目录下放置名为"sample.jpg"的示例图片。
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/ibm/watsonx/image_agent_bytes.py
@@ -68,6 +67,6 @@ agent.print_response(
   </Step>
 </Steps>
 
-This example shows how to use IBM WatsonX with vision capabilities. It loads an image from a file and passes it to the model along with a prompt. The model can then analyze the image and provide relevant information.
+本示例展示了如何使用具有视觉能力的IBM WatsonX。它会从文件加载图像，并将其与提示词一起传递给模型。随后模型可以分析图像并提供相关信息。
 
-Note: This example uses a vision-capable model (`meta-llama/llama-3-2-11b-vision-instruct`) and requires a sample image file. 
+注意：该示例需要使用具备视觉能力的模型(`meta-llama/llama-3-2-11b-vision-instruct`)并准备示例图片文件。

@@ -1,34 +1,33 @@
 ---
-title: Memory
+title: 记忆
 ---
-
-Memory gives an Agent the ability to recall relavant information. Memory is a part of the Agent's context that helps it provide the best, most personalized response.
+记忆赋予智能体回忆相关信息的能力。记忆是智能体上下文的一部分，能帮助其提供最佳、最个性化的响应。
 
 <Check>
-If the user tells the Agent they like to ski, then future responses can reference this information to provide a more personalized experience.
+如果用户告诉智能体他们喜欢滑雪，未来的响应就可以引用这一信息来提供更个性化的体验。
 </Check>
 
-In Agno, Memory covers chat history, user preferences and any supplemental information about the task at hand. **Agno supports 3 types of memory out of the box:**
+在Agno中，记忆涵盖聊天历史、用户偏好以及与当前任务相关的补充信息。**Agno默认支持3种记忆类型：**
 
-1. **Session Storage (chat history and session state):** Session storage saves an Agent's sessions in a database and enables Agents to have multi-turn conversations. Session storage also holds the session state, which is persisted across runs because it is saved to the database after each run. Session storage is a form of short-term memory **called "Storage" in Agno**.
+1. **会话存储（聊天历史与会话状态）：** 会话存储将智能体的会话保存在数据库中，使其能够进行多轮对话。会话存储还保留会话状态，该状态会跨运行周期持久化，因为每次运行后都会被存入数据库。会话存储是一种短期记忆形式，**在Agno中称为"Storage"**。
 
-2. **User Memories (user preferences):** The Agent can store insights and facts about the user that it learns through conversation. This helps the agents personalize its response to the user it is interacting with. Think of this as adding "ChatGPT like memory" to your agent. **This is called "Memory" in Agno**.
+2. **用户记忆（用户偏好）：** 智能体可以存储通过对话了解到的用户洞察和事实。这有助于智能体为交互对象提供个性化响应。可将此视为为智能体添加"类似ChatGPT的记忆"。**在Agno中称为"Memory"**。
 
-3. **Session Summaries (chat summary):** The Agent can store a condensed representations of the session, useful when chat histories gets too long. **This is called "Summary" in Agno**.
+3. **会话摘要（聊天概要）：** 智能体可以存储会话的压缩表示，在聊天历史过长时特别有用。**在Agno中称为"Summary"**。
 
 <Note>
-It is relatively easy to use your own memory implementation using `Agent.context`.
+使用`Agent.context`可以相对容易地实现自定义记忆方案。
 </Note>
 
-To become an expert in Agentic Memory, you need ot learn about:
-1. [Default, built-in Memory](/agents/memory#default-memory)
-2. [Session Storage](/agents/memory#session-storage)
-3. [User Memories](/agents/memory#user-memories)
-4. [Session Summaries](/agents/memory#session-summaries)
+要成为智能体记忆专家，你需要学习：
+1. [默认内置记忆](/agents/memory#default-memory)
+2. [会话存储](/agents/memory#session-storage)
+3. [用户记忆](/agents/memory#user-memories)
+4. [会话摘要](/agents/memory#session-summaries)
 
-## Show me the code: Memory & Storage in Action
+## 代码示例：记忆与存储实战
 
-Here's a simple but complete example of using Memory and Storage in an Agent.
+以下是一个完整的使用智能体记忆与存储的简单示例。
 
 ```python memory_demo.py
 from agno.agent import Agent
@@ -38,34 +37,34 @@ from agno.models.openai import OpenAIChat
 from agno.storage.sqlite import SqliteStorage
 from rich.pretty import pprint
 
-# UserId for the memories
+# 记忆的用户ID
 user_id = "ava"
-# Database file for memory and storage
+# 用于记忆与存储的数据库文件
 db_file = "tmp/agent.db"
 
-# Initialize memory.v2
+# 初始化 memory.v2
 memory = Memory(
-    # Use any model for creating memories
+    # 使用任意模型创建记忆
     model=OpenAIChat(id="gpt-4.1"),
     db=SqliteMemoryDb(table_name="user_memories", db_file=db_file),
 )
-# Initialize storage
+# 初始化存储
 storage = SqliteStorage(table_name="agent_sessions", db_file=db_file)
 
-# Initialize Agent
+# 初始化智能体
 memory_agent = Agent(
     model=OpenAIChat(id="gpt-4.1"),
-    # Store memories in a database
+    # 将记忆存储到数据库中
     memory=memory,
-    # Give the Agent the ability to update memories
+    # 赋予智能体更新记忆的能力
     enable_agentic_memory=True,
-    # OR - Run the MemoryManager after each response
+    # 或 - 在每次响应后运行 MemoryManager
     enable_user_memories=True,
-    # Store the chat history in the database
+    # 将聊天记录存储到数据库中
     storage=storage,
-    # Add the chat history to the messages
+    # 将聊天历史记录添加到消息中
     add_history_to_messages=True,
-    # Number of history runs
+    # 历史运行次数
     num_history_runs=3,
     markdown=True,
 )
@@ -90,33 +89,33 @@ print("Memories about Ava:")
 pprint(memory.get_user_memories(user_id=user_id))
 ```
 
-### Notes
+### 注意事项
 
-- `enable_agentic_memory=True` gives the Agent a tool to manage memories of the user, this tool passes the task to the `MemoryManager` class. You may also set `enable_user_memories=True` which always runs the `MemoryManager` after each user message.
-- `add_history_to_messages=True` adds the chat history to the messages sent to the Model, the `num_history_runs` determines how many runs to add.
-- `read_chat_history=True` adds a tool to the Agent that allows it to read chat history, as it may be larger than what's included in the `num_history_runs`.
+- `enable_agentic_memory=True`为智能体提供了管理用户记忆的工具，该工具会将任务传递给`MemoryManager`类。你还可以设置`enable_user_memories=True`，使其在每条用户消息后始终运行`MemoryManager`。
+- `add_history_to_messages=True`会将聊天历史添加到发送给模型的消息中，`num_history_runs`决定了要添加的历史运行次数。
+- `read_chat_history=True`为智能体添加了一个读取完整聊天历史的工具，因为这些内容可能超出`num_history_runs`的包含范围。
 
-## Default Memory
+## 默认记忆
 
-Every Agent comes with built-in memory which keeps track of the messages in the session i.e. the chat history.
+每个智能体都内置记忆功能，用于跟踪会话中的消息（即聊天历史）。
 
-You can access these messages using `agent.get_messages_for_session()`.
+你可以通过`agent.get_messages_for_session()`访问这些消息。
 
-We can give the Agent access to the chat history in the following ways:
+我们可以通过以下方式让智能体访问聊天历史：
 
-- We can set `add_history_to_messages=True` and `num_history_runs=5` to add the messages from the last 5 runs automatically to every message sent to the agent.
-- We can set `read_chat_history=True` to provide a `get_chat_history()` tool to your agent allowing it to read any message in the entire chat history.
-- **We recommend setting all 3: `add_history_to_messages=True`, `num_history_runs=3` and `read_chat_history=True` for the best experience.**
-- We can also set `read_tool_call_history=True` to provide a `get_tool_call_history()` tool to your agent allowing it to read tool calls in reverse chronological order.
+- 设置`add_history_to_messages=True`和`num_history_runs=5`，自动将最近5次运行的消息添加到发送给智能体的每条消息中。
+- 设置`read_chat_history=True`，为智能体提供`get_chat_history()`工具，使其能读取整个聊天历史中的任何消息。
+- **我们建议同时设置这3项：`add_history_to_messages=True`、`num_history_runs=3`和`read_chat_history=True`以获得最佳体验。**
+- 还可以设置`read_tool_call_history=True`，为智能体提供`get_tool_call_history()`工具，使其能按时间倒序读取工具调用记录。
 
 <Note>
-The default memory is not persisted across execution cycles. So after the script finishes running, or the request is over, the built-in default memory is lost.
+默认记忆不会跨执行周期持久化。因此脚本运行结束或请求完成后，内置的默认记忆就会丢失。
 
-You can persist this memory in a database by adding a `storage` driver to the Agent.
+你可以通过为智能体添加`storage`驱动，将记忆持久化到数据库中。
 </Note>
 
 <Steps>
-  <Step title="Built-in memory example">
+  <Step title="内置记忆示例">
     ```python agent_memory.py
     from agno.agent import Agent
     from agno.models.google.gemini import Gemini
@@ -124,37 +123,37 @@ You can persist this memory in a database by adding a `storage` driver to the Ag
 
     agent = Agent(
         model=Gemini(id="gemini-2.0-flash-exp"),
-        # Set add_history_to_messages=true to add the previous chat history to the messages sent to the Model.
+        # 设置 add_history_to_messages=true 以将先前的聊天记录添加到发送给 Model 的消息中。
         add_history_to_messages=True,
-        # Number of historical responses to add to the messages.
+        # 添加到消息中的历史响应数量。
         num_history_responses=3,
         description="You are a helpful assistant that always responds in a polite, upbeat and positive manner.",
     )
 
-    # -*- Create a run
+    # -*- 创建运行
     agent.print_response("Share a 2 sentence horror story", stream=True)
-    # -*- Print the messages in the memory
+    # -*- 打印记忆中的消息
     pprint([m.model_dump(include={"role", "content"}) for m in agent.get_messages_for_session()])
 
-    # -*- Ask a follow up question that continues the conversation
+    # -*- 提出一个后续问题以延续对话
     agent.print_response("What was my first message?", stream=True)
-    # -*- Print the messages in the memory
+    # -*- 打印记忆中的消息
     pprint([m.model_dump(include={"role", "content"}) for m in agent.get_messages_for_session()])
     ```
   </Step>
-  <Step title="Run the example">
-    Install libraries
+  <Step title="运行示例">
+    安装依赖库
 
     ```shell
     pip install google-genai agno
     ```
 
-    Export your key
+    导出密钥
     ```shell
     export GOOGLE_API_KEY=xxx
     ```
 
-    Run the example
+    运行示例
 
     ```shell
     python agent_memory.py
@@ -162,15 +161,15 @@ You can persist this memory in a database by adding a `storage` driver to the Ag
   </Step>
 </Steps>
 
-## Session Storage
+## 会话存储
 
-The built-in memory is only available during the current execution cycle. Once the script ends, or the request is over, the built-in memory is lost.
+内置记忆仅在当前执行周期内可用。一旦脚本结束或请求完成，内置记忆就会丢失。
 
-**Storage** help us save Agent sessions and state to a database or file.
+**Storage**帮助我们将会话和状态保存到数据库或文件中。
 
-Adding storage to an Agent is as simple as providing a `storage` driver and Agno handles the rest. You can use Sqlite, Postgres, Mongo or any other database you want.
+为智能体添加存储只需提供`storage`驱动，Agno会处理其余事项。你可以使用Sqlite、Postgres、Mongo或任何其他数据库。
 
-Here's a simple example that demostrates persistence across execution cycles:
+以下是一个展示跨执行周期持久化的简单示例：
 
 ```python storage.py
 from agno.agent import Agent
@@ -180,7 +179,7 @@ from rich.pretty import pprint
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
-    # Fix the session id to continue the same session across execution cycles
+    # 修复会话 ID 以在执行周期之间保持同一会话
     session_id="fixed_id_for_demo",
     storage=SqliteStorage(table_name="agent_sessions", db_file="tmp/data.db"),
     add_history_to_messages=True,
@@ -192,22 +191,22 @@ agent.print_response("What was my last question?")
 pprint(agent.get_messages_for_session())
 ```
 
-The first time you run this, the answer to "What was my last question?" will not be available. But run it again and the Agent will able to answer properly. Because we have fixed the session id, the Agent will continue from the same session every time you run the script.
+首次运行时，智能体无法回答"我的上一个问题是什么？"。但再次运行时，智能体就能正确回答。由于我们固定了会话ID，每次运行脚本时智能体都会从同一会话继续。
 
-Read more in the [storage](/agents/storage) section.
+更多内容请参阅[存储](/agents/storage)章节。
 
-## User Memories
+## 用户记忆
 
-Along with storing session history and state, Agents can also create user memories based on the conversation history.
+除了存储会话历史和状态，智能体还可以基于对话历史创建用户记忆。
 
-To enable user memories, give your Agent a `Memory` object and set `enable_agentic_memory=True`.
+要启用用户记忆，请为智能体提供`Memory`对象并设置`enable_agentic_memory=True`。
 
 <Note>
-Enabling agentic memory will also add all existing user memories to the agent's system prompt.
+启用智能体记忆还会将所有现有用户记忆添加到智能体的系统提示中。
 </Note>
 
 <Steps>
-  <Step title="User memory example">
+  <Step title="用户记忆示例">
     ```python user_memory.py
     from agno.agent import Agent
     from agno.memory.v2.db.sqlite import SqliteMemoryDb
@@ -225,7 +224,7 @@ Enabling agentic memory will also add all existing user memories to the agent's 
         enable_agentic_memory=True,
     )
 
-    # The agent can add new memories to the user's memory
+    # 智能体可以向用户的记忆中添加新的记忆
     agent.print_response(
         "My name is John Doe and I like to hike in the mountains on weekends.",
         stream=True,
@@ -234,7 +233,7 @@ Enabling agentic memory will also add all existing user memories to the agent's 
 
     agent.print_response("What are my hobbies?", stream=True, user_id=john_doe_id)
 
-    # The agent can also remove all memories from the user's memory
+    # 该智能体还可以从用户记忆中移除所有记忆
     agent.print_response(
         "Remove all existing memories of me. Completely clear the DB.",
         stream=True,
@@ -245,25 +244,25 @@ Enabling agentic memory will also add all existing user memories to the agent's 
         "My name is John Doe and I like to paint.", stream=True, user_id=john_doe_id
     )
 
-    # The agent can remove specific memories from the user's memory
+    # 智能体可以从用户记忆中移除特定记忆
     agent.print_response("Remove any memory of my name.", stream=True, user_id=john_doe_id)
 
     ```
   </Step>
 
-  <Step title="Run the example">
-    Install libraries
+  <Step title="运行示例">
+    安装依赖库
 
     ```shell
     pip install google-genai agno
     ```
 
-    Export your key
+    导出密钥
     ```shell
     export GOOGLE_API_KEY=xxx
     ```
 
-    Run the example
+    运行示例
 
     ```shell
     python user_memory.py
@@ -271,15 +270,14 @@ Enabling agentic memory will also add all existing user memories to the agent's 
   </Step>
 </Steps>
 
-User memories are stored in the `Memory` object and persisted in the `SqliteMemoryDb` to be used across multiple users and multiple sessions.
+用户记忆存储在`Memory`对象中，并持久化到`SqliteMemoryDb`，以便跨用户和会话使用。
 
+## 会话摘要
 
-## Session Summaries
-
-To enable session summaries, set `enable_session_summaries=True` on the `Agent`.
+要启会话摘要功能，请在`Agent`上设置`enable_session_summaries=True`。
 
 <Steps>
-  <Step title="Session summary example">
+  <Step title="会话摘要示例">
     ```python session_summary.py
         from agno.agent import Agent
         from agno.memory.v2.db.sqlite import SqliteMemoryDb
@@ -319,19 +317,19 @@ To enable session summaries, set `enable_session_summaries=True` on the `Agent`.
     ```
   </Step>
 
-  <Step title="Run the example">
-    Install libraries
+  <Step title="运行示例">
+    安装依赖库
 
     ```shell
     pip install google-genai agno
     ```
 
-    Export your key
+    导出密钥
     ```shell
     export GOOGLE_API_KEY=xxx
     ```
 
-    Run the example
+    运行示例
 
     ```shell
     python session_summary.py
@@ -340,18 +338,18 @@ To enable session summaries, set `enable_session_summaries=True` on the `Agent`.
 </Steps>
 
 
-## Attributes
+## 属性
 
-| Parameter                          | Type          | Default         | Description                                                                                                     |
+| 参数                          | 类型          | 默认值         | 描述                                                                                                     |
 | ---------------------------------- | ------------- | --------------- | --------------------------------------------------------------------------------------------------------------- |
-| `memory`                           | `Memory`      | `Memory()` | Agent's memory object used for storing and retrieving information.                                              |
-| `add_history_to_messages`          | `bool`        | `False`         | If true, adds the chat history to the messages sent to the Model. Also known as `add_chat_history_to_messages`. |
-| `num_history_runs`                 | `int`         | `3`             | Number of historical responses to add to the messages.                                                          |
-| `enable_user_memories`             | `bool`        | `False`         | If true, create and store personalized memories for the user.                                                   |
-| `enable_session_summaries`         | `bool`        | `False`         | If true, create and store session summaries.                                                                    |
-| `enable_agentic_memory`            | `bool`        | `False`         | If true, enables the agent to manage the user's memory.                                                         |
+| `memory`                           | `Memory`      | `Memory()` | 用于存储和检索信息的智能体记忆对象。                                              |
+| `add_history_to_messages`          | `bool`        | `False`         | 若为真，将聊天历史添加到发送给模型的消息中。也称为`add_chat_history_to_messages`。 |
+| `num_history_runs`                 | `int`         | `3`             | 要添加到消息中的历史响应数量。                                                          |
+| `enable_user_memories`             | `bool`        | `False`         | 若为真，创建并存储用户的个性化记忆。                                                   |
+| `enable_session_summaries`         | `bool`        | `False`         | 若为真，创建并存储会话摘要。                                                                    |
+| `enable_agentic_memory`            | `bool`        | `False`         | 若为真，启用智能体管理用户记忆的功能。                                                         |
 
- ## Developer Resources
+ ## 开发者资源
 
-- View [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/agent_concepts/memory)
-- View [Examples](/examples/concepts/memory)
+- 查看[Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/agent_concepts/memory)
+- 查看[示例](/examples/concepts/memory)

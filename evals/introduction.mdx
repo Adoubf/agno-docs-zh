@@ -1,21 +1,20 @@
 ---
-title: Simple Agent Evals
-description: Learn how to evaluate your Agno Agents and Teams across three key dimensions - accuracy (using LLM-as-a-judge), performance (runtime and memory), and reliability (tool calls).
-sidebarTitle: Overview
+title: 简单智能体评估
+description: 了解如何从三个关键维度评估您的Agno智能体与团队——准确性（使用LLM-as-a-judge方法）、性能（运行时与内存占用）以及可靠性（工具调用能力）。
+sidebarTitle: 概述
 ---
+**评估**（Evals）是用于测试智能体和团队表现的单元测试，合理运用它们来测量并提升性能。Agno为评估智能体提供了三个维度：
+- **准确性**：智能体的响应有多完整/正确/精确（以LLM作为评判标准）
+- **性能**：智能体响应速度如何？内存占用情况怎样？
+- **可靠性**：智能体是否调用了预期工具？
 
-**Evals** are unit tests for your Agents and Teams, use them judiciously to measure and improve their performance. Agno provides 3 dimensions for evaluating Agents:
-- **Accuracy:** How complete/correct/accurate is the Agent's response (LLM-as-a-judge)
-- **Performance:** How fast does the Agent respond and what's the memory footprint?
-- **Reliability:** Does the Agent make the expected tool calls?
+## 准确性
 
-## Accuracy
+准确性评估使用输入/输出配对来衡量智能体及团队表现与黄金标准答案的差距。通过更大规模的模型为智能体响应打分（以LLM作为评判者）。
 
-Accuracy evals use input/output pairs to measure your Agents and Teams performance against a gold-standard answer. Use a larger model to score the Agent's responses (LLM-as-a-judge).
+#### 示例
 
-#### Example
-
-In this example, the `AccuracyEval` will run the Agent with the input, then use a larger model (`o4-mini`) to score the Agent's response according to the guidelines provided.
+本例中，`AccuracyEval` 将使用输入运行智能体，随后采用更大模型（`o4-mini`）根据给定准则对智能体响应进行评分。
 
 ```python calculate_accuracy.py
 from typing import Optional
@@ -44,7 +43,7 @@ assert result is not None and result.avg_score >= 8
   />
 </Frame>
 
-You can also run the `AccuracyEval` on an existing output (without running the Agent).
+您也可以直接对已有输出运行 `AccuracyEval`（无需启动智能体）。
 
 ```python accuracy_eval_with_output.py
 from typing import Optional
@@ -66,15 +65,15 @@ result_with_given_answer: Optional[AccuracyResult] = evaluation.run_with_output(
 assert result_with_given_answer is not None and result_with_given_answer.avg_score >= 8
 ```
 
-## Performance
+## 性能
 
-Performance evals measure the latency and memory footprint of an Agent or Team.
+性能评估测量智能体或团队的延迟时间及内存占用情况。
 
 <Note>
-While latency will be dominated by the model API response time, we should still keep performance top of mind and track the Agent or Team's performance with and without certain components. Eg: it would be good to know what's the average latency with and without storage, memory, with a new prompt, or with a new model.
+虽然延迟主要受模型API响应时间影响，但仍需保持性能优先意识，追踪智能体或团队在不同组件状态下的表现。例如：了解启用/禁用存储、记忆功能时的平均延迟，或测试新提示词、新模型时的表现差异至关重要。
 </Note>
 
-#### Example
+#### 示例
 
 ```python storage_performance.py
 """Run `pip install openai agno` to install dependencies."""
@@ -98,17 +97,17 @@ if __name__ == "__main__":
     simple_response_perf.run(print_results=True)
 ```
 
-## Reliability
+## 可靠性
 
-What makes an Agent or Team reliable?
+如何判定智能体或团队是否可靠？
 
-- Does it make the expected tool calls?
-- Does it handle errors gracefully?
-- Does it respect the rate limits of the model API?
+- 是否调用预期工具？
+- 能否优雅处理错误？
+- 是否遵守模型API的速率限制？
 
-#### Example
+#### 示例
 
-The first check is to ensure the Agent makes the expected tool calls. Here's an example:
+首要检查项是确认智能体调用预期工具。示例如下：
 
 ```python reliability.py
 from typing import Optional
@@ -140,5 +139,5 @@ if __name__ == "__main__":
 ```
 
 <Note>
-Reliability evals are currently in `beta`.
+可靠性评估当前处于 `beta` 阶段。
 </Note>

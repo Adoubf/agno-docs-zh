@@ -1,16 +1,15 @@
-
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `model` | `str` | - | ID of the model to use. |
-| `name` | `str` | - | Name for this LLM. Note: This is not sent to the LLM API. |
-| `metrics` | `Dict[str, Any]` | - | Metrics collected for this LLM. Note: This is not sent to the LLM API. |
-| `response_format` | `Any` | - | Format of the response. |
-| `tools` | `List[Union[Tool, Dict]]` | - | A list of tools provided to the LLM. Tools are functions the model may generate JSON inputs for. If you provide a dict, it is not called by the model. Always add tools using the `add_tool()` method. |
-| `tool_choice` | `Union[str, Dict[str, Any]]` | - | Controls which (if any) function is called by the model. `"none"` means the model will not call a function and instead generates a message. `"auto"` means the model can pick between generating a message or calling a function. Specifying a particular function via `{"type": "function", "function": {"name": "my_function"}}` forces the model to call that function. `"none"` is the default when no functions are present. `"auto"` is the default if functions are present. |
-| `run_tools` | `bool` | `True` | If True, runs tools. |
-| `show_tool_calls` | `bool` | - | If True, shows tool calls in the response. |
-| `functions` | `Dict[str, Function]` | - | Functions extracted from the tools. Note: These are not sent to the LLM API and are only used for execution. |
-| `function_call_limit` | `int` | `20` | Maximum number of function calls allowed. |
-| `function_call_stack` | `List[FunctionCall]` | - | Stack of function calls. |
-| `system_prompt` | `str` | - | System prompt provided to the LLM. |
-| `instructions` | `str` | - | Instructions provided to the LLM. |
+| 参数        | 类型     | 默认值   | 描述                                                                 |
+|-------------|----------|----------|---------------------------------------------------------------------|
+| `model` | `str` | -        | 指定使用的模型ID。                                                   |
+| `name` | `str` | -        | 该大语言模型的名称。注意：此名称不会发送至LLM API。                  |
+| `metrics` | `Dict[str, Any]` | -        | 为该大语言模型收集的指标。注意：此数据不会发送至LLM API。             |
+| `response_format` | `Any` | -        | 响应格式。                                                           |
+| `tools` | `List[Union[Tool, Dict]]` | -        | 提供给大语言模型的工具列表。工具是模型可能生成JSON输入的函数。若提供字典形式，则不会被模型调用。务必使用`add_tool()`方法添加工具。 |
+| `tool_choice` | `Union[str, Dict[str, Any]]` | -        | 控制模型调用哪些（如有）函数。`"none"`表示模型仅生成消息而不调用函数。`"auto"`表示模型可选择生成消息或调用函数。通过`{"type": "function", "function": {"name": "my_function"}}`指定特定函数将强制模型调用该函数。未配置工具时默认值为`"none"`，配置工具时默认值为`"auto"`。 |
+| `run_tools` | `bool` | `True` | 若为True，则执行工具。                                               |
+| `show_tool_calls` | `bool` | -        | 若为True，响应中将显示工具调用。                                     |
+| `functions` | `Dict[str, Function]` | -        | 从工具中提取的函数。注意：这些不会发送至LLM API，仅用于执行。        |
+| `function_call_limit` | `int` | `20` | 允许的最大函数调用次数。                                             |
+| `function_call_stack` | `List[FunctionCall]` | -        | 函数调用堆栈。                                                      |
+| `system_prompt` | `str` | -        | 提供给大语言模型的系统提示。                                        |
+| `instructions` | `str` | -        | 提供给大语言模型的指令。                                            |

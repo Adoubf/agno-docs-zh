@@ -1,8 +1,8 @@
 ---
-title: State Management Across Multiple Runs
+title: 多轮运行间的状态管理
 ---
-This example demonstrates how to build a stateful agent that can manage its state across multiple runs.
-## Code
+本示例演示如何构建一个有状态的智能体，使其能在多次运行中管理自身状态。  
+## 代码  
 
 ```python cookbook/agent_concepts/state/shopping_list.py
 from textwrap import dedent
@@ -11,10 +11,10 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
 
-# Define tools to manage our shopping list
+# 定义用于管理购物清单的工具
 def add_item(agent: Agent, item: str) -> str:
     """Add an item to the shopping list and return confirmation."""
-    # Add the item if it's not already in the list
+    # 如果列表中不存在该条目则添加
     if item.lower() not in [i.lower() for i in agent.session_state["shopping_list"]]:
         agent.session_state["shopping_list"].append(item)
         return f"Added '{item}' to the shopping list"
@@ -24,7 +24,7 @@ def add_item(agent: Agent, item: str) -> str:
 
 def remove_item(agent: Agent, item: str) -> str:
     """Remove an item from the shopping list by name."""
-    # Case-insensitive search
+    # 不区分大小写的搜索
     for i, list_item in enumerate(agent.session_state["shopping_list"]):
         if list_item.lower() == item.lower():
             agent.session_state["shopping_list"].pop(i)
@@ -44,13 +44,13 @@ def list_items(agent: Agent) -> str:
     return f"Current shopping list:\n{items_text}"
 
 
-# Create a Shopping List Manager Agent that maintains state
+# 创建一个购物清单管理智能体，用于维护状态
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
-    # Initialize the session state with an empty shopping list
+    # 初始化会话状态为一个空的购物清单
     session_state={"shopping_list": []},
     tools=[add_item, remove_item, list_items],
-    # You can use variables from the session state in the instructions
+    # 您可以在指令中使用会话状态中的变量
     instructions=dedent("""\
         Your job is to manage a shopping list.
 
@@ -62,7 +62,7 @@ agent = Agent(
     markdown=True,
 )
 
-# Example usage
+# 示例用法
 agent.print_response("Add milk, eggs, and bread to the shopping list", stream=True)
 print(f"Session state: {agent.session_state}")
 
@@ -82,34 +82,34 @@ agent.print_response(
 print(f"Session state: {agent.session_state}")
 
 
-```
+```  
 
-## Usage
+## 使用  
 
-<Steps>
-  <Snippet file="create-venv-step.mdx" />
+<Steps>  
+  <Snippet file="create-venv-step.mdx" />  
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">  
     ```bash
     export OPENAI_API_KEY=xxx
-    ```
-  </Step>
+    ```  
+  </Step>  
 
-  <Step title="Install libraries">
+  <Step title="安装库">  
     ```bash
     pip install -U openai agno
-    ```
-  </Step>
+    ```  
+  </Step>  
 
-  <Step title="Run Example">
-    <CodeGroup>
+  <Step title="运行示例">  
+    <CodeGroup>  
     ```bash Mac
     python cookbook/agent_concepts/state/shopping_list.py
-    ```
+    ```  
 
     ```bash Windows
     python cookbook/agent_concepts/state/shopping_list.py
-    ```
-    </CodeGroup>
-  </Step>
+    ```  
+    </CodeGroup>  
+  </Step>  
 </Steps>

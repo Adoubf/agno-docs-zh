@@ -1,17 +1,17 @@
-| Parameter            | Type                                   | Default    | Description                                                                            |
+| 参数                | 类型                                   | 默认值     | 描述                                                                                   |
 | -------------------- | -------------------------------------- | ---------- | -------------------------------------------------------------------------------------- |
-| `name`               | `str`                                  | -          | The name of the Pinecone index                                                         |
-| `dimension`          | `int`                                  | -          | The dimension of the embeddings                                                        |
-| `spec`               | `Union[Dict, ServerlessSpec, PodSpec]` | -          | The index spec                                                                         |
-| `embedder`           | `Optional[Embedder]`                   | `None`     | Embedder instance for creating embeddings (defaults to OpenAIEmbedder if not provided) |
-| `metric`             | `Optional[str]`                        | `"cosine"` | The metric used for similarity search                                                  |
-| `additional_headers` | `Optional[Dict[str, str]]`             | `None`     | Additional headers to pass to the Pinecone client                                      |
-| `pool_threads`       | `Optional[int]`                        | `1`        | The number of threads to use for the Pinecone client                                   |
-| `namespace`          | `Optional[str]`                        | `None`     | The namespace for the Pinecone index                                                   |
-| `timeout`            | `Optional[int]`                        | `None`     | The timeout for Pinecone operations                                                    |
-| `index_api`          | `Optional[Any]`                        | `None`     | The Index API object                                                                   |
-| `api_key`            | `Optional[str]`                        | `None`     | The Pinecone API key                                                                   |
-| `host`               | `Optional[str]`                        | `None`     | The Pinecone host                                                                      |
-| `config`             | `Optional[Config]`                     | `None`     | The Pinecone config                                                                    |
-| `use_hybrid_search`  | `bool`                                 | `False`    | Whether to use hybrid search                                                           |
-| `hybrid_alpha`       | `float`                                | `0.5`      | The alpha value for hybrid search                                                      |
+| `name`               | `str`                                  | -          | Pinecone索引名称                                                                       |
+| `dimension`          | `int`                                  | -          | 嵌入向量的维度                                                                         |
+| `spec`               | `Union[Dict, ServerlessSpec, PodSpec]` | -          | 索引规格                                                                               |
+| `embedder`           | `Optional[Embedder]`                   | `None`     | 用于创建嵌入的嵌入器实例（未提供时默认使用OpenAIEmbedder）                              |
+| `metric`             | `Optional[str]`                        | `"cosine"` | 相似性搜索使用的度量标准                                                               |
+| `additional_headers` | `Optional[Dict[str, str]]`             | `None`     | 传递给Pinecone客户端的附加请求头                                                       |
+| `pool_threads`       | `Optional[int]`                        | `1`        | Pinecone客户端使用的线程数                                                             |
+| `namespace`          | `Optional[str]`                        | `None`     | Pinecone索引的命名空间                                                                 |
+| `timeout`            | `Optional[int]`                        | `None`     | Pinecone操作超时时间                                                                   |
+| `index_api`          | `Optional[Any]`                        | `None`     | 索引API对象                                                                            |
+| `api_key`            | `Optional[str]`                        | `None`     | Pinecone API密钥                                                                       |
+| `host`               | `Optional[str]`                        | `None`     | Pinecone主机地址                                                                       |
+| `config`             | `Optional[Config]`                     | `None`     | Pinecone配置                                                                           |
+| `use_hybrid_search`  | `bool`                                 | `False`    | 是否使用混合搜索                                                                       |
+| `hybrid_alpha`       | `float`                                | `0.5`      | 混合搜索的alpha值                                                                      |

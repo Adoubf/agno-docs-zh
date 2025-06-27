@@ -1,13 +1,13 @@
-| Parameter | Type | Description | Default |
+| 参数 | 类型 | 描述 | 默认值 |
 |-----------|------|-------------|---------|
-| `bucket_name` | `str` | Name of the Couchbase bucket | Required |
-| `scope_name` | `str` | Name of the scope within the bucket | Required |
-| `collection_name` | `str` | Name of the collection within the scope | Required |
-| `couchbase_connection_string` | `str` | Couchbase cluster connection string | Required |
-| `cluster_options` | `ClusterOptions` | Options for configuring the Couchbase cluster connection | Required |
-| `search_index` | `Union[str, SearchIndex]` | Search index configuration, either as index name or SearchIndex definition | Required |
-| `embedder` | `Embedder` | Embedder instance for generating embeddings | `OpenAIEmbedder()` |
-| `overwrite` | `bool` | Whether to overwrite existing collection | `False` |
-| `is_global_level_index` | `bool` | Whether the search index is at global level | `False` |
-| `wait_until_index_ready` | `Optional[float]` | Time in seconds to wait until the index is ready | `None` |
-| `batch_limit` | `int` | Maximum number of documents to process in a single batch (applies to both sync and async operations) | `500` | 
+| `bucket_name` | `str` | Couchbase 桶名称 | 必填 |
+| `scope_name` | `str` | 桶内作用域名称 | 必填 |
+| `collection_name` | `str` | 作用域内集合名称 | 必填 |
+| `couchbase_connection_string` | `str` | Couchbase 集群连接字符串 | 必填 |
+| `cluster_options` | `ClusterOptions` | 配置 Couchbase 集群连接的选项 | 必填 |
+| `search_index` | `Union[str, SearchIndex]` | 搜索索引配置（可接受索引名称或 SearchIndex 定义） | 必填 |
+| `embedder` | `Embedder` | 用于生成嵌入的嵌入器实例 | `OpenAIEmbedder()` |
+| `overwrite` | `bool` | 是否覆盖现有集合 | `False` |
+| `is_global_level_index` | `bool` | 搜索索引是否为全局级别 | `False` |
+| `wait_until_index_ready` | `Optional[float]` | 等待索引准备就绪的超时时间（秒） | `None` |
+| `batch_limit` | `int` | 单批次处理的最大文档数（适用于同步和异步操作） | `500` |

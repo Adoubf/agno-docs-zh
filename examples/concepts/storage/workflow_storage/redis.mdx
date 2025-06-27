@@ -1,15 +1,14 @@
 ---
-title: Redis Workflow Storage
+title: Redis 工作流存储
 sidebarTitle: Redis
 ---
+Agno 支持使用 Redis 作为 `RedisStorage` 类工作流程的存储后端。
 
-Agno supports using Redis as a storage backend for Workflows using the `RedisStorage` class.
+## 使用方法
 
-## Usage
+### 运行 Redis
 
-### Run Redis
-
-Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) and run **Redis** on port **6379** using:
+安装 [docker desktop](https://docs.docker.com/desktop/install/mac-install/) 并通过以下命令在端口 **6379** 运行 **Redis**：
 
 ```bash
 docker run --name my-redis -p 6379:6379 -d redis
@@ -32,13 +31,13 @@ from agno.utils.log import logger
 from agno.utils.pprint import pprint_run_response
 from agno.workflow import Workflow
 
-# Initialize Redis storage with default local connection
+# 使用默认本地连接初始化 Redis 存储
 storage = RedisStorage(
-    # Prefix for Redis keys to namespace the sessions
+    # Redis键名前缀，用于为会话命名空间
     prefix="agno_test",
-    # Redis host address
+    # Redis 主机地址
     host="localhost",
-    # Redis port number
+    # Redis 端口号
     port=6379,
 )
 
@@ -80,11 +79,11 @@ class HackerNewsReporter(Workflow):
             str: JSON string of top stories.
         """
 
-        # Fetch top story IDs
+        # 获取热门故事ID
         response = httpx.get("https://hacker-news.firebaseio.com/v0/topstories.json")
         story_ids = response.json()
 
-        # Fetch story details
+        # 获取故事详情
         stories = []
         for story_id in story_ids[:num_stories]:
             story_response = httpx.get(
@@ -96,7 +95,7 @@ class HackerNewsReporter(Workflow):
         return json.dumps(stories)
 
     def run(self, num_stories: int = 5) -> Iterator[RunResponse]:
-        # Set the tools for hn_agent here to avoid circular reference
+        # 在此设置 hn_agent 的工具以避免循环引用
         self.hn_agent.tools = [self.get_top_hackernews_stories]
 
         logger.info(f"Getting top {num_stories} stories from HackerNews.")
@@ -112,18 +111,18 @@ class HackerNewsReporter(Workflow):
 
 
 if __name__ == "__main__":
-    # Run workflow
+    # 运行工作流
     report: Iterator[RunResponse] = HackerNewsReporter(
         storage=storage, debug_mode=False
     ).run(num_stories=5)
-    # Print the report
+    # 打印报告
     pprint_run_response(report, markdown=True, show_time=True)
 ```
 
-## Params
+## 参数配置
 
 <Snippet file="storage-redis-params.mdx" />
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/redis_storage/redis_storage_for_workflow.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/redis_storage/redis_storage_for_workflow.py)

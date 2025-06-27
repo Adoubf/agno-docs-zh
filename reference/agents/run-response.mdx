@@ -1,164 +1,159 @@
 ---
-title: RunResponse
-sidebarTitle: Run Response & Events
+title: 运行响应
+sidebarTitle: 运行响应与事件
 ---
+## RunResponse 属性
 
-## RunResponse Attributes
-
-| Attribute        | Type                   | Default                       | Description                                                                                                                      |
+| 属性        | 类型                   | 默认值                       | 描述                                                                                                                      |
 | ---------------- | ---------------------- | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `content`        | `Any`                  | `None`                        | Content of the response.                                                                                                         |
-| `content_type`   | `str`                  | `"str"`                       | Specifies the data type of the content.                                                                                          |
-| `thinking`       | `str`                  | `None`                        | Any thinking content the model produced (used by Anthropic models).                                                                                       |
-| `reasoning_content` | `str`               | `None`                     | Any reasoning content the model produced.                                                                                       |
-| `messages`       | `List[Message]`        | `None`                        | A list of messages included in the response.                                                                                     |
-| `metrics`        | `Dict[str, Any]`       | `None`                        | Usage metrics of the run.                                                                                                        |
-| `model`          | `str`                  | `None`                        | The model used in the run.                                                                                                       |
-| `model_provider` | `str`                  | `None`                        | The model provider used in the run.                                                                                              |
-| `run_id`         | `str`                  | `None`                        | Run Id.                                                                                                                          |
-| `agent_id`       | `str`                  | `None`                        | Agent Id for the run.                                                                                                            |
-| `session_id`     | `str`                  | `None`                        | Session Id for the run.                                                                                                          |
-| `tools`          | `List[Dict[str, Any]]` | `None`                        | List of tools provided to the model.                                                                                             |
-| `images`         | `List[Image]`          | `None`                        | List of images the model produced.                                                                                               |
-| `videos`         | `List[Video]`          | `None`                        | List of videos the model produced.                                                                                               |
-| `audio`          | `List[Audio]`          | `None`                        | List of audio snippets the model produced.                                                                                       |
-| `response_audio` | `ModelResponseAudio`   | `None`                        | The model's raw response in audio.                                                                                               |
-| `citations`      | `Citations`            | `None`                        | Any citations used in the response.                                                                                              |
-| `created_at`     | `int`                  | -                             | Unix timestamp of the response creation.                                                                                         |
-| `extra_data`     | `RunResponseExtraData` | `None`                        | Extra data containing optional fields like `references`, `add_messages`, `history`, `reasoning_steps`, and `reasoning_messages`. |
+| `content`        | `Any`                  | `None`                        | 响应内容。                                                                                                         |
+| `content_type`   | `str`                  | `"str"`                       | 指定内容的数据类型。                                                                                          |
+| `thinking`       | `str`                  | `None`                        | 模型生成的思考内容（由Anthropic模型使用）。                                                                                       |
+| `reasoning_content` | `str`               | `None`                     | 模型生成的推理内容。                                                                                       |
+| `messages`       | `List[Message]`        | `None`                        | 响应中包含的消息列表。                                                                                     |
+| `metrics`        | `Dict[str, Any]`       | `None`                        | 运行的使用指标。                                                                                                        |
+| `model`          | `str`                  | `None`                        | 运行中使用的模型。                                                                                                       |
+| `model_provider` | `str`                  | `None`                        | 运行中使用的模型提供商。                                                                                              |
+| `run_id`         | `str`                  | `None`                        | 运行ID。                                                                                                                          |
+| `agent_id`       | `str`                  | `None`                        | 运行的智能体ID。                                                                                                            |
+| `session_id`     | `str`                  | `None`                        | 运行的会话ID。                                                                                                          |
+| `tools`          | `List[Dict[str, Any]]` | `None`                        | 提供给模型的工具列表。                                                                                             |
+| `images`         | `List[Image]`          | `None`                        | 模型生成的图像列表。                                                                                               |
+| `videos`         | `List[Video]`          | `None`                        | 模型生成的视频列表。                                                                                               |
+| `audio`          | `List[Audio]`          | `None`                        | 模型生成的音频片段列表。                                                                                       |
+| `response_audio` | `ModelResponseAudio`   | `None`                        | 模型的原始音频响应。                                                                                               |
+| `citations`      | `Citations`            | `None`                        | 响应中使用的引用内容。                                                                                              |
+| `created_at`     | `int`                  | -                             | 响应创建的Unix时间戳。                                                                                         |
+| `extra_data`     | `RunResponseExtraData` | `None`                        | 包含可选字段的额外数据，如`references`、`add_messages`、`history`、`reasoning_steps`和`reasoning_messages`。 |
 
-## RunResponseEvent Types and Attributes
+## RunResponseEvent 类型与属性
 
-### Base RunResponseEvent Attributes
+### 基础 RunResponseEvent 属性
 
-All events inherit from `BaseAgentRunResponseEvent` which provides these common attributes:
+所有事件均继承自`BaseAgentRunResponseEvent`，提供以下通用属性：
 
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `created_at` | `int` | Current timestamp | Unix timestamp of the event creation |
-| `event` | `str` | Event type value | The type of event |
-| `agent_id` | `str` | `""` | ID of the agent generating the event |
-| `run_id` | `Optional[str]` | `None` | ID of the current run |
-| `session_id` | `Optional[str]` | `None` | ID of the current session |
-| `content` | `Optional[Any]` | `None` | For backwards compatibility |
+| `created_at` | `int` | 当前时间戳 | 事件创建的Unix时间戳 |
+| `event` | `str` | 事件类型值 | 事件类型 |
+| `agent_id` | `str` | `""` | 生成事件的智能体ID |
+| `run_id` | `Optional[str]` | `None` | 当前运行ID |
+| `session_id` | `Optional[str]` | `None` | 当前会话ID |
+| `content` | `Optional[Any]` | `None` | 用于向后兼容 |
 
 ### RunResponseStartedEvent
 
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"RunStarted"` | Event type |
-| `model` | `str` | `""` | The model being used |
-| `model_provider` | `str` | `""` | The provider of the model |
+| `event` | `str` | `"RunStarted"` | 事件类型 |
+| `model` | `str` | `""` | 使用的模型 |
+| `model_provider` | `str` | `""` | 模型的提供商 |
 
 ### RunResponseContentEvent
 
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"RunResponseContent"` | Event type |
-| `content` | `Optional[Any]` | `None` | The content of the response |
-| `content_type` | `str` | `"str"` | Type of the content |
-| `thinking` | `Optional[str]` | `None` | Internal thoughts of the model |
-| `citations` | `Optional[Citations]` | `None` | Citations used in the response |
-| `response_audio` | `Optional[AudioResponse]` | `None` | Model's audio response |
-| `image` | `Optional[ImageArtifact]` | `None` | Image attached to the response |
-| `extra_data` | `Optional[RunResponseExtraData]` | `None` | Additional response data |
+| `event` | `str` | `"RunResponseContent"` | 事件类型 |
+| `content` | `Optional[Any]` | `None` | 响应内容 |
+| `content_type` | `str` | `"str"` | 内容类型 |
+| `thinking` | `Optional[str]` | `None` | 模型的内部思考 |
+| `citations` | `Optional[Citations]` | `None` | 响应中使用的引用 |
+| `response_audio` | `Optional[AudioResponse]` | `None` | 模型的音频响应 |
+| `image` | `Optional[ImageArtifact]` | `None` | 响应附带的图像 |
+| `extra_data` | `Optional[RunResponseExtraData]` | `None` | 额外的响应数据 |
 
 ### RunResponseCompletedEvent
 
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"RunCompleted"` | Event type |
-| `content` | `Optional[Any]` | `None` | Final content of the response |
-| `content_type` | `str` | `"str"` | Type of the content |
-| `reasoning_content` | `Optional[str]` | `None` | Reasoning content produced |
-| `thinking` | `Optional[str]` | `None` | Internal thoughts of the model |
-| `citations` | `Optional[Citations]` | `None` | Citations used in the response |
-| `images` | `Optional[List[ImageArtifact]]` | `None` | Images attached to the response |
-| `videos` | `Optional[List[VideoArtifact]]` | `None` | Videos attached to the response |
-| `audio` | `Optional[List[AudioArtifact]]` | `None` | Audio snippets attached to the response |
-| `response_audio` | `Optional[AudioResponse]` | `None` | Model's audio response |
-| `extra_data` | `Optional[RunResponseExtraData]` | `None` | Additional response data |
+| `event` | `str` | `"RunCompleted"` | 事件类型 |
+| `content` | `Optional[Any]` | `None` | 最终响应内容 |
+| `content_type` | `str` | `"str"` | 内容类型 |
+| `reasoning_content` | `Optional[str]` | `None` | 生成的推理内容 |
+| `thinking` | `Optional[str]` | `None` | 模型的内部思考 |
+| `citations` | `Optional[Citations]` | `None` | 响应中使用的引用 |
+| `images` | `Optional[List[ImageArtifact]]` | `None` | 响应附带的图像 |
+| `videos` | `Optional[List[VideoArtifact]]` | `None` | 响应附带的视频 |
+| `audio` | `Optional[List[AudioArtifact]]` | `None` | 响应附带的音频片段 |
+| `response_audio` | `Optional[AudioResponse]` | `None` | 模型的音频响应 |
+| `extra_data` | `Optional[RunResponseExtraData]` | `None` | 额外的响应数据 |
 
 ### RunResponsePausedEvent
 
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"RunPaused"` | Event type |
-| `tools` | `Optional[List[ToolExecution]]` | `None` | Tools that require confirmation |
+| `event` | `str` | `"RunPaused"` | 事件类型 |
+| `tools` | `Optional[List[ToolExecution]]` | `None` | 需要确认的工具 |
 
 ### RunResponseContinuedEvent
 
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"RunContinued"` | Event type |
-
-
+| `event` | `str` | `"RunContinued"` | 事件类型 |
 
 ### RunResponseErrorEvent
 
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"RunError"` | Event type |
-| `content` | `Optional[str]` | `None` | Error message |
+| `event` | `str` | `"RunError"` | 事件类型 |
+| `content` | `Optional[str]` | `None` | 错误消息 |
 
 ### RunResponseCancelledEvent
 
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"RunCancelled"` | Event type |
-| `reason` | `Optional[str]` | `None` | Reason for cancellation |
+| `event` | `str` | `"RunCancelled"` | 事件类型 |
+| `reason` | `Optional[str]` | `None` | 取消原因 |
 
 ### ReasoningStartedEvent
 
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"ReasoningStarted"` | Event type |
-
+| `event` | `str` | `"ReasoningStarted"` | 事件类型 |
 
 ### ReasoningStepEvent
 
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"ReasoningStep"` | Event type |
-| `content` | `Optional[Any]` | `None` | Content of the reasoning step |
-| `content_type` | `str` | `"str"` | Type of the content |
-| `reasoning_content` | `str` | `""` | Detailed reasoning content |
+| `event` | `str` | `"ReasoningStep"` | 事件类型 |
+| `content` | `Optional[Any]` | `None` | 推理步骤内容 |
+| `content_type` | `str` | `"str"` | 内容类型 |
+| `reasoning_content` | `str` | `""` | 详细的推理内容 |
 
 ### ReasoningCompletedEvent
 
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"ReasoningCompleted"` | Event type |
-| `content` | `Optional[Any]` | `None` | Content of the reasoning step |
-| `content_type` | `str` | `"str"` | Type of the content |
+| `event` | `str` | `"ReasoningCompleted"` | 事件类型 |
+| `content` | `Optional[Any]` | `None` | 推理步骤内容 |
+| `content_type` | `str` | `"str"` | 内容类型 |
 
 ### ToolCallStartedEvent
 
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"ToolCallStarted"` | Event type |
-| `tool` | `Optional[ToolExecution]` | `None` | The tool being called |
+| `event` | `str` | `"ToolCallStarted"` | 事件类型 |
+| `tool` | `Optional[ToolExecution]` | `None` | 被调用的工具 |
 
 ### ToolCallCompletedEvent
 
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"ToolCallCompleted"` | Event type |
-| `tool` | `Optional[ToolExecution]` | `None` | The tool that was called |
-| `content` | `Optional[Any]` | `None` | Result of the tool call |
-| `images` | `Optional[List[ImageArtifact]]` | `None` | Images produced by the tool |
-| `videos` | `Optional[List[VideoArtifact]]` | `None` | Videos produced by the tool |
-| `audio` | `Optional[List[AudioArtifact]]` | `None` | Audio produced by the tool |
+| `event` | `str` | `"ToolCallCompleted"` | 事件类型 |
+| `tool` | `Optional[ToolExecution]` | `None` | 被调用的工具 |
+| `content` | `Optional[Any]` | `None` | 工具调用结果 |
+| `images` | `Optional[List[ImageArtifact]]` | `None` | 工具生成的图像 |
+| `videos` | `Optional[List[VideoArtifact]]` | `None` | 工具生成的视频 |
+| `audio` | `Optional[List[AudioArtifact]]` | `None` | 工具生成的音频 |
 
 ### MemoryUpdateStartedEvent
 
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"MemoryUpdateStarted"` | Event type |
-
+| `event` | `str` | `"MemoryUpdateStarted"` | 事件类型 |
 
 ### MemoryUpdateCompletedEvent
 
-| Attribute | Type | Default | Description |
+| 属性 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"MemoryUpdateCompleted"` | Event type |
+| `event` | `str` | `"MemoryUpdateCompleted"` | 事件类型 |

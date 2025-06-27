@@ -1,12 +1,11 @@
 ---
 title: Zep
 ---
+**Zep工具集**使智能体能够与Zep记忆系统交互，提供存储、检索和搜索与用户会话关联的记忆数据的能力。
 
-**ZepTools** enable an Agent to interact with a Zep memory system, providing capabilities to store, retrieve, and search memory data associated with user sessions.
+## 先决条件
 
-## Prerequisites
-
-The ZepTools require the `zep-cloud` Python package and a Zep API key.
+Zep工具集需要安装`zep-cloud` Python包并拥有Zep API密钥。
 
 ```shell
 pip install zep-cloud
@@ -16,9 +15,9 @@ pip install zep-cloud
 export ZEP_API_KEY=your_api_key
 ```
 
-## Example
+## 示例
 
-The following example demonstrates how to create an agent with access to Zep memory:
+以下示例展示了如何创建具有Zep记忆访问权限的智能体：
 
 ```python cookbook/tools/zep_tools.py
 import time
@@ -27,10 +26,10 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.zep import ZepTools
 
-# Initialize the ZepTools
+# 初始化ZepTools
 zep_tools = ZepTools(user_id="agno", session_id="agno-session", add_instructions=True)
 
-# Initialize the Agent
+# 初始化智能体
 agent = Agent(
     model=OpenAIChat(),
     tools=[zep_tools],
@@ -38,53 +37,49 @@ agent = Agent(
     add_context=True,
 )
 
-# Interact with the Agent so that it can learn about the user
+# 与智能体互动，使其能够了解用户
 agent.print_response("My name is John Billings")
 agent.print_response("I live in NYC")
 agent.print_response("I'm going to a concert tomorrow")
 
-# Allow the memories to sync with Zep database
+# 允许记忆与Zep数据库同步
 time.sleep(10)
 
-# Refresh the context
+# 刷新上下文
 agent.context["memory"] = zep_tools.get_zep_memory(memory_type="context")
 
-# Ask the Agent about the user
+# 向智能体询问用户信息
 agent.print_response("What do you know about me?")
 ```
 
-## Toolkit Params
+## 工具集参数
 
-| Parameter                | Type     | Default | Description                                           |
+| 参数                | 类型     | 默认值 | 说明                                           |
 | ------------------------ | -------- | ------- | ----------------------------------------------------- |
-| `session_id`             | `str`    | `None`  | Optional session ID. Auto-generated if not provided.  |
-| `user_id`                | `str`    | `None`  | Optional user ID. Auto-generated if not provided.     |
-| `api_key`                | `str`    | `None`  | Zep API key. If not provided, uses ZEP_API_KEY env var. |
-| `ignore_assistant_messages` | `bool` | `False` | Whether to ignore assistant messages when adding to memory. |
-| `add_zep_message`        | `bool`   | `True`  | Add a message to the current Zep session memory.        |
-| `get_zep_memory`         | `bool`   | `True`  | Retrieve memory for the current Zep session.       |
-| `search_zep_memory`      | `bool`   | `True`  | Search the Zep memory store for relevant information.   |
-| `instructions`           | `str`    | `None`  | Custom instructions for using the Zep tools.          |
-| `add_instructions`       | `bool`   | `False` | Whether to add default instructions.                  |
+| `session_id`             | `str`    | `None`  | 可选会话ID。若未提供则自动生成。  |
+| `user_id`                | `str`    | `None`  | 可选用户ID。若未提供则自动生成。     |
+| `api_key`                | `str`    | `None`  | Zep API密钥。若未提供则使用ZEP_API_KEY环境变量。 |
+| `ignore_assistant_messages` | `bool` | `False` | 是否在添加记忆时忽略助手消息。 |
+| `add_zep_message`        | `bool`   | `True`  | 向当前Zep会话记忆添加消息。        |
+| `get_zep_memory`         | `bool`   | `True`  | 检索当前Zep会话的记忆。       |
+| `search_zep_memory`      | `bool`   | `True`  | 在Zep记忆存储中搜索相关信息。   |
+| `instructions`           | `str`    | `None`  | Zep工具使用自定义指令。          |
+| `add_instructions`       | `bool`   | `False` | 是否添加默认指令。                  |
 
-## Toolkit Functions
+## 工具集功能
 
-| Function | Description |
+| 功能 | 说明 |
 | -------- | ----------- |
-| `add_zep_message` | Adds a message to the current Zep session memory. Takes `role` (str) for the message sender and `content` (str) for the message text. Returns a confirmation or error message. |
-| `get_zep_memory` | Retrieves memory for the current Zep session. Takes optional `memory_type` (str) parameter with options "context" (default), "summary", or "messages". Returns the requested memory content or an error. |
-| `search_zep_memory` | Searches the Zep memory store for relevant information. Takes `query` (str) to find relevant facts and optional `search_scope` (str) parameter with options "messages" (default) or "summary". Returns search results or an error message. |
+| `add_zep_message` | 向当前Zep会话记忆添加消息。接收`role` (str)作为消息发送者和`content` (str)作为消息文本。返回确认或错误信息。 |
+| `get_zep_memory` | 检索当前Zep会话的记忆。接收可选`memory_type` (str)参数，可选值为"context"(默认)、"summary"或"messages"。返回请求的记忆内容或错误信息。 |
+| `search_zep_memory` | 在Zep记忆存储中搜索相关信息。接收`query` (str)作为搜索内容，可选`search_scope` (str)参数值为"messages"(默认)或"summary"。返回搜索结果或错误信息。 |
 
-## Async Toolkit
+## 异步工具集
 
-The `ZepAsyncTools` class extends the `ZepTools` class and provides asynchronous versions of the toolkit functions.
+`ZepAsyncTools`类继承自`ZepTools`类，提供工具集功能的异步版本。
 
+## 开发者资源
 
-
-## Developer Resources
-
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/zep.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/zep_tools.py)
-- View [Async Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/zep_async_tools.py)
-
-
+- 查看[工具文档](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/zep.py)
+- 查看[使用手册](https://github.com/agno-agi/agno/blob/main/cookbook/tools/zep_tools.py)
+- 查看[异步使用手册](https://github.com/agno-agi/agno/blob/main/cookbook/tools/zep_async_tools.py)

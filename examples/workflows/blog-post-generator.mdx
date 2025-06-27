@@ -1,32 +1,28 @@
 ---
-title: Blog Post Generator
+title: 博客文章生成器
 ---
+这个高级示例展示了如何构建一个结合网络研究能力与专业写作技巧的复杂博客文章生成器。该工作流采用多阶段方法：
+1. 智能网络研究与来源收集
+2. 内容提取与处理
+3. 带规范引用的专业博客文章撰写
 
-This advanced example demonstrates how to build a sophisticated blog post generator that combines
-web research capabilities with professional writing expertise. The workflow uses a multi-stage
-approach:
-1. Intelligent web research and source gathering
-2. Content extraction and processing
-3. Professional blog post writing with proper citations
+核心能力：
+- 高级网络研究与来源评估
+- 内容抓取与处理
+- 搜索引擎优化的专业写作
+- 自动内容缓存提升效率
+- 来源标注与事实核验
 
-Key capabilities:
-- Advanced web research and source evaluation
-- Content scraping and processing
-- Professional writing with SEO optimization
-- Automatic content caching for efficiency
-- Source attribution and fact verification
+可尝试的示例博客主题：
+- "通用人工智能的崛起：最新突破"
+- "量子计算如何革新网络安全"
+- "2024可持续生活：减少碳足迹的实用技巧"
+- "未来工作方式：AI与人类协作"
+- "太空旅游：从科幻走向现实"
+- "数字时代的正念与心理健康"
+- "电动汽车的进化：现状与未来趋势"
 
-Example blog topics to try:
-- "The Rise of Artificial General Intelligence: Latest Breakthroughs"
-- "How Quantum Computing is Revolutionizing Cybersecurity"
-- "Sustainable Living in 2024: Practical Tips for Reducing Carbon Footprint"
-- "The Future of Work: AI and Human Collaboration"
-- "Space Tourism: From Science Fiction to Reality"
-- "Mindfulness and Mental Health in the Digital Age"
-- "The Evolution of Electric Vehicles: Current State and Future Trends"
-
-Run `pip install openai duckduckgo-search newspaper4k lxml_html_clean sqlalchemy agno` to install dependencies.
-"""
+运行 `pip install openai duckduckgo-search newspaper4k lxml_html_clean sqlalchemy agno` 安装依赖项。
 
 ```python blog_post_generator.py
 import json
@@ -79,7 +75,7 @@ class BlogPostGenerator(Workflow):
     digital consumption.
     """)
 
-    # Search Agent: Handles intelligent web searching and source gathering
+    # 搜索智能体：负责智能网络搜索及来源收集
     searcher: Agent = Agent(
         model=OpenAIChat(id="gpt-4o-mini"),
         tools=[DuckDuckGoTools()],
@@ -110,7 +106,7 @@ class BlogPostGenerator(Workflow):
         response_model=SearchResults,
     )
 
-    # Content Scraper: Extracts and processes article content
+    # 内容抓取器：提取并处理文章内容
     article_scraper: Agent = Agent(
         model=OpenAIChat(id="gpt-4o-mini"),
         tools=[Newspaper4kTools()],
@@ -142,7 +138,7 @@ class BlogPostGenerator(Workflow):
         response_model=ScrapedArticle,
     )
 
-    # Content Writer Agent: Crafts engaging blog posts from research
+    # 内容撰写智能体：根据研究创作引人入胜的博客文章
     writer: Agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
         description=dedent("""\
@@ -178,29 +174,29 @@ class BlogPostGenerator(Workflow):
            - Add engaging subheadings\
         """),
         expected_output=dedent("""\
-        # {Viral-Worthy Headline}
+        # {病毒式传播标题}
 
-        ## Introduction
+        # # 简介
         {Engaging hook and context}
 
-        ## {Compelling Section 1}
+        # # {引人注目的第一部分}
         {Key insights and analysis}
         {Expert quotes and statistics}
 
-        ## {Engaging Section 2}
+        # # {引人入胜的第二部分}
         {Deeper exploration}
         {Real-world examples}
 
-        ## {Practical Section 3}
+        # # {实践环节 3}
         {Actionable insights}
         {Expert recommendations}
 
-        ## Key Takeaways
+        # # 核心要点
         - {Shareable insight 1}
         - {Practical takeaway 2}
         - {Notable finding 3}
 
-        ## Sources
+        # # 数据源
         {Properly attributed sources with links}\
         """),
         markdown=True,
@@ -215,7 +211,7 @@ class BlogPostGenerator(Workflow):
     ) -> Iterator[RunResponse]:
         logger.info(f"Generating a blog post on: {topic}")
 
-        # Use the cached blog post if use_cache is True
+        # 如果 use_cache 为 True 则使用缓存的博客文章
         if use_cached_report:
             cached_blog_post = self.get_cached_blog_post(topic)
             if cached_blog_post:
@@ -224,11 +220,11 @@ class BlogPostGenerator(Workflow):
                 )
                 return
 
-        # Search the web for articles on the topic
+        # 在网络上搜索与主题相关的文章
         search_results: Optional[SearchResults] = self.get_search_results(
             topic, use_search_cache
         )
-        # If no search_results are found for the topic, end the workflow
+        # 如果未找到该主题的搜索结果，则终止工作流程
         if search_results is None or len(search_results.articles) == 0:
             yield RunResponse(
                 event=RunEvent.workflow_completed,
@@ -236,21 +232,21 @@ class BlogPostGenerator(Workflow):
             )
             return
 
-        # Scrape the search results
+        # 抓取搜索结果
         scraped_articles: Dict[str, ScrapedArticle] = self.scrape_articles(
             topic, search_results, use_scrape_cache
         )
 
-        # Prepare the input for the writer
+        # 为撰写者准备输入材料
         writer_input = {
             "topic": topic,
             "articles": [v.model_dump() for v in scraped_articles.values()],
         }
 
-        # Run the writer and yield the response
+        # 运行写入器并返回响应
         yield from self.writer.run(json.dumps(writer_input, indent=4), stream=True)
 
-        # Save the blog post in the cache
+        # 将博客文章保存到缓存中
         self.add_blog_post_to_cache(topic, self.writer.run_response.content)
 
     def get_cached_blog_post(self, topic: str) -> Optional[str]:
@@ -298,7 +294,7 @@ class BlogPostGenerator(Workflow):
     def get_search_results(
         self, topic: str, use_search_cache: bool, num_attempts: int = 3
     ) -> Optional[SearchResults]:
-        # Get cached search_results from the session state if use_search_cache is True
+        # 如果use_search_cache为True，则从会话状态中获取缓存的search_results
         if use_search_cache:
             try:
                 search_results_from_cache = self.get_cached_search_results(topic)
@@ -313,7 +309,7 @@ class BlogPostGenerator(Workflow):
             except Exception as e:
                 logger.warning(f"Could not read search results from cache: {e}")
 
-        # If there are no cached search_results, use the searcher to find the latest articles
+        # 若无缓存的搜索记录（search_results），则使用搜索器（searcher）查找最新文章。
         for attempt in range(num_attempts):
             try:
                 searcher_response: RunResponse = self.searcher.run(topic)
@@ -326,7 +322,7 @@ class BlogPostGenerator(Workflow):
                     logger.info(
                         f"Found {article_count} articles on attempt {attempt + 1}"
                     )
-                    # Cache the search results
+                    # 缓存搜索结果
                     self.add_search_results_to_cache(topic, searcher_response.content)
                     return searcher_response.content
                 else:
@@ -344,7 +340,7 @@ class BlogPostGenerator(Workflow):
     ) -> Dict[str, ScrapedArticle]:
         scraped_articles: Dict[str, ScrapedArticle] = {}
 
-        # Get cached scraped_articles from the session state if use_scrape_cache is True
+        # 如果 use_scrape_cache 为 True，则从会话状态获取缓存的 scraped_articles
         if use_scrape_cache:
             try:
                 scraped_articles_from_cache = self.get_cached_scraped_articles(topic)
@@ -357,7 +353,7 @@ class BlogPostGenerator(Workflow):
             except Exception as e:
                 logger.warning(f"Could not read scraped articles from cache: {e}")
 
-        # Scrape the articles that are not in the cache
+        # 抓取未在缓存中的文章
         for article in search_results.articles:
             if article.url in scraped_articles:
                 logger.info(f"Found scraped article in cache: {article.url}")
@@ -376,18 +372,18 @@ class BlogPostGenerator(Workflow):
                 )
                 logger.info(f"Scraped article: {article_scraper_response.content.url}")
 
-        # Save the scraped articles in the session state
+        # 将抓取的文章保存在会话状态中
         self.add_scraped_articles_to_cache(topic, scraped_articles)
         return scraped_articles
 
 
-# Run the workflow if the script is executed directly
+# 当脚本被直接执行时运行工作流程
 if __name__ == "__main__":
     import random
 
     from rich.prompt import Prompt
 
-    # Fun example prompts to showcase the generator's versatility
+    # 展示生成器多功能性的趣味示例提示
     example_prompts = [
         "Why Cats Secretly Run the Internet",
         "The Science Behind Why Pizza Tastes Better at 2 AM",
@@ -399,18 +395,18 @@ if __name__ == "__main__":
         "A Historical Analysis of Dad Jokes Through the Ages",
     ]
 
-    # Get topic from user
+    # 获取用户的主题
     topic = Prompt.ask(
         "[bold]Enter a blog post topic[/bold] (or press Enter for a random example)\n✨",
         default=random.choice(example_prompts),
     )
 
-    # Convert the topic to a URL-safe string for use in session_id
+    # 将主题转换为 URL 安全的字符串，用于 session_id
     url_safe_topic = topic.lower().replace(" ", "-")
 
-    # Initialize the blog post generator workflow
-    # - Creates a unique session ID based on the topic
-    # - Sets up SQLite storage for caching results
+    # 初始化博客文章生成器工作流
+    # - 基于主题创建唯一的会话ID
+    # - 设置 SQLite 存储用于缓存结果
     generate_blog_post = BlogPostGenerator(
         session_id=f"generate-blog-post-on-{url_safe_topic}",
         storage=SqliteStorage(
@@ -420,8 +416,8 @@ if __name__ == "__main__":
         debug_mode=True,
     )
 
-    # Execute the workflow with caching enabled
-    # Returns an iterator of RunResponse objects containing the generated content
+    # 启用缓存执行工作流
+    # 返回一个包含生成内容的 RunResponse 对象迭代器
     blog_post: Iterator[RunResponse] = generate_blog_post.run(
         topic=topic,
         use_search_cache=True,
@@ -429,22 +425,22 @@ if __name__ == "__main__":
         use_cached_report=True,
     )
 
-    # Print the response
+    # 打印响应
     pprint_run_response(blog_post, markdown=True)
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     openai duckduckgo-search newspaper4k lxml_html_clean sqlalchemy agno
     ```
   </Step>
 
-  <Step title="Run the workflow">
+  <Step title="运行工作流">
     ```bash
     python blog_post_generator.py
     ```

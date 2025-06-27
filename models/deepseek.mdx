@@ -1,21 +1,19 @@
 ---
-title: DeepSeek
-description: Learn how to use DeepSeek models in Agno.
+title: 深度求索
+description: 了解如何在 Agno 中使用 DeepSeek 模型。
 ---
+DeepSeek 是一个提供大语言模型调用接口的平台。
+可查阅其模型库[点击此处](https://api-docs.deepseek.com/quick_start/pricing)。
 
-DeepSeek is a platform for providing endpoints for Large Language models.
-See their library of models [here](https://api-docs.deepseek.com/quick_start/pricing).
+我们建议通过实验来寻找最适合您应用场景的模型。以下是通用推荐：
+- `deepseek-chat` 模型适用于多数基础场景
+- `deepseek-reasoner` 模型适合复杂推理和多步骤任务
 
-We recommend experimenting to find the best-suited model for your use-case. Here are some general recommendations:
+DeepSeek 没有速率限制。高流量时段若遇响应延迟，请参阅其[文档](https://api-docs.deepseek.com/quick_start/rate_limit)了解处理方案。
 
-- `deepseek-chat` model is good for most basic use-cases.
-- `deepseek-reasoner` model is good for complex reasoning and multi-step tasks.
+## 认证
 
-DeepSeek does not have rate limits. See their [docs](https://api-docs.deepseek.com/quick_start/rate_limit) for information about how to deal with slower responses during high traffic.
-
-## Authentication
-
-Set your `DEEPSEEK_API_KEY` environment variable. Get your key from [here](https://platform.deepseek.com/api_keys).
+设置您的 `DEEPSEEK_API_KEY` 环境变量。密钥获取[点击这里](https://platform.deepseek.com/api_keys)。
 
 <CodeGroup>
 
@@ -29,9 +27,9 @@ setx DEEPSEEK_API_KEY ***
 
 </CodeGroup>
 
-## Example
+## 示例
 
-Use `DeepSeek` with your `Agent`:
+使用 `DeepSeek` 搭配您的 `Agent`：
 
 <CodeGroup>
 
@@ -41,17 +39,17 @@ from agno.models.deepseek import DeepSeek
 
 agent = Agent(model=DeepSeek(), markdown=True)
 
-# Print the response in the terminal
+# 在终端打印响应
 agent.print_response("Share a 2 sentence horror story.")
 
 ```
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/deepseek). </Note>
+<Note> 查看更多示例[点击此处](../examples/models/deepseek)。 </Note>
 
-## Params
+## 参数
 
 <Snippet file="model-deepseek-params.mdx" />
 
-`DeepSeek` also supports the params of [OpenAI](/reference/models/openai).
+`DeepSeek` 同时支持 [OpenAI](/reference/models/openai) 的参数设置。

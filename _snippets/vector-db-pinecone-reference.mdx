@@ -1,18 +1,18 @@
-| Parameter | Type | Default | Description |
+| 参数 | 类型 | 默认值 | 描述 |
 | --------- | ---- | ------- | ----------- |
-| `name` | `str` | Required | Name of the Pinecone index |
-| `dimension` | `int` | Required | Dimension of the embeddings |
-| `spec` | `Union[Dict, ServerlessSpec, PodSpec]` | Required | Index specification for Pinecone |
-| `embedder` | `Optional[Embedder]` | `OpenAIEmbedder()` | Embedder instance to generate embeddings |
-| `metric` | `Optional[str]` | `"cosine"` | Distance metric for similarity search |
-| `additional_headers` | `Optional[Dict[str, str]]` | `{}` | Additional headers for Pinecone client |
-| `pool_threads` | `Optional[int]` | `1` | Number of threads for Pinecone client |
-| `namespace` | `Optional[str]` | `None` | Namespace for document storage |
-| `timeout` | `Optional[int]` | `None` | Timeout for Pinecone operations |
-| `index_api` | `Optional[Any]` | `None` | Custom Index API object |
-| `api_key` | `Optional[str]` | `None` | Pinecone API key |
-| `host` | `Optional[str]` | `None` | Pinecone host URL |
-| `config` | `Optional[Config]` | `None` | Pinecone configuration object |
-| `use_hybrid_search` | `bool` | `False` | Enable hybrid search (vector + keyword) |
-| `hybrid_alpha` | `float` | `0.5` | Weight between vector and keyword search |
-| `reranker` | `Optional[Reranker]` | `None` | Reranker for post-processing results |
+| `name` | `str` | 必填 | Pinecone 索引名称 |
+| `dimension` | `int` | 必填 | 嵌入向量维度 |
+| `spec` | `Union[Dict, ServerlessSpec, PodSpec]` | 必填 | Pinecone 索引规格 |
+| `embedder` | `Optional[Embedder]` | `OpenAIEmbedder()` | 用于生成嵌入的嵌入器实例 |
+| `metric` | `Optional[str]` | `"cosine"` | 相似性搜索的距离度量标准 |
+| `additional_headers` | `Optional[Dict[str, str]]` | `{}` | Pinecone 客户端附加请求头 |
+| `pool_threads` | `Optional[int]` | `1` | Pinecone 客户端线程数 |
+| `namespace` | `Optional[str]` | `None` | 文档存储命名空间 |
+| `timeout` | `Optional[int]` | `None` | Pinecone 操作超时时间 |
+| `index_api` | `Optional[Any]` | `None` | 自定义索引 API 对象 |
+| `api_key` | `Optional[str]` | `None` | Pinecone API 密钥 |
+| `host` | `Optional[str]` | `None` | Pinecone 主机 URL |
+| `config` | `Optional[Config]` | `None` | Pinecone 配置对象 |
+| `use_hybrid_search` | `bool` | `False` | 启用混合搜索（向量+关键词） |
+| `hybrid_alpha` | `float` | `0.5` | 向量与关键词搜索的权重配比 |
+| `reranker` | `Optional[Reranker]` | `None` | 用于后处理结果的重新排序器 |

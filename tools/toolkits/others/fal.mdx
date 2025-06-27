@@ -1,12 +1,11 @@
 ---
 title: Fal
 ---
+**FalTools** 使智能体能够执行媒体生成任务。
 
-**FalTools** enable an Agent to perform media generation tasks.
+## 前提条件
 
-## Prerequisites
-
-The following example requires the `fal_client` library and an API key which can be obtained from [Fal](https://fal.ai/).
+以下示例需要 `fal_client` 库以及可从 [Fal](https://fal.ai/) 获取的 API 密钥。
 
 ```shell
 pip install -U fal_client
@@ -16,9 +15,9 @@ pip install -U fal_client
 export FAL_KEY=***
 ```
 
-## Example
+## 示例
 
-The following agent will use FAL to generate any video requested by the user.
+以下智能体将使用 FAL 生成用户请求的任何视频。
 
 ```python cookbook/tools/fal_tools.py
 from agno.agent import Agent
@@ -43,21 +42,21 @@ fal_agent = Agent(
 fal_agent.print_response("Generate video of balloon in the ocean")
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter | Type  | Default | Description                                |
-| --------- | ----- | ------- | ------------------------------------------ |
-| `api_key` | `str` | `None`  | API key for authentication purposes.       |
-| `model`   | `str` | `None`  | The model to use for the media generation. |
+| 参数         | 类型       | 默认值       | 描述                                |
+| ------------ | ---------- | ------------ | ----------------------------------- |
+| `api_key` | `str` | `None`  | 用于身份验证的 API 密钥。           |
+| `model`   | `str` | `None`  | 用于媒体生成的模型。                |
 
-## Toolkit Functions
+## 工具包函数
 
-| Function         | Description                                                    |
-| ---------------- | -------------------------------------------------------------- |
-| `generate_media` | Generate either images or videos depending on the user prompt. |
-| `image_to_image` | Transform an input image based on a text prompt.               |
+| 函数               | 描述                                                    |
+| ------------------ | ------------------------------------------------------- |
+| `generate_media` | 根据用户提示生成图像或视频。                            |
+| `image_to_image` | 基于文本提示对输入图像进行变换。                        |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/fal.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/fal_tools.py)
+- 查看 [工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/fal.py)
+- 查看 [教程](https://github.com/agno-agi/agno/blob/main/cookbook/tools/fal_tools.py)

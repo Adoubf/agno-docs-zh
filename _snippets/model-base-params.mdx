@@ -1,14 +1,14 @@
-| Parameter                     | Type                                   | Default    | Description                                                    |
+| 参数                     | 类型                                   | 默认值    | 描述                                                    |
 | ----------------------------- | -------------------------------------- | ---------- | -------------------------------------------------------------- |
-| `id`                          | `str`                                  | -          | ID of the model to use.                                        |
-| `name`                        | `Optional[str]`                        | `None`     | Name for this Model. Not sent to the Model API.                |
-| `provider`                    | `Optional[str]`                        | `None`     | Provider for this Model. Not sent to the Model API.            |
-| `supports_native_structured_outputs` | `bool`                          | `False`    | Whether the model supports structured outputs natively (e.g. OpenAI). |
-| `supports_json_schema_outputs` | `bool`                               | `False`    | Whether the model requires a json_schema for structured outputs (e.g. LMStudio). |
-| `system_prompt`               | `Optional[str]`                        | `None`     | System prompt from the model added to the Agent.               |
-| `instructions`                | `Optional[List[str]]`                  | `None`     | Instructions from the model added to the Agent.                |
-| `tool_message_role`           | `str`                                  | `"tool"`   | The role of the tool message.                                  |
-| `assistant_message_role`      | `str`                                  | `"assistant"` | The role of the assistant message.                          |
-| `session_id`                  | `Optional[str]`                        | `None`     | Session ID of the calling Agent or Workflow.                   |
-| `structured_outputs`          | `Optional[bool]`                       | `None`     | Whether to use the structured outputs with this Model.         |
+| `id`                          | `str`                                  | -          | 所使用的模型ID。                                        |
+| `name`                        | `Optional[str]`                        | `None`     | 该模型的名称。不会发送至模型API。                |
+| `provider`                    | `Optional[str]`                        | `None`     | 该模型的供应商。不会发送至模型API。            |
+| `supports_native_structured_outputs` | `bool`                          | `False`    | 该模型是否原生支持结构化输出（例如OpenAI）。 |
+| `supports_json_schema_outputs` | `bool`                               | `False`    | 该模型是否需要json_schema来支持结构化输出（例如LMStudio）。 |
+| `system_prompt`               | `Optional[str]`                        | `None`     | 添加到智能体的模型系统提示。               |
+| `instructions`                | `Optional[List[str]]`                  | `None`     | 添加到智能体的模型指令。                |
+| `tool_message_role`           | `str`                                  | `"tool"`   | 工具消息的角色。                                  |
+| `assistant_message_role`      | `str`                                  | `"assistant"` | 助手消息的角色。                          |
+| `session_id`                  | `Optional[str]`                        | `None`     | 调用智能体或工作流的会话ID。                   |
+| `structured_outputs`          | `Optional[bool]`                       | `None`     | 是否对该模型使用结构化输出。         |
 | `override_system_role`        | `bool`

@@ -1,12 +1,11 @@
 ---
-title: AgentQL
+title: 智能体QL
 ---
+**AgentQLTools** 使智能体能够通过 AgentQL API 浏览和抓取网站内容。
 
-**AgentQLTools** enable an Agent to browse and scrape websites using the AgentQL API.
+## 前提条件
 
-## Prerequisites
-
-The following example requires the `agentql` library and an API token which can be obtained from [AgentQL](https://agentql.com/).
+以下示例需要 `agentql` 库和一个从 [AgentQL](https://agentql.com/) 获取的 API 令牌。
 
 ```shell
 pip install -U agentql
@@ -16,9 +15,9 @@ pip install -U agentql
 export AGENTQL_API_KEY=***
 ```
 
-## Example
+## 示例
 
-The following agent will open a web browser and scrape all the text from the page.
+以下智能体会打开浏览器并抓取页面上的所有文本内容。
 
 ```python cookbook/tools/agentql_tools.py
 from agno.agent import Agent
@@ -33,26 +32,25 @@ agent.print_response("https://docs.agno.com/introduction", markdown=True)
 ```
 
 <Note>
-  AgentQL will open up a browser instance (don't close it) and do scraping on
-  the site.
+  AgentQL 将启动一个浏览器实例（请勿关闭）并在网站上进行数据抓取。
 </Note>
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter       | Type   | Default | Description                         |
-| --------------- | ------ | ------- | ----------------------------------- |
-| `api_key`       | `str`  | `None`  | API key for AgentQL                 |
-| `scrape`        | `bool` | `True`  | Whether to use the scrape text tool |
-| `agentql_query` | `str`  | `None`  | Custom AgentQL query                |
+| 参数           | 类型   | 默认值  | 描述                         |
+| -------------- | ------ | ------- | ---------------------------- |
+| `api_key`       | `str`  | `None`  | AgentQL 的 API 密钥          |
+| `scrape`        | `bool` | `True`  | 是否使用文本抓取工具         |
+| `agentql_query` | `str`  | `None`  | 自定义 AgentQL 查询语句      |
 
-## Toolkit Functions
+## 工具包功能
 
-| Function                | Description                                          |
-| ----------------------- | ---------------------------------------------------- |
-| `scrape_website`        | Used to scrape all text from a web page              |
-| `custom_scrape_website` | Uses the custom `agentql_query` to scrape a web page |
+| 函数                | 描述                                          |
+| ------------------- | -------------------------------------------- |
+| `scrape_website`        | 用于抓取网页上的所有文本内容                  |
+| `custom_scrape_website` | 使用自定义的 `agentql_query` 来抓取网页内容  |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/agentql.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/agentql_tools.py)
+- 查看 [工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/agentql.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/agentql_tools.py)

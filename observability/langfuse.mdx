@@ -1,41 +1,40 @@
 ---
 title: Langfuse
-description: Integrate Agno with Langfuse to send traces and gain insights into your agent's performance.
+description: 将Agno与Langfuse集成，发送追踪数据并获取智能体性能的深入洞察。
 ---
+## 将 Agno 与 Langfuse 集成
 
-## Integrating Agno with Langfuse
+Langfuse 提供了一个强大的平台用于追踪和监控 AI 模型调用。通过将 Agno 与 Langfuse 集成，您可以使用 OpenInference 和 OpenLIT 发送追踪数据，从而深入了解智能体的性能表现。
 
-Langfuse provides a robust platform for tracing and monitoring AI model calls. By integrating Agno with Langfuse, you can utilize OpenInference and OpenLIT to send traces and gain insights into your agent's performance.
+## 前提条件
 
-## Prerequisites
+1. **安装依赖项**
 
-1. **Install Dependencies**
-
-   Ensure you have the necessary packages installed:
+   确保已安装必要的软件包：
 
    ```bash
    pip install agno openai langfuse opentelemetry-sdk opentelemetry-exporter-otlp openinference-instrumentation-agno
    ```
 
-2. **Setup Langfuse Account**
+2. **设置 Langfuse 账户**
 
-   - Either self-host or sign up for an account at [Langfuse](https://us.cloud.langfuse.com).
-   - Obtain your public and secret API keys from the Langfuse dashboard.
+   - 选择自托管或在 [Langfuse](https://us.cloud.langfuse.com) 注册账户。
+   - 从 Langfuse 仪表板获取您的公钥和私密 API 密钥。
 
-3. **Set Environment Variables**
+3. **配置环境变量**
 
-   Configure your environment with the Langfuse API keys:
+   使用 Langfuse API 密钥配置您的环境：
 
    ```bash
    export LANGFUSE_PUBLIC_KEY=<your-public-key>
    export LANGFUSE_SECRET_KEY=<your-secret-key>
    ```
 
-## Sending Traces to Langfuse
+## 向 Langfuse 发送追踪数据
 
-- ### Example: Using Langfuse with OpenInference
+- ### 示例：使用 Langfuse 与 OpenInference
 
-This example demonstrates how to instrument your Agno agent with OpenInference and send traces to Langfuse.
+本示例演示如何通过 OpenInference 对 Agno 智能体进行插装，并向 Langfuse 发送追踪数据。
 
 ```python
 import base64
@@ -50,22 +49,22 @@ from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExport
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import SimpleSpanProcessor
 
-# Set environment variables for Langfuse
+# 为 Langfuse 设置环境变量
 LANGFUSE_AUTH = base64.b64encode(
     f"{os.getenv('LANGFUSE_PUBLIC_KEY')}:{os.getenv('LANGFUSE_SECRET_KEY')}".encode()
 ).decode()
 os.environ["OTEL_EXPORTER_OTLP_ENDPOINT"] = "https://us.cloud.langfuse.com/api/public/otel"
 os.environ["OTEL_EXPORTER_OTLP_HEADERS"] = f"Authorization=Basic {LANGFUSE_AUTH}"
 
-# Configure the tracer provider
+# 配置追踪器提供程序
 tracer_provider = TracerProvider()
 tracer_provider.add_span_processor(SimpleSpanProcessor(OTLPSpanExporter()))
 trace_api.set_tracer_provider(tracer_provider=tracer_provider)
 
-# Start instrumenting agno
+# 开始检测 agno
 AgnoInstrumentor().instrument()
 
-# Create and configure the agent
+# 创建并配置智能体
 agent = Agent(
     name="Stock Price Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
@@ -74,13 +73,13 @@ agent = Agent(
     debug_mode=True,
 )
 
-# Use the agent
+# 使用智能体
 agent.print_response("What is the current price of Tesla?")
 ```
 
-- ### Example: Using Langfuse with OpenLIT
+- ### 示例：使用 Langfuse 与 OpenLIT
 
-This example demonstrates how to use Langfuse via OpenLIT to trace model calls.
+本示例演示如何通过 OpenLIT 使用 Langfuse 追踪模型调用。
 
 ```python
 import base64
@@ -94,23 +93,23 @@ from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import SimpleSpanProcessor
 from opentelemetry import trace
 
-# Set environment variables for Langfuse
+# 为 Langfuse 设置环境变量
 LANGFUSE_AUTH = base64.b64encode(
     f"{os.getenv('LANGFUSE_PUBLIC_KEY')}:{os.getenv('LANGFUSE_SECRET_KEY')}".encode()
 ).decode()
 os.environ["OTEL_EXPORTER_OTLP_ENDPOINT"] = "https://us.cloud.langfuse.com/api/public/otel"
 os.environ["OTEL_EXPORTER_OTLP_HEADERS"] = f"Authorization=Basic {LANGFUSE_AUTH}"
 
-# Configure the tracer provider
+# 配置追踪器提供程序
 trace_provider = TracerProvider()
 trace_provider.add_span_processor(SimpleSpanProcessor(OTLPSpanExporter()))
 trace.set_tracer_provider(trace_provider)
 
-# Initialize OpenLIT instrumentation
+# 初始化 OpenLIT 检测
 import openlit
 openlit.init(tracer=trace.get_tracer(__name__), disable_batch=True)
 
-# Create and configure the agent
+# 创建并配置智能体
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[DuckDuckGoTools()],
@@ -118,16 +117,16 @@ agent = Agent(
     debug_mode=True,
 )
 
-# Use the agent
+# 使用智能体
 agent.print_response("What is currently trending on Twitter?")
 ```
 
-## Notes
+## 注意事项
 
-- **Environment Variables**: Ensure your environment variables are correctly set for the API keys and OTLP endpoint.
-- **Data Regions**: Adjust the `OTEL_EXPORTER_OTLP_ENDPOINT` for your data region or local deployment as needed. Available regions include:
-  - `https://us.cloud.langfuse.com/api/public/otel` for the US region
-  - `https://eu.cloud.langfuse.com/api/public/otel` for the EU region
-  - `http://localhost:3000/api/public/otel` for local deployment
+- **环境变量**：请确保正确设置了 API 密钥和 OTLP 端点的环境变量。
+- **数据区域**：根据需要调整 `OTEL_EXPORTER_OTLP_ENDPOINT` 以匹配您的数据区域或本地部署。可用区域包括：
+  - `https://us.cloud.langfuse.com/api/public/otel` 美国区域
+  - `https://eu.cloud.langfuse.com/api/public/otel` 欧盟区域
+  - `http://localhost:3000/api/public/otel` 本地部署
 
-By following these steps, you can effectively integrate Agno with Langfuse, enabling comprehensive observability and monitoring of your AI agents.
+遵循上述步骤，您可以高效地将 Agno 与 Langfuse 集成，从而实现对 AI 智能体的全面可观测性和监控。

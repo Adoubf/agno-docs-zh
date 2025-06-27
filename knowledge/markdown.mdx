@@ -1,16 +1,15 @@
 ---
-title: Markdown Knowledge Base
-description: Learn how to use Markdown files in your knowledge base.
+title: Markdown 知识库
+description: 了解如何在知识库中使用 Markdown 文件。
 sidebarTitle: Markdown
 ---
+**MarkdownKnowledgeBase** 读取**本地 markdown**文件，将其转换为向量嵌入并加载到向量数据库中。
 
-The **MarkdownKnowledgeBase** reads **local markdown** files, converts them into vector embeddings and loads them to a vector database.
-
-## Usage
+## 使用方法
 
 <Note>
 
-We are using a local PgVector database for this example. [Make sure it's running](https://docs.agno.com/vectordb/pgvector)
+本示例使用本地 PgVector 数据库。[确保其正在运行](https://docs.agno.com/vectordb/pgvector)
 
 </Note>
 
@@ -27,7 +26,7 @@ knowledge_base = MarkdownKnowledgeBase(
 )
 ```
 
-Then use the `knowledge_base` with an Agent:
+然后通过智能体使用 `knowledge_base`：
 
 ```python agent.py
 from agno.agent import Agent
@@ -42,12 +41,12 @@ agent.knowledge.load(recreate=False)
 agent.print_response("Ask me about something from the knowledge base")
 ```
 
-#### MarkdownKnowledgeBase also supports async loading.
+#### MarkdownKnowledgeBase 也支持异步加载。
 
 ```shell
 pip install qdrant-client
 ```
-We are using a local Qdrant database for this example. [Make sure it's running](https://docs.agno.com/vectordb/qdrant)
+本示例使用本地 Qdrant 数据库。[确保其正在运行](https://docs.agno.com/vectordb/qdrant)
 
 ```python async_knowledge_base.py
 import asyncio
@@ -61,21 +60,21 @@ COLLECTION_NAME = "essay-txt"
 
 vector_db = Qdrant(collection=COLLECTION_NAME, url="http://localhost:6333")
 
-# Initialize the MarkdownKnowledgeBase
+# 初始化 MarkdownKnowledgeBase
 knowledge_base = MarkdownKnowledgeBase(
     path=Path("tmp/mds"),
     vector_db=vector_db,
     num_documents=5,
 )
 
-# Initialize the Assistant with the knowledge_base
+# 初始化智能体并加载知识库
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
 )
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 首次运行后注释掉
     asyncio.run(knowledge_base.aload(recreate=False))
 
     asyncio.run(
@@ -85,18 +84,17 @@ if __name__ == "__main__":
     )
 ```
 
-## Params
+## 参数
 
-| Parameter | Type               | Default            | Description                                                                             |
-| --------- | ------------------ | ------------------ | -------------------------------------------------------------------------------------   |
-| `path`    | `Union[str, Path]` | -                  | Path to md files. Can point to a single md file or a directory of md files.             |
-| `formats` | `List[str]`        | `[".md"]`          | Formats accepted by this knowledge base.                                                |
-| `reader`  | `MarkdownReader`   | `MarkdownReader()` | A `MarkdownReader` that converts the md files into `Documents` for the vector database. |
+| 参数          | 类型               | 默认值            | 描述                                                                                     |
+| ------------ | ------------------ | ------------------ | --------------------------------------------------------------------------------------- |
+| `path`    | `Union[str, Path]` | -                  | md 文件路径。可指向单个 md 文件或 md 文件目录。                                         |
+| `formats` | `List[str]`        | `[".md"]`          | 该知识库支持的文件格式。                                                                 |
+| `reader`  | `MarkdownReader`   | `MarkdownReader()` | 一个 `MarkdownReader`，用于将 md 文件转换为向量数据库所需的 `Documents`。          |
 
-`MarkdownKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+`MarkdownKnowledgeBase` 是 [AgentKnowledge](/reference/knowledge/base) 类的子类，具有相同的参数访问权限。
 
-## Developer Resources
+## 开发者资源
 
-- View [Sync loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/markdown_kb.py)
-- View [Async loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/markdown_kb_async.py)
-
+- 查看 [同步加载 Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/markdown_kb.py)
+- 查看 [异步加载 Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/markdown_kb_async.py)

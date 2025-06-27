@@ -1,9 +1,8 @@
 ---
-title: Filtering on MongoDB
-description: Learn how to filter knowledge base searches using Pdf documents with user-specific metadata in MongoDB.
+title: MongoDB 过滤
+description: 了解如何使用带有用户特定元数据的 PDF 文档在 MongoDB 中筛选知识库搜索。
 ---
-
-## Code
+## 代码
 
 ```python
 from agno.agent import Agent
@@ -14,17 +13,17 @@ from agno.utils.media import (
 )
 from agno.vectordb.mongodb import MongoDb
 
-# Download all sample CVs and get their paths
+# 下载所有示例简历并获取它们的路径
 downloaded_cv_paths = download_knowledge_filters_sample_data(
     num_files=5, file_extension=SampleDataFileExtension.PDF
 )
 
 mdb_connection_string = "mongodb+srv://<username>:<password>@cluster0.mongodb.net/?retryWrites=true&w=majority"
 
-# Step 1: Initialize knowledge base with documents and metadata
-# ------------------------------------------------------------------------------
-# When initializing the knowledge base, we can attach metadata that will be used for filtering
-# This metadata can include user IDs, document types, dates, or any other attributes
+# 步骤1：用文档和元数据初始化知识库
+# -------------------------------------------------------------------------------
+# 初始化知识库时，我们可以附加用于筛选的元数据
+# 此元数据可包含用户ID、文档类型、日期或任何其他属性
 
 knowledge_base = PDFKnowledgeBase(
     path=[
@@ -76,10 +75,10 @@ knowledge_base = PDFKnowledgeBase(
     ),
 )
 
-# Load all documents into the vector database
+# 将所有文档加载到向量数据库中
 knowledge_base.load(recreate=True)
 
-# Step 2: Query the knowledge base with different filter combinations
+# 步骤 2：使用不同筛选条件组合查询知识库
 # ------------------------------------------------------------------------------
 
 agent = Agent(
@@ -94,18 +93,18 @@ agent.print_response(
 )
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno pymongo openai
     ```
   </Step>
 
-  <Step title="Run the example">
+  <Step title="运行示例">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果电脑
     python cookbook/agent_concepts/knowledge/filters/filtering_mongo_db.py
     ```
 

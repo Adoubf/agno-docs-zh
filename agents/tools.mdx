@@ -1,32 +1,31 @@
 ---
-title: Tools
-description: Learn how to use tools in Agno to build AI agents.
+title: 工具
+description: 学习如何在 Agno 中使用工具构建 AI 智能体。
 ---
+**智能体通过工具执行动作并与外部系统交互**。
 
-**Agents use tools to take actions and interact with external systems**.
-
-Tools are functions that an Agent can run to achieve tasks. For example: searching the web, running SQL, sending an email or calling APIs. You can use any python function as a tool or use a pre-built **toolkit**. The general syntax is:
+工具是智能体为实现任务而运行的函数。例如：网络搜索、执行SQL、发送邮件或调用API。您可以将任何Python函数作为工具使用，或使用预建的**工具包**。通用语法如下：
 
 ```python
 from agno.agent import Agent
 
 agent = Agent(
-    # Add functions or Toolkits
+    # 添加功能或工具包
     tools=[...],
-    # Show tool calls in the Agent response
+    # 在智能体响应中显示工具调用
     show_tool_calls=True
 )
 ```
 
-## Using a Toolkit
+## 使用工具包
 
-Agno provides many pre-built **toolkits** that you can add to your Agents. For example, let's use the DuckDuckGo toolkit to search the web.
+Agno提供了许多预建的**工具包**，您可以将其添加到智能体中。例如，使用DuckDuckGo工具包进行网络搜索。
 
-<Tip>You can find more toolkits in the [Toolkits](/tools/toolkits) guide.</Tip>
+<Tip>您可以在[工具包指南](/tools/toolkits)中找到更多工具包。</Tip>
 
 <Steps>
-  <Step title="Create Web Search Agent">
-    Create a file `web_search.py`
+  <Step title="创建网络搜索智能体">
+    创建文件 `web_search.py`
 
     ```python web_search.py
     from agno.agent import Agent
@@ -37,14 +36,14 @@ Agno provides many pre-built **toolkits** that you can add to your Agents. For e
     ```
 
   </Step>
-  <Step title="Run the agent">
-    Install libraries
+  <Step title="运行智能体">
+    安装依赖库
 
     ```shell
     pip install openai duckduckgo-search agno
     ```
 
-    Run the agent
+    运行智能体
 
     ```shell
     python web_search.py
@@ -53,9 +52,9 @@ Agno provides many pre-built **toolkits** that you can add to your Agents. For e
   </Step>
 </Steps>
 
-## Writing your own Tools
+## 编写自定义工具
 
-For more control, write your own python functions and add them as tools to an Agent. For example, here's how to add a `get_top_hackernews_stories` tool to an Agent.
+如需更高控制权，可编写自定义Python函数并将其作为工具添加到智能体。例如，以下是将`get_top_hackernews_stories`工具添加到智能体的方法。
 
 ```python hn_agent.py
 import json
@@ -73,11 +72,11 @@ def get_top_hackernews_stories(num_stories: int = 10) -> str:
         str: JSON string of top stories.
     """
 
-    # Fetch top story IDs
+    # 获取热门故事ID
     response = httpx.get('https://hacker-news.firebaseio.com/v0/topstories.json')
     story_ids = response.json()
 
-    # Fetch story details
+    # 获取故事详情
     stories = []
     for story_id in story_ids[:num_stories]:
         story_response = httpx.get(f'https://hacker-news.firebaseio.com/v0/item/{story_id}.json')
@@ -91,26 +90,25 @@ agent = Agent(tools=[get_top_hackernews_stories], show_tool_calls=True, markdown
 agent.print_response("Summarize the top 5 stories on hackernews?", stream=True)
 ```
 
-Read more about:
+了解更多：
+- [可用工具包](/tools/toolkits)
+- [将函数作为工具使用](/tools/tool-decorator)
 
-- [Available toolkits](/tools/toolkits)
-- [Using functions as tools](/tools/tool-decorator)
+## 属性
 
-## Attributes
+以下属性允许`Agent`使用工具
 
-The following attributes allow an `Agent` to use tools
-
-| Parameter | Type | Default | Description |
+| 参数 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `tools` | `List[Union[Tool, Toolkit, Callable, Dict, Function]]` | - | A list of tools provided to the Model. Tools are functions the model may generate JSON inputs for. |
-| `show_tool_calls` | `bool` | `False` | Print the signature of the tool calls in the Model response. |
-| `tool_call_limit` | `int` | - | Maximum number of tool calls allowed for a single run. |
-| `tool_choice` | `Union[str, Dict[str, Any]]` | - | Controls which (if any) tool is called by the model. "none" means the model will not call a tool and instead generates a message. "auto" means the model can pick between generating a message or calling a tool. Specifying a particular function via `{"type": "function", "function": {"name": "my_function"}}` forces the model to call that tool. "none" is the default when no tools are present. "auto" is the default if tools are present. |
-| `read_chat_history` | `bool` | `False` | Add a tool that allows the Model to read the chat history. |
-| `search_knowledge` | `bool` | `False` | Add a tool that allows the Model to search the knowledge base (aka Agentic RAG). |
-| `update_knowledge` | `bool` | `False` | Add a tool that allows the Model to update the knowledge base. |
-| `read_tool_call_history` | `bool` | `False` | Add a tool that allows the Model to get the tool call history. |
+| `tools` | `List[Union[Tool, Toolkit, Callable, Dict, Function]]` | - | 提供给模型的工具列表。工具是模型可能生成JSON输入的函数。 |
+| `show_tool_calls` | `bool` | `False` | 在模型响应中打印工具调用的签名。 |
+| `tool_call_limit` | `int` | - | 单次运行允许的最大工具调用次数。 |
+| `tool_choice` | `Union[str, Dict[str, Any]]` | - | 控制模型调用哪个（若有）工具。"none"表示模型不会调用工具而生成消息。"auto"表示模型可选择生成消息或调用工具。通过`{"type": "function", "function": {"name": "my_function"}}`指定特定函数将强制模型调用该工具。无工具时默认"none"，有工具时默认"auto"。 |
+| `read_chat_history` | `bool` | `False` | 添加允许模型读取聊天历史的工具。 |
+| `search_knowledge` | `bool` | `False` | 添加允许模型搜索知识库（即Agentic RAG）的工具。 |
+| `update_knowledge` | `bool` | `False` | 添加允许模型更新知识库的工具。 |
+| `read_tool_call_history` | `bool` | `False` | 添加允许模型获取工具调用历史的工具。 |
 
- ## Developer Resources
+ ## 开发者资源
 
-- View [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/tools)
+- 查看[示例代码库](https://github.com/agno-agi/agno/tree/main/cookbook/tools)

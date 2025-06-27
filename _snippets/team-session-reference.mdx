@@ -1,11 +1,11 @@
-| Parameter | Type | Default | Description |
+| 参数 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `session_id` | `str` | Required | Session UUID |
-| `team_id` | `Optional[str]` | `None` | ID of the team that this session is associated with |
-| `user_id` | `Optional[str]` | `None` | ID of the user interacting with this team |
-| `memory` | `Optional[Dict[str, Any]]` | `None` | Team Memory |
-| `team_data` | `Optional[Dict[str, Any]]` | `None` | Team Data: team_id, name and model |
-| `session_data` | `Optional[Dict[str, Any]]` | `None` | Session Data: session_name, session_state, images, videos, audio |
-| `extra_data` | `Optional[Dict[str, Any]]` | `None` | Extra Data stored with this team |
-| `created_at` | `Optional[int]` | `None` | The unix timestamp when this session was created |
-| `updated_at` | `Optional[int]` | `None` | The unix timestamp when this session was last updated |
+| `session_id` | `str` | 必填 | 会话 UUID |
+| `team_id` | `Optional[str]` | `None` | 该会话关联的团队 ID |
+| `user_id` | `Optional[str]` | `None` | 与该团队交互的用户 ID |
+| `memory` | `Optional[Dict[str, Any]]` | `None` | 团队记忆 |
+| `team_data` | `Optional[Dict[str, Any]]` | `None` | 团队数据：team_id、名称和模型 |
+| `session_data` | `Optional[Dict[str, Any]]` | `None` | 会话数据：会话名称、会话状态、图片、视频、音频 |
+| `extra_data` | `Optional[Dict[str, Any]]` | `None` | 与该团队关联的额外存储数据 |
+| `created_at` | `Optional[int]` | `None` | 该会话创建的 Unix 时间戳 |
+| `updated_at` | `Optional[int]` | `None` | 该会话最后更新的 Unix 时间戳 |

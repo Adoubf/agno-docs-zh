@@ -1,31 +1,31 @@
-## Create AWS resources
+## 创建AWS资源
 
-Create AWS resources using:
+使用以下内容创建AWS资源：
 
 <CodeGroup>
 
-```bash terminal
+```bash 终端
 ag ws up --env prd --infra aws
 ```
 
-```bash shorthand
+```bash 简写
 ag ws up prd:aws
 ```
 
 </CodeGroup>
 
-This will create:
+这将创建：
 
-1. [ECS Cluster](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/clusters.html) for the application.
-2. [ECS Task Definitions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html) and [Services](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_services.html) that run the application on the ECS cluster.
-3. [LoadBalancer](https://aws.amazon.com/elasticloadbalancing/) to route traffic to the application.
-4. [Security Groups](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security-groups.html) that control incoming and outgoing traffic.
-5. [Secrets](https://aws.amazon.com/secrets-manager/) for managing application and database secrets.
-6. [RDS Database](https://aws.amazon.com/rds/) for Knowledge Base and Storage.
+1. 为应用程序创建[ECS集群](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/clusters.html)
+2. 在ECS集群上运行应用程序的[ECS任务定义](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html)和[服务](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_services.html)
+3. 用于将流量路由到应用程序的[负载均衡器](https://aws.amazon.com/elasticloadbalancing/)
+4. 控制入站和出站流量的[安全组](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security-groups.html)
+5. 用于管理应用程序和数据库机密的[Secrets](https://aws.amazon.com/secrets-manager/)
+6. 用于知识库和存储的[RDS数据库](https://aws.amazon.com/rds/)
 
-**Press Enter** to confirm and wait for the resources to spin up.
+**按Enter键**确认并等待资源启动。
 
-- The RDS database takes about 5 minutes to activate.
-- These resources are defined in the `workspace/prd_resources.py` file.
-- Use the [ECS console](https://us-east-1.console.aws.amazon.com/ecs/v2/clusters) to view services and logs.
-- Use the [RDS console](https://us-east-1.console.aws.amazon.com/rds/home?#databases:) to view the database instance.
+- RDS数据库大约需要5分钟激活
+- 这些资源定义在`workspace/prd_resources.py`文件中
+- 使用[ECS控制台](https://us-east-1.console.aws.amazon.com/ecs/v2/clusters)查看服务和日志
+- 使用[RDS控制台](https://us-east-1.console.aws.amazon.com/rds/home?#databases:)查看数据库实例

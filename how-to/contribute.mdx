@@ -1,44 +1,43 @@
 ---
-title: Contributing to Agno
-description: Learn how to contribute to Agno through our fork and pull request workflow.
+title: 为Agno项目贡献代码
+description: 了解如何通过我们的 fork 与 pull request 工作流程为 Agno 贡献代码。
 ---
+Agno 是一个开源项目，我们欢迎各方贡献。
 
-Agno is an open-source project and we welcome contributions.
+## 👩‍💻 如何贡献
 
-## 👩‍💻 How to contribute
+请遵循 [fork 与拉取请求](https://docs.github.com/en/get-started/quickstart/contributing-to-projects) 工作流程：
 
-Please follow the [fork and pull request](https://docs.github.com/en/get-started/quickstart/contributing-to-projects) workflow:
+- Fork 该仓库。
+- 为你的功能创建新分支。
+- 添加你的功能或改进。
+- 发送拉取请求。
+- 我们感谢你的支持与建议！
 
-- Fork the repository.
-- Create a new branch for your feature.
-- Add your feature or improvement.
-- Send a pull request.
-- We appreciate your support & input!
+## 开发环境配置
 
-## Development setup
+1. 克隆仓库。
+2. 创建虚拟环境：
+   - 对于 Unix 系统，使用 `./scripts/dev_setup.sh`。
+   - 此配置将：
+     - 在当前目录创建 `.venv` 虚拟环境。
+     - 安装所需包。
+     - 以可编辑模式安装 `agno` 包。
+3. 激活虚拟环境：
+   - Unix 系统：`source .venv/bin/activate`
 
-1. Clone the repository.
-2. Create a virtual environment:
-   - For Unix, use `./scripts/dev_setup.sh`.
-   - This setup will:
-     - Create a `.venv` virtual environment in the current directory.
-     - Install the required packages.
-     - Install the `agno` package in editable mode.
-3. Activate the virtual environment:
-   - On Unix: `source .venv/bin/activate`
+> 从此处开始，你必须使用 `uv pip install` 来安装缺失的包
 
-> From here on you have to use `uv pip install` to install missing packages
+## 代码格式化与验证
 
-## Formatting and validation
+提交拉取请求前，请运行以下格式化及验证脚本以确保代码符合质量标准：
 
-Ensure your code meets our quality standards by running the appropriate formatting and validation script before submitting a pull request:
-
-- For Unix:
+- Unix 系统：
   - `./scripts/format.sh`
   - `./scripts/validate.sh`
 
-These scripts will perform code formatting with `ruff` and static type checks with `mypy`.
+这些脚本将使用 `ruff` 进行代码格式化，并用 `mypy` 执行静态类型检查。
 
-Read more about the guidelines [here](https://github.com/agno-agi/agno/tree/main/cookbook/CONTRIBUTING.md)
+更多指南请参阅[此处](https://github.com/agno-agi/agno/tree/main/cookbook/CONTRIBUTING.md)
 
-Message us on [Discord](https://discord.gg/4MtYHHrgA8) or post on [Discourse](https://community.agno.com/) if you have any questions or need help with credits.
+如有任何问题或需要帮助，请通过[Discord](https://discord.gg/4MtYHHrgA8)联系我们，或在[Discourse](https://community.agno.com/)论坛发帖。

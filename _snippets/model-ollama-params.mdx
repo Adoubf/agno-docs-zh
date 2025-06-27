@@ -1,16 +1,16 @@
-| Parameter                     | Type                          | Default        | Description                                                  |
+| 参数                     | 类型                          | 默认值        | 描述                                                  |
 | ---------------------------- | ----------------------------- | -------------- | ------------------------------------------------------------ |
-| `id`                         | `str`                         | `"llama3.1"`   | The ID of the model to use.                                  |
-| `name`                       | `str`                         | `"Ollama"`     | The name of the model.                                       |
-| `provider`                   | `str`                         | `"Ollama"`     | The provider of the model.                                   |
-| `format`                     | `Optional[Any]`               | `None`         | The format of the response.                                  |
-| `options`                    | `Optional[Any]`               | `None`         | Additional options to pass to the model.                     |
-| `keep_alive`                 | `Optional[Union[float, str]]` | `None`         | The keep alive time for the model.                           |
-| `request_params`             | `Optional[Dict[str, Any]]`    | `None`         | Additional parameters to pass to the request.                |
-| `host`                       | `Optional[str]`               | `None`         | The host to connect to.                                      |
-| `timeout`                    | `Optional[Any]`               | `None`         | The timeout for the connection.                              |
-| `client_params`              | `Optional[Dict[str, Any]]`    | `None`         | Additional parameters to pass to the client.                 |
-| `client`                     | `Optional[OllamaClient]`      | `None`         | A pre-configured instance of the Ollama client.              |
-| `async_client`               | `Optional[AsyncOllamaClient]` | `None`         | A pre-configured instance of the asynchronous Ollama client. |
-| `structured_outputs`         | `bool`                        | `False`        | Whether to use the structured outputs with this Model.       |
-| `supports_structured_outputs`| `bool`                        | `True`         | Whether the Model supports structured outputs.                |
+| `id`                         | `str`                         | `"llama3.1"`   | 要使用的模型ID。                                  |
+| `name`                       | `str`                         | `"Ollama"`     | 模型名称。                                       |
+| `provider`                   | `str`                         | `"Ollama"`     | 模型提供商。                                   |
+| `format`                     | `Optional[Any]`               | `None`         | 响应格式。                                  |
+| `options`                    | `Optional[Any]`               | `None`         | 传递给模型的附加选项。                     |
+| `keep_alive`                 | `Optional[Union[float, str]]` | `None`         | 模型的存活保持时间。                           |
+| `request_params`             | `Optional[Dict[str, Any]]`    | `None`         | 传递给请求的附加参数。                |
+| `host`                       | `Optional[str]`               | `None`         | 要连接的主机。                                      |
+| `timeout`                    | `Optional[Any]`               | `None`         | 连接超时时间。                              |
+| `client_params`              | `Optional[Dict[str, Any]]`    | `None`         | 传递给客户端的附加参数。                 |
+| `client`                     | `Optional[OllamaClient]`      | `None`         | 预配置的Ollama客户端实例。              |
+| `async_client`               | `Optional[AsyncOllamaClient]` | `None`         | 预配置的异步Ollama客户端实例。 |
+| `structured_outputs`         | `bool`                        | `False`        | 是否将此模型用于结构化输出。       |
+| `supports_structured_outputs`| `bool`                        | `True`         | 该模型是否支持结构化输出。                |

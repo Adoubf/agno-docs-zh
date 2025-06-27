@@ -1,9 +1,8 @@
 ---
-title: User Input Required
-description: This example demonstrates how to implement user input collection during agent execution, allowing users to provide specific information for tool parameters.
+title: 用户输入要求
+description: 本示例演示了如何在智能体执行期间实现用户输入收集，允许用户为工具参数提供特定信息。
 ---
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/user_control_flows/user_input_required.py
 from typing import List
@@ -14,7 +13,7 @@ from agno.tools import tool
 from agno.tools.function import UserInputField
 from agno.utils import pprint
 
-# You can either specify the user_input_fields leave empty for all fields to be provided by the user
+# 您可以直接指定 user_input_fields 或留空以让用户提供所有字段
 @tool(requires_user_input=True, user_input_fields=["to_address"])
 def send_email(subject: str, body: str, to_address: str) -> str:
     """
@@ -39,15 +38,15 @@ if agent.is_paused:
         input_schema: List[UserInputField] = tool.user_input_schema
 
         for field in input_schema:
-            # Display field information to the user
+            # 向用户显示字段信息
             print(f"\nField: {field.name}")
             print(f"Description: {field.description}")
             print(f"Type: {field.field_type}")
 
-            # Get user input
+            # 获取用户输入
             if field.value is None:
                 user_value = input(f"Please enter a value for {field.name}: ")
-                # Update the field value
+                # 更新字段值
                 field.value = user_value
             else:
                 print(f"Value: {field.value}")
@@ -56,26 +55,26 @@ if agent.is_paused:
     pprint.pprint_run_response(run_response)
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno openai
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
-    ```bash Mac
+    ```bash Mac（苹果电脑）
     python cookbook/agent_concepts/user_control_flows/user_input_required.py
     ```
 
@@ -86,13 +85,13 @@ if agent.is_paused:
   </Step>
 </Steps>
 
-## Key Features
+## 核心特性
 
-- Uses `@tool(requires_user_input=True)` to mark tools that need user input
-- Can specify which fields require user input using `user_input_fields`
-- Implements a dynamic form-like interface for collecting user input
-- Handles both user-provided and agent-provided values
+- 使用 `@tool(requires_user_input=True)` 标记需要用户输入的工具
+- 可通过 `user_input_fields` 指定需要用户输入的字段
+- 实现动态表单式界面以收集用户输入
+- 同时处理用户提供值和智能体提供值
 
-## Use Cases
+## 应用场景
 
-- Collecting required parameters for operations
+- 收集操作所需的必要参数

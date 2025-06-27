@@ -1,8 +1,7 @@
 ---
-title: SQLite Memory Storage
+title: SQLite 内存存储
 ---
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/memory/sqlite_memory.py
 """
@@ -15,23 +14,23 @@ from agno.memory.v2.memory import Memory
 from agno.models.openai import OpenAIChat
 from agno.storage.sqlite import SqliteStorage
 
-# Create SQLite memory database
+# 创建SQLite内存数据库
 memory_db = SqliteMemoryDb(
     table_name="agent_memories",  # Table name to use in the database
     db_file="tmp/memory.db",      # Path to SQLite database file
 )
 
-# Create memory instance with SQLite backend
+# 使用 SQLite 后端创建记忆实例
 memory = Memory(db=memory_db)
 
-# This will create the table if it doesn't exist
+# 这将创建表（如果不存在）
 memory.clear()
 
-# Session and user identifiers
+# 会话与用户标识符
 session_id = "sqlite_memories"
 user_id = "sqlite_user"
 
-# Create agent with memory and SQLite storage
+# 创建具备记忆与SQLite存储功能的智能体
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
     memory=memory,
@@ -43,7 +42,7 @@ agent = Agent(
     enable_session_summaries=True,
 )
 
-# First interaction - introducing personal information
+# 初次互动 - 介绍个人信息
 agent.print_response(
     "My name is John Doe and I like to hike in the mountains on weekends.",
     stream=True,
@@ -51,7 +50,7 @@ agent.print_response(
     session_id=session_id,
 )
 
-# Second interaction - testing if memory was stored
+# 第二次交互 - 测试记忆是否被存储
 agent.print_response(
     "What are my hobbies?", 
     stream=True, 
@@ -59,31 +58,31 @@ agent.print_response(
     session_id=session_id
 )
 
-# Display the memories stored in SQLite
+# 显示存储在 SQLite 中的记忆
 memories = memory.get_user_memories(user_id=user_id)
 print("Memories stored in SQLite:")
 for i, m in enumerate(memories):
     print(f"{i}: {m.memory}")
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set environment variables">
+  <Step title="设置环境变量">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno openai
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac/Linux
     python cookbook/agent_concepts/memory/sqlite_memory.py

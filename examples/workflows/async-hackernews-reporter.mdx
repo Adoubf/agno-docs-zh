@@ -1,9 +1,8 @@
 ---
-title: Async Hacker News Reporter
-description: "An asynchronous Hacker News reporter using workflows that fetches the latest news"
+title: 异步Hacker News记者
+description: "使用工作流异步抓取最新新闻的 Hacker News 报道器"
 ---
-
-**AsyncHackerNewsReporter** is a workflow designed to asynchronously fetch the top stories from Hacker News and generate a comprehensive report on them. This workflow utilizes the `arun` method to efficiently handle multiple asynchronous tasks, ensuring a smooth and non-blocking operation.
+**AsyncHackerNewsReporter**是一个专为异步获取Hacker News热门故事并生成综合报告而设计的工作流。该工作流采用`arun`方法高效处理多个异步任务，确保操作流畅且无阻塞。
 
 ```python async_workflow.py
 import asyncio
@@ -55,13 +54,13 @@ class AsyncHackerNewsReporter(Workflow):
             str: JSON string of top stories.
         """
         async with httpx.AsyncClient() as client:
-            # Fetch top story IDs
+            # 获取热门故事ID
             response = await client.get(
                 "https://hacker-news.firebaseio.com/v0/topstories.json"
             )
             story_ids = response.json()
 
-            # Fetch story details concurrently
+            # 并发获取故事详情
             tasks = [
                 client.get(
                     f"https://hacker-news.firebaseio.com/v0/item/{story_id}.json"
@@ -79,7 +78,7 @@ class AsyncHackerNewsReporter(Workflow):
             return json.dumps(stories)
 
     async def arun(self, num_stories: int = 5) -> AsyncIterator[RunResponse]:
-        # Set the tools for hn_agent here to avoid circular reference
+        # 在此设置 hn_agent 的工具以避免循环引用
         self.hn_agent.tools = [self.get_top_hackernews_stories]
 
         logger.info(f"Getting top {num_stories} stories from HackerNews.")
@@ -93,10 +92,10 @@ class AsyncHackerNewsReporter(Workflow):
             return
 
         logger.info("Reading each story and writing a report.")
-        # Get the async iterator from writer.arun()
+        # 从writer.arun()获取异步迭代器
         writer_response = await self.writer.arun(top_stories.content, stream=True)
 
-        # Stream the writer's response directly
+        # 直接流式传输写作者的响应
         async for response in writer_response:
             if response.content:
                 yield RunResponse(
@@ -108,10 +107,10 @@ if __name__ == "__main__":
     import asyncio
 
     async def main():
-        # Initialize the workflow
+        # 初始化工作流程
         workflow = AsyncHackerNewsReporter(debug_mode=False)
 
-        # Run the workflow and collect the final response
+        # 运行工作流程并收集最终响应
         final_content = []
         try:
             async for response in workflow.arun(num_stories=5):
@@ -121,30 +120,30 @@ if __name__ == "__main__":
             logger.error(f"Error running workflow: {e}")
             return
 
-        # Create final response with combined content
+        # 生成包含合并内容的最终响应
         if final_content:
             final_response = RunResponse(
                 content="".join(final_content), event=RunEvent.workflow_completed
             )
-            # Pretty print the final response
+            # 美化最终响应的显示效果
             pprint_run_response(final_response, markdown=True, show_time=True)
 
-    # Run the async main function
+    # 运行异步主函数
     asyncio.run(main())
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install agno newspaper4k lxml_html_clean openai httpx
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行智能体">
     ```bash
     python async_workflow.py
     ```

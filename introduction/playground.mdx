@@ -1,9 +1,7 @@
 ---
 title: Playground
-description: "**Agno provides an intuitive interface for testing and interacting with your AI agents.**"
+description: "**Agno提供了一个直观的界面，用于测试和与您的AI智能体进行交互。**"
 ---
-
-
 <Frame caption="Agno Platform - Playground">
   <img
     height="200"
@@ -13,29 +11,22 @@ description: "**Agno provides an intuitive interface for testing and interacting
 </Frame>
 
 
-The Playground gives a robust interface to test your agentic systems with extensive features.
+Playground 提供了一个功能丰富的强大界面，用于测试您的智能体系统。
 
-- **Streaming Support**: Real-time response streaming and intermediate states back to the user.
+- **流式支持**: 实时响应流传输及中间状态回传给用户
+- **会话历史**: 直接在 Playground 中可视化对话记录
+- **用户记忆**: 跨对话场景可视化用户详情与偏好设置
+- **配置管理**: 完整的配置界面可查看智能体参数、模型设置和工具配置
+- **推理支持**: 原生支持在界面中显示详细推理轨迹
+- **人工干预支持**: 通过专业人工监督与审批机制介入智能体工作流
+- **多模态支持**: 支持处理及生成文本、图像、音频等多媒体类型
+- **多智能体系统**: 支持多智能体团队协作与工作流
 
-- **Session History**: Visualize conversation history right in the playground.
-
-- **User Memory**: Visualize user details and preferences across conversations. 
-
-- **Configuration**: Comprehensive configuration interface allowing you to see agent parameters, model settings, tool configurations. 
-
-- **Reasoning Support**: Built-in support for detailed reasoning traces displayed in the playground interface.
-
-- **Human in Loop Support**: Enable manual intervention in agent workflows with specialized human oversight and approval. 
-
-- **Multimodal Support**: Support for processing and generating text, images, audio, and other media types.
-
-- **Multi-Agent Systems**: Support for multi-agent teams and workflows.
-
-## Interact with your agents Locally
+## 本地与智能体交互
 
 <Steps>
 
-<Step title="Create a file with sample code">
+<Step title="创建一个包含示例代码的文件">
 
 
 
@@ -54,15 +45,15 @@ web_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     tools=[DuckDuckGoTools()],
     instructions=["Always include sources"],
-    # Store the agent sessions in a sqlite database
+    # 将智能体会话存储在SQLite数据库中
     storage=SqliteStorage(table_name="web_agent", db_file=agent_storage),
-    # Adds the current date and time to the instructions
+    # 将当前日期和时间添加到指令中
     add_datetime_to_instructions=True,
-    # Adds the history of the conversation to the messages
+    # 将对话历史记录添加到消息中
     add_history_to_messages=True,
-    # Number of history responses to add to the messages
+    # 添加到消息中的历史响应数量
     num_history_responses=5,
-    # Adds markdown formatting to the messages
+    # 为消息添加Markdown格式
     markdown=True,
 )
 
@@ -85,29 +76,29 @@ if __name__ == "__main__":
     playground_app.serve("playground:app", reload=True)
 ```
 
-Remember to export your `OPENAI_API_KEY` before running the playground application.
+运行 Playground 应用前请确保导出您的 `OPENAI_API_KEY`。
 
-<Tip>Make sure the `serve()` points to the file that contains your `Playground` app.</Tip>
+<Tip>请确认 `serve()` 指向包含 `Playground` 应用的文件。</Tip>
 
 </Step>
 
-<Step title="Authenticate with Agno">
+<Step title="使用 Agno 进行身份验证">
 
-Authenticate with [agno.com](https://app.agno.com) so your local application can let agno know which port you are running the playground on.
+请登录 [agno.com](https://app.agno.com) 完成认证，这样本地应用才能告知 Agno 您运行 Playground 的端口号。
 
-Check out [Authentication guide](how-to/authentication) for instructions on how to Authenticate with Agno.
+查看 [认证指南](how-to/authentication) 获取 Agno 认证操作说明。
 
 <Note>
-No data is sent to agno.com, all agent data is stored locally in your sqlite database.
+所有数据都不会发送至 agno.com，智能体数据均本地存储于您的 sqlite 数据库。
 </Note>
 
 
 
 </Step>
 
-<Step title="Run the Playground Server">
+<Step title="运行 Playground 服务器">
 
-Install dependencies and run your playground server:
+安装依赖并运行 Playground 服务：
 
 ```shell
 pip install openai duckduckgo-search yfinance sqlalchemy 'fastapi[standard]' agno
@@ -117,10 +108,10 @@ python playground.py
 
 </Step>
 
-<Step title="View the Playground">
+<Step title="查看 Playground">
 
-- Open the link provided or navigate to `http://app.agno.com/playground` (login required).
-- Add/Select the `localhost:7777` endpoint and start chatting with your agents!
+- 打开提供的链接或访问 `http://app.agno.com/playground`（需登录）
+- 添加/选择 `localhost:7777` 端点即可开始与智能体对话！
 
 <video
   autoPlay
@@ -133,9 +124,9 @@ python playground.py
 </Step>
 
 </Steps>
-<Accordion title="Looking for a self-hosted alternative?">
+<Accordion title="在寻找自托管替代方案吗？">
 
-Looking for a self-hosted alternative? Check out our [Open Source Agent UI](https://github.com/agno-agi/agent-ui) - A modern Agent interface built with Next.js and TypeScript that works exactly like the Agent Playground.
+需要自托管方案？请查看我们的 [开源智能体 UI](https://github.com/agno-agi/agent-ui) —— 采用 Next.js 和 TypeScript 构建的现代化智能体界面，功能与 Agent Playground 完全一致。
 
 <img
   src="/images/agent-ui.png"
@@ -143,19 +134,19 @@ Looking for a self-hosted alternative? Check out our [Open Source Agent UI](http
   alt="agent-ui"
 />
 
-### Get Started with Agent UI
+### 开始使用 Agent UI
 
 ```bash
-# Create a new Agent UI project
+# 创建一个新的 Agent UI 项目
 npx create-agent-ui@latest
 
-# Or clone and run manually
+# 或克隆后手动运行
 git clone https://github.com/agno-agi/agent-ui.git
 cd agent-ui && pnpm install && pnpm dev
 ```
 
-The UI will connect to `localhost:7777` by default, matching the Playground setup above. Visit [GitHub](https://github.com/agno-agi/agent-ui) for more details.
+该 UI 默认会连接至 `localhost:7777`，与上述 Playground 配置保持一致。访问 [GitHub](https://github.com/agno-agi/agent-ui) 获取更多详情。
 
 </Accordion>
 
-<Info>Facing connection issues? Check out our [troubleshooting guide](/faq/playground-connection)</Info>
+<Info>遇到连接问题？请查阅 [故障排除指南](/faq/playground-connection)</Info>

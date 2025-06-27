@@ -1,14 +1,13 @@
 ---
-title: Multimodal Agents
+title: 多模态智能体
 ---
+Agno智能体支持文本、图像、音频和视频输入，并能生成文本、图像、音频和视频输出。完整概览请查看[兼容性矩阵](/models/compatibility)。
 
-Agno agents support text, image, audio and video inputs and can generate text, image, audio and video outputs. For a complete overview, please checkout the [compatibility matrix](/models/compatibility).
+## 智能体的多模态输入
 
-## Multimodal inputs to an agent
+让我们创建一个能理解图像并根据需要调用工具的智能体
 
-Let's create an agent that can understand images and make tool calls as needed
-
-### Image Agent
+### 图像智能体
 
 ```python image_agent.py
 from agno.agent import Agent
@@ -33,15 +32,15 @@ agent.print_response(
 )
 ```
 
-Run the agent:
+运行智能体：
 
 ```shell
 python image_agent.py
 ```
 
-Similar to images, you can also use audio and video as an input.
+与图像类似，您也可以使用音频和视频作为输入。
 
-### Audio Agent
+### 音频智能体
 
 ```python audio_agent.py
 import base64
@@ -51,7 +50,7 @@ from agno.agent import Agent, RunResponse  # noqa
 from agno.media import Audio
 from agno.models.openai import OpenAIChat
 
-# Fetch the audio file and convert it to a base64 encoded string
+# 获取音频文件并将其转换为 base64 编码字符串
 url = "https://openaiassets.blob.core.windows.net/$web/API/docs/audio/alloy.wav"
 response = requests.get(url)
 response.raise_for_status()
@@ -66,9 +65,9 @@ agent.print_response(
 )
 ```
 
-### Video Agent
+### 视频智能体
 
-<Note>Currently Agno only supports video as an input for Gemini models.</Note>
+<Note>目前Agno仅支持将视频作为Gemini模型的输入。</Note>
 
 ```python video_agent.py
 from pathlib import Path
@@ -82,20 +81,20 @@ agent = Agent(
     markdown=True,
 )
 
-# Please download "GreatRedSpot.mp4" using
+# 请下载“GreatRedSpot.mp4”文件
 # wget https://storage.googleapis.com/generativeai-downloads/images/GreatRedSpot.mp4
 video_path = Path(__file__).parent.joinpath("GreatRedSpot.mp4")
 
 agent.print_response("Tell me about this video", videos=[Video(filepath=video_path)])
 ```
 
-## Multimodal outputs from an agent
+## 智能体的多模态输出
 
-Similar to providing multimodal inputs, you can also get multimodal outputs from an agent.
+与提供多模态输入类似，您也可以从智能体获取多模态输出。
 
-### Image Generation
+### 图像生成
 
-The following example demonstrates how to generate an image using DALL-E with an agent.
+以下示例演示如何使用DALL-E通过智能体生成图像。
 
 ```python image_agent.py
 from agno.agent import Agent
@@ -120,9 +119,9 @@ if images and isinstance(images, list):
         print(image_url)
 ```
 
-### Audio Response
+### 音频响应
 
-The following example demonstrates how to obtain both text and audio responses from an agent. The agent will respond with text and audio bytes that can be saved to a file.
+以下示例演示如何从智能体获取文本和音频响应。智能体会返回文本和可保存为文件的音频字节。
 
 ```python audio_agent.py
 from agno.agent import Agent, RunResponse
@@ -139,18 +138,18 @@ agent = Agent(
 )
 response: RunResponse = agent.run("Tell me a 5 second scary story")
 
-# Save the response audio to a file
+# 将响应音频保存至文件
 if response.response_audio is not None:
     write_audio_to_file(
         audio=agent.run_response.response_audio.content, filename="tmp/scary_story.wav"
     )
 ```
 
-## Multimodal inputs and outputs together
+## 多模态输入与输出的结合
 
-You can create Agents that can take multimodal inputs and return multimodal outputs. The following example demonstrates how to provide a combination of audio and text inputs to an agent and obtain both text and audio outputs.
+您可以创建能接收多模态输入并返回多模态输出的智能体。以下示例演示如何向智能体提供音频和文本的组合输入，并获取文本和音频输出。
 
-### Audio input and Audio output
+### 音频输入与音频输出
 
 ```python audio_agent.py
 import base64
@@ -161,7 +160,7 @@ from agno.media import Audio
 from agno.models.openai import OpenAIChat
 from agno.utils.audio import write_audio_to_file
 
-# Fetch the audio file and convert it to a base64 encoded string
+# 获取音频文件并将其转换为 base64 编码字符串
 url = "https://openaiassets.blob.core.windows.net/$web/API/docs/audio/alloy.wav"
 response = requests.get(url)
 response.raise_for_status()

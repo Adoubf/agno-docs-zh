@@ -1,8 +1,7 @@
 ---
-title: MongoDB Hybrid Search
+title: MongoDB 混合搜索
 ---
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/knowledge/vector_dbs/mongo_db/mongo_db_hybrid_search.py
 import typer
@@ -12,7 +11,7 @@ from agno.vectordb.mongodb import MongoDb
 from agno.vectordb.search import SearchType
 from rich.prompt import Prompt
 
-# MongoDB Atlas connection string
+# MongoDB Atlas 连接字符串
 """
 Example connection strings:
 "mongodb+srv://<username>:<password>@cluster0.mongodb.net/?retryWrites=true&w=majority"
@@ -47,30 +46,30 @@ def mongodb_agent(user: str = "user"):
 
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 首次运行后注释掉
     knowledge_base.load(recreate=True)
 
     typer.run(mongodb_agent)
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U pymongo tantivy pypdf openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/vector_dbs/mongo_db/mongo_db_hybrid_search.py

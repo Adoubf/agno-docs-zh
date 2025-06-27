@@ -1,8 +1,7 @@
 ---
-title: Agent with Tools
+title: 带工具的智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/fireworks/tool_use.py
 from agno.agent import Agent
@@ -18,26 +17,26 @@ agent = Agent(
 agent.print_response("Whats happening in France?", stream=True)
 ```
 
-## Usage
+## 使用
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的API密钥">
     ```bash
     export FIREWORKS_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai duckduckgo-search agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果电脑
     python cookbook/models/fireworks/tool_use.py
     ```
 

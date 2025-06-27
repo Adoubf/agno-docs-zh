@@ -1,18 +1,17 @@
 ---
-title: User Memories
+title: 用户记忆
 ---
+当我们谈论"记忆"时，业界普遍认可的认知是指智能体存储关于交互用户的洞察和事实的能力。简而言之，就是构建用户画像，了解其偏好，并据此个性化智能体的响应。
 
-When we speak about Memory, the commonly agreed upon understanding of Memory is the ability to store insights and facts about the user the Agent is interacting with. In short, build a persona of the user, learn about their preferences and use that to personalize the Agent's response.
+## 智能体记忆系统
 
-## Agentic Memory
+Agno智能体原生支持智能体记忆管理，并推荐其作为您记忆功能开发的起点。
 
-Agno Agents natively support Agentic Memory Management and recommends it as the starting point for your memory journey.
+通过智能体记忆系统，智能体可自主从用户对话中创建、更新和删除记忆。
 
-With Agentic Memory, The Agent itself creates, updates and deletes memories from user conversations.
+设置`enable_agentic_memory=True`为智能体提供管理用户记忆的工具，该工具会将任务传递给`MemoryManager`类。
 
-Set `enable_agentic_memory=True` to give the Agent a tool to manage memories of the user, this tool passes the task to the `MemoryManager` class.
-
-> You may also set `enable_user_memories=True` which always runs the `MemoryManager` after each user message. [See below for an example.](#create-memories-after-each-run)
+> 您也可以设置`enable_user_memories=True`，使其在每条用户消息后自动运行`MemoryManager`。[参见下方示例](#create-memories-after-each-run)
 
 ```python agentic_memory.py
 from agno.agent import Agent
@@ -22,34 +21,34 @@ from agno.models.openai import OpenAIChat
 from agno.storage.sqlite import SqliteStorage
 from rich.pretty import pprint
 
-# UserId for the memories
+# 用于存储记忆的用户ID
 user_id = "ava"
-# Database file for memory and storage
+# 用于记忆和存储的数据库文件
 db_file = "tmp/agent.db"
 
-# Initialize memory.v2
+# 初始化 memory.v2
 memory = Memory(
-    # Use any model for creating memories
+    # 使用任意模型创建记忆
     model=OpenAIChat(id="gpt-4.1"),
     db=SqliteMemoryDb(table_name="user_memories", db_file=db_file),
 )
-# Initialize storage
+# 初始化存储
 storage = SqliteStorage(table_name="agent_sessions", db_file=db_file)
 
-# Initialize Agent
+# 初始化智能体
 memory_agent = Agent(
     model=OpenAIChat(id="gpt-4.1"),
-    # Store memories in a database
+    # 将记忆存储到数据库中
     memory=memory,
-    # Give the Agent the ability to update memories
+    # 赋予智能体更新记忆的能力
     enable_agentic_memory=True,
-    # OR - Run the MemoryManager after each response
+    # 或者 - 每次响应后运行 MemoryManager
     enable_user_memories=True,
-    # Store the chat history in the database
+    # 将聊天记录存储到数据库中
     storage=storage,
-    # Add the chat history to the messages
+    # 将聊天记录添加到消息中
     add_history_to_messages=True,
-    # Number of history runs
+    # 历史运行次数
     num_history_runs=3,
     markdown=True,
 )
@@ -74,14 +73,14 @@ print("Memories about Ava:")
 pprint(memory.get_user_memories(user_id=user_id))
 ```
 
-- `add_history_to_messages=True` adds the chat history to the messages sent to the Model, the `num_history_runs` determines how many runs to add.
-- `read_chat_history=True` adds a tool to the Agent that allows it to read chat history, as it may be larger than what's included in the `num_history_runs`.
+- `add_history_to_messages=True`将聊天记录添加到发送给模型的讯息中，`num_history_runs`决定添加多少轮对话记录
+- `read_chat_history=True`为智能体添加读取聊天历史的工具，因为历史记录可能超出`num_history_runs`的容量
 
-## Creating Memories after each run
+## 每次运行后创建记忆
 
-While `enable_agentic_memory=True` gives the Agent a tool to manage memories of the user, we can also always "trigger" the `MemoryManagement` after each user message.
+虽然`enable_agentic_memory=True`赋予智能体管理用户记忆的能力，但我们也可以选择在每条用户消息后自动"触发"`MemoryManagement`。
 
-Set `enable_user_memories=True` which always process memories after each user message.
+设置`enable_user_memories=True`即可在每条用户消息后自动处理记忆。
 
 ```python create_memories_after_each_run.py
 from agno.agent.agent import Agent
@@ -91,37 +90,37 @@ from agno.models.openai import OpenAIChat
 from rich.pretty import pprint
 
 memory_db = SqliteMemoryDb(table_name="memory", db_file="tmp/memory.db")
-# No need to set the model, it gets set to the model of the agent
+# 无需设置模型，系统会自动采用智能体的模型设置
 memory = Memory(db=memory_db, delete_memories=True, clear_memories=True)
 
-# Reset the memory for this example
+# 重置此示例的记忆
 memory.clear()
 
-# User ID for the memory
+# 记忆功能的用户ID
 john_doe_id = "john_doe@example.com"
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
     memory=memory,
-    # This will trigger the MemoryManager after each user message
+    # 这将在每条用户消息后触发 MemoryManager
     enable_user_memories=True,
 )
 
-# Send a message to the agent that would require the memory to be used
+# 向需要调用记忆的智能体发送消息
 agent.print_response(
     "My name is John Doe and I like to hike in the mountains on weekends.",
     stream=True,
     user_id=john_doe_id,
 )
 
-# Send a message to the agent that checks the memory is working
+# 向检查记忆功能是否正常的智能体发送消息
 agent.print_response("What are my hobbies?", stream=True, user_id=john_doe_id)
 
-# Print the memories for the user
+# 为用户打印记忆内容
 memories = memory.get_user_memories(user_id=john_doe_id)
 print("Memories about John Doe:")
 pprint(memories)
 
-# Send a message to the agent that removes all memories for the user
+# 向智能体发送一条消息，删除该用户的所有记忆
 agent.print_response(
     "Remove all existing memories of me.",
     stream=True,
@@ -132,25 +131,25 @@ print("Memories about John Doe:")
 pprint(memories)
 ```
 
-## Memory Management
+## 记忆管理
 
-The `Memory` class in Agno lets you manage all aspects of user memory. Let's start with some examples of using `Memory` outside of Agents. We will:
+Agno中的`Memory`类让您可以全面管理用户记忆。首先让我们看几个在智能体外使用`Memory`的示例。我们将：
 
-- Add, update and delete memories
-- Store memories in a database
-- Create memories from conversations
-- Search over memories
+- 添加、更新及删除记忆
+- 在数据库中存储记忆
+- 从对话创建记忆
+- 进行记忆检索
 
 ```python
 from agno.memory.v2.memory import Memory
 from agno.memory.v2.db.sqlite import SqliteMemoryDb
 
-# Create a memory instance with persistent storage
+# 创建一个具有持久存储的记忆实例
 memory_db = SqliteMemoryDb(table_name="memory", db_file="memory.db")
 memory = Memory(db=memory_db)
 ```
 
-### Adding a new memory
+### 添加新记忆
 
 ```python
 from agno.memory.v2.memory import Memory
@@ -158,7 +157,7 @@ from agno.memory.v2.schema import UserMemory
 
 memory = Memory()
 
-# Create a user memory manually
+# 手动创建用户记忆
 memory_id = memory.add_user_memory(
     memory=UserMemory(
         memory="The user's name is Jane Doe",
@@ -168,7 +167,7 @@ memory_id = memory.add_user_memory(
 )
 ```
 
-### Updating a memory
+### 更新记忆
 
 ```python
 from agno.memory.v2.memory import Memory
@@ -176,11 +175,11 @@ from agno.memory.v2.schema import UserMemory
 
 memory = Memory()
 
-# Replace a user memory
+# 替换用户记忆
 memory_id = memory.replace_user_memory(
-    # The id of the memory to replace
+    # 要替换的记忆ID
     memory_id=previous_memory_id,
-    # The new memory to replace it with
+    # 用于替换的新记忆
     memory=UserMemory(
         memory="The user's name is Verna Doe",
         topics=["personal", "name"]
@@ -189,18 +188,18 @@ memory_id = memory.replace_user_memory(
 )
 ```
 
-### Deleting a memory
+### 删除记忆
 
 ```python
 from agno.memory.v2.memory import Memory
 
 memory = Memory()
 
-# Delete a user memory
+# 删除用户记忆
 memory.delete_user_memory(user_id="jane_doe@example.com", memory_id=memory_id)
 ```
 
-### Creating memories from user information
+### 从用户信息创建记忆
 
 ```python
 from agno.memory.v2 import Memory
@@ -232,7 +231,7 @@ for i, m in enumerate(memories):
     print(f"{i}: {m.memory} - {m.topics}")
 ```
 
-### Creating memories from a conversation
+### 从对话创建记忆
 
 ```python
 from agno.memory.v2 import Memory
@@ -245,7 +244,7 @@ memory = Memory(model=Gemini(id="gemini-2.0-flash-exp"), db=memory_db)
 
 
 jane_doe_id = "jane_doe@example.com"
-# Send a history of messages and add memories
+# 发送消息历史记录并添加记忆
 memory.create_user_memories(
     messages=[
         Message(role="user", content="My name is Jane Doe"),
@@ -262,13 +261,13 @@ for i, m in enumerate(memories):
     print(f"{i}: {m.memory} - {m.topics}")
 ```
 
-## Memory Search
+## 记忆检索
 
-Agno provides several retrieval methods to search and retrieve user memories:
+Agno提供多种检索方法来搜索和获取用户记忆：
 
-### Basic Retrieval Methods
+### 基础检索方法
 
-You can retrieve memories using chronological methods such as `last_n` (most recent) or `first_n` (oldest first):
+您可以使用时序方法检索记忆，例如`last_n`（最近优先）或`first_n`（最早优先）：
 
 ```python
 from agno.memory.v2 import Memory, UserMemory
@@ -288,7 +287,7 @@ memory.add_user_memory(
     user_id=john_doe_id,
 )
 
-# Get the most recent memory
+# 获取最近的记忆
 memories = memory.search_user_memories(
     user_id=john_doe_id, limit=1, retrieval_method="last_n"
 )
@@ -296,7 +295,7 @@ print("John Doe's last_n memories:")
 for i, m in enumerate(memories):
     print(f"{i}: {m.memory}")
 
-# Get the oldest memory
+# 获取最久远的记忆
 memories = memory.search_user_memories(
     user_id=john_doe_id, limit=1, retrieval_method="first_n"
 )
@@ -305,15 +304,15 @@ for i, m in enumerate(memories):
     print(f"{i}: {m.memory}")
 ```
 
-### Agentic Memory Search
+### 智能体记忆搜索
 
-Agentic search allows you to find memories based on meaning rather than exact keyword matches. This is particularly useful for retrieving contextually relevant information:
+智能体搜索允许您基于语义而非精确关键词匹配来查找记忆，这对获取上下文相关信息特别有用：
 
 ```python
 from agno.memory.v2.memory import Memory, UserMemory
 from agno.models.google.gemini import Gemini
 
-# Initialize memory with a model for agentic search
+# 为智能体搜索初始化模型记忆
 memory = Memory(model=Gemini(id="gemini-2.0-flash-exp"))
 
 john_doe_id = "john_doe@example.com"
@@ -329,7 +328,7 @@ memory.add_user_memory(
     user_id=john_doe_id,
 )
 
-# Search for memories related to the query
+# 搜索与查询相关的记忆
 memories = memory.search_user_memories(
     user_id=john_doe_id,
     query="What does the user like to do on weekends?",
@@ -340,10 +339,9 @@ for i, m in enumerate(memories):
     print(f"{i}: {m.memory}")
 ```
 
-With agentic search, the model understands the intent behind your query and returns the most relevant memories, even if they don't contain the exact keywords from your search.
+通过智能体搜索，模型能理解查询意图并返回最相关的记忆，即使这些记忆不包含搜索中的确切关键词。
 
+## 开发者资源
 
-## Developer Resources
-
-- Find full examples in the [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/agent_concepts/memory)
-- View the class reference for the `Memory` class [here](/reference/memory/memory)
+- 完整示例请参阅[Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/agent_concepts/memory)
+- 查看`Memory`类的[API参考文档](/reference/memory/memory)

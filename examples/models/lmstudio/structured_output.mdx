@@ -1,8 +1,7 @@
 ---
-title: Agent with Structured Outputs
+title: 支持结构化输出的智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/lmstudio/structured_output.py
 import asyncio
@@ -32,30 +31,29 @@ class MovieScript(BaseModel):
     )
 
 
-# Agent that returns a structured output
+# 返回结构化输出的智能体
 structured_output_agent = Agent(
     model=LMStudio(id="qwen2.5-7b-instruct-1m"),
     description="You write movie scripts.",
     response_model=MovieScript,
 )
 
-# Run the agent synchronously
+# 同步运行智能体
 structured_output_agent.print_response("
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install LM Studio">
+  <Step title="安装 LM Studio">
 
-    Install LM Studio from [here](https://lmstudio.ai/download) and download the
-    model you want to use.
+    从[LM Studio官网](https://lmstudio.ai/download)安装软件并下载您需要使用的模型。
 
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
 
     ```bash
     pip install -U agno
@@ -63,10 +61,10 @@ structured_output_agent.print_response("
 
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
 
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果电脑
     python cookbook/models/lmstudio/structured_output.py
     ```
 

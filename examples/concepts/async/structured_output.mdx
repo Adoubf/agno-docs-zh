@@ -1,8 +1,7 @@
 ---
-title: Structured Outputs
+title: 结构化输出
 ---
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/async/structured_output.py
 import asyncio
@@ -33,14 +32,14 @@ class MovieScript(BaseModel):
     )
 
 
-# Agent that uses JSON mode
+# 使用 JSON 模式的智能体
 json_mode_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     description="You write movie scripts.",
     response_model=MovieScript,
 )
 
-# Agent that uses structured outputs
+# 采用结构化输出的智能体
 structured_output_agent = Agent(
     model=OpenAIChat(id="gpt-4o-2024-08-06"),
     description="You write movie scripts.",
@@ -52,12 +51,12 @@ asyncio.run(json_mode_agent.aprint_response("New York"))
 asyncio.run(structured_output_agent.aprint_response("New York"))
 ```
 
-## Usage
+## 使用方式
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
 
     ```bash
     pip install -U openai agno
@@ -65,7 +64,7 @@ asyncio.run(structured_output_agent.aprint_response("New York"))
 
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
 
     <CodeGroup>
 

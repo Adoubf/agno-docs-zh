@@ -1,18 +1,17 @@
 ---
-title: Agent with Storage
+title: 带存储功能的智能体
 ---
+本示例展示如何创建一个AI烹饪助手，该助手结合了精选食谱数据库的知识、网络搜索能力以及持久化存储功能。该智能体使用包含正宗泰国菜食谱的PDF知识库，并能在需要时通过网页搜索补充信息。
 
-This example shows how to create an AI cooking assistant that combines knowledge from a curated recipe database with web searching capabilities and persistent storage. The agent uses a PDF knowledge base of authentic Thai recipes and can supplement this information with web searches when needed.
+可尝试的示例提示：
+- "如何制作正宗的泰式炒粉？"
+- "红咖喱和绿咖喱有什么区别？"
+- "你能解释一下南姜是什么以及可能的替代品吗？"
+- "告诉我冬阴功汤的历史"
+- "泰国厨房必备的配料有哪些？"
+- "如何制作泰式罗勒炒鸡（打抛鸡）？"
 
-Example prompts to try:
-- "How do I make authentic Pad Thai?"
-- "What's the difference between red and green curry?"
-- "Can you explain what galangal is and possible substitutes?"
-- "Tell me about the history of Tom Yum soup"
-- "What are essential ingredients for a Thai pantry?"
-- "How do I make Thai basil chicken (Pad Kra Pao)?"
-
-## Code
+## 代码
 
 ```python agent_with_storage.py
 from textwrap import dedent
@@ -44,7 +43,7 @@ agent_storage = SqliteStorage(table_name="recipe_agent", db_file="tmp/agents.db"
 def recipe_agent(user: str = "user"):
     session_id: Optional[str] = None
 
-    # Ask the user if they want to start a new session or continue an existing one
+    # 询问用户是否要开始新会话或继续现有会话
     new = typer.confirm("Do you want to start a new session?")
 
     if not new:
@@ -103,19 +102,19 @@ def recipe_agent(user: str = "user"):
         storage=agent_storage,
         knowledge=agent_knowledge,
         tools=[DuckDuckGoTools()],
-        # Show tool calls in the response
+        # 在响应中显示工具调用
         show_tool_calls=True,
-        # To provide the agent with the chat history
-        # We can either:
-        # 1. Provide the agent with a tool to read the chat history
-        # 2. Automatically add the chat history to the messages sent to the model
+        # 为智能体提供聊天历史
+        # 我们可以选择：
+        # 1. 为智能体提供读取聊天历史的工具
+        # 2. 自动将聊天历史添加到发送给模型的消息中
         #
-        # 1. Provide the agent with a tool to read the chat history
+        # 1. 为智能体提供读取聊天历史的工具
         read_chat_history=True,
-        # 2. Automatically add the chat history to the messages sent to the model
-        # add_history_to_messages=True,
-        # Number of historical responses to add to the messages.
-        # num_history_responses=3,
+        # 2. 自动将聊天记录添加到发送给模型的消息中
+        # 将历史记录添加到消息中=True,
+        # 添加到消息中的历史响应数量。
+        # 历史响应数量=3,
         markdown=True,
     )
 
@@ -129,30 +128,30 @@ def recipe_agent(user: str = "user"):
     else:
         print(f"Continuing Session: {session_id}\n")
 
-    # Runs the agent as a command line application
+    # 以命令行应用程序方式运行智能体
     agent.cli_app(markdown=True)
 
 
 if __name__ == "__main__":
-    # Comment out after the knowledge base is loaded
+    # 知识库加载后将其注释掉
     if agent_knowledge is not None:
         agent_knowledge.load()
 
     typer.run(recipe_agent)
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai lancedb tantivy pypdf duckduckgo-search sqlalchemy agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行智能体">
     ```bash
     python agent_with_storage.py
     ```

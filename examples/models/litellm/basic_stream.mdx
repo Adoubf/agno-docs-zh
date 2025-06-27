@@ -1,8 +1,7 @@
 ---
-title: Streaming Agent
+title: 流式智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/litellm/basic_stream.py
 from agno.agent import Agent
@@ -19,24 +18,24 @@ openai_agent = Agent(
 openai_agent.print_response("Share a 2 sentence horror story", stream=True)
 ```
 
-## Usage
+## 使用方式
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的API密钥">
     ```bash
     export LITELLM_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U litellm openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/litellm/basic_stream.py

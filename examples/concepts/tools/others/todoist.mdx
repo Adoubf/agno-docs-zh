@@ -1,8 +1,7 @@
 ---
-title: Todoist Tools
+title: Todoist 工具
 ---
-
-## Code
+## 代码
 
 ```python cookbook/tools/todoist_tools.py
 """
@@ -41,44 +40,44 @@ todoist_agent = Agent(
     show_tool_calls=True,
 )
 
-# Example 1: Create a task
+# 示例1：创建一个任务
 print("\n=== Create a task ===")
 todoist_agent.print_response("Create a todoist task to buy groceries tomorrow at 10am")
 
 
-# Example 2: Delete a task
+# 示例 2：删除任务
 print("\n=== Delete a task ===")
 todoist_agent.print_response(
     "Delete the todoist task to buy groceries tomorrow at 10am"
 )
 
 
-# Example 3: Get all tasks
+# 示例 3：获取所有任务
 print("\n=== Get all tasks ===")
 todoist_agent.print_response("Get all the todoist tasks")
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" /> 
 
-  <Step title="Set your API Token">
+  <Step title="设置您的 API 令牌">
     ```bash
     export TODOIST_API_TOKEN=xxx
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U todoist-api-python openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果电脑
     python cookbook/tools/todoist_tools.py
     ```
 
@@ -88,4 +87,3 @@ todoist_agent.print_response("Get all the todoist tasks")
     </CodeGroup>
   </Step>   
 </Steps>
-

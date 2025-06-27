@@ -1,69 +1,68 @@
-### Parameters
+### 参数
 
-| Parameter | Type | Description | Default |
+| 参数 | 类型 | 描述 | 默认值 |
 |-----------|------|-------------|---------|
-| `model` | `Optional[Model]` | Model used for memories and summaries | `None` |
-| `memory_manager` | `Optional[MemoryManager]` | Manager for memory operations | `None` |
-| `summarizer` | `Optional[SessionSummarizer]` | Summarizer for generating session summaries | `None` |
-| `db` | `Optional[MemoryDb]` | Database for storing memories | `None` |
-| `debug_mode` | `bool` | Whether to enable debug logging | `False` |
+| `model` | `Optional[Model]` | 用于记忆和摘要生成的模型 | `None` |
+| `memory_manager` | `Optional[MemoryManager]` | 记忆操作管理器 | `None` |
+| `summarizer` | `Optional[SessionSummarizer]` | 会话摘要生成器 | `None` |
+| `db` | `Optional[MemoryDb]` | 存储记忆的数据库 | `None` |
+| `debug_mode` | `bool` | 是否启用调试日志 | `False` |
 
-### Key Methods
+### 关键方法
 
-#### User Memory Management
+#### 用户记忆管理
 
-| Method | Description | Parameters | Returns |
+| 方法 | 描述 | 参数 | 返回值 |
 |--------|-------------|------------|---------|
-| `get_user_memories` | Retrieves all memories for a user | `user_id: str` | `List[UserMemory]` |
-| `get_user_memory` | Gets a specific memory | `user_id: str, memory_id: str` | `UserMemory` |
-| `add_user_memory` | Adds a new memory and gets the memory id | `memory: UserMemory, user_id: Optional[str] = None` | `str` |
-| `replace_user_memory` | Updates an existing memory and gets the memory id | `memory_id: str, memory: UserMemory, user_id: Optional[str] = None` | `str` |
-| `delete_user_memory` | Deletes a memory | `user_id: str, memory_id: str` | `None` |
-| `create_user_memories` | Creates memories from one or more messages | `message: Optional[str] = None, messages: Optional[List[Message]] = None, user_id: Optional[str] = None` | `str` |
-| `acreate_user_memories` | Creates memories from one or more messages (Async) | `message: Optional[str] = None, messages: Optional[List[Message]] = None, user_id: Optional[str] = None` | `str` |
-| `search_user_memories` | Searches user memories using specified retrieval method | `query: Optional[str] = None, limit: Optional[int] = None, retrieval_method: Optional[Literal["last_n", "first_n", "semantic"]] = None, user_id: Optional[str] = None` | `List[UserMemory]` |
+| `get_user_memories` | 获取用户所有记忆 | `user_id: str` | `List[UserMemory]` |
+| `get_user_memory` | 获取特定记忆 | `user_id: str, memory_id: str` | `UserMemory` |
+| `add_user_memory` | 添加新记忆并返回记忆ID | `memory: UserMemory, user_id: Optional[str] = None` | `str` |
+| `replace_user_memory` | 更新现有记忆并返回记忆ID | `memory_id: str, memory: UserMemory, user_id: Optional[str] = None` | `str` |
+| `delete_user_memory` | 删除记忆 | `user_id: str, memory_id: str` | `None` |
+| `create_user_memories` | 从一条或多条消息创建记忆 | `message: Optional[str] = None, messages: Optional[List[Message]] = None, user_id: Optional[str] = None` | `str` |
+| `acreate_user_memories` | 从一条或多条消息异步创建记忆 | `message: Optional[str] = None, messages: Optional[List[Message]] = None, user_id: Optional[str] = None` | `str` |
+| `search_user_memories` | 使用指定检索方法搜索用户记忆 | `query: Optional[str] = None, limit: Optional[int] = None, retrieval_method: Optional[Literal["last_n", "first_n", "semantic"]] = None, user_id: Optional[str] = None` | `List[UserMemory]` |
 
-#### Session Summary Management
+#### 会话摘要管理
 
-| Method | Description | Parameters |
+| 方法 | 描述 | 参数 |
 |--------|-------------|------------|
-| `get_session_summaries` | Retrieves all session summaries for a user | `user_id: str` |
-| `get_session_summary` | Gets a specific session summary | `user_id: str, session_id: str` |
-| `create_session_summary` | Creates a summary for a session from the stored session runs | `session_id: str, user_id: Optional[str] = None` |
-| `acreate_session_summary` | Creates a summary for a session from the stored session runs (Async) | `session_id: str, user_id: Optional[str] = None` |
-| `delete_session_summary` | Deletes a session summary | `user_id: str, session_id: str` |
+| `get_session_summaries` | 获取用户所有会话摘要 | `user_id: str` |
+| `get_session_summary` | 获取特定会话摘要 | `user_id: str, session_id: str` |
+| `create_session_summary` | 从存储的会话记录创建会话摘要 | `session_id: str, user_id: Optional[str] = None` |
+| `acreate_session_summary` | 从存储的会话记录异步创建会话摘要 | `session_id: str, user_id: Optional[str] = None` |
+| `delete_session_summary` | 删除会话摘要 | `user_id: str, session_id: str` |
 
 ### UserMemory
 
-| Parameter | Type | Description | Default |
+| 参数 | 类型 | 描述 | 默认值 |
 |-----------|------|-------------|---------|
-| `memory` | `str` | The actual memory content | Required |
-| `topics` | `Optional[List[str]]` | Topics or categories of the memory | `None` |
-| `input` | `Optional[str]` | Original input that generated the memory | `None` |
-| `last_updated` | `Optional[datetime]` | When the memory was last updated | `None` |
-| `memory_id` | `Optional[str]` | Unique identifier for the memory | `None` |
+| `memory` | `str` | 记忆的实际内容 | 必填 |
+| `topics` | `Optional[List[str]]` | 记忆的主题或分类 | `None` |
+| `input` | `Optional[str]` | 生成记忆的原始输入 | `None` |
+| `last_updated` | `Optional[datetime]` | 记忆的最后更新时间 | `None` |
+| `memory_id` | `Optional[str]` | 记忆的唯一标识符 | `None` |
 
 ### SessionSummary
 
-| Parameter | Type | Description | Default |
+| 参数 | 类型 | 描述 | 默认值 |
 |-----------|------|-------------|---------|
-| `summary` | `str` | Concise summary of the session | Required |
-| `topics` | `Optional[List[str]]` | Topics discussed in the session | `None` |
-| `last_updated` | `Optional[datetime]` | When the summary was last updated | `None` |
+| `summary` | `str` | 会话的简明摘要 | 必填 |
+| `topics` | `Optional[List[str]]` | 会话中讨论的主题 | `None` |
+| `last_updated` | `Optional[datetime]` | 摘要的最后更新时间 | `None` |
 
 ### Memory Manager
 
-| Parameter | Type | Description | Default |
+| 参数 | 类型 | 描述 | 默认值 |
 |-----------|------|-------------|---------|
-| `model` | `Optional[Model]` | Model used for managing memories | `None` |
-| `system_message` | `Optional[str]` | Custom system prompt for the memory manager | `None` |
-| `additional_instructions` | `Optional[str]` | Additional instructions added to the end of the system message | `None` |
-
+| `model` | `Optional[Model]` | 用于管理记忆的模型 | `None` |
+| `system_message` | `Optional[str]` | 记忆管理器的自定义系统提示 | `None` |
+| `additional_instructions` | `Optional[str]` | 添加到系统消息末尾的额外指令 | `None` |
 
 ### Session Summarizer
 
-| Parameter | Type | Description | Default |
+| 参数 | 类型 | 描述 | 默认值 |
 |-----------|------|-------------|---------|
-| `model` | `Optional[Model]` | Model used for summarizing sessions | `None` |
-| `system_message` | `Optional[str]` | Custom system prompt for the summarizer | `None` |
-| `additional_instructions` | `Optional[str]` | Additional instructions added to the end of the system message | `None` |
+| `model` | `Optional[Model]` | 用于会话摘要的模型 | `None` |
+| `system_message` | `Optional[str]` | 摘要生成器的自定义系统提示 | `None` |
+| `additional_instructions` | `Optional[str]` | 添加到系统消息末尾的额外指令 | `None` |

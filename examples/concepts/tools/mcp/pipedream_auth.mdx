@@ -1,9 +1,8 @@
 ---
-title: "Pipedream Auth"
-description: "This example shows how to add authorization when integrating Pipedream MCP servers with Agno Agents."
+title: "Pipedream 认证"
+description: "本示例展示了在将Pipedream MCP服务器与Agno智能体集成时如何添加授权功能。"
 ---
-
-## Code
+## 代码
 
 ```python
 """
@@ -62,6 +61,6 @@ async def run_agent(task: str) -> None:
 
 
 if __name__ == "__main__":
-    # The agent can read channels, users, messages, etc.
+    # 智能体可以读取频道、用户、消息等。
     asyncio.run(run_agent("Show me the latest message in the channel #general"))
 ```

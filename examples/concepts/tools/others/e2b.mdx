@@ -1,9 +1,8 @@
 ---
-title: E2B Code Execution
-description: Learn to use Agno's E2B integration to run your Agent-generated code in a secure sandbox.
+title: E2B 代码执行
+description: 学习使用Agno的E2B集成功能，在安全的沙箱环境中运行智能体生成的代码。
 ---
-
-## Code
+## 代码
 
 ```python cookbook/tools/e2b_tools.py
 from agno.agent import Agent
@@ -35,50 +34,50 @@ agent = Agent(
     ],
 )
 
-# Example: Generate Fibonacci numbers
+# 示例：生成斐波那契数列
 agent.print_response(
     "Write Python code to generate the first 10 Fibonacci numbers and calculate their sum and average"
 )
 
-# Example: Data visualization
+# 示例：数据可视化
 agent.print_response(
     "Write a Python script that creates a sample dataset of sales by region and visualize it with matplotlib"
 )
 
-# Example: Run a web server
+# 示例：运行一个 Web 服务器
 agent.print_response(
     "Create a simple FastAPI web server that displays 'Hello from E2B Sandbox!' and run it to get a public URL"
 )
 
-# Example: Sandbox management
+# 示例：沙箱管理
 agent.print_response("What's the current status of our sandbox and how much time is left before timeout?")
 
-# Example: File operations
+# 示例：文件操作
 agent.print_response("Create a text file with the current date and time, then read it back")
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Create an E2B account">
-    Create an account at [E2B](https://e2b.dev/) and get your API key from the dashboard.
+  <Step title="创建一个E2B账户">
+    在[E2B](https://e2b.dev/)创建账户，并从控制台获取您的API密钥。
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install e2b_code_interpreter
     ```
   </Step>
 
-  <Step title="Set your API Key">
+  <Step title="设置您的 API 密钥">
     <CodeGroup>
     ```bash Mac/Linux
     export E2B_API_KEY=your_api_key_here
     ```
 
-    ```bash Windows (Command Prompt)
+    ```bash Windows（命令提示符）
     set E2B_API_KEY=your_api_key_here
     ```
 
@@ -88,7 +87,7 @@ agent.print_response("Create a text file with the current date and time, then re
     </CodeGroup>
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac/Linux
     python cookbook/tools/e2b_tools.py

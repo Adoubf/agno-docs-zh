@@ -1,8 +1,7 @@
 ---
-title: MongoDB Memory Storage
+title: MongoDB 记忆存储
 ---
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/memory/mongodb_memory.py
 """
@@ -17,25 +16,25 @@ from agno.memory.v2.db.mongodb import MongoMemoryDb
 from agno.memory.v2.memory import Memory
 from agno.models.openai.chat import OpenAIChat
 
-# Get MongoDB connection string from environment
-# Format: mongodb://username:password@localhost:27017/
+# 从环境中获取 MongoDB 连接字符串
+# 格式：mongodb://用户名:密码@localhost:27017/
 mongo_url = "mongodb://localhost:27017/"
 database_name = "agno_memory"
 
-# Create MongoDB memory database
+# 创建 MongoDB 内存数据库
 memory_db = MongoMemoryDb(
     connection_string=mongo_url,
     database_name=database_name,
     collection_name="memories"  # Collection name to use in the database
 )
 
-# Create memory instance with MongoDB backend
+# 用 MongoDB 后端创建记忆实例
 memory = Memory(db=memory_db)
 
-# This will create the collection if it doesn't exist
+# 如果该集合不存在，此操作将会创建它
 memory.clear()
 
-# Create agent with memory
+# 创建带记忆的智能体
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     memory=memory,
@@ -43,7 +42,7 @@ agent = Agent(
 )
 
 async def run_example():
-    # Use the agent with MongoDB-backed memory
+    # 使用支持MongoDB记忆存储的智能体
     await agent.aprint_response(
         "My name is Jane Smith and I enjoy painting and photography.",
         user_id="jane@example.com",
@@ -54,7 +53,7 @@ async def run_example():
         user_id="jane@example.com",
     )
     
-    # Display the memories stored in MongoDB
+    # 显示存储在MongoDB中的记忆
     memories = memory.get_user_memories(user_id="jane@example.com")
     print("Memories stored in MongoDB:")
     for i, m in enumerate(memories):
@@ -64,24 +63,24 @@ if __name__ == "__main__":
     asyncio.run(run_example())
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set environment variables">
+  <Step title="设置环境变量">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno openai pymongo
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac/Linux
     python cookbook/agent_concepts/memory/mongodb_memory.py

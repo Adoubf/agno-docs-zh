@@ -1,23 +1,22 @@
 ---
 title: DeepInfra
-description: Learn how to use DeepInfra models in Agno.
+description: 了解如何在 Agno 中使用 DeepInfra 模型。
 ---
+利用 DeepInfra 强大的指令模型及其他功能。
 
-Leverage DeepInfra's powerful command models and more.
+[DeepInfra](https://deepinfra.com) 支持多种模型。查看其模型库请访问[这里](https://deepinfra.com/models)。
 
-[DeepInfra](https://deepinfra.com) supports a wide range of models. See their library of models [here](https://deepinfra.com/models).
+我们建议通过实验找到最适合您用例的模型。以下是一些通用推荐：
 
-We recommend experimenting to find the best-suited model for your use-case. Here are some general recommendations:
+- `deepseek-ai/DeepSeek-R1-Distill-Llama-70B` 模型擅长推理任务。
+- `meta-llama/Llama-2-70b-chat-hf` 模型适合基础用例。
+- `meta-llama/Llama-3.3-70B-Instruct` 模型适用于多步骤任务。
 
-- `deepseek-ai/DeepSeek-R1-Distill-Llama-70B` model is good for reasoning.
-- `meta-llama/Llama-2-70b-chat-hf` model is good for basic use-cases.
-- `meta-llama/Llama-3.3-70B-Instruct` model is good for multi-step tasks.
+DeepInfra 存在速率限制。更多信息请查阅[文档](https://deepinfra.com/docs/advanced/rate-limits)。
 
-DeepInfra has rate limits. See the [docs](https://deepinfra.com/docs/advanced/rate-limits) for more information.
+## 认证
 
-## Authentication
-
-Set your `DEEPINFRA_API_KEY` environment variable. Get your key from [here](https://deepinfra.com/dash/api_keys).
+设置您的 `DEEPINFRA_API_KEY` 环境变量。获取密钥请访问[此处](https://deepinfra.com/dash/api_keys)。
 
 <CodeGroup>
 
@@ -31,9 +30,9 @@ setx DEEPINFRA_API_KEY ***
 
 </CodeGroup>
 
-## Example
+## 示例
 
-Use `DeepInfra` with your `Agent`:
+将 `DeepInfra` 与您的 `Agent` 配合使用：
 
 <CodeGroup>
 
@@ -46,17 +45,17 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response in the terminal
+# 在终端中打印响应
 agent.print_response("Share a 2 sentence horror story.")
 
 ```
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/deepinfra). </Note>
+<Note> 查看更多示例请访问[这里](../examples/models/deepinfra)。 </Note>
 
-## Params
+## 参数
 
 <Snippet file="model-deepinfra-params.mdx" />
 
-`DeepInfra` is a subclass of the [Model](/reference/models/model) class and has access to the same params.
+`DeepInfra` 是 [Model](/reference/models/model) 类的子类，拥有相同的参数访问权限。

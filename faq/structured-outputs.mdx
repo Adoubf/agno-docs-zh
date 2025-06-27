@@ -1,23 +1,22 @@
 ---
-title: Structured outputs
-sidebarTitle: Structured outputs
+title: 结构化输出
+sidebarTitle: 结构化输出
+---
+## 结构化输出 vs JSON模式
+
+在使用语言模型时，生成符合特定结构的响应对于构建可靠应用至关重要。Agno智能体支持两种实现方式：**结构化输出**和**JSON模式**。
+
 ---
 
-## Structured Outputs vs. JSON Mode
+### 结构化输出（默认支持时）
 
-When working with language models, generating responses that match a specific structure is crucial for building reliable applications. Agno Agents support two methods to achieve this: **Structured Outputs** and **JSON mode**.
+"结构化输出"是**首选**且最**可靠**的方式，用于从模型中获取格式良好、符合模式的响应。如果模型类支持，Agno智能体会默认采用结构化输出。
 
----
+通过结构化输出，我们向模型提供模式定义（使用Pydantic或JSON Schema），模型的响应将**严格遵循**该模式。这消除了许多常见问题，如缺失字段、无效枚举值或不一致的格式。当您需要高置信度的结构化响应时（如实体提取、UI渲染内容生成等），结构化输出是理想选择。
 
-### Structured Outputs (Default if supported)
+在此情况下，响应模型会作为关键字参数传递给模型。
 
-"Structured Outputs" is the **preferred** and most **reliable** way to extract well-formed, schema-compliant responses from a Model. If a model class supports it, Agno Agents use Structured Outputs by default.
-
-With structured outputs, we provide a schema to the model (using Pydantic or JSON Schema), and the model’s response is guaranteed to **strictly follow** that schema. This eliminates many common issues like missing fields, invalid enum values, or inconsistent formatting. Structured Outputs are ideal when you need high-confidence, well-structured responses—like entity extraction, content generation for UI rendering, and more.
-
-In this case, the response model is passed as a keyword argument to the model.
-
-## Example
+## 示例
 
 ```python
 from pydantic import BaseModel
@@ -36,17 +35,17 @@ agent = Agent(
 )
 ```
 
-In the example above, the model will generate a response that matches the `User` schema using structured outputs via OpenAI's `gpt-4o` model. The agent will then return the `User` object as-is.
+上例中，模型将通过OpenAI的`gpt-4o`模型使用结构化输出生成符合`User`模式的响应。智能体会直接返回`User`对象。
 
 ---
 
-### JSON Mode
+### JSON模式
 
-Some model classes **do not support Structured Outputs**, or you may want to fall back to JSON mode even when the model supports both options. In such cases, you can enable **JSON mode** by setting `use_json_mode=True`.
+某些模型类**不支持结构化输出**，或者您可能希望在模型同时支持两种选项时仍回退到JSON模式。这种情况下，您可以通过设置`use_json_mode=True`来启用**JSON模式**。
 
-JSON mode works by injecting a detailed description of the expected JSON structure into the system prompt. The model is then instructed to return a valid JSON object that follows this structure. Unlike Structured Outputs, the response is **not automatically validated** against the schema at the API level.
+JSON模式的工作原理是：在系统提示中注入预期JSON结构的详细描述，然后指示模型返回符合该结构的有效JSON对象。与结构化输出不同，该响应**不会在API层级自动验证**是否符合模式。
 
-## Example
+## 示例
 
 ```python
 from pydantic import BaseModel
@@ -67,12 +66,12 @@ agent = Agent(
 
 ```
 
-### When to use
+### 使用场景
 
-Use **Structured Outputs** if the model supports it — it’s reliable, clean, and validated automatically.
+如果模型支持，优先使用**结构化输出**——它可靠、简洁且自动验证。
 
-Use **JSON mode**:
+使用**JSON模式**的情况：
 
-- When the model doesn't support structured outputs. Agno agents do this by default on your behalf.
-- When you need broader compatibility, but are okay validating manually.
-- When the model does not support tools with structured outputs.
+- 当模型不支持结构化输出时（Agno智能体会默认处理）
+- 需要更广泛兼容性且可以接受手动验证时
+- 当模型不支持带结构化输出的工具时

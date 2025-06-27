@@ -1,8 +1,7 @@
 ---
-title: PgVector Integration
+title: PgVector 集成
 ---
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/vector_dbs/pg_vector.py
 from agno.agent import Agent
@@ -23,12 +22,12 @@ agent = Agent(knowledge=knowledge_base, show_tool_calls=True)
 agent.print_response("How to make Thai curry?", markdown=True)
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Start PgVector">
+  <Step title="启动 PgVector">
     ```bash
     docker run -d \
       -e POSTGRES_DB=ai \
@@ -42,15 +41,15 @@ agent.print_response("How to make Thai curry?", markdown=True)
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U sqlalchemy pgvector psycopg pypdf openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果
     python cookbook/agent_concepts/vector_dbs/pg_vector.py
     ```
 

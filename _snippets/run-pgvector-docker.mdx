@@ -1,12 +1,12 @@
-## Run PgVector on Docker
+## 在 Docker 上运行 PgVector
 
-Create a file `resources.py` with the following contents:
+创建一个名为 `resources.py` 的文件，内容如下：
 
 ```python resources.py
 from agno.docker.app.postgres import PgVectorDb
 from agno.docker.resources import DockerResources
 
-# -*- PgVector running on port 5432:5432
+# -*- PgVector 运行在端口 5432:5432
 vector_db = PgVectorDb(
     pg_user="ai",
     pg_password="ai",
@@ -14,15 +14,15 @@ vector_db = PgVectorDb(
     debug_mode=True,
 )
 
-# -*- DockerResources
+# -*- Docker资源
 dev_docker_resources = DockerResources(apps=[vector_db])
 ```
 
-Start resources using:
+使用以下命令启动资源：
 
 <CodeGroup>
 
-```bash Mac
+```bash 苹果
 ag start resources.py
 ```
 
@@ -32,4 +32,4 @@ ag start resources.py
 
 </CodeGroup>
 
-**Press Enter** to confirm and verify container status on the docker dashboard.
+**按 Enter 键**确认并在 Docker 仪表盘中验证容器状态。

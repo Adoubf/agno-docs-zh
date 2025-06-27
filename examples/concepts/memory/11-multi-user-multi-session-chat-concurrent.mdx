@@ -1,14 +1,13 @@
 ---
-title: Multi-User Multi-Session Chat Concurrent
+title: 多用户多会话聊天并发
 ---
+本示例展示如何并行运行多用户、多会话的聊天系统。在该示例中，我们配置了3个用户和4个会话：
 
-This example shows how to run a multi-user, multi-session chat concurrently. In this example, we have 3 users and 4 sessions:
+- 用户1拥有2个会话
+- 用户2拥有1个会话
+- 用户3拥有1个会话
 
-- User 1 has 2 sessions.
-- User 2 has 1 session.
-- User 3 has 1 session.
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/memory/12_multi_user_multi_session_chat_concurrent.py
 import asyncio
@@ -27,7 +26,7 @@ memory_db = SqliteMemoryDb(table_name="memory", db_file="tmp/memory.db")
 
 memory = Memory(model=Claude(id="claude-3-5-sonnet-20241022"), db=memory_db)
 
-# Reset the memory for this example
+# 重置此示例的记忆
 memory.clear()
 
 user_1_id = "user_1@example.com"
@@ -49,7 +48,7 @@ chat_agent = Agent(
 
 async def user_1_conversation():
     """Handle conversation with user 1 across multiple sessions"""
-    # User 1 - Session 1
+    # 用户1 - 会话1
     await chat_agent.arun(
         "My name is Mark Gonzales and I like anime and video games.",
         user_id=user_1_id,
@@ -61,14 +60,14 @@ async def user_1_conversation():
         session_id=user_1_session_1_id,
     )
 
-    # User 1 - Session 2
+    # 用户1 - 会话2
     await chat_agent.arun(
         "I'm going to the movies tonight.",
         user_id=user_1_id,
         session_id=user_1_session_2_id,
     )
 
-    # Continue the conversation in session 1
+    # 继续会话1中的对话
     await chat_agent.arun(
         "What do you suggest I do this weekend?",
         user_id=user_1_id,
@@ -112,7 +111,7 @@ async def run_concurrent_chat_agent():
 
 
 if __name__ == "__main__":
-    # Run all conversations concurrently
+    # 并行运行所有对话
     asyncio.run(run_concurrent_chat_agent())
 
     user_1_memories = memory.get_user_memories(user_id=user_1_id)
@@ -131,24 +130,24 @@ if __name__ == "__main__":
         print(f"{i}: {m.memory}")
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno google-generativeai anthropic
     ```
   </Step>
 
-   <Step title="Set your API keys">
+   <Step title="设置您的 API 密钥">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/memory/12_multi_user_multi_session_chat_concurrent.py
@@ -159,4 +158,4 @@ if __name__ == "__main__":
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

@@ -1,10 +1,9 @@
 ---
-title: "Discussion Team"
+title: "讨论团队"
 ---
+本示例展示如何创建一个讨论团队，允许多个智能体协作处理某个主题。
 
-This example shows how to create a discussion team that allows multiple agents to collaborate on a topic.
-
-## Code
+## 代码示例
 
 ```python discussion_team.py
 import asyncio
@@ -108,29 +107,28 @@ if __name__ == "__main__":
     )
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
 
     <Snippet file="create-venv-step.mdx" />
 
-    <Step title="Install required libraries">
+    <Step title="安装所需库">
         ```bash
         pip install openai duckduckgo-search arxiv pypdf googlesearch-python pycountry 
         ```
     </Step>
 
-    <Step title="Set environment variables">
+    <Step title="设置环境变量">
         ```bash
         export OPENAI_API_KEY=****
         ```
     </Step>
 
-    <Step title="Run the agent">
+    <Step title="运行智能体">
         ```bash
         python discussion_team.py
         ```
     </Step>
 
 </Steps>
-

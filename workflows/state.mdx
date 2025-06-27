@@ -1,17 +1,16 @@
 ---
-title: Workflow State
+title: 工作流状态
 ---
+所有工作流都附带一个 `session_state` 字典，可用于缓存中间结果。该 `session_state` 与 `session_id` 绑定，并可持久化存储至数据库。
 
-All workflows come with a `session_state` dictionary that you can use to cache intermediate results. The `session_state` is tied to a `session_id` and can be persisted to a database.
+为工作流提供 `storage` 即可启用数据库中的会话状态持久化功能。
 
-Provide your workflows with `storage` to enable persistence of session state in a database.
-
-For example, you can use the `SqliteWorkflowStorage` to cache results in a Sqlite database.
+例如，您可以使用 `SqliteWorkflowStorage` 在 Sqlite 数据库中缓存结果。
 
 ```python
-# Create the workflow
+# 创建该工作流程
 generate_blog_post = BlogPostGenerator(
-    # Fix the session_id for this demo
+    # 修复此演示的 session_id
     session_id="my-session-id",
     storage=SqliteWorkflowStorage(
         table_name="generate_blog_post_workflows",
@@ -20,14 +19,14 @@ generate_blog_post = BlogPostGenerator(
 )
 ```
 
-Then in the `run()` method, you can read from and add to the `session_state` as needed.
+随后在 `run()` 方法中，您可以根据需要读取或添加 `session_state`。
 
 ```python
 
 class BlogPostGenerator(Workflow):
-    # ... agents
+    # ... 智能体
     def run(self, topic: str, use_cache: bool = True) -> Iterator[RunResponse]:
-        # Read from the session state cache
+        # 从会话状态缓存中读取
         if use_cache and "blog_posts" in self.session_state:
             logger.info("Checking if cached blog post exists")
             for cached_blog_post in self.session_state["blog_posts"]:
@@ -40,20 +39,20 @@ class BlogPostGenerator(Workflow):
                     )
                     return
 
-        # ... generate the blog post
+        # ... 生成博客文章
 
-        # Save to session state for future runs
+        # 保存至会话状态供后续运行使用
         if "blog_posts" not in self.session_state:
             self.session_state["blog_posts"] = []
         self.session_state["blog_posts"].append({"topic": topic, "blog_post": self.writer.run_response.content})
 ```
 
-When the workflow starts, the `session_state` for that particular `session_id` is read from the database and when the workflow ends, the `session_state` is stored in the database.
+当工作流启动时，特定 `session_id` 的 `session_state` 会从数据库读取；当工作流结束时，`session_state` 将被存储至数据库。
 
 <Tip>
 
-You can always call `self.write_to_storage()` to save the `session_state` to the database at any time. In case you need to abort the workflow but want to store the intermediate results.
+您随时可以调用 `self.write_to_storage()` 将 `session_state` 保存至数据库。这在需要中止工作流但希望保留中间结果时特别有用。
 
 </Tip>
 
-View the [Blog Post Generator](/workflows/introduction#full-example-blog-post-generator) for an example of how to use session state for caching.
+查看[博客文章生成器](/workflows/introduction#full-example-blog-post-generator)了解如何使用会话状态进行缓存的完整示例。

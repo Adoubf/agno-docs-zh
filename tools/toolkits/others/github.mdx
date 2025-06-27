@@ -1,12 +1,11 @@
 ---
-title: Github
+title: GitHub
 ---
+**GithubTools** 使智能体能够访问 Github 仓库并执行诸如列出开放的拉取请求、问题等任务。
 
-**GithubTools** enables an Agent to access Github repositories and perform tasks such as listing open pull requests, issues and more.
+## 先决条件
 
-## Prerequisites
-
-The following examples requires the `PyGithub` library and a Github access token which can be obtained from [here](https://github.com/settings/tokens).
+以下示例需要 `PyGithub` 库和一个可从[此处](https://github.com/settings/tokens)获取的 Github 访问令牌。
 
 ```shell
 pip install -U PyGithub
@@ -16,9 +15,9 @@ pip install -U PyGithub
 export GITHUB_ACCESS_TOKEN=***
 ```
 
-## Example
+## 示例
 
-The following agent will search Google for the latest news about "Mistral AI":
+以下智能体将在 Google 上搜索关于 "Mistral AI" 的最新新闻：
 
 ```python cookbook/tools/github_tools.py
 from agno.agent import Agent
@@ -36,33 +35,33 @@ agent = Agent(
 agent.print_response("List open pull requests", markdown=True)
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter                  | Type   | Default | Description                                                                                                 |
+| 参数                  | 类型   | 默认值 | 描述                                                                                                 |
 | -------------------------- | ------ | ------- | ----------------------------------------------------------------------------------------------------------- |
-| `access_token`             | `str`  | `None`  | Github access token for authentication. If not provided, will use GITHUB_ACCESS_TOKEN environment variable. |
-| `base_url`                 | `str`  | `None`  | Optional base URL for Github Enterprise installations.                                                      |
-| `search_repositories`      | `bool` | `True`  | Enable searching Github repositories.                                                                       |
-| `list_repositories`        | `bool` | `True`  | Enable listing repositories for a user/organization.                                                        |
-| `get_repository`           | `bool` | `True`  | Enable getting repository details.                                                                          |
-| `list_pull_requests`       | `bool` | `True`  | Enable listing pull requests for a repository.                                                              |
-| `get_pull_request`         | `bool` | `True`  | Enable getting pull request details.                                                                        |
-| `get_pull_request_changes` | `bool` | `True`  | Enable getting pull request file changes.                                                                   |
-| `create_issue`             | `bool` | `True`  | Enable creating issues in repositories.                                                                     |
+| `access_token`             | `str`  | `None`  | 用于身份验证的 Github 访问令牌。如果未提供，将使用 GITHUB_ACCESS_TOKEN 环境变量。 |
+| `base_url`                 | `str`  | `None`  | 可选，用于 Github Enterprise 安装的基础 URL。                                                      |
+| `search_repositories`      | `bool` | `True`  | 启用搜索 Github 仓库功能。                                                                       |
+| `list_repositories`        | `bool` | `True`  | 启用为用户/组织列出仓库功能。                                                        |
+| `get_repository`           | `bool` | `True`  | 启用获取仓库详情功能。                                                                          |
+| `list_pull_requests`       | `bool` | `True`  | 启用为仓库列出拉取请求功能。                                                              |
+| `get_pull_request`         | `bool` | `True`  | 启用获取拉取请求详情功能。                                                                        |
+| `get_pull_request_changes` | `bool` | `True`  | 启用获取拉取请求文件变更功能。                                                                   |
+| `create_issue`             | `bool` | `True`  | 启用在仓库中创建问题功能。                                                                     |
 
-## Toolkit Functions
+## 工具包功能
 
-| Function                   | Description                                          |
+| 功能                   | 描述                                          |
 | -------------------------- | ---------------------------------------------------- |
-| `search_repositories`      | Searches Github repositories based on a query.       |
-| `list_repositories`        | Lists repositories for a given user or organization. |
-| `get_repository`           | Gets details about a specific repository.            |
-| `list_pull_requests`       | Lists pull requests for a repository.                |
-| `get_pull_request`         | Gets details about a specific pull request.          |
-| `get_pull_request_changes` | Gets the file changes in a pull request.             |
-| `create_issue`             | Creates a new issue in a repository.                 |
+| `search_repositories`      | 基于查询搜索 Github 仓库。       |
+| `list_repositories`        | 列出给定用户或组织的仓库。 |
+| `get_repository`           | 获取特定仓库的详情。            |
+| `list_pull_requests`       | 列出仓库的拉取请求。                |
+| `get_pull_request`         | 获取特定拉取请求的详情。          |
+| `get_pull_request_changes` | 获取拉取请求中的文件变更。             |
+| `create_issue`             | 在仓库中创建新问题。                 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/github.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/github_tools.py)
+- 查看 [工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/github.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/github_tools.py)

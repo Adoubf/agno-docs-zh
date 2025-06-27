@@ -1,25 +1,24 @@
 ---
-title: What are Agents?
-description: Agents are intelligent programs that can achieve complex tasks by taking actions. Use them to automate repeatable workflows and build new user experiences.
-sidebarTitle: Introduction
+title: 什么是智能体？
+description: 智能体是能够通过执行操作完成复杂任务的智能程序。使用它们来自动化可重复的工作流程并构建全新的用户体验。
+sidebarTitle: 介绍
 ---
+## Agno 智能体
 
-## Agno Agents
+- 使用语言模型进行推理与规划。
+- 运用工具执行操作并与外部系统交互。
+- 在数据库中存储记忆和状态，保留聊天记录、用户偏好及对话摘要。
+- 将知识存储在向量数据库中，用领域专业知识补充其训练数据。
 
-- Use language models for reasoning and planning.
-- Use tools to take actions and interact with external systems.
-- Store memory and state in a database, remembering chat history, user preferences and conversation summaries.
-- Store knowledge in vector databases to supplement their training data with domain expertise.
+![智能体架构](/images/agent.png)
 
-![Agent Architecture](/images/agent.png)
+## 示例：研究型智能体
 
-## Example: Research Agent
-
-Let's create an Agent that can write a research report by searching the web and reading the top links. We **"prompt"** the Agent using `description` and `instructions`.
+让我们创建一个能通过搜索网络并阅读顶部链接来撰写研究报告的智能体。我们使用`description`和`instructions`来**"提示"**智能体。
 
 <Steps>
-  <Step title="Create Research Agent">
-    Create a file `research_agent.py`
+  <Step title="创建研究型智能体">
+    创建文件 `research_agent.py`
 
     ```python research_agent.py
     from agno.agent import Agent
@@ -45,14 +44,14 @@ Let's create an Agent that can write a research report by searching the web and 
     ```
 
   </Step>
-  <Step title="Run the agent">
-    Install libraries
+  <Step title="运行智能体">
+    安装库
 
     ```shell
     pip install agno openai duckduckgo-search newspaper4k lxml_html_clean
     ```
 
-    Run the agent
+    运行智能体
 
     ```shell
     python research_agent.py
@@ -62,15 +61,15 @@ Let's create an Agent that can write a research report by searching the web and 
 </Steps>
 
 <Note>
-Under the hood, the description and instructions are converted to the system prompt and the input is passed as the user prompt.
+在底层机制中，描述和指令会被转换为系统提示，输入内容则作为用户提示传递。
 
-Use `debug_mode=True` to view the raw messages used by the agent.
+使用`debug_mode=True`查看智能体使用的原始消息。
 
 </Note>
 
-## Return Agent response as a variable
+## 将智能体响应作为变量返回
 
-Use the `Agent.run()` function to capture the response as a variable.
+使用`Agent.run()`函数将响应捕获为变量。
 
 ```python
 from agno.agent import Agent, RunResponse
@@ -78,65 +77,65 @@ from agno.utils.pprint import pprint_run_response
 
 agent = Agent(...)
 
-# Run agent and return the response as a variable
+# 运行智能体并将响应返回为变量
 response: RunResponse = agent.run("Simulation theory")
-# Print the response in markdown format
+# # 以Markdown格式打印响应
 pprint_run_response(response, markdown=True)
 ```
 
-By default `stream=False`, set `stream=True` to return a stream.
+默认情况下`stream=False`，设置`stream=True`可返回流式响应。
 
 ```python
 from typing import Iterator
 
-# Run agent and return the response as a stream
+# 运行智能体并返回流式响应
 response_stream: Iterator[RunResponse] = agent.run("Simulation theory", stream=True)
-# Print the response stream in markdown format
+# 以 Markdown 格式输出响应流
 pprint_run_response(response_stream, markdown=True, show_time=True)
 ```
 
 ## RunResponse
 
-The `Agent.run()` function returns a `RunResponse` object or an stream of `RunResponse` objects if `stream=True`.
+`Agent.run()`函数会返回一个`RunResponse`对象，若`stream=True`则返回`RunResponse`对象流。
 
-### Attributes
+### 属性
 
 <ResponseField name="content" type="Any" default="None">
-  Content of the response.
+  响应内容。
 </ResponseField>
 <ResponseField name="content_type" type="str" default="str">
-  Specifies the data type of the content.
+  指定内容的数据类型。
 </ResponseField>
 <ResponseField name="context" type="List[MessageContext]" default="None">
-  The context added to the response for RAG.
+  为RAG添加到响应中的上下文。
 </ResponseField>
 <ResponseField name="event" type="str" default="RunEvent.run_response.value">
-  Event type of the response.
+  响应的事件类型。
 </ResponseField>
 <ResponseField name="event_data" type="Dict[str, Any]" default="None">
-  Data associated with the event.
+  与事件关联的数据。
 </ResponseField>
 <ResponseField name="messages" type="List[Message]" default="None">
-  A list of messages included in the response.
+  响应中包含的消息列表。
 </ResponseField>
 <ResponseField name="metrics" type="Dict[str, Any]" default="None">
-  Usage metrics of the run.
+  运行过程中的用量统计。
 </ResponseField>
 <ResponseField name="model" type="str" default="None">
-  The model used in the run.
+  运行中使用的模型。
 </ResponseField>
 <ResponseField name="run_id" type="str" default="None">
-  Run Id.
+  运行ID。
 </ResponseField>
 <ResponseField name="agent_id" type="str" default="None">
-  Agent Id for the run.
+  本次运行的智能体ID。
 </ResponseField>
 <ResponseField name="session_id" type="str" default="None">
-  Session Id for the run.
+  本次运行的会话ID。
 </ResponseField>
 <ResponseField name="tools" type="List[Dict[str, Any]]" default="None">
-  List of tools provided to the model.
+  提供给模型的工具列表。
 </ResponseField>
 <ResponseField name="created_at" type="int">
-  Unix timestamp of the response creation.
+  响应生成的Unix时间戳。
 </ResponseField>

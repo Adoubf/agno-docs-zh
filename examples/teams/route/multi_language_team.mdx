@@ -1,10 +1,10 @@
 ---
-title: "Multi Language Team"
+title: "多语言团队"
 ---
 
-This example shows how to create a multi language team that can handle different languages.
+该示例展示了如何创建一个能处理多种语言的多语言团队。
 
-## Code
+## 代码
 
 ```python multi_language_team.py
 
@@ -91,7 +91,7 @@ multi_language_team = Team(
 )
 
 
-# Ask "How are you?" in all supported languages
+# 用所有支持的语言问“你好吗？”
 # multi_language_team.print_response(
 #     "How are you?", stream=True  # English
 # )
@@ -120,19 +120,19 @@ multi_language_team.print_response(
 ```
 
 
-## Usage
+## 使用说明
 
 <Steps>
 
     <Snippet file="create-venv-step.mdx" />
 
-    <Step title="Install required libraries">
+    <Step title="安装所需库">
         ```bash
         pip install openai anthropic mistralai
         ```
     </Step>
 
-    <Step title="Set environment variables">
+    <Step title="设置环境变量">
         ```bash
         export OPENAI_API_KEY=****
         export ANTHROPIC_API_KEY=****
@@ -141,11 +141,10 @@ multi_language_team.print_response(
         ```
     </Step>
 
-    <Step title="Run the agent">
+    <Step title="运行智能体">
         ```bash
         python multi_language_team.py
         ```
     </Step>
 
 </Steps>
-

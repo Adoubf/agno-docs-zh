@@ -1,9 +1,8 @@
 ---
-title: Dynamic User Input (Agentic)
-description: This example demonstrates how to implement dynamic user input collection using the `UserControlFlowTools`, allowing the agent to request information as needed during execution.
+title: 动态用户输入（智能体化）
+description: 本示例演示了如何利用`UserControlFlowTools`实现动态用户输入收集功能，使智能体在执行过程中能够按需请求信息。
 ---
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/user_control_flows/agentic_user_input.py
 from typing import List
@@ -61,25 +60,25 @@ agent = Agent(
 )
 
 run_response = agent.run("Send an email with the body 'What is the weather in Tokyo?'")
-# We use a while loop to continue the running until the agent is satisfied with the user input
+# 我们使用一个while循环持续运行，直到智能体对用户输入感到满意为止
 while run_response.is_paused:
     for tool in run_response.tools_requiring_user_input:
         input_schema: List[UserInputField] = tool.user_input_schema
 
         for field in input_schema:
-            # Display field information to the user
+            # 向用户显示字段信息
             print(f"\nField: {field.name}")
             print(f"Description: {field.description}")
             print(f"Type: {field.field_type}")
 
-            # Get user input
+            # 获取用户输入
             if field.value is None:
                 user_value = input(f"Please enter a value for {field.name}: ")
             else:
                 print(f"Value: {field.value}")
                 user_value = field.value
 
-            # Update the field value
+            # 更新字段值
             field.value = user_value
 
     run_response = agent.continue_run(run_response=run_response)
@@ -88,24 +87,24 @@ while run_response.is_paused:
         break
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno openai
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/user_control_flows/agentic_user_input.py
@@ -118,13 +117,13 @@ while run_response.is_paused:
   </Step>
 </Steps>
 
-## Key Features
+## 核心特性
 
-- Uses `UserControlFlowTools` for dynamic user input collection
-- Implements a toolkit with multiple tools that may require user input
-- Handles multiple rounds of user input collection
-- Demonstrates how to continue agent execution after each input round
+- 使用 `UserControlFlowTools` 实现动态用户输入收集  
+- 集成多工具工具包（部分工具可能需要用户输入）  
+- 支持多轮用户输入收集  
+- 展示每轮输入后如何继续执行智能体  
 
-## Use Cases
+## 应用场景  
 
-- Dynamic form-like interactions
+- 动态表单式交互场景

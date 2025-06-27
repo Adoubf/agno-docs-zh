@@ -1,8 +1,7 @@
 ---
-title: Google Search Tools
+title: Google 搜索工具
 ---
-
-## Code
+## 代码
 
 ```python cookbook/tools/googlesearch_tools.py
 from agno.agent import Agent
@@ -16,12 +15,12 @@ agent = Agent(
 agent.print_response("What are the latest developments in AI?")
 ```
 
-## Usage
+## 使用指南
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API credentials">
+  <Step title="设置您的 API 凭证">
     ```bash
     export GOOGLE_CSE_ID=xxx
     export GOOGLE_API_KEY=xxx
@@ -29,13 +28,13 @@ agent.print_response("What are the latest developments in AI?")
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U google-api-python-client openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/googlesearch_tools.py

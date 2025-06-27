@@ -1,15 +1,14 @@
 ---
-title: Workspace Settings
-sidebarTitle: Settings
+title: 工作区设置
+sidebarTitle: 设置
 ---
+`WorkspaceSettings` 对象通常定义在 `workspace/settings.py` 文件中，用于定义工作区应用和资源使用的通用设置。
 
-The `WorkspaceSettings` object, usually defined in the `workspace/settings.py` file is used to defines common settings used by your workspace apps and resources.
+它不是强制性的，除了保存工作区应用和资源使用的配置外，不服务于任何其他目的。`WorkspaceSettings` 对象中的值也可以通过环境变量或 `.env` 文件来设置。
 
-Its not mandatory and doesn't serve any other purpose except to hold configuration used by workspace apps and resources. The values in the `WorkspaceSettings` object can also be set using Environment variables or a `.env` file.
+## 示例
 
-## Example
-
-An example `WorkspaceSettings` used by the `llm-app` template. View this file on [github](https://github.com/agno-agi/llm-app/blob/main/workspace/settings.py)
+`llm-app` 模板使用的 `WorkspaceSettings` 示例。在 [github](https://github.com/agno-agi/llm-app/blob/main/workspace/settings.py) 上查看此文件。
 
 ```python workspace/settings.py
 from pathlib import Path
@@ -17,74 +16,74 @@ from pathlib import Path
 from agno.workspace.settings import WorkspaceSettings
 
 #
-# -*- Define workspace settings using a WorkspaceSettings object
-# these values can also be set using environment variables or a .env file
+# -*- 使用 WorkspaceSettings 对象定义工作区设置
+# 这些值也可以通过环境变量或.env文件来设置
 #
 ws_settings = WorkspaceSettings(
-    # Workspace name: used for naming resources
+    # 工作区名称：用于资源命名
     ws_name="ai",
-    # Path to the workspace root
+    # 工作区根目录路径
     ws_root=Path(__file__).parent.parent.resolve(),
-    # -*- Dev settings
+    # -*- 开发设置
     dev_env="dev",
-    # -*- Dev Apps
+    # -*- 开发应用
     dev_app_enabled=True,
     dev_api_enabled=True,
     dev_db_enabled=True,
     # dev_jupyter_enabled=True,
-    # -*- Production settings
+    # -*- 生产环境设置
     prd_env="prd",
-    # -*- Production Apps
+    # -*- 生产环境应用
     prd_app_enabled=True,
     prd_api_enabled=True,
     prd_db_enabled=True,
-    # -*- AWS settings
-    # Region for AWS resources
+    # -*- AWS 设置
+    # AWS 资源所在区域
     aws_region="us-east-1",
-    # Availability Zones for AWS resources
+    # AWS资源的可用区
     aws_az1="us-east-1a",
     aws_az2="us-east-1b",
-    # Subnet IDs in the aws_region
+    # aws_region 中的子网 ID
     # subnet_ids=["subnet-xyz", "subnet-xyz"],
     #
-    # -*- Image Settings
+    # -*- 镜像设置
     #
-    # Default repository for images
+    # 镜像仓库默认设置
     image_repo="agno"
-    # Build images locally
+    # 本地构建镜像
     build_images=False
-    # Push images after building
+    # 构建后推送镜像
     push_images=False
-    # Skip cache when building images
+    # 构建镜像时跳过缓存
     skip_image_cache=False
-    # Force pull images in FROM
+    # 强制拉取 FROM 中的镜像
     force_pull_images=False
 )
 ```
 
-## Usage
+## 使用方法
 
-Use the workspace settings to
+使用工作区设置可以：
 
-- Name resources
-- Get the workspace root path using `ws_settings.ws_root`
+- 命名资源
+- 通过 `ws_settings.ws_root` 获取工作区根路径
 
 ```python dev_resources.py
 ...
-# -*- Streamlit running on port 8501:8501
+# -*- Streamlit 运行于端口 8501:8501
 dev_streamlit = Streamlit(
     name=f"{ws_settings.dev_key}-app",
     enabled=ws_settings.dev_app_enabled,
     ...
-    # Read secrets from secrets/dev_app_secrets.yml
+    # 从 secrets/dev_app_secrets.yml 读取密钥
     secrets_file=ws_settings.ws_root.joinpath("workspace/secrets/dev_app_secrets.yml")
 )
 ```
 
-- Hold AWS constants like `availability zone` and `subnets`
+- 保存 AWS 常量，例如 `availability zone` 和 `subnets`
 
 ```python prd_resources.py
-# -*- FastAPI running on ECS
+# -*- 运行于ECS上的FastAPI
 prd_fastapi = FastApi(
     name=f"{ws_settings.prd_key}-api",
     enabled=ws_settings.prd_api_enabled,
@@ -93,7 +92,7 @@ prd_fastapi = FastApi(
     ...
 )
 
-# -*- RDS Database Instance
+# -*- RDS 数据库实例
 prd_db = DbInstance(
     name=f"{ws_settings.prd_key}-db",
     enabled=ws_settings.prd_db_enabled,

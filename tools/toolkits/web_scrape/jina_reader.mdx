@@ -1,20 +1,19 @@
 ---
-title: Jina Reader
+title: Jina阅读器
 ---
+**JinaReaderTools** 使智能体能够使用 Jina 执行网络搜索任务。
 
-**JinaReaderTools** enable an Agent to perform web search tasks using Jina.
+## 前提条件
 
-## Prerequisites
-
-The following example requires the `jina` library.
+以下示例需要 `jina` 库。
 
 ```shell
 pip install -U jina
 ```
 
-## Example
+## 示例
 
-The following agent will use Jina API to summarize the content of https://github.com/AgnoAgi
+以下智能体将使用 Jina API 对 https://github.com/AgnoAgi 的内容进行摘要。
 
 ```python cookbook/tools/jinareader.py
 from agno.agent import Agent
@@ -24,23 +23,23 @@ agent = Agent(tools=[JinaReaderTools()])
 agent.print_response("Summarize: https://github.com/AgnoAgi")
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter            | Type  | Default | Description                                                                |
+| 参数            | 类型  | 默认值 | 描述                                                                 |
 | -------------------- | ----- | ------- | -------------------------------------------------------------------------- |
-| `api_key`            | `str` | -       | The API key for authentication purposes, retrieved from the configuration. |
-| `base_url`           | `str` | -       | The base URL of the API, retrieved from the configuration.                 |
-| `search_url`         | `str` | -       | The URL used for search queries, retrieved from the configuration.         |
-| `max_content_length` | `int` | -       | The maximum length of content allowed, retrieved from the configuration.   |
+| `api_key`            | `str` | -       | 用于身份验证的 API 密钥，从配置中获取。 |
+| `base_url`           | `str` | -       | API 的基础 URL，从配置中获取。                 |
+| `search_url`         | `str` | -       | 用于搜索查询的 URL，从配置中获取。         |
+| `max_content_length` | `int` | -       | 允许的内容最大长度，从配置中获取。   |
 
-## Toolkit Functions
+## 工具包功能
 
-| Function       | Description                                                                                                                                                                                            |
+| 功能       | 描述                                                                                                                                                                                            |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `read_url`     | Reads the content of a specified URL using Jina Reader API. Parameters include `url` for the URL to read. Returns the truncated content or an error message if the request fails.                      |
-| `search_query` | Performs a web search using Jina Reader API based on a specified query. Parameters include `query` for the search term. Returns the truncated search results or an error message if the request fails. |
+| `read_url`     | 使用 Jina Reader API 读取指定 URL 的内容。参数包括 `url` 用于指定要读取的 URL。返回截断的内容或请求失败时的错误消息。                      |
+| `search_query` | 使用 Jina Reader API 根据指定查询执行网络搜索。参数包括 `query` 用于搜索关键词。返回截断的搜索结果或请求失败时的错误消息。 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/jina_reader.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/jina_reader_tools.py)
+- 查看 [工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/jina_reader.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/jina_reader_tools.py)

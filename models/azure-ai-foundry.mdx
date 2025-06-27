@@ -1,37 +1,36 @@
 ---
-title: Azure AI Foundry
-description: Learn how to use Azure AI Foundry models in Agno.
+title: Azure AI 铸造厂
+description: 了解如何在 Agno 中使用 Azure AI Foundry 模型。
 ---
+使用托管在Azure基础设施上的各类开源模型。了解更多信息请访问[这里](https://learn.microsoft.com/azure/ai-services/models)。
 
-Use various open source models hosted on Azure's infrastructure. Learn more [here](https://learn.microsoft.com/azure/ai-services/models).
+Azure AI Foundry提供对`Phi`、`Llama`、`Mistral`、`Cohere`等模型的访问权限。
 
-Azure AI Foundry provides access to models like `Phi`, `Llama`, `Mistral`, `Cohere` and more.
+## 认证
 
-## Authentication
-
-Navigate to Azure AI Foundry on the [Azure Portal](https://portal.azure.com/) and create a service. Then set your environment variables:
+访问[Azure门户](https://portal.azure.com/)上的Azure AI Foundry并创建服务。然后设置环境变量：
 
 <CodeGroup>
 
 ```bash Mac
 export AZURE_API_KEY=***
 export AZURE_ENDPOINT=***  # Of the form https://<your-host-name>.<your-azure-region>.models.ai.azure.com/models
-# Optional:
+# 可选：
 # export AZURE_API_VERSION=***
 ```
 
 ```bash Windows
 setx AZURE_API_KEY ***  # Of the form https://<your-host-name>.<your-azure-region>.models.ai.azure.com/models
 setx AZURE_ENDPOINT ***
-# Optional:
+# 可选：
 # setx AZURE_API_VERSION ***
 ```
 
 </CodeGroup>
 
-## Example
+## 示例
 
-Use `AzureAIFoundry` with your `Agent`:
+将`AzureAIFoundry`与您的`Agent`配合使用：
 
 <CodeGroup>
 
@@ -44,18 +43,18 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response on the terminal
+# 在终端打印响应
 agent.print_response("Share a 2 sentence horror story.")
 ```
 
 </CodeGroup>
 
-## Advanced Examples
+## 高级示例
 
-View more examples [here](../examples/models/azure/ai_foundry).
+查看更多示例请访问[这里](../examples/models/azure/ai_foundry)。
 
-## Parameters
+## 参数
 
 <Snippet file="model-azure-ai-foundry-params.mdx" />
 
-`AzureAIFoundry` is a subclass of the [Model](/reference/models/model) class and has access to the same params. 
+`AzureAIFoundry`是[Model](/reference/models/model)类的子类，可以访问相同的参数。

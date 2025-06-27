@@ -1,9 +1,9 @@
 ---
-title: Multiple Agents Sharing Memory
+title: 多智能体共享记忆
 ---
-In this example, we have two agents that share the same memory.
+在本示例中，我们有两个共享相同记忆的智能体。
 
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/memory/09_agents_share_memory.py
 
@@ -16,10 +16,10 @@ from rich.pretty import pprint
 
 memory_db = SqliteMemoryDb(table_name="memory", db_file="tmp/memory.db")
 
-# No need to set the model, it gets set by the agent to the agent's model
+# 无需设置模型，智能体会将其设置为自身使用的模型
 memory = Memory(db=memory_db)
 
-# Reset the memory for this example
+# 重置此示例的记忆
 memory.clear()
 
 john_doe_id = "john_doe@example.com"
@@ -59,24 +59,24 @@ print("Memories about John Doe:")
 pprint(memories)
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的API密钥">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno google-generativeai duckduckgo-search
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/memory/09_agents_share_memory.py

@@ -1,12 +1,11 @@
 ---
-title: Arize Phoenix via OpenInference (Local Collector)
+title: Arize Phoenix 通过 OpenInference（本地收集器）
 ---
+## 概述
 
-## Overview
+本示例演示如何通过OpenInference对您的Agno智能体进行检测，并将追踪数据发送至本地Arize Phoenix收集器。
 
-This example demonstrates how to instrument your Agno agent with OpenInference and send traces to a local Arize Phoenix collector.
-
-## Code
+## 代码
 
 ```python
 import os
@@ -16,16 +15,16 @@ from agno.models.openai import OpenAIChat
 from agno.tools.yfinance import YFinanceTools
 from phoenix.otel import register
 
-# Set the local collector endpoint for Arize Phoenix
+# 设置 Arize Phoenix 的本地收集器端点
 os.environ["PHOENIX_COLLECTOR_ENDPOINT"] = "http://localhost:6006"
 
-# Configure the Phoenix tracer
+# 配置 Phoenix 追踪器
 tracer_provider = register(
     project_name="agno-stock-price-agent",  # Default is 'default'
     auto_instrument=True,  # Automatically use the installed OpenInference instrumentation
 )
 
-# Create and configure the agent
+# 创建并配置智能体
 agent = Agent(
     name="Stock Price Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
@@ -34,29 +33,29 @@ agent = Agent(
     debug_mode=True,
 )
 
-# Use the agent
+# 使用智能体
 agent.print_response("What is the current price of Tesla?")
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
-  <Step title="Install Dependencies">
+  <Step title="安装依赖项">
     ```bash
     pip install agno arize-phoenix openai openinference-instrumentation-agno opentelemetry-sdk opentelemetry-exporter-otlp
     ```
   </Step>
 
-  <Step title="Start Local Collector">
-    Run the following command to start the local collector:
+  <Step title="启动本地收集器">
+    运行以下命令启动本地收集器：
     ```bash
     phoenix serve
     ```
   </Step>
 
-  <Step title="Run the Agent">
+  <Step title="运行智能体">
     <CodeGroup>
-    ```bash Mac
+    ```bash Mac（苹果电脑）
     python cookbook/observability/arize_phoenix_via_openinference_local.py
     ```
 

@@ -1,8 +1,7 @@
 ---
-title: Calculator
+title: 计算器
 ---
-
-## Code
+## 代码
 
 ```python cookbook/tools/calculator_tools.py
 from agno.agent import Agent
@@ -27,24 +26,24 @@ agent = Agent(
 agent.print_response("What is 10*5 then to the power of 2, do it step by step")
 ```
 
-## Usage
+## 使用指南
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的API密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/calculator_tools.py

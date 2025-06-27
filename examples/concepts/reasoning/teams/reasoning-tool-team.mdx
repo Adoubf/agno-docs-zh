@@ -1,12 +1,12 @@
 ---
-title: Team with Reasoning Tools
+title: 搭载推理工具的团队
 ---
-This is a multi-agent team reasoning example with reasoning tools.
+这是一个使用推理工具的多智能体团队协作示例。
 <Tip>
-Enabling the reasoning option on the team leader helps optimize delegation and enhances multi-agent collaboration by selectively invoking deeper reasoning when required.
+在团队领导者上启用推理选项，有助于优化任务委派并通过在需要时选择性调用深度推理来增强多智能体协作。
 </Tip>
 
-## Code
+## 代码
 ```python cookbook/reasoning/teams/reasoning_finance_team.py
 from textwrap import dedent
 
@@ -94,25 +94,25 @@ if __name__ == "__main__":
    
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的API密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     export ANTHROPIC_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai anthropic agno
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/reasoning/teams/reasoning_finance_team.py

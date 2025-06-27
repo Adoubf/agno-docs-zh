@@ -1,16 +1,14 @@
 ---
-title: "Agent App: FastAPI, Streamlit and Postgres"
-sidebarTitle: Running locally
+title: "智能体应用：FastAPI、Streamlit 与 Postgres"
+sidebarTitle: 本地运行
 ---
+Agent App 是我们构建智能体系统的核心工作区。它包含：
 
-The Agent App is our go-to workspace for building agentic systems. It contains:
+- 用于部署智能体、团队和工作流程的 FastAPI 服务器
+- 用于调试和测试的 streamlit 应用。该 streamlit 应用功能多样，可作为智能体系统的管理界面并展示各类数据
+- 用于会话和向量存储的 postgres 数据库
 
-- A FastAPI server for serving Agents, Teams and Workflows.
-- A streamlit application for debugging and testing. This streamlit app is very versatile and can be used as an admin interface for the agentic system and shows all sorts of data.
-- A postgres database for session and vector storage.
-
-
-It's designed to run locally using docker and in production on AWS.
+该系统设计为本地通过 docker 运行，生产环境部署于 AWS。
 
 <Snippet file="setup.mdx" />
 
@@ -20,14 +18,14 @@ It's designed to run locally using docker and in production on AWS.
 
 <Snippet file="stop-local-workspace.mdx" />
 
-## Next
+## 后续步骤
 
-Congratulations on running your AI App locally. Next Steps:
+恭喜您成功在本地运行 AI 应用。后续操作建议：
 
-- [Run your Agent App on AWS](/workspaces/agent-app/aws)
-- Read how to [update workspace settings](/workspaces/workspace-management/workspace-settings)
-- Read how to [create a git repository for your workspace](/workspaces/workspace-management/git-repo)
-- Read how to [manage the development application](/workspaces/workspace-management/development-app)
-- Read how to [format and validate your code](/workspaces/workspace-management/format-and-validate)
-- Read how to [add python libraries](/workspaces/workspace-management/install)
-- Chat with us on [discord](https://agno.link/discord)
+- [在 AWS 上运行 Agent App](/workspaces/agent-app/aws)
+- 阅读如何[更新工作区设置](/workspaces/workspace-management/workspace-settings)
+- 阅读如何[为工作区创建 git 仓库](/workspaces/workspace-management/git-repo)
+- 阅读如何[管理开发应用](/workspaces/workspace-management/development-app)
+- 阅读如何[代码格式化与验证](/workspaces/workspace-management/format-and-validate)
+- 阅读如何[添加 Python 库](/workspaces/workspace-management/install)
+- 通过 [discord](https://agno.link/discord) 与我们交流

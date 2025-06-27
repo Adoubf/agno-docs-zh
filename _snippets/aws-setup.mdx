@@ -1,27 +1,27 @@
-## AWS Setup
+## AWS 配置
 
 <Steps>
-  <Step title="Update Credentials">
-    To run on AWS, you need **one** of the following:
+  <Step title="更新凭据">
+    在 AWS 上运行需要满足以下任一条件：
 
-    1. The `~/.aws/credentials` file with your AWS credentials
-    2. **or** `AWS_ACCESS_KEY_ID` + `AWS_SECRET_ACCESS_KEY` environment variables
+    1. 具有 AWS 凭证的 `~/.aws/credentials` 文件
+    2. 或 `AWS_ACCESS_KEY_ID` + `AWS_SECRET_ACCESS_KEY` 环境变量
 
     <Note>
 
-    To create the credentials file, install the [aws cli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) and run `aws configure`
+    要创建凭证文件，请安装 [aws cli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) 并运行 `aws configure`
 
     </Note>
 
   </Step>
-  <Step title="Update region and subnets">
-    Update the `aws_region` and add 2 [subnets](https://us-east-1.console.aws.amazon.com/vpc/home?#subnets:) to the `workspace/settings.py` file (required for ECS services)
+  <Step title="更新区域和子网">
+    更新 `aws_region` 并向 `workspace/settings.py` 文件添加 2 个 [子网](https://us-east-1.console.aws.amazon.com/vpc/home?#subnets:)（ECS 服务必需）
 
     ```python workspace/settings.py
     ws_settings = WorkspaceSettings(
         ...
-        # -*- AWS settings
-        # Add your Subnet IDs here
+        # -*- AWS 设置
+        # 在此处添加您的子网ID
         subnet_ids=["subnet-xyz", "subnet-xyz"],
         ...
     )
@@ -29,7 +29,7 @@
 
     <Note>
 
-    Please check that the subnets belong to the selected `aws_region`
+    请确保子网属于所选的 `aws_region`
 
     </Note>
 

@@ -1,36 +1,35 @@
 ---
-title: Add Python Libraries
+title: 添加 Python 库
 ---
+Agno模板配置为使用[pyproject.toml](https://packaging.python.org/en/latest/specifications/declaring-project-metadata/#declaring-project-metadata)文件管理依赖项，**该文件用于通过[uv](https://github.com/astral-sh/uv)或[pip-tools](https://pip-tools.readthedocs.io/en/latest/)生成`requirements.txt`文件。**
 
-Agno templates are setup to manage dependencies using a [pyproject.toml](https://packaging.python.org/en/latest/specifications/declaring-project-metadata/#declaring-project-metadata) file, **which is used to generate the `requirements.txt` file using [uv](https://github.com/astral-sh/uv) or [pip-tools](https://pip-tools.readthedocs.io/en/latest/).**
+添加或更新Python库分为两个步骤：
 
-Adding or Updating a python library is a 2 step process:
-
-1. Add library to the `pyproject.toml` file
-2. Auto-Generate the `requirements.txt` file
+1. 将库添加到`pyproject.toml`文件
+2. 自动生成`requirements.txt`文件
 
 <Warning>
 
-We highly recommend auto-generating the `requirements.txt` file using this process.
+我们强烈推荐通过此流程自动生成`requirements.txt`文件。
 
 </Warning>
 
-## Update pyproject.toml
+## 更新pyproject.toml
 
-- Open the `pyproject.toml` file
-- Add new libraries to the dependencies section.
+- 打开`pyproject.toml`文件
+- 在依赖项部分添加新库
 
-## Generate requirements
+## 生成requirements
 
-After updating the `dependencies` in the `pyproject.toml` file, auto-generate the `requirements.txt` file using a helper script or running `pip-compile` directly.
+更新`pyproject.toml`文件中的`dependencies`后，使用辅助脚本或直接运行`pip-compile`来自动生成`requirements.txt`文件。
 
 <CodeGroup>
 
-```bash terminal
+```bash 终端
 ./scripts/generate_requirements.sh
 ```
 
-```bash pip compile
+```bash pip 编译
 pip-compile \
     --no-annotate \
     --pip-args "--no-cache-dir" \
@@ -39,15 +38,15 @@ pip-compile \
 
 </CodeGroup>
 
-If you'd like to upgrade all python libraries to their latest version, run:
+如需将所有Python库升级至最新版本，请运行：
 
 <CodeGroup>
 
-```bash terminal
+```bash 终端
 ./scripts/generate_requirements.sh upgrade
 ```
 
-```bash pip compile
+```bash pip 编译
 pip-compile \
     --upgrade \
     --no-annotate \
@@ -57,71 +56,71 @@ pip-compile \
 
 </CodeGroup>
 
-## Rebuild Images
+## 重建镜像
 
-After updating the `requirements.txt` file, rebuild your images.
+更新`requirements.txt`文件后，请重建您的镜像。
 
-### Rebuild dev images
+### 重建开发镜像
 
 <CodeGroup>
 
-```bash terminal
+```bash 终端
 ag ws up --env dev --infra docker --type image
 ```
 
-```bash short options
+```bash 简短选项
 ag ws up -e dev -i docker -t image
 ```
 
 </CodeGroup>
 
-### Rebuild production images
+### 重建生产镜像
 
 <Note>
 
-Remember to [authenticate with ECR](workspaces/workspace-management/production-app#ecr-images) if needed.
+必要时请记得[进行ECR认证](workspaces/workspace-management/production-app#ecr-images)。
 
 </Note>
 
 <CodeGroup>
 
-```bash terminal
+```bash 终端
 ag ws up --env prd --infra aws --type image
 ```
 
-```bash short options
+```bash 简称选项
 ag ws up -e prd -i aws -t image
 ```
 
 </CodeGroup>
 
-## Recreate Resources
+## 重建资源
 
-After rebuilding images, recreate the resources.
+镜像重建完成后，请重建资源。
 
-### Recreate dev containers
+### 重建开发容器
 
 <CodeGroup>
 
-```bash terminal
+```bash 终端
 ag ws restart --env dev --infra docker --type container
 ```
 
-```bash short options
+```bash 简短选项
 ag ws restart -e dev -c docker -t container
 ```
 
 </CodeGroup>
 
-### Update ECS services
+### 更新ECS服务
 
 <CodeGroup>
 
-```bash terminal
+```bash 终端
 ag ws patch --env prd --infra aws --name service
 ```
 
-```bash short options
+```bash 简短选项
 ag ws patch -e prd -i aws -n service
 ```
 

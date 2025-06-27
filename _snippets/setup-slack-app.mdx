@@ -1,27 +1,27 @@
-## Setup and Configuration
+## 安装与配置
 <Steps>
 
-<Step title="Prerequisites">
-Ensure you have the following:
-- A Slack workspace with admin privileges
-- ngrok (for development)
-- Python 3.7+
+<Step title="前提条件">
+确保您拥有以下条件：
+- 具有管理员权限的Slack工作区
+- ngrok（用于开发环境）
+- Python 3.7及以上版本
 </Step>
 
-<Step title="Create a Slack App">
-1. Go to [Slack App Directory](https://api.slack.com/apps)
-2. Click "Create New App"
-3. Select "From scratch"
-4. Provide:
-    - App name
-    - Workspace to install to
-5. Click "Create App"
+<Step title="创建 Slack 应用">
+1. 访问 [Slack应用目录](https://api.slack.com/apps)
+2. 点击"创建新应用"
+3. 选择"从头开始"
+4. 填写：
+    - 应用名称
+    - 要安装到的工作区
+5. 点击"创建应用"
 </Step>
 
-<Step title="Configure OAuth & Permissions">
-1. Navigate to "OAuth & Permissions" in your Slack App settings
-2. Under "Scopes", click "Add an OAuth Scope"
-3. Add the following Bot Token Scopes:
+<Step title="配置 OAuth 与权限">
+1. 在Slack应用设置中导航至"OAuth & Permissions"
+2. 在"Scopes"下点击"Add an OAuth Scope"
+3. 添加以下Bot Token权限：
    - `app_mention`
    - `chat:write`
    - `chat:write.customize`
@@ -29,63 +29,63 @@ Ensure you have the following:
    - `im:history`
    - `im:read`
    - `im:write`
-4. Scroll to the top and click "Install to Workspace"
-5. Click "Allow" to authorize the app
+4. 滚动至顶部并点击"Install to Workspace"
+5. 点击"Allow"授权应用
 </Step>
 
-<Step title="Setup Environment Variables">
-Create a `.envrc` file in your project root with the following content, replacing placeholder values with your actual credentials:
+<Step title="设置环境变量">
+在项目根目录创建`.envrc`文件，内容如下（请替换占位符为实际凭证）：
 ```bash
 export SLACK_TOKEN="xoxb-your-bot-user-token"  # Bot User OAuth Token
 export SLACK_SIGNING_SECRET="your-signing-secret"  # App Signing Secret
 ```
 
-Find these values in your Slack App settings:
-- Bot User OAuth Token: Under "OAuth & Permissions"
-- Signing Secret: Under "Basic Information" > "App Credentials"
+在Slack应用设置中查找以下值：
+- Bot User OAuth Token：位于"OAuth & Permissions"
+- Signing Secret：位于"Basic Information" > "App Credentials"
 
-Ensure this file is sourced by your shell (e.g., by using `direnv allow`).
+确保该文件被shell加载（例如使用`direnv allow`）。
 </Step>
 
-<Step title="Setup Webhook with ngrok">
-1. For local development, use ngrok to expose your local server to the internet:
+<Step title="使用 ngrok 设置 Webhook">
+1. 本地开发时，使用ngrok将本地服务器暴露到公网：
    ```bash
    ngrok http 8000
-   # Or, if you have a paid ngrok plan with a static domain:
+   # 或者，如果您拥有带有静态域名的付费 ngrok 计划：
    # ngrok http --domain=your-custom-domain.ngrok-free.app 8000
    ```
-2. Copy the `https://` URL provided by ngrok
-3. In your Slack App settings, go to "Event Subscriptions"
-4. Enable events by toggling the switch
-5. Add your Request URL:
-   - Format: `https://your-ngrok-url.ngrok.io/slack/events`
-6. Wait for Slack to verify the endpoint (your app must be running)
+2. 复制ngrok提供的`https://` URL
+3. 在Slack应用设置中前往"Event Subscriptions"
+4. 通过开关启用事件订阅
+5. 添加Request URL：
+   - 格式：`https://your-ngrok-url.ngrok.io/slack/events`
+6. 等待Slack验证端点（此时应用需保持运行状态）
 </Step>
 
-<Step title="Configure Event Subscriptions">
-1. Under "Subscribe to bot events" in Event Subscriptions:
-2. Click "Add Bot User Event" and add:
+<Step title="配置事件订阅">
+1. 在事件订阅的"Subscribe to bot events"中：
+2. 点击"Add Bot User Event"并添加：
    - `app_mention`
    - `message.im`
    - `message.channels`
    - `message.groups`
-3. Click "Save Changes"
-4. Reinstall your app to apply the new permissions
+3. 点击"Save Changes"
+4. 重新安装应用以应用新权限
 </Step>
 
-<Step title="Enable App Home">
-1. Go to "App Home" in your Slack App settings
-2. Under "Show Tabs":
-   - Enable "Messages Tab"
-   - Check "Allow users to send Slash commands and messages from the messages tab"
-3. Save changes
+<Step title="启用应用主页">
+1. 在Slack应用设置中前往"App Home"
+2. 在"Show Tabs"下：
+   - 启用"Messages Tab"
+   - 勾选"Allow users to send Slash commands and messages from the messages tab"
+3. 保存变更
 </Step>
 
-<Step title="Final Installation">
-1. Go back to "Install App" in your Slack App settings
-2. Click "Reinstall to Workspace"
-3. Authorize the app with the new permissions
-4. Your app is now ready to use!
+<Step title="最终安装">
+1. 返回Slack应用设置中的"Install App"
+2. 点击"Reinstall to Workspace"
+3. 使用新权限重新授权应用
+4. 您的应用现已准备就绪！
 </Step>
 
 </Steps>

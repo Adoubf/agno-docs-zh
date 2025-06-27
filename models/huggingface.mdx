@@ -1,18 +1,17 @@
 ---
 title: HuggingFace
-description: Learn how to use HuggingFace models in Agno.
+description: 了解如何在 Agno 中使用 HuggingFace 模型。
 ---
+Hugging Face 提供了一系列最先进的语言模型，专为多样化NLP任务定制，
+涵盖文本生成、摘要、翻译和问答等功能。
+这些模型可通过Hugging Face Transformers库获取，
+因其易用性、灵活性及完备的文档而被广泛采用。
 
-Hugging Face provides a wide range of state-of-the-art language models tailored to diverse NLP tasks,
-including text generation, summarization, translation, and question answering.
-These models are available through the Hugging Face Transformers library and are widely
-adopted due to their ease of use, flexibility, and comprehensive documentation.
+探索HuggingFace语言模型[请点击此处](https://huggingface.co/docs/text-generation-inference/en/supported_models)。
 
-Explore HuggingFace’s language models [here](https://huggingface.co/docs/text-generation-inference/en/supported_models).
+## 认证
 
-## Authentication
-
-Set your `HF_TOKEN` environment. You can get one [from HuggingFace here](https://huggingface.co/settings/tokens).
+设置您的 `HF_TOKEN` 环境变量。访问HuggingFace[获取令牌](https://huggingface.co/settings/tokens)。
 
 <CodeGroup>
 
@@ -26,9 +25,9 @@ setx HF_TOKEN ***
 
 </CodeGroup>
 
-## Example
+## 示例
 
-Use `HuggingFace` with your `Agent`:
+将 `HuggingFace` 与您的 `Agent` 配合使用：
 
 <CodeGroup>
 
@@ -44,16 +43,16 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response on the terminal
+# 在终端打印响应
 agent.print_response("Share a 2 sentence horror story.")
 ```
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/huggingface). </Note>
+<Note> 查看更多示例[请访问此链接](../examples/models/huggingface)。 </Note>
 
-## Params
+## 参数
 
 <Snippet file="model-hf-params.mdx" />
 
-`HuggingFace` is a subclass of the [Model](/reference/models/model) class and has access to the same params.
+`HuggingFace` 是[Model](/reference/models/model)类的子类，可访问相同参数。

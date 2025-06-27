@@ -1,32 +1,32 @@
-## Delete AWS resources
+## 删除AWS资源
 
-Play around and then delete AWS resources using:
+完成测试后，请使用以下命令删除AWS资源：
 
 <CodeGroup>
 
-```bash terminal
+```bash 终端
 ag ws down --env prd --infra aws
 ```
 
-```bash shorthand
+```bash 速记
 ag ws down prd:aws
 ```
 
 </CodeGroup>
 
-or delete individual resource groups using:
+或通过以下命令删除单个资源组：
 
 <CodeGroup>
 
-```bash app
+```bash 应用程序
 ag ws down --env prd --infra aws --group app
 ```
 
-```bash api
+```bash API
 ag ws down --env prd --infra aws --group api
 ```
 
-```bash database
+```bash 数据库
 ag ws down --env prd --infra aws --group db
 ```
 

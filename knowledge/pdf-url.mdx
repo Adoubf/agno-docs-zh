@@ -1,16 +1,15 @@
 ---
-title: PDF URL Knowledge Base
-description: Learn how to use remote PDFs in your knowledge base.
-sidebarTitle: PDF URLs
+title: PDF 网址知识库
+description: 了解如何在知识库中使用远程 PDF 文件。
+sidebarTitle: PDF 网址
 ---
+**PDFUrlKnowledgeBase** 从**URL链接读取PDF文件**，将其转化为向量嵌入并加载至向量数据库。
 
-The **PDFUrlKnowledgeBase** reads **PDFs from urls**, converts them into vector embeddings and loads them to a vector database.
-
-## Usage
+## 使用方法
 
 <Note>
 
-We are using a local PgVector database for this example. [Make sure it's running](https://docs.agno.com/vectordb/pgvector)
+本示例使用本地PgVector数据库。[确保数据库已运行](https://docs.agno.com/vectordb/pgvector)
 
 </Note>
 
@@ -24,7 +23,7 @@ from agno.vectordb.pgvector import PgVector
 
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["pdf_url"],
-    # Table name: ai.pdf_documents
+    # 表名：ai.pdf_documents
     vector_db=PgVector(
         table_name="pdf_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -32,7 +31,7 @@ knowledge_base = PDFUrlKnowledgeBase(
 )
 ```
 
-Then use the `knowledge_base` with an Agent:
+随后在智能体中使用`knowledge_base`：
 
 ```python agent.py
 from agno.agent import Agent
@@ -47,12 +46,12 @@ agent.knowledge.load(recreate=False)
 agent.print_response("Ask me about something from the knowledge base")
 ```
 
-#### PDFUrlKnowledgeBase also supports async loading.
+#### PDFUrlKnowledgeBase也支持异步加载
 
 ```shell
 pip install qdrant-client
 ```
-We are using a local Qdrant database for this example. [Make sure it's running](https://docs.agno.com/vectordb/qdrant)
+本示例使用本地Qdrant数据库。[确保数据库已运行](https://docs.agno.com/vectordb/qdrant)
 
 ```python async_knowledge_base.py
 import asyncio
@@ -65,37 +64,37 @@ COLLECTION_NAME = "pdf-url-reader"
 
 vector_db = Qdrant(collection=COLLECTION_NAME, url="http://localhost:6333")
 
-# Create a knowledge base with the PDFs from the data/pdfs directory
+# 使用 data/pdfs 目录中的 PDF 文件创建知识库
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
     vector_db=vector_db,
     reader=PDFUrlReader(chunk=True),
 )
 
-# Create an agent with the knowledge base
+# 创建一个具有知识库的智能体
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
 )
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 首次运行后注释掉
     asyncio.run(knowledge_base.aload(recreate=False))
 
-    # Create and use the agent
+    # 创建并使用智能体
     asyncio.run(agent.aprint_response("How to make Thai curry?", markdown=True))
 ```
-## Params
 
-| Parameter | Type           | Default | Description                                                                         |
-| --------- | -------------- | ------- | ----------------------------------------------------------------------------------- |
-| `urls`    | `List[str]`    | -       | URLs for `PDF` files.                                                               |
-| `reader`  | `PDFUrlReader` | -       | A `PDFUrlReader` that converts the `PDFs` into `Documents` for the vector database. |
+## 参数说明
 
-`PDFUrlKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+| 参数        | 类型           | 默认值  | 描述                                                                         |
+| ----------- | -------------- | ------- | --------------------------------------------------------------------------- |
+| `urls`    | `List[str]`    | -       | `PDF`文件的URL链接                                                              |
+| `reader`  | `PDFUrlReader` | -       | 用于将`PDFs`转化为向量数据库所需`Documents`的`PDFUrlReader` |
 
-## Developer Resources
+`PDFUrlKnowledgeBase`是[AgentKnowledge](/reference/knowledge/base)类的子类，拥有相同参数访问权限。
 
-- View [Sync loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/pdf_url_kb.py)
-- View [Async loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/pdf_url_kb_async.py)
+## 开发者资源
 
+- 查看[同步加载代码示例](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/pdf_url_kb.py)
+- 查看[异步加载代码示例](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/pdf_url_kb_async.py)

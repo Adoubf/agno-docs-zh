@@ -1,9 +1,9 @@
 ---
-title: Game Generator
+title: 游戏生成器
 ---
-**GameGenerator** generates HTML5 games based on user descriptions.
+**GameGenerator** 根据用户描述生成HTML5游戏。
 
-Create a file `game_generator.py` with the following code:
+创建包含以下代码的文件 `game_generator.py`：
 
 ```python game_generator.py
 import json
@@ -39,7 +39,7 @@ class QAOutput(BaseModel):
 
 
 class GameGenerator(Workflow):
-    # This description is only used in the workflow UI
+    # 此描述仅在工作流界面中使用
     description: str = "Generator for single-page HTML5 games"
 
     game_developer: Agent = Agent(
@@ -99,7 +99,7 @@ class GameGenerator(Workflow):
             if not qa_output.content.correct:
                 raise Exception(f"QA failed for code: {game_code}")
 
-            # Store the resulting code
+            # 存储生成的代码
             game_output_path.write_text(game_code)
 
             yield RunResponse(
@@ -116,19 +116,19 @@ class GameGenerator(Workflow):
             return
 
 
-# Run the workflow if the script is executed directly
+# 如果脚本被直接执行则运行工作流程
 if __name__ == "__main__":
     from rich.prompt import Prompt
 
     game_description = Prompt.ask(
         "[bold]Describe the game you want to make (keep it simple)[/bold]\n✨",
-        # default="An asteroids game."
+        # default="一款小行星游戏。"
         default="An asteroids game. Make sure the asteroids move randomly and are random sizes. They should continually spawn more and become more difficult over time. Keep score. Make my spaceship's movement realistic.",
     )
 
     hash_of_description = hash_string_sha256(game_description)
 
-    # Initialize the investment analyst workflow
+    # 初始化投资分析师工作流
     game_generator = GameGenerator(
         session_id=f"game-gen-{hash_of_description}",
         storage=SqliteWorkflowStorage(
@@ -137,29 +137,29 @@ if __name__ == "__main__":
         ),
     )
 
-    # Execute the workflow
+    # 执行工作流
     result: Iterator[RunResponse] = game_generator.run(
         game_description=game_description
     )
 
-    # Print the report
+    # 打印报告
     pprint_run_response(result)
 
     if game_output_path.exists():
         open_html_file(game_output_path)
 ```
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行智能体">
     ```bash
     python game_generator.py.py
     ```

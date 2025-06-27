@@ -1,26 +1,25 @@
 ---
-title: Knowledge Tools
-sidebarTitle: Knowledge Tools
+title: 知识工具
+sidebarTitle: 知识工具
 ---
+`KnowledgeTools` 工具包使智能体能够从知识库中搜索、检索和分析信息。该工具包与 `AgentKnowledge` 集成，并提供了一个结构化的工作流程，用于在响应用户之前查找和评估相关信息。
 
-The `KnowledgeTools` toolkit enables Agents to search, retrieve, and analyze information from knowledge bases. This toolkit integrates with `AgentKnowledge` and provides a structured workflow for finding and evaluating relevant information before responding to users.
+该工具包实现了一个“思考 → 搜索 → 分析”的循环，使智能体能够：
+1. 思考问题并规划搜索查询
+2. 在知识库中搜索相关信息
+3. 分析结果以确定它们是否足够，或者是否需要进一步搜索
 
-The toolkit implements a "Think → Search → Analyze" cycle that allows an Agent to:
-1. Think through the problem and plan search queries
-2. Search the knowledge base for relevant information
-3. Analyze the results to determine if they are sufficient or if additional searches are needed
+这种方法显著提高了智能体提供准确信息的能力，因为它提供了查找、评估和综合知识的工具。
 
-This approach significantly improves an Agent's ability to provide accurate information by giving it tools to find, evaluate, and synthesize knowledge.
+该工具包包含以下工具：
 
-The toolkit includes the following tools:
+- `think`：用于规划、头脑风暴关键词和完善方法的草稿板。这些思考内容仅保留在智能体内部，不会向用户显示。
+- `search`：执行对知识库的查询以检索相关文档。
+- `analyze`：评估返回的文档是否正确且充分，确定是否需要进一步搜索。
 
-- `think`: A scratchpad for planning, brainstorming keywords, and refining approaches. These thoughts remain internal to the Agent and are not shown to users.
-- `search`: Executes queries against the knowledge base to retrieve relevant documents.
-- `analyze`: Evaluates whether the returned documents are correct and sufficient, determining if further searches are needed.
+## 示例
 
-## Example
-
-Here's an example of how to use the `KnowledgeTools` toolkit:
+以下是使用 `KnowledgeTools` 工具包的示例：
 
 ```python
 from agno.agent import Agent
@@ -30,10 +29,10 @@ from agno.models.openai import OpenAIChat
 from agno.tools.knowledge import KnowledgeTools
 from agno.vectordb.lancedb import LanceDb, SearchType
 
-# Create a knowledge base containing information from a URL
+# 创建一个包含来自 URL 信息的知识库
 agno_docs = UrlKnowledge(
     urls=["https://docs.agno.com/llms-full.txt"],
-    # Use LanceDB as the vector database and store embeddings in the `agno_docs` table
+    # 使用 LanceDB 作为向量数据库，并将嵌入向量存储在 `agno_docs` 表中
     vector_db=LanceDb(
         uri="tmp/lancedb",
         table_name="agno_docs",
@@ -58,12 +57,12 @@ agent = Agent(
 )
 
 if __name__ == "__main__":
-    # Load the knowledge base, comment after first run
+    # 加载知识库，首次运行后注释
     agno_docs.load(recreate=True)
     agent.print_response("How do I build multi-agent teams with Agno?", stream=True)
 ```
 
-The toolkit comes with default instructions and few-shot examples to help the Agent use the tools effectively. Here is how you can configure them:
+该工具包附带默认指令和少量示例，以帮助智能体有效使用工具。以下是配置它们的方法：
 
 ```python
 from agno.tools.knowledge import KnowledgeTools

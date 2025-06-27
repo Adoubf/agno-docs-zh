@@ -1,15 +1,13 @@
 ---
-title: Exceptions
+title: 异常
 ---
+如果在调用工具后需要以不同指令集"重试"模型或停止智能体，可以抛出以下任一异常：
 
-If after a tool call we need to "retry" the model with a different set of instructions or stop the agent, we can raise one of the following exceptions:
+- `RetryAgentRun`：当需要以不同指令集重试智能体运行时使用该异常
+- `StopAgentRun`：当需要停止智能体运行时使用该异常
+- `AgentRunException`：可用于重试工具调用的通用异常
 
-- `RetryAgentRun`: Use this exception when you want to retry the agent run with a different set of instructions.
-- `StopAgentRun`: Use this exception when you want to stop the agent run.
-- `AgentRunException`: A generic exception that can be used to retry the tool call.
-
-
-This example shows how to use the `RetryAgentRun` exception to retry the agent with additional instructions.
+以下示例展示如何使用`RetryAgentRun`异常配合额外指令重试智能体：
 
 ```python retry_in_tool_call.py
 from agno.agent import Agent
@@ -34,7 +32,7 @@ def add_item(agent: Agent, item: str) -> str:
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
-    # Initialize the session state with empty shopping list
+    # 初始化会话状态，设置空的购物清单
     session_state={"shopping_list": []},
     tools=[add_item],
     markdown=True,
@@ -44,5 +42,5 @@ print(f"Final session state: {agent.session_state}")
 ```
 
 <Tip>
-Make sure to set `AGNO_DEBUG=True` to see the debug logs.
+请确保设置`AGNO_DEBUG=True`以查看调试日志。
 </Tip>

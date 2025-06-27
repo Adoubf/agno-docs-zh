@@ -1,35 +1,35 @@
-| Name                            | Type                              | Default          | Description                                                                                                             |
+| 名称                            | 类型                              | 默认值          | 描述                                                                                                             |
 | ------------------------------- | --------------------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `id`                            | `str`                             | `"gpt-4o"`       | The id of the OpenAI model to use.                                                                                      |
-| `name`                          | `str`                             | `"OpenAIChat"`   | The name of this chat model instance.                                                                                   |
-| `provider`                      | `str`                             | `"OpenAI " + id` | The provider of the model.                                                                                              |
-| `store`                         | `Optional[bool]`                  | `None`           | Whether or not to store the output of this chat completion request for use in the model distillation or evals products. |
-| `frequency_penalty`             | `Optional[float]`                 | `None`           | Penalizes new tokens based on their frequency in the text so far.                                                       |
-| `logit_bias`                    | `Optional[Any]`                   | `None`           | Modifies the likelihood of specified tokens appearing in the completion.                                                |
-| `logprobs`                      | `Optional[bool]`                  | `None`           | Include the log probabilities on the logprobs most likely tokens.                                                       |
-| `max_tokens`                    | `Optional[int]`                   | `None`           | The maximum number of tokens to generate in the chat completion.                                                        |
-| `presence_penalty`              | `Optional[float]`                 | `None`           | Penalizes new tokens based on whether they appear in the text so far.                                                   |
-| `response_format`               | `Optional[Any]`                   | `None`           | An object specifying the format that the model must output.                                                             |
-| `seed`                          | `Optional[int]`                   | `None`           | A seed for deterministic sampling.                                                                                      |
-| `stop`                          | `Optional[Union[str, List[str]]]` | `None`           | Up to 4 sequences where the API will stop generating further tokens.                                                    |
-| `temperature`                   | `Optional[float]`                 | `None`           | Controls randomness in the model's output.                                                                              |
-| `top_logprobs`                  | `Optional[int]`                   | `None`           | How many log probability results to return per token.                                                                   |
-| `user`                          | `Optional[str]`                   | `None`           | A unique identifier representing your end-user.                                                                         |
-| `top_p`                         | `Optional[float]`                 | `None`           | Controls diversity via nucleus sampling.                                                                                |
-| `extra_headers`                 | `Optional[Any]`                   | `None`           | Additional headers to send with the request.                                                                            |
-| `extra_query`                   | `Optional[Any]`                   | `None`           | Additional query parameters to send with the request.                                                                   |
-| `request_params`                | `Optional[Dict[str, Any]]`        | `None`           | Additional parameters to include in the request.                                                                        |
-| `api_key`                       | `Optional[str]`                   | `None`           | The API key for authenticating with OpenAI.                                                                             |
-| `organization`                  | `Optional[str]`                   | `None`           | The organization to use for API requests.                                                                               |
-| `base_url`                      | `Optional[Union[str, httpx.URL]]` | `None`           | The base URL for API requests.                                                                                          |
-| `timeout`                       | `Optional[float]`                 | `None`           | The timeout for API requests.                                                                                           |
-| `max_retries`                   | `Optional[int]`                   | `None`           | The maximum number of retries for failed requests.                                                                      |
-| `default_headers`               | `Optional[Any]`                   | `None`           | Default headers to include in all requests.                                                                             |
-| `default_query`                 | `Optional[Any]`                   | `None`           | Default query parameters to include in all requests.                                                                    |
-| `http_client`                   | `Optional[httpx.Client]`          | `None`           | An optional pre-configured HTTP client.                                                                                 |
-| `client_params`                 | `Optional[Dict[str, Any]]`        | `None`           | Additional parameters for client configuration.                                                                         |
-| `client`                        | `Optional[OpenAIClient]`          | `None`           | The OpenAI client instance.                                                                                             |
-| `async_client`                  | `Optional[AsyncOpenAIClient]`     | `None`           | The asynchronous OpenAI client instance.                                                                                |
-| `structured_outputs`            | `bool`                            | `False`          | Whether to use the structured outputs from the Model.                                                                   |
-| `supports_structured_outputs`   | `bool`                            | `True`           | Whether the Model supports structured outputs.                                                                          |
-| `add_images_to_message_content` | `bool`                            | `True`           | Whether to add images to the message content.                                                                           |
+| `id`                            | `str`                             | `"gpt-4o"`       | 指定使用的 OpenAI 模型 ID。                                                                                      |
+| `name`                          | `str`                             | `"OpenAIChat"`   | 该聊天模型实例的名称。                                                                                   |
+| `provider`                      | `str`                             | `"OpenAI " + id` | 模型供应商。                                                                                              |
+| `store`                         | `Optional[bool]`                  | `None`           | 是否存储该聊天完成请求的输出，用于模型蒸馏或评估产品。 |
+| `frequency_penalty`             | `Optional[float]`                 | `None`           | 根据文本中已出现的词频对新 token 进行惩罚。                                                       |
+| `logit_bias`                    | `Optional[Any]`                   | `None`           | 调整指定 token 出现在生成结果中的概率。                                                |
+| `logprobs`                      | `Optional[bool]`                  | `None`           | 包含最可能 token 的对数概率。                                                       |
+| `max_tokens`                    | `Optional[int]`                   | `None`           | 聊天完成中生成的最大 token 数量。                                                        |
+| `presence_penalty`              | `Optional[float]`                 | `None`           | 根据文本中是否已出现对新 token 进行惩罚。                                                   |
+| `response_format`               | `Optional[Any]`                   | `None`           | 指定模型必须输出的格式对象。                                                             |
+| `seed`                          | `Optional[int]`                   | `None`           | 确定性采样的种子值。                                                                                      |
+| `stop`                          | `Optional[Union[str, List[str]]]` | `None`           | API 将停止生成后续 token 的最多 4 个序列。                                                    |
+| `temperature`                   | `Optional[float]`                 | `None`           | 控制模型输出的随机性。                                                                              |
+| `top_logprobs`                  | `Optional[int]`                   | `None`           | 每个 token 返回多少对数概率结果。                                                                   |
+| `user`                          | `Optional[str]`                   | `None`           | 代表终端用户的唯一标识符。                                                                         |
+| `top_p`                         | `Optional[float]`                 | `None`           | 通过核心采样控制多样性。                                                                                |
+| `extra_headers`                 | `Optional[Any]`                   | `None`           | 随请求发送的附加头信息。                                                                            |
+| `extra_query`                   | `Optional[Any]`                   | `None`           | 随请求发送的附加查询参数。                                                                   |
+| `request_params`                | `Optional[Dict[str, Any]]`        | `None`           | 请求中包含的附加参数。                                                                        |
+| `api_key`                       | `Optional[str]`                   | `None`           | 用于 OpenAI 认证的 API 密钥。                                                                             |
+| `organization`                  | `Optional[str]`                   | `None`           | API 请求使用的组织。                                                                               |
+| `base_url`                      | `Optional[Union[str, httpx.URL]]` | `None`           | API 请求的基础 URL。                                                                                          |
+| `timeout`                       | `Optional[float]`                 | `None`           | API 请求的超时时间。                                                                                           |
+| `max_retries`                   | `Optional[int]`                   | `None`           | 失败请求的最大重试次数。                                                                      |
+| `default_headers`               | `Optional[Any]`                   | `None`           | 所有请求中包含的默认头信息。                                                                             |
+| `default_query`                 | `Optional[Any]`                   | `None`           | 所有请求中包含的默认查询参数。                                                                    |
+| `http_client`                   | `Optional[httpx.Client]`          | `None`           | 可选预配置的 HTTP 客户端。                                                                                 |
+| `client_params`                 | `Optional[Dict[str, Any]]`        | `None`           | 客户端配置的附加参数。                                                                         |
+| `client`                        | `Optional[OpenAIClient]`          | `None`           | OpenAI 客户端实例。                                                                                             |
+| `async_client`                  | `Optional[AsyncOpenAIClient]`     | `None`           | 异步 OpenAI 客户端实例。                                                                                |
+| `structured_outputs`            | `bool`                            | `False`          | 是否使用模型的结构化输出。                                                                   |
+| `supports_structured_outputs`   | `bool`                            | `True`           | 模型是否支持结构化输出。                                                                          |
+| `add_images_to_message_content` | `bool`                            | `True`           | 是否在消息内容中添加图像。                                                                           |

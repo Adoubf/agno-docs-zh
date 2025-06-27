@@ -1,13 +1,12 @@
 ---
-title: Retry Functions
+title: 重试函数
 ---
+本示例展示如何在函数调用失败或输出不理想时进行重试。这种机制适用于：
+- 处理临时性故障
+- 通过重试提高输出质量
+- 实现人工介入验证
 
-This example shows how to retry a function call if it fails or you do not like the output. This is useful for:
-- Handling temporary failures
-- Improving output quality through retries
-- Implementing human-in-the-loop validation
-
-## Code
+## 代码
 
 ```python retry_functions.py
 from typing import Iterator
@@ -41,18 +40,18 @@ agent = Agent(tools=[print_something], markdown=True)
 agent.print_response("Print something interesting", stream=True)
 ```
 
-## Usage
+## 使用方式
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行智能体">
     ```bash
     python retry_functions.py
     ```

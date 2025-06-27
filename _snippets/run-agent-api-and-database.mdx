@@ -1,25 +1,25 @@
-## Serve your Agents using FastAPI
+## 使用FastAPI部署智能体
 
-[FastAPI](https://fastapi.tiangolo.com/) is an exceptional framework for building REST APIs. Its fast, well-designed and loved by everyone using it. Most production applications are built using a front-end framework like [next.js](https://nextjs.org) backed by a REST API, where FastAPI shines.
+[FastAPI](https://fastapi.tiangolo.com/) 是构建REST API的卓越框架。它快速、设计精良且深受用户喜爱。大多数生产级应用都采用像[next.js](https://nextjs.org)这样的前端框架配合REST API构建，这正是FastAPI的优势所在。
 
-Your codebase comes pre-configured with [FastAPI](https://fastapi.tiangolo.com/) and [PostgreSQL](https://www.postgresql.org/), along with some sample routes. Start your workspace using:
+您的代码库已预配置好[FastAPI](https://fastapi.tiangolo.com/)和[PostgreSQL](https://www.postgresql.org/)，并包含示例路由。使用以下命令启动工作区：
 
 <CodeGroup>
 
-```bash terminal
+```bash 终端
 ag ws up
 ```
 
-```bash shorthand
+```bash 速记
 ag ws up dev:docker
 ```
 
 </CodeGroup>
 
-**Press Enter** to confirm and give a few minutes for the image to download (only the first time). Verify container status and view logs on the docker dashboard.
+**按Enter键**确认启动，首次运行时需等待镜像下载（仅首次需要）。通过docker仪表盘查看容器状态和日志。
 
-- Open [localhost:8000/docs](http://localhost:8000/docs) to view the API Endpoints.
-- Test the `/v1/agents/{agent_id}/run` endpoint with
+- 访问[localhost:8000/docs](http://localhost:8000/docs)查看API端点文档
+- 使用以下命令测试`/v1/agents/{agent_id}/run`端点：
 
 ```json
 {

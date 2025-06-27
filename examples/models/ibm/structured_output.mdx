@@ -1,8 +1,7 @@
 ---
-title: Agent with Structured Output
+title: 结构化输出的智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/ibm/watsonx/structured_output.py
 from typing import List
@@ -38,32 +37,32 @@ movie_agent = Agent(
     response_model=MovieScript,
 )
 
-# Get the response in a variable
-# movie_agent: RunResponse = movie_agent.run("New York")
-# pprint(movie_agent.content)
+# 将响应存储在变量中
+# movie_agent: RunResponse = movie_agent.run("纽约")
+# 打印格式化（movie_agent.content）
 
 movie_agent.print_response("New York")
 ```
 
-## Usage
+## 使用方式
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export IBM_WATSONX_API_KEY=xxx
     export IBM_WATSONX_PROJECT_ID=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U ibm-watsonx-ai pydantic rich agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/ibm/watsonx/structured_output.py
@@ -76,4 +75,4 @@ movie_agent.print_response("New York")
   </Step>
 </Steps>
 
-This example shows how to use structured output with IBM WatsonX. It defines a Pydantic model `MovieScript` with various fields and their descriptions, then creates an agent using this model as the `response_model`. The model's output will be parsed into this structured format. 
+本示例展示了如何在 IBM WatsonX 中使用结构化输出。它定义了一个包含多个字段及其描述的 Pydantic 模型 `MovieScript`，然后使用该模型作为 `response_model` 创建一个智能体。模型输出将被解析为这种结构化格式。

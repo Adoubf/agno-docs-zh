@@ -1,18 +1,16 @@
 ---
-title: Image Generation
+title: 图像生成
 ---
+本示例展示如何创建一个使用DALL-E生成图像的AI智能体。  
+您可以使用该智能体创建各类图像，从写实照片到艺术插画以及创意概念设计。
 
-This example shows how to create an AI agent that generates images using DALL-E.
-You can use this agent to create various types of images, from realistic photos to artistic
-illustrations and creative concepts.
+尝试以下示例提示：  
+- "创作一幅悬浮在日落云端的超现实主义浮空城画作"  
+- "生成一张温馨咖啡厅室内场景的逼真照片"  
+- "为科技初创公司设计一个可爱的卡通吉祥物"  
+- "创作一幅赛博朋克武士的艺术肖像"  
 
-Example prompts to try:
-- "Create a surreal painting of a floating city in the clouds at sunset"
-- "Generate a photorealistic image of a cozy coffee shop interior"
-- "Design a cute cartoon mascot for a tech startup"
-- "Create an artistic portrait of a cyberpunk samurai"
-
-## Code
+## 代码  
 
 ```python image_generation.py
 from textwrap import dedent
@@ -21,7 +19,7 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.dalle import DalleTools
 
-# Create an Creative AI Artist Agent
+# 创建创意AI艺术家智能体
 image_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     tools=[DalleTools()],
@@ -44,19 +42,19 @@ image_agent = Agent(
     show_tool_calls=True,
 )
 
-# Example usage
+# 示例用法
 image_agent.print_response(
     "Create a magical library with floating books and glowing crystals", stream=True
 )
 
-# Retrieve and display generated images
+# 检索并显示生成的图像
 images = image_agent.get_images()
 if images and isinstance(images, list):
     for image_response in images:
         image_url = image_response.url
         print(f"Generated image URL: {image_url}")
 
-# More example prompts to try:
+# 更多可尝试的示例提示：
 """
 Try these creative prompts:
 1. "Generate a steampunk-style robot playing a violin"
@@ -65,23 +63,23 @@ Try these creative prompts:
 4. "Generate a cozy cabin in a snowy forest at night"
 5. "Create a futuristic cityscape with flying cars and skyscrapers"
 """
-```
+```  
 
-## Usage
+## 使用  
 
-<Steps>
-  <Snippet file="create-venv-step.mdx" />
+<Steps>  
+  <Snippet file="create-venv-step.mdx" />  
 
-  <Step title="Install libraries">
+  <Step title="安装库">  
     ```bash
     pip install openai agno
-    ```
-  </Step>
+    ```  
+  </Step>  
 
-  <Step title="Run the agent">
+  <Step title="运行智能体">  
     ```bash
     python image_generation.py
-    ```
-  </Step>
+    ```  
+  </Step>  
 
 </Steps>

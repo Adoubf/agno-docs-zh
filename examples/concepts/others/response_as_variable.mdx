@@ -1,10 +1,9 @@
 ---
-title: Response as Variable
+title: 响应作为变量
 ---
+本示例展示如何将智能体的响应作为变量使用。
 
-This example shows how to use the response of an agent as a variable.
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/other/response_as_variable.py
 from typing import Iterator
@@ -31,29 +30,29 @@ agent = Agent(
 run_response: RunResponse = agent.run("What is the stock price of NVDA")
 pprint(run_response)
 
-# run_response_strem: Iterator[RunResponse] = agent.run("What is the stock price of NVDA", stream=True)
+# run_response_strem: Iterator[RunResponse] = agent.run("NVDA的股票价格是多少", stream=True)
 # for response in run_response_strem:
-#     pprint(response)
+# pprint(响应)
 ```
 
-## Usage
+## 用法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的API密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno yfinance rich
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/other/response_as_variable.py
@@ -64,4 +63,4 @@ pprint(run_response)
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

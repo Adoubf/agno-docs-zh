@@ -1,9 +1,8 @@
 ---
-title: Async External Tool Execution
-description: This example demonstrates how to implement asynchronous external tool execution, allowing for non-blocking execution of tools outside of the agent's control.
+title: 异步外部工具执行
+description: 本示例演示如何实现异步外部工具执行，允许在智能体控制之外进行非阻塞的工具运行。
 ---
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/user_control_flows/external_tool_execution_async.py
 import asyncio
@@ -40,35 +39,35 @@ if run_response.is_paused:
     for tool in run_response.tools_awaiting_external_execution:
         if tool.tool_name == execute_shell_command.name:
             print(f"Executing {tool.tool_name} with args {tool.tool_args} externally")
-            # We execute the tool ourselves. You can also execute something completely external here.
+            # 我们自行执行该工具。你也可以在此处执行完全外部的操作。
             result = execute_shell_command.entrypoint(**tool.tool_args)
-            # We have to set the result on the tool execution object so that the agent can continue
+            # 我们需要在工具执行对象上设置结果，以便智能体能够继续运行
             tool.result = result
 
     run_response = asyncio.run(agent.acontinue_run(run_response=run_response))
     pprint.pprint_run_response(run_response)
 ```
 
-## Usage
+## 使用方式
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno openai
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果
     python cookbook/agent_concepts/user_control_flows/external_tool_execution_async.py
     ```
 
@@ -79,16 +78,16 @@ if run_response.is_paused:
   </Step>
 </Steps>
 
-## Key Features
+## 核心特性
 
-- Uses `agent.arun()` for asynchronous agent execution
-- Implements `agent.acontinue_run()` for async continuation
-- Maintains the same external tool execution flow as synchronous version
-- Demonstrates how to handle async execution with external tools
+- 使用 `agent.arun()` 实现异步智能体执行  
+- 采用 `agent.acontinue_run()` 处理异步延续  
+- 保持与同步版本相同的外部工具执行流程  
+- 演示如何结合外部工具处理异步执行  
 
-## Use Cases
+## 应用场景
 
-- Non-blocking external tool execution
-- High-performance applications requiring async execution
-- Web applications with external service calls
-- Long-running operations with external tools 
+- 非阻塞式外部工具调用  
+- 需要异步执行的高性能应用  
+- 涉及外部服务调用的Web应用  
+- 配合外部工具执行长时间运行的操作

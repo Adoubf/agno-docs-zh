@@ -1,8 +1,7 @@
 ---
-title: Couchbase Integration
+title: Couchbase 集成
 ---
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/vector_dbs/couchbase.py
 import os
@@ -14,12 +13,12 @@ from agno.vectordb.couchbase import CouchbaseSearch
 from couchbase.options import ClusterOptions, KnownConfigProfiles
 from couchbase.auth import PasswordAuthenticator
 
-# Couchbase connection settings
+# Couchbase 连接设置
 username = os.getenv("COUCHBASE_USER", "Administrator")
 password = os.getenv("COUCHBASE_PASSWORD", "password")
 connection_string = os.getenv("COUCHBASE_CONNECTION_STRING", "couchbase://localhost")
 
-# Create cluster options with authentication
+# 创建带身份验证的集群选项
 auth = PasswordAuthenticator(username, password)
 cluster_options = ClusterOptions(auth)
 cluster_options.apply_profile(KnownConfigProfiles.WanDevelopment)
@@ -45,19 +44,19 @@ knowledge_base = PDFUrlKnowledgeBase(
 
 knowledge_base.load(recreate=True)
 
-# Wait for the vector index to sync with KV
+# 等待向量索引与 KV 完成同步
 time.sleep(20)
 
 agent = Agent(knowledge=knowledge_base, show_tool_calls=True)
 agent.print_response("How to make Thai curry?", markdown=True)
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Start Couchbase">
+  <Step title="启动 Couchbase">
     ```bash
     docker run -d --name couchbase-server \
       -p 8091-8096:8091-8096 \
@@ -67,19 +66,19 @@ agent.print_response("How to make Thai curry?", markdown=True)
       couchbase:latest
     ```
     
-    Then access http://localhost:8091 and create:
-    - Bucket: `recipe_bucket`
-    - Scope: `recipe_scope` 
-    - Collection: `recipes`
+    然后访问 http://localhost:8091 并创建：
+    - Bucket：`recipe_bucket`
+    - Scope：`recipe_scope` 
+    - Collection：`recipes`
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U couchbase openai agno
     ```
   </Step>
 
-  <Step title="Set environment variables">
+  <Step title="设置环境变量">
     ```bash
     export COUCHBASE_USER="Administrator"
     export COUCHBASE_PASSWORD="password"
@@ -88,7 +87,7 @@ agent.print_response("How to make Thai curry?", markdown=True)
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/vector_dbs/couchbase.py

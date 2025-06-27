@@ -1,15 +1,14 @@
 ---
-title: ChromaDB Agent Knowledge
+title: ChromaDB 智能体知识
 sidebarTitle: ChromaDB
 ---
-
-## Setup
+## 配置
 
 ```shell
 pip install chromadb
 ```
 
-## Example
+## 示例
 
 ```python agent_with_knowledge.py
 import typer
@@ -49,20 +48,20 @@ def pdf_agent(user: str = "user"):
         agent.print_response(message)
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 首次运行后注释掉
     knowledge_base.load(recreate=False)
 
     typer.run(pdf_agent)
 ```
 
-<Card title="Async Support ⚡">
+<Card title="异步支持 ⚡">
   <div className="mt-2">
     <p>
-      ChromaDB also supports asynchronous operations, enabling concurrency and leading to better performance.
+      ChromaDB 同样支持异步操作，可实现并发并带来更优的性能表现。
     </p>
     
     ```python async_chroma_db.py
-    # install chromadb - `pip install chromadb`
+    # 安装 chromadb - `pip install chromadb`
 
     import asyncio
 
@@ -70,37 +69,37 @@ if __name__ == "__main__":
     from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
     from agno.vectordb.chroma import ChromaDb
 
-    # Initialize ChromaDB
+    # 初始化 ChromaDB
     vector_db = ChromaDb(collection="recipes", path="tmp/chromadb", persistent_client=True)
 
-    # Create knowledge base
+    # 创建知识库
     knowledge_base = PDFUrlKnowledgeBase(
         urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
         vector_db=vector_db,
     )
 
-    # Create and use the agent
+    # 创建并使用智能体
     agent = Agent(knowledge=knowledge_base, show_tool_calls=True)
 
     if __name__ == "__main__":
-        # Comment out after first run
+        # 初次运行后注释掉
         asyncio.run(knowledge_base.aload(recreate=False))
 
-        # Create and use the agent
+        # 创建并使用智能体
         asyncio.run(agent.aprint_response("How to make Tom Kha Gai", markdown=True))
     ```
     
     <Tip className="mt-4">
-      Use <code>aload()</code> and <code>aprint_response()</code> methods with <code>asyncio.run()</code> for non-blocking operations in high-throughput applications.
+      在高吞吐量应用中，使用 <code>aload()</code> 和 <code>aprint_response()</code> 方法配合 <code>asyncio.run()</code> 实现非阻塞操作。
     </Tip>
   </div>
 </Card>
 
-## ChromaDb Params
+## ChromaDB 参数
 
 <Snippet file="vectordb_chromadb_params.mdx" />
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook (Sync)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/chroma_db/chroma_db.py)
-- View [Cookbook (Async)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/chroma_db/async_chroma_db.py)
+- 查看 [同步版 Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/chroma_db/chroma_db.py)
+- 查看 [异步版 Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/chroma_db/async_chroma_db.py)

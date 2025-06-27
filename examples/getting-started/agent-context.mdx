@@ -1,16 +1,15 @@
 ---
-title: Agent Context
+title: 智能体上下文
 ---
+本示例展示如何向智能体注入外部依赖项。上下文在智能体运行时被评估，其作用类似于智能体的依赖注入。
 
-This example shows how to inject external dependencies into an agent. The context is evaluated when the agent is run, acting like dependency injection for Agents.
+可尝试的示例提示：
+- "总结HackerNews上的热门故事"
+- "当前 trending 的科技讨论有哪些？"
+- "分析当前热门故事并识别趋势"
+- "今天获赞最多的故事是什么？"
 
-Example prompts to try:
-- "Summarize the top stories on HackerNews"
-- "What are the trending tech discussions right now?"
-- "Analyze the current top stories and identify trends"
-- "What's the most upvoted story today?"
-
-## Code
+## 代码
 
 ```python agent_context.py
 import json
@@ -29,7 +28,7 @@ def get_top_hackernews_stories(num_stories: int = 5) -> str:
     Returns:
         JSON string containing story details (title, url, score, etc.)
     """
-    # Get top stories
+    # 获取头条新闻
     stories = [
         {
             k: v
@@ -47,15 +46,15 @@ def get_top_hackernews_stories(num_stories: int = 5) -> str:
     return json.dumps(stories, indent=4)
 
 
-# Create a Context-Aware Agent that can access real-time HackerNews data
+# 创建一个能访问实时HackerNews数据的上下文感知智能体
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
-    # Each function in the context is evaluated when the agent is run,
-    # think of it as dependency injection for Agents
+    # 当运行智能体时，会评估上下文中的每个函数。
+    # 将其视为智能体的依赖注入
     context={"top_hackernews_stories": get_top_hackernews_stories},
-    # add_context will automatically add the context to the user message
+    # add_context 会自动将上下文添加到用户消息中
     # add_context=True,
-    # Alternatively, you can manually add the context to the instructions
+    # 或者，您也可以手动将上下文添加到指令中
     instructions=dedent("""\
         You are an insightful tech trend observer! 📰
 
@@ -65,25 +64,25 @@ agent = Agent(
     markdown=True,
 )
 
-# Example usage
+# 示例用法
 agent.print_response(
     "Summarize the top stories on HackerNews and identify any interesting trends.",
     stream=True,
 )
 ```
 
-## Usage
+## 使用方式
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai httpx agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行智能体">
     ```bash
     python agent_context.py
     ```

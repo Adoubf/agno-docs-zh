@@ -1,18 +1,17 @@
 ---
 title: Giphy
 ---
+**GiphyTools** 让智能体能够在GIPHY上搜索GIF动图。
 
-**GiphyTools** enables an Agent to search for GIFs on GIPHY.
-
-## Prerequisites
+## 前提条件
 
 ```shell
 export GIPHY_API_KEY=***
 ```
 
-## Example
+## 示例
 
-The following agent will search GIPHY for a GIF appropriate for a birthday message.
+以下智能体会在GIPHY上搜索适合生日祝福的GIF动图。
 
 ```python
 from agno.agent import Agent
@@ -30,20 +29,20 @@ gif_agent = Agent(
 gif_agent.print_response("I want a gif to send to a friend for their birthday.")
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter | Type  | Default | Description                                       |
-| --------- | ----- | ------- | ------------------------------------------------- |
-| `api_key` | `str` | `None`  | If you want to manually supply the GIPHY API key. |
-| `limit`   | `int` | `1`     | The number of GIFs to return in a search.         |
+| 参数        | 类型   | 默认值  | 描述                                       |
+| ----------- | ------ | ------- | ----------------------------------------- |
+| `api_key` | `str` | `None`  | 如需手动提供GIPHY API密钥时使用。          |
+| `limit`   | `int` | `1`     | 单次搜索返回的GIF数量上限。                |
 
-## Toolkit Functions
+## 工具包功能
 
-| Function      | Description                                         |
-| ------------- | --------------------------------------------------- |
-| `search_gifs` | Searches GIPHY for a GIF based on the query string. |
+| 函数          | 描述                                         |
+| ------------- | ------------------------------------------- |
+| `search_gifs` | 根据查询字符串在GIPHY上搜索GIF动图。         |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/giphy.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/giphy_tools.py)
+- 查看[工具文档](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/giphy.py)
+- 查看[开发手册](https://github.com/agno-agi/agno/blob/main/cookbook/tools/giphy_tools.py)

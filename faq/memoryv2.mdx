@@ -1,21 +1,20 @@
 ---
-title: Memory V2
-sidebarTitle: Memory V2
+title: 记忆 V2
+sidebarTitle: 记忆 V2
 ---
+从 Agno 1.4.0 版本开始，**Memory V2** 已成为 Agno 智能体的默认记忆系统。该版本取代了原先的 `AgentMemory` 和 `TeamMemory` 类，这些旧类现已弃用但仍可继续使用。
 
-Starting with Agno version 1.4.0, **Memory V2** is now the default memory for the Agno Agent. This replaces the previous `AgentMemory` and `TeamMemory` classes which is now deprecated but still available to use.
+Memory V2 是一个更强大、更灵活的记忆系统，可帮助您管理消息历史记录、会话摘要和长期用户记忆。
 
-Memory V2 is a more powerful and flexible memory system that allows you to manage message history, session summaries, and long-term user memories.
+## 如何继续使用 AgentMemory (Memory V1)
 
-## How to Continue Using AgentMemory (Memory V1)
-
-If you want to continue using `AgentMemory` and avoid breaking changes, you can do so by updating your imports. By default, the Agent now uses the `Memory` class:
+若需继续使用 `AgentMemory` 以避免破坏性变更，您可以通过更新导入语句实现。默认情况下，智能体现在使用 `Memory` 类：
 
 ```python
 from agno.memory.v2 import Memory
 ```
 
-To use the legacy AgentMemory class instead, import it like this:
+如需改用旧版 AgentMemory 类，请按如下方式导入：
 
 ```python
 from agno.memory import AgentMemory
@@ -25,24 +24,24 @@ agent = Agent(
 )
 ```
 
-## Key Memory V2 Changes
+## Memory V2 主要变更
 
-- **Accessing Messages:**
+- **消息访问：**
 
-  - **Before:**
+  - **旧版方式：**
     ```python
     agent.memory.messages
     ```
-  - **Now:**
+  - **新版方式：**
     ```python
     [run.messages for run in agent.memory.runs]
-    # or
+    # 或
     agent.get_messages_for_session()
     ```
 
-- **User Memories:**
+- **用户记忆：**
 
-  - **Before:**
+  - **旧版方式：**
 
     ```python
     from agno.memory import AgentMemory
@@ -51,7 +50,7 @@ agent = Agent(
     agent = Agent(memory=memory)
     ```
 
-  - **Now:**
+  - **新版方式：**
 
     ```python
     from agno.memory.v2 import Memory
@@ -60,9 +59,9 @@ agent = Agent(
     agent = Agent(create_user_memories=True, memory=memory) or team = Team(create_user_memories=True, memory=memory)
     ```
 
-- **Session Summaries:**
+- **会话摘要：**
 
-  - **Before:**
+  - **旧版方式：**
 
     ```python
     from agno.memory import AgentMemory
@@ -71,7 +70,7 @@ agent = Agent(
     agent = Agent(memory=memory)
     ```
 
-  - **Now:**
+  - **新版方式：**
 
     ```python
     from agno.memory.v2 import Memory

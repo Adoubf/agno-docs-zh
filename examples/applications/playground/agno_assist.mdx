@@ -1,8 +1,7 @@
 ---
-title: Agno Assist
+title: Agno 助手
 ---
-
-## Code
+## 代码
 
 ```python cookbook/apps/playground/agno_assist.py 
 from textwrap import dedent
@@ -18,7 +17,7 @@ from agno.tools.eleven_labs import ElevenLabsTools
 from agno.tools.python import PythonTools
 from agno.vectordb.lancedb import LanceDb, SearchType
 
-# Setup paths
+# 设置路径
 cwd = Path(__file__).parent
 tmp_dir = cwd.joinpath("tmp")
 tmp_dir.mkdir(parents=True, exist_ok=True)
@@ -60,45 +59,45 @@ _instructions = dedent("""\
 
         agent = Agent(tools=[DuckDuckGoTools()])
 
-        # Perform a web search and capture the response
-        response = agent.run("What\'s happening in France?")
+        # 执行网络搜索并捕获响应
+        response = agent.run("法国正在发生什么？")
         
-        - You must remember to use agent.run() and NOT agent.print_response()
-        - This way you can capture the response and return it to the user
-        - Use the `save_to_file_and_run` tool to save it to a file and run.
-        - Make sure to return the `response` variable that tells you the result
-        - Remember to:
-            * Build the complete agent implementation and test with `response = agent.run()`
-            * Include all necessary imports and setup
-            * Add comprehensive comments explaining the implementation
-            * Test the agent with example queries
-            * Ensure all dependencies are listed
-            * Include error handling and best practices
-            * Add type hints and documentation
+        - 必须记住使用 agent.run() 而非 agent.print_response()
+        - 这样才能捕获响应并将其返回给用户
+        - 使用 `save_to_file_and_run` 工具将其保存到文件并运行
+        - 确保返回 `response` 变量以获取结果
+        - 切记：
+            * 构建完整的智能体实现并用 `response = agent.run()` 测试
+            * 包含所有必要的导入和设置
+            * 添加全面注释说明实现
+            * 用示例查询测试智能体
+            * 确保列出所有依赖项
+            * 包含错误处理和最佳实践
+            * 添加类型提示和文档说明
 
-    4. **Explain important concepts using audio**
-        - When explaining complex concepts or important features, ask the user if they\'d like to hear an audio explanation
-        - Use the ElevenLabs text_to_speech tool to create clear, professional audio content
-        - The voice is pre-selected, so you don\'t need to specify the voice.
-        - Keep audio explanations concise (60-90 seconds)
-        - Make your explanation really engaging with:
-            * Brief concept overview and avoid jargon
-            * Talk about the concept in a way that is easy to understand
-            * Use practical examples and real-world scenarios
-            * Include common pitfalls to avoid
+    4. **使用音频解释重要概念**
+        - 当解释复杂概念或重要功能时，询问用户是否想听音频说明
+        - 使用 ElevenLabs 的 text_to_speech 工具创建清晰专业的音频内容
+        - 声音已预选，无需指定语音
+        - 保持音频解释简洁（60-90秒）
+        - 通过以下方式使解释更具吸引力：
+            * 简要概述概念并避免术语
+            * 用易于理解的方式阐述概念
+            * 使用实际案例和真实场景
+            * 包含需避免的常见陷阱
 
-    5. **Explain concepts with images**
-        - You have access to the extremely powerful DALL-E 3 model.
-        - Use the `create_image` tool to create extremely vivid images of your explanation.
+    5. **用图像解释概念**
+        - 可使用功能极其强大的 DALL-E 3 模型
+        - 使用 `create_image` 工具创建生动的解释图像
 
-    Key topics to cover:
-    - Agent levels and capabilities
-    - Knowledge base and memory management
-    - Tool integration
-    - Model support and configuration
-    - Best practices and common patterns""")
+    关键主题涵盖：
+    - 智能体等级与能力
+    - 知识库与记忆管理
+    - 工具集成
+    - 模型支持与配置
+    - 最佳实践与常见模式""")
 
-# Initialize knowledge base
+# 初始化知识库
 agent_knowledge = UrlKnowledge(
     urls=["https://docs.agno.com/llms-full.txt"],
     vector_db=LanceDb(
@@ -109,7 +108,7 @@ agent_knowledge = UrlKnowledge(
     ),
 )
 
-# Create the agent
+# 创建智能体
 agno_support = Agent(
     name="Agno_Assist",
     agent_id="agno_assist",
@@ -158,7 +157,7 @@ agno_support_voice = Agent(
     markdown=True,
 )
 
-# Create and configure the playground app
+# 创建并配置Playground应用
 playground = Playground(
     agents=[agno_support, agno_support_voice],
     app_id="agno-assist-playground-app",
@@ -175,7 +174,7 @@ if __name__ == "__main__":
 
 ```
 
-## Usage
+# # 使用方式
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
@@ -204,4 +203,4 @@ if __name__ == "__main__":
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

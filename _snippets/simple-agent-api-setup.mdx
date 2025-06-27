@@ -1,20 +1,18 @@
+## 快速入门
 
-## Quickstart
+按照以下步骤启动并运行您的 Agent API：
 
-Follow these steps to get your Agent API up and running:
-
-**Prerequisites**: Docker Desktop should be installed and running.
-
+**先决条件**: 需要已安装并运行 Docker Desktop。
 
 <Steps>
-  <Step title="Clone the repo">
+  <Step title="克隆该仓库">
     ```bash 
     git clone https://github.com/agno-agi/agent-api.git
     cd agent-api
     ```
   </Step>
 
-  <Step title="Export your OpenAI key">
+  <Step title="导出您的OpenAI密钥">
 
     <CodeGroup>
     ```bash Mac
@@ -28,30 +26,30 @@ Follow these steps to get your Agent API up and running:
 
   </Step>
 
-  <Step title="Start the application">
+  <Step title="启动应用程序">
     ```bash
     docker compose up -d
     ```
   </Step>
 
-  <Step title="Test the application">
+  <Step title="测试应用程序">
 
-  This command starts:
+  该命令将启动:
   
-  - The FastAPI server, running on [`localhost:8000`](http://localhost:8000).
-  - The PostgreSQL database, accessible on `localhost:5432`.
+  - FastAPI 服务器，运行于 [`localhost:8000`](http://localhost:8000)。
+  - PostgreSQL 数据库，可通过 `localhost:5432` 访问。
   
-  Once started, you can:
+  启动后，您可以:
   
-  - Test the API at [localhost:8000/docs](http://localhost:8000/docs).
-  - Connect to Agno Playground or Agent UI:
-      - Open the Agno Playground [app.agno.com/playground/agents](https://app.agno.com/playground/agents).
-      - Add `http://localhost:8000` as a new endpoint. You can name it `Agent API` (or any name you prefer).
-      - Select your newly added endpoint and start chatting with your Agents.
+  - 在 [localhost:8000/docs](http://localhost:8000/docs) 测试 API。
+  - 连接到 Agno Playground 或 Agent UI:
+      - 打开 Agno Playground [app.agno.com/playground/agents](https://app.agno.com/playground/agents)。
+      - 添加 `http://localhost:8000` 作为新端点。您可以将其命名为 `Agent API`（或任意名称）。
+      - 选择新添加的端点，开始与您的智能体对话。
 
   </Step>
 
-  <Step title="Stop the application">  
+  <Step title="停止应用程序">  
     ```bash
     docker compose down
     ```

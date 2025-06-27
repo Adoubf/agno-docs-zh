@@ -1,19 +1,16 @@
 ---
-title: Movie Recommender
+title: 电影推荐系统
 ---
+本示例展示如何创建一个智能电影推荐系统，该系统根据您的偏好提供全面的影片建议。该智能体结合电影数据库、评分、评论和即将上映影片信息，为您提供个性化电影推荐。
 
-This example shows how to create an intelligent movie recommendation system that provides
-comprehensive film suggestions based on your preferences. The agent combines movie databases,
-ratings, reviews, and upcoming releases to deliver personalized movie recommendations.
+可尝试的示例提示：
+- "推荐类似《盗梦空间》和《禁闭岛》的惊悚片"
+- "过去两年评分最高的喜剧电影有哪些？"
+- "帮我找类似《寄生虫》和《老男孩》的韩国电影"
+- "推荐评分较高的家庭友好型冒险电影"
+- "未来6个月即将上映的超级英雄电影有哪些？"
 
-Example prompts to try:
-- "Suggest thriller movies similar to Inception and Shutter Island"
-- "What are the top-rated comedy movies from the last 2 years?"
-- "Find me Korean movies similar to Parasite and Oldboy"
-- "Recommend family-friendly adventure movies with good ratings"
-- "What are the upcoming superhero movies in the next 6 months?"
-
-## Code
+## 代码
 
 ```python movie_recommender.py
 """🎬 Movie Recommender - Your Personal Cinema Curator!
@@ -88,14 +85,14 @@ movie_recommendation_agent = Agent(
     show_tool_calls=True,
 )
 
-# Example usage with different types of movie queries
+# 不同类型电影查询的示例用法
 movie_recommendation_agent.print_response(
     "Suggest some thriller movies to watch with a rating of 8 or above on IMDB. "
     "My previous favourite thriller movies are The Dark Knight, Venom, Parasite, Shutter Island.",
     stream=True,
 )
 
-# More example prompts to explore:
+# 更多探索性示例提示：
 """
 Genre-specific queries:
 1. "Find me psychological thrillers similar to Black Swan and Gone Girl"
@@ -122,25 +119,25 @@ Upcoming Releases:
 4. "List upcoming book-to-movie adaptations"
 """
 ```
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai exa_py agno
     ```
   </Step>
 
-  <Step title="Set environment variables">
+  <Step title="设置环境变量">
     ```bash
     export OPENAI_API_KEY=****
     export EXA_API_KEY=****
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行智能体">
     ```bash
     python movie_recommender.py
     ```

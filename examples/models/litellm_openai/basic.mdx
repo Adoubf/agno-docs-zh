@@ -1,14 +1,13 @@
 ---
-title: Basic Agent
+title: 基础智能体
 ---
-
-Make sure to start the proxy server:
+请确保启动代理服务器：
 
 ```shell
 litellm --model gpt-4o --host 127.0.0.1 --port 4000
 ```
 
-## Code
+## 代码
 
 ```python cookbook/models/litellm_openai/basic.py
 from agno.agent import Agent, RunResponse  # noqa
@@ -16,32 +15,32 @@ from agno.models.litellm import LiteLLMOpenAI
 
 agent = Agent(model=LiteLLMOpenAI(id="gpt-4o"), markdown=True)
 
-# Get the response in a variable
-# run: RunResponse = agent.run("Share a 2 sentence horror story")
-# print(run.content)
+# 将响应存入变量
+# run: RunResponse = 智能体.run("分享一个两句话的恐怖故事")
+# 打印(run.content)
 
-# Print the response in the terminal
+# 在终端中打印响应
 agent.print_response("Share a 2 sentence horror story")
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export LITELLM_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U litellm[proxy] openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/litellm_openai/basic.py

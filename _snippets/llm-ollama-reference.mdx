@@ -1,33 +1,33 @@
 <ResponseField name="name" type="str" default="Ollama">
 </ResponseField>
 <ResponseField name="model" type="str" default="openhermes">
-  ID of the model to use.
+  指定要使用的模型ID。
 </ResponseField>
 <ResponseField name="host" type="str">
 </ResponseField>
 <ResponseField name="timeout" type="Any">
 </ResponseField>
 <ResponseField name="format" type="str">
- The format to return a response in. Currently the only accepted value is json
+  指定响应返回的格式。当前唯一接受的值为json。
 </ResponseField>
 <ResponseField name="options" type="Any">
-  Additional model parameters such as temperature
+  附加的模型参数，例如温度值。
 </ResponseField>
 <ResponseField name="keep_alive" type="Union[float, str]">
-   Controls how long the model will stay loaded into memory following the request.
+  控制模型在请求结束后保留在内存中的时长。
 </ResponseField>
 <ResponseField name="client_kwargs" type="Dict[str, Any]" default="None">
-  Additional `{key: value}` dict sent when initalizing the `Ollama()` client.
+  初始化`Ollama()`客户端时发送的附加`{key: value}`字典。
 </ResponseField>
 <ResponseField name="ollama_client" type="ollama.Client()" default="None">
-  Provide your own `ollama.Client()`
+  提供自定义的`ollama.Client()`。
 </ResponseField>
 <ResponseField name="function_call_limit" type="int" default="10">
-  Maximum number of function calls allowed across all iterations.
+  允许所有迭代中函数调用的最大次数。
 </ResponseField>
 <ResponseField name="deactivate_tools_after_use" type="bool" default="False">
-  Deactivate tool calls by turning off JSON mode after 1 tool call
+  在1次工具调用后关闭JSON模式以停用工具调用。
 </ResponseField>
 <ResponseField name="add_user_message_after_tool_call" type="bool" default="True">
-  After a tool call is run, add the user message as a reminder to the LLM
+  工具调用完成后，将用户消息作为提醒添加给LLM。
 </ResponseField>

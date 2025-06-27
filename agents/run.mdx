@@ -1,15 +1,14 @@
 ---
-title: Running your Agent
-description: Learn how to run an agent and get the response.
+title: 运行你的智能体
+description: 了解如何运行智能体并获取响应。
 ---
+`Agent.run()` 函数运行智能体并生成响应，响应形式可以是 `RunResponse` 对象或 `RunResponse` 对象流。
 
-The `Agent.run()` function runs the agent and generates a response, either as a `RunResponse` object or a stream of `RunResponse` objects.
+我们的许多示例使用 `agent.print_response()`，这是一个在终端打印响应的辅助工具。其底层实现基于 `agent.run()`。
 
-Many of our examples use `agent.print_response()` which is a helper utility to print the response in the terminal. It uses `agent.run()` under the hood.
+## 运行智能体
 
-## Running your Agent
-
-Here's how to run your agent. The response is captured in the `response`.
+以下是运行智能体的方法。响应会被捕获到 `response` 中。
 
 ```python
 from typing import Iterator
@@ -19,31 +18,31 @@ from agno.utils.pprint import pprint_run_response
 
 agent = Agent(model=OpenAIChat(id="gpt-4o-mini"))
 
-# Run agent and return the response as a variable
+# 运行智能体并将响应作为变量返回
 response: RunResponse = agent.run("Tell me a 5 second short story about a robot")
 
-# Print the response in markdown format
+# 以 Markdown 格式输出响应
 pprint_run_response(response, markdown=True)
 ```
 
 ## RunResponse
 
-The `Agent.run()` function returns a `RunResponse` object when not streaming. It has the following attributes:
+当非流式传输时，`Agent.run()` 函数会返回一个 `RunResponse` 对象。该对象具有以下属性：
 
 <Note>
-Understanding Metrics
+理解指标
 
-For a detailed explanation of how metrics are collected and used, please refer to the [Metrics Documentation](/agents/metrics).
+关于指标收集和使用方式的详细说明，请参阅[指标文档](/agents/metrics)。
 </Note>
 
-See detailed documentation in the [RunResponse](/reference/agents/run-response) documentation.
+详细文档请参见 [RunResponse](/reference/agents/run-response) 文档。
 
-## Streaming Responses
+## 流式响应
 
-To enable streaming, set `stream=True` when calling `run()`. This will return an iterator of `RunResponseEvent` objects instead of a single response.
+要启用流式传输，在调用 `run()` 时设置 `stream=True`。这将返回一个 `RunResponseEvent` 对象的迭代器，而非单一响应。
 
 <Note>
-From `agno` version `1.6.0`, the `Agent.run()` function returns an iterator of `RunResponseEvent`, not of `RunResponse` objects.
+自 `agno` 版本 `1.6.0` 起，`Agent.run()` 函数返回的是 `RunResponseEvent` 的迭代器，而非 `RunResponse` 对象。
 </Note>
 
 ```python
@@ -54,22 +53,22 @@ from agno.utils.pprint import pprint_run_response
 
 agent = Agent(model=OpenAIChat(id="gpt-4-mini"))
 
-# Run agent and return the response as a stream
+# 运行智能体并以流式方式返回响应
 response_stream: Iterator[RunResponseEvent] = agent.run(
     "Tell me a 5 second short story about a lion",
     stream=True
 )
 
-# Print the response stream in markdown format
+# 以Markdown格式打印响应流
 pprint_run_response(response_stream, markdown=True)
 ```
 
-### Streaming Intermediate Steps
+### 流式中间步骤
 
-For even more detailed streaming, you can enable intermediate steps by setting `stream_intermediate_steps=True`. This will provide real-time updates about the agent's internal processes.
+若需更详细的流式传输，可通过设置 `stream_intermediate_steps=True` 启用中间步骤。这将提供智能体内部流程的实时更新。
 
 ```python
-# Stream with intermediate steps
+# 流式传输中间步骤
 response_stream: Iterator[RunResponseEvent] = agent.run(
     "Tell me a 5 second short story about a lion",
     stream=True,
@@ -77,9 +76,9 @@ response_stream: Iterator[RunResponseEvent] = agent.run(
 )
 ```
 
-### Handling Events
+### 处理事件
 
-You can process events as they arrive by iterating over the response stream:
+您可以通过迭代响应流来实时处理事件：
 
 ```python
 response_stream = agent.run("Your prompt", stream=True, stream_intermediate_steps=True)
@@ -94,11 +93,11 @@ for event in response_stream:
     ...
 ```
 
-You can see this behavior in action in our [Playground](https://app.agno.com/playground/agents?endpoint=demo.agnoagents.com&agent=reasoning-agent).
+您可以在我们的[Playground](https://app.agno.com/playground/agents?endpoint=demo.agnoagents.com&agent=reasoning-agent)中查看实际效果。
 
-### Storing Events
+### 存储事件
 
-You can store all the events that happened during a run on the `RunResponse` object.
+您可以将运行期间发生的所有事件存储在 `RunResponse` 对象上。
 
 ```python
 from agno.agent import Agent
@@ -114,50 +113,50 @@ for event in agent.run_response.events:
     print(event.event)
 ```
 
-By default the `RunResponseContentEvent` event is not stored. You can modify which events are skipped by setting the `events_to_skip` parameter.
+默认情况下 `RunResponseContentEvent` 事件不被存储。可通过设置 `events_to_skip` 参数来修改要跳过的事件类型。
 
-For example:
+例如：
 
 ```python
 agent = Agent(model=OpenAIChat(id="gpt-4o-mini"), store_events=True, events_to_skip=[RunEvent.run_started.value])
 ```
 
-### Event Types
+### 事件类型
 
-The following events are yielded by the `Agent.run()` and `Agent.arun()` functions depending on the agent's configuration:
+根据智能体配置，以下事件由 `Agent.run()` 和 `Agent.arun()` 函数产生：
 
-#### Core Events
-| Event Type | Description |
+#### 核心事件
+| 事件类型 | 描述 |
 |------------|-------------|
-| `RunStarted` | Indicates the start of a run |
-| `RunResponseContent` | Contains the model's response text as individual chunks |
-| `RunCompleted` | Signals successful completion of the run |
-| `RunError` | Indicates an error occurred during the run |
-| `RunCancelled` | Signals that the run was cancelled |
+| `RunStarted` | 表示运行开始 |
+| `RunResponseContent` | 包含模型响应文本的逐片段数据 |
+| `RunCompleted` | 表示运行成功完成 |
+| `RunError` | 表示运行期间发生错误 |
+| `RunCancelled` | 表示运行被取消 |
 
-#### Control Flow Events
-| Event Type | Description |
+#### 控制流事件
+| 事件类型 | 描述 |
 |------------|-------------|
-| `RunPaused` | Indicates the run has been paused |
-| `RunContinued` | Signals that a paused run has been continued |
+| `RunPaused` | 表示运行已暂停 |
+| `RunContinued` | 表示暂停的运行已继续 |
 
-#### Tool Events
-| Event Type | Description |
+#### 工具事件
+| 事件类型 | 描述 |
 |------------|-------------|
-| `ToolCallStarted` | Indicates the start of a tool call |
-| `ToolCallCompleted` | Signals completion of a tool call, including tool call results |
+| `ToolCallStarted` | 表示工具调用开始 |
+| `ToolCallCompleted` | 表示工具调用完成，包含调用结果 |
 
-#### Reasoning Events
-| Event Type | Description |
+#### 推理事件
+| 事件类型 | 描述 |
 |------------|-------------|
-| `ReasoningStarted` | Indicates the start of the agent's reasoning process |
-| `ReasoningStep` | Contains a single step in the reasoning process |
-| `ReasoningCompleted` | Signals completion of the reasoning process |
+| `ReasoningStarted` | 表示智能体推理过程开始 |
+| `ReasoningStep` | 包含推理过程的单一步骤 |
+| `ReasoningCompleted` | 表示推理过程完成 |
 
-#### Memory Events
-| Event Type | Description |
+#### 记忆事件
+| 事件类型 | 描述 |
 |------------|-------------|
-| `MemoryUpdateStarted` | Indicates that the agent is updating its memory |
-| `MemoryUpdateCompleted` | Signals completion of a memory update |
+| `MemoryUpdateStarted` | 表示智能体正在更新记忆 |
+| `MemoryUpdateCompleted` | 表示记忆更新完成 |
 
-See detailed documentation in the [RunResponseEvent](/reference/agents/run-response) documentation.
+详细文档请参见 [RunResponseEvent](/reference/agents/run-response) 文档。

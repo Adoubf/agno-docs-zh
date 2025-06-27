@@ -1,14 +1,13 @@
 ---
-title: Image Transcribe Document Agent
-description: Example of transcribing text from document images using Mistral's vision model
+title: 镜像转录文档智能体
+description: 使用Mistral视觉模型从文档图像转录文本的示例
 ---
+## 概述
+本示例展示了如何利用 Mistral 的视觉能力从文档图片中转录文本，尤其适用于处理手写或老旧文档。
 
-## Overview
-This example shows how to use Mistral's vision capabilities to transcribe text from images of documents, particularly useful for processing handwritten or old documents.
+## 代码
 
-## Code
-
-```python cookbook/models/mistral/image_transcribe_document_agent
+```python cookbook/models/mistral/图片转录文档智能体
 """
 This agent transcribes an old written document from an image.
 """
@@ -22,7 +21,7 @@ agent = Agent(
     markdown=True,
 )
 
-# Process and transcribe the document image
+# 处理并转录文档图像
 agent.print_response(
     "Transcribe this document.",
     images=[
@@ -31,24 +30,24 @@ agent.print_response(
 )
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export MISTRAL_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U mistralai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/mistral/image_transcribe_document_agent
@@ -59,4 +58,4 @@ agent.print_response(
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

@@ -1,126 +1,123 @@
-### Core Features
+### 核心功能
 
-| Agno Supported Models | Tool Support | Response Models | Knowledge | History / Storage | Async Execution | Async Tool Support |
-| --------------------- | :----------: | :-------------: | :-------: | :---------------: | :-------------: | :----------------: |
-| Anthropic Claude      |      ✅      |       ✅        |    ✅     |        ✅         |       ✅        |         ✅         |
-| AWS Bedrock           |      ✅      |       ✅        |    ✅     |        ✅         |                 |                    |
-| AWS Bedrock Claude    |      ✅      |       ✅        |    ✅     |        ✅         |       ✅        |         ✅         |
-| Azure AI Foundry      |      ✅      |       ✅        |    ✅     |        ✅         |       ✅        |         ✅         |
-| Azure OpenAI          |      ✅      |       ✅        |    ✅     |        ✅         |       ✅        |         ✅         |
-| Cohere                |      ✅      |       ✅        |    ✅     |        ✅         |       ✅        |         ✅         |
-| DeepInfra             |      ✅      |       ✅        |    ✅     |        ✅         |       ✅        |         ✅         |
-| DeepSeek              |      ✅      |       ✅        |    ✅     |        ✅         |       ✅        |         ✅         |
-| Fireworks             |      ✅      |       ✅        |    ✅     |        ✅         |       ✅        |         ✅         |
-| Gemini                |      ✅      |       ✅        |    ✅     |        ✅         |       ✅        |         ✅         |
-| Groq                  |      ✅      |       ✅        |    ✅     |        ✅         |       ✅        |         ✅         |
-| HuggingFace           |      ✅      |       ✅        |    ✅     |        ✅         |       ✅        |         ✅         |
-| IBM WatsonX           |      ✅      |       ✅        |    ✅     |        ✅         |       ✅        |         ✅         |
-| InternLM              |      ✅      |       ✅        |    ✅     |        ✅         |       ✅        |         ✅         |
-| LiteLLM               |      ✅      |       ✅        |    ✅     |        ✅         |       ✅        |         ✅         |
-| LiteLLMOpenAI         |      ✅      |       ✅        |    ✅     |        ✅         |       ✅        |         ✅         |
-| LM Studio             |      ✅      |       ✅        |    ✅     |        ✅         |       ✅        |         ✅         |
-| Mistral               |      ✅      |       ✅        |    ✅     |        ✅         |       ✅        |         ✅         |
-| Nvidia                |      ✅      |       ✅        |    ✅     |        ✅         |       ✅        |         ✅         |
-| Ollama                |      ✅      |       ✅        |    ✅     |        ✅         |       ✅        |         ✅         |
-| OllamaTools           |      ✅      |       ✅        |    ✅     |        ✅         |       ✅        |         ✅         |
-| OpenAIChat            |      ✅      |       ✅        |    ✅     |        ✅         |       ✅        |         ✅         |
-| OpenAIResponses       |      ✅      |       ✅        |    ✅     |        ✅         |       ✅        |         ✅         |
-| OpenRouter            |      ✅      |       ✅        |    ✅     |        ✅         |       ✅        |         ✅         |
-| Perplexity            |      ✅      |       ✅        |    ✅     |        ✅         |       ✅        |         ✅         |
-| Sambanova             |      ✅      |       ✅        |    ✅     |        ✅         |       ✅        |         ✅         |
-| Together              |      ✅      |       ✅        |    ✅     |        ✅         |       ✅        |         ✅         |
-| XAI                   |      ✅      |       ✅        |    ✅     |        ✅         |       ✅        |         ✅         |
+| Agno支持模型        | 工具支持 | 响应模型 | 知识库 | 历史记录/存储 | 异步执行 | 异步工具支持 |
+| ------------------- | :------: | :------: | :----: | :-----------: | :------: | :----------: |
+| Anthropic Claude    |    ✅    |    ✅    |   ✅   |      ✅       |    ✅    |      ✅      |
+| AWS Bedrock         |    ✅    |    ✅    |   ✅   |      ✅       |          |              |
+| AWS Bedrock Claude  |    ✅    |    ✅    |   ✅   |      ✅       |    ✅    |      ✅      |
+| Azure AI Foundry    |    ✅    |    ✅    |   ✅   |      ✅       |    ✅    |      ✅      |
+| Azure OpenAI        |    ✅    |    ✅    |   ✅   |      ✅       |    ✅    |      ✅      |
+| Cohere              |    ✅    |    ✅    |   ✅   |      ✅       |    ✅    |      ✅      |
+| DeepInfra           |    ✅    |    ✅    |   ✅   |      ✅       |    ✅    |      ✅      |
+| DeepSeek            |    ✅    |    ✅    |   ✅   |      ✅       |    ✅    |      ✅      |
+| Fireworks           |    ✅    |    ✅    |   ✅   |      ✅       |    ✅    |      ✅      |
+| Gemini              |    ✅    |    ✅    |   ✅   |      ✅       |    ✅    |      ✅      |
+| Groq                |    ✅    |    ✅    |   ✅   |      ✅       |    ✅    |      ✅      |
+| HuggingFace         |    ✅    |    ✅    |   ✅   |      ✅       |    ✅    |      ✅      |
+| IBM WatsonX         |    ✅    |    ✅    |   ✅   |      ✅       |    ✅    |      ✅      |
+| InternLM            |    ✅    |    ✅    |   ✅   |      ✅       |    ✅    |      ✅      |
+| LiteLLM             |    ✅    |    ✅    |   ✅   |      ✅       |    ✅    |      ✅      |
+| LiteLLMOpenAI       |    ✅    |    ✅    |   ✅   |      ✅       |    ✅    |      ✅      |
+| LM Studio           |    ✅    |    ✅    |   ✅   |      ✅       |    ✅    |      ✅      |
+| Mistral             |    ✅    |    ✅    |   ✅   |      ✅       |    ✅    |      ✅      |
+| Nvidia              |    ✅    |    ✅    |   ✅   |      ✅       |    ✅    |      ✅      |
+| Ollama              |    ✅    |    ✅    |   ✅   |      ✅       |    ✅    |      ✅      |
+| OllamaTools         |    ✅    |    ✅    |   ✅   |      ✅       |    ✅    |      ✅      |
+| OpenAIChat          |    ✅    |    ✅    |   ✅   |      ✅       |    ✅    |      ✅      |
+| OpenAIResponses     |    ✅    |    ✅    |   ✅   |      ✅       |    ✅    |      ✅      |
+| OpenRouter          |    ✅    |    ✅    |   ✅   |      ✅       |    ✅    |      ✅      |
+| Perplexity          |    ✅    |    ✅    |   ✅   |      ✅       |    ✅    |      ✅      |
+| Sambanova           |    ✅    |    ✅    |   ✅   |      ✅       |    ✅    |      ✅      |
+| Together            |    ✅    |    ✅    |   ✅   |      ✅       |    ✅    |      ✅      |
+| XAI                 |    ✅    |    ✅    |   ✅   |      ✅       |    ✅    |      ✅      |
 
 <Note>
 
-HuggingFace supports tool calling through the Agno framework, but not for streaming
-responses.
+HuggingFace通过Agno框架支持工具调用，但不支持流式响应。
 
 </Note>
 
 <Note>
 
-Perplexity supports tool calling through the Agno framework, but their models don't
-natively support tool calls in a straightforward way. This means tool usage may
-be less reliable compared to other providers.
+Perplexity通过Agno框架支持工具调用，但其模型本身并不直接支持工具调用。这意味着与其他提供商相比，工具使用的可靠性可能较低。
 
 </Note>
 
-### Multimodal Support
+### 多模态支持
 
-| Agno Supported Models | Image Input | Audio Input | Audio Responses | Video Input | File Upload |
-| --------------------- | :---------: | :---------: | :-------------: | :---------: | :---------: |
-| Anthropic Claude      |     ✅      |             |                 |             |     ✅      |
-| AWS Bedrock           |     ✅      |             |                 |             |             |
-| AWS Bedrock Claude    |     ✅      |             |                 |             |             |
-| Azure AI Foundry      |     ✅      |             |                 |             |             |
-| Azure OpenAI          |     ✅      |             |                 |             |             |
-| Cohere                |             |             |                 |             |             |
-| AWS Bedrock           |     ✅      |             |                 |             |             |
-| AWS Bedrock Claude    |     ✅      |             |                 |             |             |
-| Azure AI Foundry      |     ✅      |             |                 |             |             |
-| Azure OpenAI          |     ✅      |             |                 |             |             |
-| Cohere                |     ✅      |             |                 |             |             |
-| DeepInfra             |             |             |                 |             |             |
-| DeepSeek              |             |             |                 |             |             |
-| Fireworks             |             |             |                 |             |             |
-| Gemini                |     ✅      |     ✅      |                 |     ✅      |     ✅      |
-| Groq                  |     ✅      |             |                 |             |             |
-| HuggingFace           |     ✅      |             |                 |             |             |
-| IBM WatsonX           |     ✅      |             |                 |             |             |
-| InternLM              |             |             |                 |             |             |
-| LiteLLM               |             |             |                 |             |             |
-| LiteLLMOpenAI         |             |             |                 |             |             |
-| LM Studio             |     ✅      |             |                 |             |             |
-| Mistral               |     ✅      |             |                 |             |             |
-| Nvidia                |             |             |                 |             |             |
-| Ollama                |     ✅      |             |                 |             |             |
-| OllamaTools           |             |             |                 |             |             |
-| OpenAIChat            |     ✅      |     ✅      |       ✅        |             |             |
-| OpenAIResponses       |     ✅      |     ✅      |       ✅        |             |     ✅      |
-| OpenRouter            |             |             |                 |             |             |
-| Perplexity            |             |             |                 |             |             |
-| Sambanova             |             |             |                 |             |             |
-| Together              |     ✅      |             |                 |             |             |
-| XAI                   |     ✅      |             |                 |             |             |
+| Agno支持模型        | 图像输入 | 音频输入 | 音频响应 | 视频输入 | 文件上传 |
+| ------------------- | :------: | :------: | :------: | :------: | :------: |
+| Anthropic Claude    |    ✅    |          |          |          |    ✅    |
+| AWS Bedrock         |    ✅    |          |          |          |          |
+| AWS Bedrock Claude  |    ✅    |          |          |          |          |
+| Azure AI Foundry    |    ✅    |          |          |          |          |
+| Azure OpenAI        |    ✅    |          |          |          |          |
+| Cohere              |          |          |          |          |          |
+| AWS Bedrock         |    ✅    |          |          |          |          |
+| AWS Bedrock Claude  |    ✅    |          |          |          |          |
+| Azure AI Foundry    |    ✅    |          |          |          |          |
+| Azure OpenAI        |    ✅    |          |          |          |          |
+| Cohere              |    ✅    |          |          |          |          |
+| DeepInfra           |          |          |          |          |          |
+| DeepSeek            |          |          |          |          |          |
+| Fireworks           |          |          |          |          |          |
+| Gemini              |    ✅    |    ✅    |          |    ✅    |    ✅    |
+| Groq                |    ✅    |          |          |          |          |
+| HuggingFace         |    ✅    |          |          |          |          |
+| IBM WatsonX         |    ✅    |          |          |          |          |
+| InternLM            |          |          |          |          |          |
+| LiteLLM             |          |          |          |          |          |
+| LiteLLMOpenAI       |          |          |          |          |          |
+| LM Studio           |    ✅    |          |          |          |          |
+| Mistral             |    ✅    |          |          |          |          |
+| Nvidia              |          |          |          |          |          |
+| Ollama              |    ✅    |          |          |          |          |
+| OllamaTools         |          |          |          |          |          |
+| OpenAIChat          |    ✅    |    ✅    |    ✅    |          |          |
+| OpenAIResponses     |    ✅    |    ✅    |    ✅    |          |    ✅    |
+| OpenRouter          |          |          |          |          |          |
+| Perplexity          |          |          |          |          |          |
+| Sambanova           |          |          |          |          |          |
+| Together            |    ✅    |          |          |          |          |
+| XAI                 |    ✅    |          |          |          |          |
 
-### Structured Outputs
+### 结构化输出
 
-| Agno Supported Models | Structured Outputs | JSON Mode |
-| --------------------- | :----------------: | :-------: |
-| Anthropic Claude      |                    |    ✅     |
-| AWS Bedrock           |                    |    ✅     |
-| AWS Bedrock Claude    |                    |    ✅     |
-| Azure AI Foundry      |                    |    ✅     |
-| Azure OpenAI          |         ✅         |    ✅     |
-| Cohere                |                    |    ✅     |
-| DeepInfra             |                    |    ✅     |
-| DeepSeek              |                    |    ✅     |
-| Fireworks             |         ✅         |    ✅     |
-| Gemini                |         ✅         |    ✅     |
-| Groq                  |                    |    ✅     |
-| HuggingFace           |                    |    ✅     |
-| IBM WatsonX           |                    |    ✅     |
-| InternLM              |         ✅         |    ✅     |
-| LiteLLMOpenAI         |         ✅         |    ✅     |
-| LiteLLM               |                    |    ✅     |
-| LM Studio             |         ✅         |    ✅     |
-| Mistral               |         ✅         |    ✅     |
-| Nvidia                |                    |    ✅     |
-| Ollama                |         ✅         |    ✅     |
-| OllamaTools           |         ✅         |    ✅     |
-| OpenAIChat            |         ✅         |    ✅     |
-| OpenAIResponses       |         ✅         |    ✅     |
-| OpenRouter            |         ✅         |    ✅     |
-| Perplexity            |         ✅         |    ✅     |
-| Sambanova             |                    |    ✅     |
-| Together              |         ✅         |    ✅     |
-| XAI                   |         ✅         |    ✅     |
+| Agno支持模型        | 结构化输出 | JSON模式 |
+| ------------------- | :--------: | :------: |
+| Anthropic Claude    |            |    ✅    |
+| AWS Bedrock         |            |    ✅    |
+| AWS Bedrock Claude  |            |    ✅    |
+| Azure AI Foundry    |            |    ✅    |
+| Azure OpenAI        |     ✅     |    ✅    |
+| Cohere              |            |    ✅    |
+| DeepInfra           |            |    ✅    |
+| DeepSeek            |            |    ✅    |
+| Fireworks           |     ✅     |    ✅    |
+| Gemini              |     ✅     |    ✅    |
+| Groq                |            |    ✅    |
+| HuggingFace         |            |    ✅    |
+| IBM WatsonX         |            |    ✅    |
+| InternLM            |     ✅     |    ✅    |
+| LiteLLMOpenAI       |     ✅     |    ✅    |
+| LiteLLM             |            |    ✅    |
+| LM Studio           |     ✅     |    ✅    |
+| Mistral             |     ✅     |    ✅    |
+| Nvidia              |            |    ✅    |
+| Ollama              |     ✅     |    ✅    |
+| OllamaTools         |     ✅     |    ✅    |
+| OpenAIChat          |     ✅     |    ✅    |
+| OpenAIResponses     |     ✅     |    ✅    |
+| OpenRouter          |     ✅     |    ✅    |
+| Perplexity          |     ✅     |    ✅    |
+| Sambanova           |            |    ✅    |
+| Together            |     ✅     |    ✅    |
+| XAI                 |     ✅     |    ✅    |
 
 <Note>
 
-LM Studio supports JSON schema output, but not structured outputs.
+LM Studio支持JSON schema输出，但不支持结构化输出。
 
 </Note>
 
-Read more about [Structured Outputs](/faq/structured-outputs).
+了解更多关于[结构化输出](/faq/structured-outputs)的信息。

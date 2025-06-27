@@ -1,8 +1,8 @@
-| Parameter    | Type               | Default            | Description                                         |
+| 参数         | 类型               | 默认值            | 描述                                               |
 | ------------ | ------------------ | ------------------ | --------------------------------------------------- |
-| `collection` | `str`              | -                  | The name of the collection to use.                  |
-| `schema`     | `Optional[str]`    | `"ai"`             | The database schema to use.                         |
-| `db_url`     | `Optional[str]`    | `None`             | The database connection URL.                        |
-| `db_engine`  | `Optional[Engine]` | `None`             | SQLAlchemy engine instance.                         |
-| `embedder`   | `Embedder`         | `OpenAIEmbedder()` | The embedder to use for creating vector embeddings. |
-| `distance`   | `Distance`         | `Distance.cosine`  | The distance metric to use for similarity search.   |
+| `collection` | `str`              | -                  | 要使用的集合名称。                                  |
+| `schema`     | `Optional[str]`    | `"ai"`             | 要使用的数据库模式。                                |
+| `db_url`     | `Optional[str]`    | `None`             | 数据库连接 URL。                                    |
+| `db_engine`  | `Optional[Engine]` | `None`             | SQLAlchemy 引擎实例。                               |
+| `embedder`   | `Embedder`         | `OpenAIEmbedder()` | 用于创建向量嵌入的嵌入器。                          |
+| `distance`   | `Distance`         | `Distance.cosine`  | 相似性搜索使用的距离度量标准。                      |

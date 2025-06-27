@@ -1,26 +1,25 @@
 ---
-title: Run Local Agent API
+title: 运行本地 Agent API
 ---
+本指南将引导您完成以下步骤：
 
-This guide will walk you through:
+- 创建一个包含Agno智能体的最小FastAPI应用
+- 使用Docker进行容器化
+- 在本地运行并配套PostgreSQL数据库用于知识和记忆存储
 
-- Creating a minimal FastAPI app with an Agno agent
-- Containerizing it with Docker
-- Running it locally along with a PostgreSQL database for knowledge and memory
-
-## Setup
+## 环境搭建
 
 <Steps>
-  <Step title="Create a new directory for your project">
+  <Step title="为你的项目创建一个新目录">
 
-    Create a new directory for your project and navigate to it. After following this guide, your project structure will should look like this:
+    为项目创建新目录并进入。完成本指南后，您的项目结构应如下所示：
 
     ```shell
     mkdir my-project
     cd my-project
     ```
 
-    After following this guide, your project structure will should look like this:
+    完成本指南后，您的项目结构应如下所示：
 
     ```shell
     my-project/
@@ -31,7 +30,7 @@ This guide will walk you through:
     ```
 
   </Step>
-  <Step title="Create a `requirements.txt` file and add the required dependencies:">
+  <Step title="创建 `requirements.txt` 文件并添加所需依赖项：">
 
 ```txt requirements.txt
 fastapi
@@ -47,10 +46,10 @@ uvicorn
   </Step>
 </Steps>
 
-## Step 1: Create a FastAPI App with an Agno Agent
+## 步骤1：创建包含Agno智能体的FastAPI应用
 
 <Steps>
-  <Step title="Create a new Python file, e.g., `main.py`, and add the following code to create a minimal FastAPI app with an Agno agent:">
+  <Step title="创建一个新的 Python 文件，例如 `main.py`，并添加以下代码以创建一个包含 Agno 智能体的最小 FastAPI 应用：">
 
 ```python main.py
 from fastapi import FastAPI
@@ -72,7 +71,7 @@ async def ask(query: str):
 ```
 
   </Step>
-  <Step title="Create and activate a virtual environment:">
+  <Step title="创建并激活虚拟环境：">
 
 ```bash
 python -m venv .venv
@@ -80,21 +79,21 @@ source .venv/bin/activate
 ```
 
   </Step>
-  <Step title="Install the required dependencies by running:">
+  <Step title="运行以下命令安装所需依赖：">
 
 ```bash
 pip install -r requirements.txt
 ```
 
   </Step>
-  <Step title="Set your OPENAI_API_KEY environment variable:">
+  <Step title="设置您的 OPENAI_API_KEY 环境变量：">
 
 ```bash
 export OPENAI_API_KEY=your_api_key
 ```
 
   </Step>
-  <Step title="Run the FastAPI app with `uvicorn main:app --reload`.">
+  <Step title="使用 `uvicorn main:app --reload` 运行 FastAPI 应用。">
 
 ```bash
 uvicorn main:app --reload
@@ -103,10 +102,10 @@ uvicorn main:app --reload
 </Step>
 </Steps>
 
-## Step 2: Create a Dockerfile
+## 步骤2：创建Dockerfile
 
 <Steps>
-  <Step title="In the same directory, create a new file named `Dockerfile` with the following content:">
+  <Step title="在同一目录下，创建一个名为`Dockerfile`的新文件，内容如下：">
 
 ```dockerfile Dockerfile
 FROM agnohq/python:3.12
@@ -122,31 +121,31 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
   </Step>
-  <Step title="Build the Docker image by running:">
+  <Step title="通过运行以下命令构建 Docker 镜像：">
 
 ```bash
 docker build -t my-agent-app .
 ```
 
   </Step>
-  <Step title="Run the Docker container with:">
+  <Step title="运行 Docker 容器命令：">
 
 ```bash
 docker run -p 8000:8000 -e OPENAI_API_KEY=your_api_key my-agent-app
 ```
 
   </Step>
-  <Step title="Access your app">
+  <Step title="访问您的应用">
 
-You can now access the FastAPI app at `http://localhost:8000`.
+现在您可以通过 `http://localhost:8000` 访问FastAPI应用。
 
   </Step>
 </Steps>
 
-## Step 3: Add Knowledge and Memory with PostgreSQL
+## 步骤3：通过PostgreSQL添加知识与记忆功能
 
 <Steps>
-  <Step title="Update your `main.py` file to include knowledge and memory storage using PostgreSQL:">
+  <Step title="更新您的 `main.py` 文件，以包含使用 PostgreSQL 的知识和记忆存储功能：">
 
 ```python main.py
 from fastapi import FastAPI
@@ -181,7 +180,7 @@ async def ask(query: str):
 ```
 
   </Step>
-  <Step title="Create a `docker-compose.yml` file in the same directory with the following content:">
+  <Step title="在同一目录下创建一个 `docker-compose.yml` 文件，内容如下：">
 
 ```yaml docker-compose.yml
 services:
@@ -215,17 +214,17 @@ volumes:
 
   </Step>
 
-  <Step title="Run the Docker Compose setup with:">
+  <Step title="运行 Docker Compose 设置命令：">
 
 ```bash
 docker-compose up --build
 ```
 
-This will start the FastAPI app and the PostgreSQL database, allowing your agent to use knowledge and memory storage.
+该操作将启动FastAPI应用和PostgreSQL数据库，使您的智能体具备知识与记忆存储能力。
 
-You can now access the FastAPI app at `http://localhost:8000` and interact with your agent that has knowledge and memory capabilities.
+现在您可以通过 `http://localhost:8000` 访问FastAPI应用，并与具备知识记忆能力的智能体进行交互。
 
-You can test the agent by running `curl http://localhost:8000/ask?query="What is the recipe for pad thai?"`.
+您可以通过运行 `curl http://localhost:8000/ask?query="What is the recipe for pad thai?"` 来测试智能体。
 
 </Step>
 </Steps>

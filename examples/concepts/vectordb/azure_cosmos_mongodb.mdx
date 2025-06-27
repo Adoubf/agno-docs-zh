@@ -1,8 +1,7 @@
 ---
-title: Azure Cosmos DB MongoDB vCore Integration
+title: Azure Cosmos DB MongoDB vCore 集成
 ---
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/knowledge/vector_dbs/mongo_db/cosmos_mongodb_vcore.py
 import urllib.parse
@@ -10,7 +9,7 @@ from agno.agent import Agent
 from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
 from agno.vectordb.mongodb import MongoDb
 
-# Azure Cosmos DB MongoDB connection string
+# Azure Cosmos DB MongoDB 连接字符串
 """
 Example connection strings:
 "mongodb+srv://<username>:<encoded_password>@cluster0.mongocluster.cosmos.azure.com/?tls=true&authMechanism=SCRAM-SHA-256&retrywrites=false&maxIdleTimeMS=120000"
@@ -27,26 +26,26 @@ knowledge_base = PDFUrlKnowledgeBase(
     ),
 )
 
-# Comment out after first run
+# 首次运行后注释掉
 knowledge_base.load(recreate=True)
 
-# Create and use the agent
+# 创建并使用智能体
 agent = Agent(knowledge=knowledge_base, show_tool_calls=True)
 agent.print_response("How to make Thai curry?", markdown=True)
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U pymongo pypdf openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/vector_dbs/mongo_db/cosmos_mongodb_vcore.py

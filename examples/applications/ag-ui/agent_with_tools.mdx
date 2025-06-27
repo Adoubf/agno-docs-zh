@@ -1,9 +1,8 @@
 ---
-title: Agent with Tools
-description: Expose your Agno Agent with tools as a AG-UI compatible app
+title: 带工具的智能体
+description: 将您的 Agno 智能体与工具作为 AG-UI 兼容应用公开
 ---
-
-## Code
+## 代码
 
 ```python cookbook/apps/agui/agent_with_tool.py
 from agno.agent.agent import Agent
@@ -35,4 +34,4 @@ if __name__ == "__main__":
     agui_app.serve(app="agent_with_tool:app", port=8000, reload=True)
 ```
 
-You can see instructions on how to setup an AG-UI compatible front-end to use this with in the [AG-UI App](/applications/ag-ui/introduction) page.
+您可以在[AG-UI应用](/applications/ag-ui/introduction)页面查看如何设置兼容AG-UI的前端以配合使用的说明。

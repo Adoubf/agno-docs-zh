@@ -1,8 +1,7 @@
 ---
-title: Combined Knowledge Base
+title: 综合知识库
 ---
-
-## Code
+## 代码
 
 ```python
 from pathlib import Path
@@ -17,7 +16,7 @@ from agno.vectordb.pgvector import PgVector
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
-# Create CSV knowledge base
+# 创建CSV知识库
 csv_kb = CSVKnowledgeBase(
     path=Path("data/csvs"),
     vector_db=PgVector(
@@ -26,7 +25,7 @@ csv_kb = CSVKnowledgeBase(
     ),
 )
 
-# Create PDF URL knowledge base
+# 创建 PDF URL 知识库
 pdf_url_kb = PDFUrlKnowledgeBase(
     urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
     vector_db=PgVector(
@@ -35,7 +34,7 @@ pdf_url_kb = PDFUrlKnowledgeBase(
     ),
 )
 
-# Create Website knowledge base
+# 创建网站知识库
 website_kb = WebsiteKnowledgeBase(
     urls=["https://docs.agno.com/introduction"],
     max_links=10,
@@ -45,7 +44,7 @@ website_kb = WebsiteKnowledgeBase(
     ),
 )
 
-# Create Local PDF knowledge base
+# 创建本地 PDF 知识库
 local_pdf_kb = PDFKnowledgeBase(
     path="data/pdfs",
     vector_db=PgVector(
@@ -54,7 +53,7 @@ local_pdf_kb = PDFKnowledgeBase(
     ),
 )
 
-# Combine knowledge bases
+# 整合知识库
 knowledge_base = CombinedKnowledgeBase(
     sources=[
         csv_kb,
@@ -68,7 +67,7 @@ knowledge_base = CombinedKnowledgeBase(
     ),
 )
 
-# Initialize the Agent with the combined knowledge base
+# 初始化智能体并加载整合后的知识库
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
@@ -76,22 +75,22 @@ agent = Agent(
 
 knowledge_base.load(recreate=False)
 
-# Use the agent
+# 使用智能体
 agent.print_response("Ask me about something from the knowledge base", markdown=True)
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U sqlalchemy 'psycopg[binary]' pgvector pypdf agno
     ```
   </Step>
 
-  <Step title="Run PgVector">
+  <Step title="运行 PgVector">
     ```bash
     docker run -d \
       -e POSTGRES_DB=ai \
@@ -105,7 +104,7 @@ agent.print_response("Ask me about something from the knowledge base", markdown=
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/combined_kb.py

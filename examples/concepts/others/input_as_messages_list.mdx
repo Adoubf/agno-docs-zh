@@ -1,10 +1,9 @@
 ---
-title: Input as Messages List
+title: 输入作为消息列表
 ---
+本示例展示如何将消息列表作为输入传递给智能体。
 
-This example shows how to pass a list of messages as input to an agent.
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/other/input_as_messages_list.py
 from agno.agent import Agent, Message
@@ -29,24 +28,24 @@ Agent().print_response(
 )
 ```
 
-## Usage
+## 使用方式
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/other/input_as_messages_list.py
@@ -57,4 +56,4 @@ Agent().print_response(
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

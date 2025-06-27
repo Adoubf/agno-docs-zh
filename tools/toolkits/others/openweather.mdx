@@ -1,26 +1,25 @@
 ---
 title: OpenWeather
 ---
+**OpenWeatherTools** 使智能体能够从OpenWeatherMap API获取天气数据。
 
-**OpenWeatherTools** enable an Agent to access weather data from the OpenWeatherMap API.
+## 前提条件
 
-## Prerequisites
-
-The following example requires the `requests` library and an API key which can be obtained from [OpenWeatherMap](https://openweathermap.org/api). Once you sign up the mentioned api key will be activated in a few hours so please be patient.
+以下示例需要 `requests` 库以及可从 [OpenWeatherMap](https://openweathermap.org/api) 获取的API密钥。注册后，所述API密钥将在几小时内激活，请耐心等待。
 
 ```shell
 export OPENWEATHER_API_KEY=***
 ```
 
-## Example
+## 示例
 
-The following agent will use OpenWeatherMap to get current weather information for Tokyo.
+以下智能体将使用OpenWeatherMap获取东京的当前天气信息。
 
 ```python cookbook/tools/openweather_tools.py
 from agno.agent import Agent
 from agno.tools.openweather import OpenWeatherTools
 
-# Create an agent with OpenWeatherTools
+# 创建带有 OpenWeatherTools 的智能体
 agent = Agent(
     tools=[
         OpenWeatherTools(
@@ -30,31 +29,31 @@ agent = Agent(
     markdown=True,
 )
 
-# Get current weather for a location
+# 获取当前位置的天气信息
 agent.print_response("What's the current weather in Tokyo?", markdown=True)
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter         | Type   | Default   | Description                                                                |
-| ----------------- | ------ | --------- | -------------------------------------------------------------------------- |
-| `api_key`         | `str`  | `None`    | OpenWeatherMap API key. If not provided, uses OPENWEATHER_API_KEY env var. |
-| `units`           | `str`  | `metric`  | Units of measurement. Options: 'standard', 'metric', 'imperial'.           |
-| `current_weather` | `bool` | `True`    | Enable current weather function.                                           |
-| `forecast`        | `bool` | `True`    | Enable forecast function.                                                  |
-| `air_pollution`   | `bool` | `True`    | Enable air pollution function.                                             |
-| `geocoding`       | `bool` | `True`    | Enable geocoding function.                                                 |
+| 参数                | 类型   | 默认值    | 描述                                                                 |
+| ------------------- | ------ | --------- | -------------------------------------------------------------------- |
+| `api_key`     | `str`  | `None`    | OpenWeatherMap API密钥。未提供时使用OPENWEATHER_API_KEY环境变量。    |
+| `units`     | `str`  | `metric`  | 测量单位。可选值：'standard'、'metric'、'imperial'。                 |
+| `current_weather`     | `bool` | `True`    | 启用当前天气功能。                                                   |
+| `forecast`    | `bool` | `True`    | 启用天气预报功能。                                                   |
+| `air_pollution`    | `bool` | `True`    | 启用空气污染功能。                                                   |
+| `geocoding`    | `bool` | `True`    | 启用地理编码功能。                                                   |
 
-## Toolkit Functions
+## 工具包功能
 
-| Function             | Description                                                                                                |
-| -------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `get_current_weather`| Gets current weather data for a location. Takes a location name (e.g., "London").                          |
-| `get_forecast`       | Gets weather forecast for a location. Takes a location name and optional number of days (default 5).       |
-| `get_air_pollution`  | Gets current air pollution data for a location. Takes a location name.                                     |
-| `geocode_location`   | Converts a location name to geographic coordinates. Takes a location name and optional result limit.       |
+| 函数                   | 描述                                                                                     |
+| ---------------------- | ---------------------------------------------------------------------------------------- |
+| `get_current_weather`       | 获取某地当前天气数据。参数为地点名称（如"伦敦"）。                                       |
+| `get_forecast`       | 获取某地天气预报。参数为地点名称和可选天数（默认5天）。                                   |
+| `get_air_pollution`       | 获取某地当前空气污染数据。参数为地点名称。                                               |
+| `geocode_location`       | 将地点名称转换为地理坐标。参数为地点名称和可选结果数量限制。                             |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/openweather.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/openweather_tools.py)
+- 查看 [工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/openweather.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/openweather_tools.py)

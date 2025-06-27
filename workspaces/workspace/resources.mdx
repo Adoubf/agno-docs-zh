@@ -1,59 +1,58 @@
 ---
-title: Workspace Resources
-sidebarTitle: Resources
+title: 工作区资源
+sidebarTitle: 资源
 ---
+代码库中的 ``workspace`` 目录包含通过 ``ag ws up``/``ag ws down`` 创建或删除的资源。
 
-The `workspace` directory in a codebase contains the resources that are created/deleted using `ag ws up`/`ag ws down`.
+任何位于 ``workspace`` 目录且包含 ``DockerResources``、``AwsResources`` 或 ``K8sResources`` 对象的 ``.py`` 文件均可用于定义工作区资源。
 
-Any `.py` file in the `workspace` containing a `DockerResources`, `AwsResources` or `K8sResources` object can be used to define the workspace resources.
+如需添加自定义资源，只需创建 Python 文件，定义资源并将其添加到 ``DockerResources``、``AwsResources`` 或 ``K8sResources`` 对象中。
 
-To add your own resources, just create a python file, define resources and add them to a `DockerResources`, `AwsResources` or `K8sResources` object.
-
-## Example
+## 示例
 
 ### DockerResources
 
-```python workspace/dev_resources.py
+````python workspace/dev_resources.py
 from agno.docker.app.fastapi import FastApi
 from agno.docker.app.postgres import PgVectorDb
 from agno.docker.app.streamlit import Streamlit
 from agno.docker.resources import DockerResources
 
 #
-# -*- Resources for the Development Environment
+# -** 开发环境资源
 #
 
-# -*- Dev image
+# -*- 开发镜像
 dev_image = DockerImage(
     ...
 )
 
-# -*- Dev database running on port 5432:5432
+# -*- 开发数据库运行在端口 5432:5432
 dev_db = PgVectorDb(
     ...
 )
 
-# -*- Streamlit running on port 8501:8501
+# -*- Streamlit 运行于端口 8501:8501
 dev_streamlit = Streamlit(
     ...
 )
 
-# -*- FastAPI running on port 8000:8000
+# -*- FastAPI 运行在端口 8000:8000
 dev_fastapi = FastApi(
     ...
 )
 
-# -*- Dev DockerResources
+# -*- 开发环境 Docker 资源
 dev_docker_resources = DockerResources(
     env=ws_settings.dev_env,
     network=ws_settings.ws_name,
     apps=[dev_db, dev_streamlit, dev_fastapi, dev_jupyter_app],
 )
-```
+````
 
 ### AwsResources
 
-```python workspace/prd_resources.py
+````python workspace/prd_resources.py
 from agno.aws.app.fastapi import FastApi
 from agno.aws.app.streamlit import Streamlit
 from agno.aws.resources import AwsResources
@@ -67,73 +66,73 @@ from agno.docker.resources import DockerResources
 from agno.docker.resource.image import DockerImage
 
 #
-# -*- Resources for the Production Environment
+# -*- 生产环境资源
 #
 
-# -*- Production image
+# -*- 生产环境镜像
 prd_image = DockerImage(
     ...
 )
 
-# -*- S3 bucket for production data
+# -*- 用于生产数据的 S3 存储桶
 prd_bucket = S3Bucket(
     ...
 )
 
-# -*- Secrets for production application
+# -*- 生产环境应用密钥
 prd_secret = SecretsManager(
     ...
 )
-# -*- Secrets for production database
+# -*- 生产环境数据库密钥
 prd_db_secret = SecretsManager(
     ...
 )
 
-# -*- Security Group for the load balancer
+# -*- 负载均衡器的安全组
 prd_lb_sg = SecurityGroup(
     ...
 )
-# -*- Security Group for the application
+# -*- 应用程序安全组
 prd_sg = SecurityGroup(
     ...
 )
-# -*- Security Group for the database
+# -*- 数据库安全组
 prd_db_port = 5432
 prd_db_sg = SecurityGroup(
     ...
 )
 
-# -*- RDS Database Subnet Group
+# -*- RDS 数据库子网组
 prd_db_subnet_group = DbSubnetGroup(
     ...
 )
 
-# -*- RDS Database Instance
+# -*- RDS 数据库实例
 prd_db = DbInstance(
     ...
 )
 
-# -*- Streamlit running on ECS
+# -*- 在ECS上运行的Streamlit
 prd_streamlit = Streamlit(
     ...
 )
 
-# -*- FastAPI running on ECS
+# -*- 运行在ECS上的FastAPI
 prd_fastapi = FastApi(
     ...
 )
 
-# -*- Production DockerResources
+# -*- 生产环境 Docker 资源
 prd_docker_resources = DockerResources(
     env=ws_settings.prd_env,
     network=ws_settings.ws_name,
     resources=[prd_image],
 )
 
-# -*- Production AwsResources
+# -*- 生产环境 AWS资源
 prd_aws_resources = AwsResources(
     env=ws_settings.prd_env,
     apps=[prd_streamlit, prd_fastapi],
     resources=[prd_lb_sg, prd_sg, prd_db_sg, prd_secret, prd_db_secret, prd_db_subnet_group, prd_db, prd_bucket],
 )
-```
+````

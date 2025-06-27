@@ -1,8 +1,7 @@
 ---
-title: Document Knowledge Base
+title: 文档知识库
 ---
-
-## Code
+## 代码
 
 ```python
 from agno.agent import Agent
@@ -23,13 +22,13 @@ fun_facts = """
 - The planet's magnetic field protects life by deflecting harmful solar radiation and cosmic rays.
 """
 
-# Load documents from the data/docs directory
+# 从数据/docs目录加载文档
 documents = [Document(content=fun_facts)]
 
-# Database connection URL
+# 数据库连接URL
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
-# Create a knowledge base with the loaded documents
+# 基于已加载文档创建知识库
 knowledge_base = DocumentKnowledgeBase(
     documents=documents,
     vector_db=PgVector(
@@ -38,32 +37,32 @@ knowledge_base = DocumentKnowledgeBase(
     ),
 )
 
-# Load the knowledge base
+# 加载知识库
 knowledge_base.load(recreate=False)
 
-# Create an agent with the knowledge base
+# 创建一个带有知识库的智能体
 agent = Agent(
     knowledge=knowledge_base,
 )
 
-# Ask the agent about the knowledge base
+# 询问智能体关于知识库的问题
 agent.print_response(
     "Ask me about something from the knowledge base about earth", markdown=True
 )
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U sqlalchemy 'psycopg[binary]' pgvector agno
     ```
   </Step>
 
-  <Step title="Run PgVector">
+  <Step title="运行PgVector">
     ```bash
     docker run -d \
       -e POSTGRES_DB=ai \
@@ -77,7 +76,7 @@ agent.print_response(
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/doc_kb.py

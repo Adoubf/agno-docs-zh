@@ -1,12 +1,11 @@
 ---
-title: Hacker News
+title: 黑客新闻
 ---
+**HackerNews** 允许智能体搜索 Hacker News 网站。
 
-**HackerNews** enables an Agent to search Hacker News website.
+## 示例
 
-## Example
-
-The following agent will write an engaging summary of the users with the top 2 stories on hackernews along with the stories.
+以下智能体会撰写一份引人入胜的摘要，包含 Hacker News 上热门的前 2 篇故事及其发布用户。
 
 ```python cookbook/tools/hackernews.py
 from agno.agent import Agent
@@ -26,21 +25,21 @@ agent.print_response(
 )
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter          | Type   | Default | Description                    |
+| 参数          | 类型   | 默认值 | 描述                    |
 | ------------------ | ------ | ------- | ------------------------------ |
-| `get_top_stories`  | `bool` | `True`  | Enables fetching top stories.  |
-| `get_user_details` | `bool` | `True`  | Enables fetching user details. |
+| `get_top_stories`  | `bool` | `True`  | 启用获取热门故事功能。  |
+| `get_user_details` | `bool` | `True`  | 启用获取用户详情功能。 |
 
-## Toolkit Functions
+## 工具包函数
 
-| Function                     | Description                                                                                                                                                                      |
+| 函数                     | 描述                                                                                                                                                                      |
 | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `get_top_hackernews_stories` | Retrieves the top stories from Hacker News. Parameters include `num_stories` to specify the number of stories to return (default is 10). Returns the top stories in JSON format. |
-| `get_user_details`           | Retrieves the details of a Hacker News user by their username. Parameters include `username` to specify the user. Returns the user details in JSON format.                       |
+| `get_top_hackernews_stories` | 从 Hacker News 获取热门故事。参数包含 `num_stories`（指定返回的故事数量，默认值为 10）。返回 JSON 格式的热门故事列表。 |
+| `get_user_details`           | 通过用户名获取 Hacker News 用户的详细信息。参数包含 `username`（指定目标用户）。返回 JSON 格式的用户详情。                       |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/hackernews.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/hackernews_tools.py)
+- 查看 [工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/hackernews.py)
+- 查看 [示例库](https://github.com/agno-agi/agno/blob/main/cookbook/tools/hackernews_tools.py)

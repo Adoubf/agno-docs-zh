@@ -1,9 +1,8 @@
 ---
-title: Async User Input
-description: This example demonstrates how to implement asynchronous user input collection, allowing for non-blocking execution while gathering user information.
+title: 异步用户输入
+description: 本示例演示如何实现异步用户输入收集，在获取用户信息的同时允许非阻塞执行。
 ---
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/user_control_flows/user_input_required_async.py
 import asyncio
@@ -41,15 +40,15 @@ if agent.is_paused:
         input_schema: List[UserInputField] = tool.user_input_schema
 
         for field in input_schema:
-            # Display field information to the user
+            # 向用户显示字段信息
             print(f"\nField: {field.name}")
             print(f"Description: {field.description}")
             print(f"Type: {field.field_type}")
 
-            # Get user input
+            # 获取用户输入
             if field.value is None:
                 user_value = input(f"Please enter a value for {field.name}: ")
-                # Update the field value
+                # 更新字段值
                 field.value = user_value
             else:
                 print(f"Value: {field.value}")
@@ -59,24 +58,24 @@ if agent.is_paused:
     pprint.pprint_run_response(run_response)
 ```
 
-## Usage
+## 使用方式
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno openai
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/user_control_flows/user_input_required_async.py
@@ -89,16 +88,16 @@ if agent.is_paused:
   </Step>
 </Steps>
 
-## Key Features
+## 核心特性
 
-- Uses `agent.arun()` for asynchronous agent execution
-- Implements `agent.acontinue_run()` for async continuation
-- Maintains the same user input flow as synchronous version
-- Demonstrates how to handle async execution with user input collection
+- 使用 `agent.arun()` 实现智能体异步执行
+- 采用 `agent.acontinue_run()` 实现异步延续
+- 保持与同步版本相同的用户输入流程
+- 展示如何结合用户输入采集处理异步执行
 
-## Use Cases
+## 应用场景
 
-- Non-blocking user input collection
-- High-performance applications requiring async execution
-- Web applications with form-like interactions
-- Long-running operations with user input 
+- 非阻塞式用户输入采集
+- 需要异步执行的高性能应用
+- 具有表单式交互的 Web 应用程序
+- 涉及用户输入的长时运行操作

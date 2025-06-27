@@ -1,18 +1,17 @@
 ---
-title: ChromaDB Integration
+title: ChromaDB 集成
 ---
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/vector_dbs/chroma_db.py
 from agno.agent import Agent
 from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
 from agno.vectordb.chroma import ChromaDb
 
-# Initialize ChromaDB
+# 初始化 ChromaDB
 vector_db = ChromaDb(collection="recipes", path="tmp/chromadb", persistent_client=True)
 
-# Create knowledge base
+# 创建知识库
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
     vector_db=vector_db,
@@ -20,25 +19,25 @@ knowledge_base = PDFUrlKnowledgeBase(
 
 knowledge_base.load(recreate=False)  # Comment out after first run
 
-# Create and use the agent
+# 创建并使用智能体
 agent = Agent(knowledge=knowledge_base, show_tool_calls=True)
 agent.print_response("Show me how to make Tom Kha Gai", markdown=True)
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U chromadb pypdf openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果
     python cookbook/agent_concepts/vector_dbs/chroma_db.py
     ```
 

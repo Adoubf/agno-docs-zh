@@ -1,8 +1,7 @@
 ---
-title: Audio Streaming Agent
+title: 音频流传输智能体
 ---
-
-## Code
+## 代码
 
 ```python
 import base64
@@ -11,7 +10,7 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from typing import Iterator
 
-# Audio Configuration
+# 音频配置
 SAMPLE_RATE = 24000  # Hz (24kHz)
 CHANNELS = 1  # Mono
 SAMPLE_WIDTH = 2  # Bytes (16 bits)
@@ -29,7 +28,7 @@ agent = Agent(
     add_history_to_messages=True,
 )
 
-# Question with streaming
+# 支持流式传输的提问
 output_stream: Iterator[RunResponse] = agent.run(
     "Is a golden retriever a good family dog?", 
     stream=True
@@ -53,24 +52,24 @@ with wave.open("tmp/answer_1.wav", "wb") as wav_file:
 print()
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的API密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/multimodal/audio_streaming.py

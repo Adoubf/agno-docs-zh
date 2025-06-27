@@ -1,8 +1,7 @@
 ---
-title: Zep Async Memory Tools
+title: Zep 异步记忆工具
 ---
-
-## Code
+## 代码
 
 ```python cookbook/tools/zep_async_tools.py
 import asyncio
@@ -13,12 +12,12 @@ from agno.tools.zep import ZepAsyncTools
 
 
 async def main():
-    # Initialize the ZepAsyncTools
+    # 初始化 ZepAsyncTools
     zep_tools = ZepAsyncTools(
         user_id="agno", session_id="agno-async-session", add_instructions=True
     )
 
-    # Initialize the Agent
+    # 初始化智能体
     agent = Agent(
         model=OpenAIChat(),
         tools=[zep_tools],
@@ -28,18 +27,18 @@ async def main():
         add_context=True,
     )
 
-    # Interact with the Agent
+    # 与智能体交互
     await agent.aprint_response("My name is John Billings")
     await agent.aprint_response("I live in NYC")
     await agent.aprint_response("I'm going to a concert tomorrow")
 
-    # Allow the memories to sync with Zep database
+    # 允许记忆与Zep数据库同步
     time.sleep(10)
 
-    # Refresh the context
+    # 刷新上下文
     agent.context["memory"] = await zep_tools.get_zep_memory(memory_type="context")
 
-    # Ask the Agent about the user
+    # 向智能体询问用户信息
     await agent.aprint_response("What do you know about me?")
 
 
@@ -47,25 +46,25 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API keys">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     export ZEP_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U zep-cloud openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/zep_async_tools.py

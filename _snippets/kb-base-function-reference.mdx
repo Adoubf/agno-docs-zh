@@ -1,35 +1,34 @@
+### 属性
 
-### Properties
-
-| Property | Type | Description |
+| 属性 | 类型 | 描述 |
 | --- | --- | --- |
-| `document_lists` | `Iterator[List[Document]]` | Iterator that yields lists of documents in the knowledge base |
-| `async_document_lists` | `AsyncIterator[List[Document]]` | Async iterator that yields lists of documents in the knowledge base |
+| `document_lists` | `Iterator[List[Document]]` | 生成知识库文档列表的迭代器 |
+| `async_document_lists` | `AsyncIterator[List[Document]]` | 生成知识库文档列表的异步迭代器 |
 
-### Search Methods
+### 搜索方法
 
-| Method | Parameters | Return Type | Description |
+| 方法 | 参数 | 返回类型 | 描述 |
 | --- | --- | --- | --- |
-| `search` | `query: str, num_documents: Optional[int] = None, filters: Optional[Dict[str, Any]] = None` | `List[Document]` | Returns relevant documents matching a query |
-| `async_search` | `query: str, num_documents: Optional[int] = None, filters: Optional[Dict[str, Any]] = None` | `List[Document]` | Asynchronously returns relevant documents matching a query |
+| `search` | `query: str, num_documents: Optional[int] = None, filters: Optional[Dict[str, Any]] = None` | `List[Document]` | 返回匹配查询的相关文档 |
+| `async_search` | `query: str, num_documents: Optional[int] = None, filters: Optional[Dict[str, Any]] = None` | `List[Document]` | 异步返回匹配查询的相关文档 |
 
-### Loading Methods
+### 加载方法
 
-| Method | Parameters | Return Type | Description |
+| 方法 | 参数 | 返回类型 | 描述 |
 | --- | --- | --- | --- |
-| `load` | `recreate: bool = False, upsert: bool = False, skip_existing: bool = True, filters: Optional[Dict[str, Any]] = None` | `None` | Load the knowledge base to the vector db |
-| `aload` | `recreate: bool = False, upsert: bool = False, skip_existing: bool = True, filters: Optional[Dict[str, Any]] = None` | `None` | Asynchronously load the knowledge base to the vector db |
-| `load_documents` | `documents: List[Document], upsert: bool = False, skip_existing: bool = True, filters: Optional[Dict[str, Any]] = None` | `None` | Load documents to the knowledge base |
-| `async_load_documents` | `documents: List[Document], upsert: bool = False, skip_existing: bool = True, filters: Optional[Dict[str, Any]] = None` | `None` | Asynchronously load documents to the knowledge base |
-| `load_document` | `document: Document, upsert: bool = False, skip_existing: bool = True, filters: Optional[Dict[str, Any]] = None` | `None` | Load a single document to the knowledge base |
-| `async_load_document` | `document: Document, upsert: bool = False, skip_existing: bool = True, filters: Optional[Dict[str, Any]] = None` | `None` | Asynchronously load a single document to the knowledge base |
-| `load_dict` | `document: Dict[str, Any], upsert: bool = False, skip_existing: bool = True, filters: Optional[Dict[str, Any]] = None` | `None` | Load a dictionary representation of a document to the knowledge base |
-| `load_json` | `document: str, upsert: bool = False, skip_existing: bool = True, filters: Optional[Dict[str, Any]] = None` | `None` | Load a JSON representation of a document to the knowledge base |
-| `load_text` | `text: str, upsert: bool = False, skip_existing: bool = True, filters: Optional[Dict[str, Any]] = None` | `None` | Load a text to the knowledge base |
+| `load` | `recreate: bool = False, upsert: bool = False, skip_existing: bool = True, filters: Optional[Dict[str, Any]] = None` | `None` | 将知识库加载至向量数据库 |
+| `aload` | `recreate: bool = False, upsert: bool = False, skip_existing: bool = True, filters: Optional[Dict[str, Any]] = None` | `None` | 异步将知识库加载至向量数据库 |
+| `load_documents` | `documents: List[Document], upsert: bool = False, skip_existing: bool = True, filters: Optional[Dict[str, Any]] = None` | `None` | 将文档加载至知识库 |
+| `async_load_documents` | `documents: List[Document], upsert: bool = False, skip_existing: bool = True, filters: Optional[Dict[str, Any]] = None` | `None` | 异步将文档加载至知识库 |
+| `load_document` | `document: Document, upsert: bool = False, skip_existing: bool = True, filters: Optional[Dict[str, Any]] = None` | `None` | 将单个文档加载至知识库 |
+| `async_load_document` | `document: Document, upsert: bool = False, skip_existing: bool = True, filters: Optional[Dict[str, Any]] = None` | `None` | 异步将单个文档加载至知识库 |
+| `load_dict` | `document: Dict[str, Any], upsert: bool = False, skip_existing: bool = True, filters: Optional[Dict[str, Any]] = None` | `None` | 将文档的字典表示加载至知识库 |
+| `load_json` | `document: str, upsert: bool = False, skip_existing: bool = True, filters: Optional[Dict[str, Any]] = None` | `None` | 将文档的JSON表示加载至知识库 |
+| `load_text` | `text: str, upsert: bool = False, skip_existing: bool = True, filters: Optional[Dict[str, Any]] = None` | `None` | 将文本加载至知识库 |
 
-### Utility Methods
+### 实用方法
 
-| Method | Parameters | Return Type | Description |
+| 方法 | 参数 | 返回类型 | 描述 |
 | --- | --- | --- | --- |
-| `exists` | None | `bool` | Returns True if the knowledge base exists |
-| `delete` | None | `bool` | Clear the knowledge base |
+| `exists` | 无 | `bool` | 若知识库存在则返回True |
+| `delete` | 无 | `bool` | 清空知识库 |

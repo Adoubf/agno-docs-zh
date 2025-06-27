@@ -1,8 +1,7 @@
 ---
-title: Milvus Integration
+title: Milvus 集成
 ---
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/vector_dbs/milvus.py
 from agno.agent import Agent
@@ -24,20 +23,20 @@ agent = Agent(knowledge=knowledge_base, show_tool_calls=True)
 agent.print_response("List down the ingredients to make Massaman Gai", markdown=True)
 ```
 
-## Usage
+## 使用指南
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U pymilvus pypdf openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
-    ```bash Mac
+    ```bash Mac（苹果电脑）
     python cookbook/agent_concepts/vector_dbs/milvus.py
     ```
 

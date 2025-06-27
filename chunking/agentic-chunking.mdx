@@ -1,10 +1,9 @@
 ---
-title: Agentic Chunking
+title: 智能体分块
 ---
+智能体分块是一种智能化的文档分割方法，它通过模型分析文本内容来确定自然断点。不同于固定字符数的机械分割，该方法会分析内容语义，寻找段落分隔和主题转换等具有实际意义的边界。
 
-Agentic chunking is an intelligent method of splitting documents into smaller chunks by using a model to determine natural breakpoints in the text. Rather than splitting text at fixed character counts, it analyzes the content to find semantically meaningful boundaries like paragraph breaks and topic transitions.
-
-## Usage
+## 使用方法
 
 ```python
 from agno.agent import Agent
@@ -29,6 +28,6 @@ agent = Agent(
 agent.print_response("How to make Thai curry?", markdown=True)
 ```
 
-## Agentic Chunking Params
+## 智能体分块参数
 
 <Snippet file="chunking-agentic.mdx" />

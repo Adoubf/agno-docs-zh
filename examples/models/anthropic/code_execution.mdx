@@ -1,12 +1,10 @@
 ---
-title: Code Execution Tool
-description: Learn how to use Anthropic's code execution tool with Agno.
+title: 代码执行工具
+description: 了解如何在Agno中使用Anthropic的代码执行工具。
 ---
+借助Anthropic的[代码执行工具](https://docs.anthropic.com/en/docs/agents-and-tools/tool-use/code-execution-tool)，您的模型可以在安全沙箱环境中运行Python代码。此功能有助于模型执行数据分析、创建可视化图表或进行复杂计算等任务。
 
-With Anthropic's [code execution tool](https://docs.anthropic.com/en/docs/agents-and-tools/tool-use/code-execution-tool), your model can execute Python code in a secure, sandboxed environment.
-This is useful for your model to perform tasks as analyzing data, creating visualizations, or performing complex calculations.
-
-## Working example
+## 工作示例
 
 ```python
 from agno.agent import Agent
@@ -30,4 +28,3 @@ agent = Agent(
 
 agent.print_response("Calculate the mean and standard deviation of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]", stream=True)
 ```
-

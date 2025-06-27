@@ -1,13 +1,13 @@
-### Parameters
+### 参数
 
-| Parameter | Type | Description | Default |
+| 参数 | 类型 | 描述 | 默认值 |
 |-----------|------|-------------|---------|
-| `id` | `str` | The model ID to use for embeddings | `"mistral-embed"` |
-| `dimensions` | `int` | Output dimensions of the embedding | `1024` |
-| `request_params` | `Optional[Dict[str, Any]]` | Additional parameters for embedding requests | `None` |
-| `api_key` | `Optional[str]` | Mistral API key | Environment variable `MISTRAL_API_KEY` |
-| `endpoint` | `Optional[str]` | Custom API endpoint URL | `None` |
-| `max_retries` | `Optional[int]` | Maximum number of retry attempts | `None` |
-| `timeout` | `Optional[int]` | Request timeout in seconds | `None` |
-| `client_params` | `Optional[Dict[str, Any]]` | Additional parameters for client initialization | `None` |
-| `mistral_client` | `Optional[Mistral]` | Pre-configured Mistral client | `None` |
+| `id` | `str` | 用于生成嵌入的模型ID | `"mistral-embed"` |
+| `dimensions` | `int` | 嵌入输出的维度 | `1024` |
+| `request_params` | `Optional[Dict[str, Any]]` | 嵌入请求的附加参数 | `None` |
+| `api_key` | `Optional[str]` | Mistral API密钥 | 环境变量 `MISTRAL_API_KEY` |
+| `endpoint` | `Optional[str]` | 自定义API端点URL | `None` |
+| `max_retries` | `Optional[int]` | 最大重试次数 | `None` |
+| `timeout` | `Optional[int]` | 请求超时时间（秒） | `None` |
+| `client_params` | `Optional[Dict[str, Any]]` | 客户端初始化的附加参数 | `None` |
+| `mistral_client` | `Optional[Mistral]` | 预配置的Mistral客户端 | `None` |

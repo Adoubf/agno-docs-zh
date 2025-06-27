@@ -1,8 +1,8 @@
-| Parameter | Type | Description | Default |
+| 参数 | 类型 | 描述 | 默认值 |
 | --- | --- | --- | --- |
-| `prefix` | `str` | Prefix for Redis keys to namespace the sessions | Required |
-| `host` | `str` | Redis host address | `"localhost"` |
-| `port` | `int` | Redis port number | `6379` |
-| `db` | `int` | Redis database number | `0` |
-| `password` | `Optional[str]` | Redis password if authentication is required | `None` |
-| `mode` | `Optional[Literal["agent", "team", "workflow"]]` | Storage mode | `"agent"` |
+| `prefix` | `str` | 用于会话命名的Redis键前缀 | 必填 |
+| `host` | `str` | Redis主机地址 | `"localhost"` |
+| `port` | `int` | Redis端口号 | `6379` |
+| `db` | `int` | Redis数据库编号 | `0` |
+| `password` | `Optional[str]` | Redis认证密码（如需鉴权） | `None` |
+| `mode` | `Optional[Literal["agent", "team", "workflow"]]` | 存储模式 | `"agent"` |

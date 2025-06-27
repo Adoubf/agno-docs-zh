@@ -1,16 +1,15 @@
 ---
-title: Youtube KnowledgeBase
-description: Learn how to use YouTube video transcripts in your knowledge base.
-sidebarTitle: Youtube
+title: YouTube 知识库
+description: 了解如何将 YouTube 视频转录文本整合到您的知识库中。
+sidebarTitle: YouTube
 ---
+**YouTubeKnowledgeBase** 会遍历 YouTube URL 列表，提取视频字幕，将其转换为向量嵌入并加载到向量数据库中。
 
-The **YouTubeKnowledgeBase** iterates over a list of YouTube URLs, extracts the video transcripts, converts them into vector embeddings and loads them to a vector database.
-
-## Usage
+## 使用方法
 
 <Note>
 
-We are using a local PgVector database for this example. [Make sure it's running](http://localhost:3333/vectordb/pgvector)
+本示例使用本地 PgVector 数据库。[请确保其已运行](http://localhost:3333/vectordb/pgvector)
 
 </Note>
 
@@ -24,7 +23,7 @@ from agno.vectordb.pgvector import PgVector
 
 knowledge_base = YouTubeKnowledgeBase(
     urls=["https://www.youtube.com/watch?v=CDC3GOuJyZ0"],
-    # Table name: ai.website_documents
+    # 表名：ai.website_documents
     vector_db=PgVector(
         table_name="youtube_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -32,7 +31,7 @@ knowledge_base = YouTubeKnowledgeBase(
 )
 ```
 
-Then use the `knowledge_base` with an `Agent`:
+然后使用 `knowledge_base` 配合 `Agent`：
 
 ```python agent.py
 from agno.agent import Agent
@@ -47,12 +46,12 @@ agent.knowledge.load(recreate=False)
 agent.print_response("Ask me about something from the knowledge base")
 ```
 
-#### YouTubeKnowledgeBase also supports async loading.
+#### YouTubeKnowledgeBase 也支持异步加载。
 
 ```shell
 pip install qdrant-client
 ```
-We are using a local Qdrant database for this example. [Make sure it's running](https://docs.agno.com/vectordb/qdrant)
+本示例使用本地 Qdrant 数据库。[请确保其已运行](https://docs.agno.com/vectordb/qdrant)
 
 ```python async_knowledge_base.py
 import asyncio
@@ -80,10 +79,10 @@ agent = Agent(
 )
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 初次运行后注释掉
     asyncio.run(knowledge_base.aload(recreate=False))
 
-    # Create and use the agent
+    # 创建并使用智能体
     asyncio.run(
         agent.aprint_response(
             "What is the major focus of the knowledge provided in both the videos, explain briefly.",
@@ -93,16 +92,16 @@ if __name__ == "__main__":
 ```
 
 
-## Params
+## 参数
 
-| Parameter | Type                      | Default | Description                                                                                                                    |
-| --------- | ------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `urls`    | `List[str]`               | `[]`    | URLs of the videos to read                                                                                                     |
-| `reader`  | `Optional[YouTubeReader]` | `None`  | A `YouTubeReader` that reads transcripts of the videos at the urls and converts them into `Documents` for the vector database. |
+| 参数          | 类型                       | 默认值     | 描述                                                                                                                         |
+| ------------ | -------------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `urls`      | `List[str]`               | `[]`      | 待读取视频的 URL                                                                                                            |
+| `reader`    | `Optional[YouTubeReader]` | `None`    | 一个 `YouTubeReader`，用于读取 URL 视频的字幕并将其转换为向量数据库所需的 `Documents`。                                   |
 
-`YouTubeKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+`YouTubeKnowledgeBase` 是 [AgentKnowledge](/reference/knowledge/base) 类的子类，拥有相同的参数访问权限。
 
-## Developer Resources
+## 开发者资源
 
-- View [Sync loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/youtube_kb.py)
-- View [Async loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/youtube_kb_async.py)
+- 查看 [同步加载 Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/youtube_kb.py)
+- 查看 [异步加载 Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/youtube_kb_async.py)

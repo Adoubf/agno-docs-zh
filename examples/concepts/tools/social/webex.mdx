@@ -1,8 +1,7 @@
 ---
-title: Webex Tools
+title: Webex 工具
 ---
-
-## Code
+## 代码
 
 ```python cookbook/tools/webex_tools.py
 from agno.agent import Agent
@@ -22,44 +21,44 @@ agent = Agent(
     markdown=True,
 )
 
-# List all spaces in Webex
+# 列出 Webex 中的所有空间
 agent.print_response("List all spaces on our Webex", markdown=True)
 
-# Send a message to a Space in Webex
+# 向 Webex 中的空间发送消息
 agent.print_response(
     "Send a funny ice-breaking message to the webex Welcome space", markdown=True
 )
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set up Webex Bot">
-    1. Go to [Webex Developer Portal](https://developer.webex.com/)
-    2. Create a Bot:
-       - Navigate to My Webex Apps → Create a Bot
-       - Fill in the bot details and click Add Bot
-    3. Get your access token:
-       - Copy the token shown after bot creation
-       - Or regenerate via My Webex Apps → Edit Bot
+  <Step title="设置 Webex Bot">
+    1. 访问 [Webex开发者门户](https://developer.webex.com/)
+    2. 创建机器人：
+       - 导航至 My Webex Apps → Create a Bot
+       - 填写机器人详情并点击 Add Bot
+    3. 获取访问令牌：
+       - 复制机器人创建后显示的令牌
+       - 或通过 My Webex Apps → Edit Bot 重新生成
   </Step>
 
-  <Step title="Set your API keys">
+  <Step title="设置您的 API 密钥">
     ```bash
     export WEBEX_ACCESS_TOKEN=xxx
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U webexpythonsdk openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/tools/webex_tools.py
@@ -70,4 +69,4 @@ agent.print_response(
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

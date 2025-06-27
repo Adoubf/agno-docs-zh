@@ -1,8 +1,7 @@
 ---
-title: Mcp Demo
+title: Mcp 演示
 ---
-
-## Code
+## 代码
 
 ```python cookbook/apps/playground/mcp_demo.py
 import asyncio
@@ -17,7 +16,7 @@ from agno.storage.agent.sqlite import SqliteAgentStorage
 from agno.tools.mcp import MCPTools
 from mcp import StdioServerParameters
 
-# Allow nested event loops
+# 允许嵌套事件循环
 nest_asyncio.apply()
 
 agent_storage_file: str = "tmp/agents.db"
@@ -29,13 +28,13 @@ async def run_server() -> None:
     if not github_token:
         raise ValueError("GITHUB_TOKEN environment variable is required")
 
-    # Initialize the MCP server
+    # 初始化 MCP 服务器
     server_params = StdioServerParameters(
         command="npx",
         args=["-y", "@modelcontextprotocol/server-github"],
     )
 
-    # Create a client session to connect to the MCP server
+    # 创建客户端会话以连接至 MCP 服务器
     async with MCPTools(server_params=server_params) as mcp_tools:
         agent = Agent(
             name="MCP GitHub Agent",
@@ -66,14 +65,14 @@ async def run_server() -> None:
         )
         playground.get_app()
 
-        # Serve the app while keeping the MCPTools context manager alive
+        # 在保持 MCPTools 上下文管理器运行的状态下启动应用
         playground.serve(app="mcp_demo:app", reload=True)
 
 
 if __name__ == "__main__":
     asyncio.run(run_server())
 
-# Example prompts to explore:
+# 示例探索提示：
 """
 Issue queries:
 1. "Find issues needing attention"
@@ -99,25 +98,25 @@ Repository queries:
 
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API keys">
+  <Step title="设置您的API密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     export GITHUB_TOKEN=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno "uvicorn[standard]" openai nest-asyncio mcp
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/apps/playground/mcp_demo.py
@@ -128,4 +127,4 @@ Repository queries:
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

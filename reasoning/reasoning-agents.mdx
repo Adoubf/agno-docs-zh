@@ -1,14 +1,13 @@
 ---
-title: Reasoning Agents
+title: 推理智能体
 ---
+推理智能体是Agno开发的新型多智能体系统，它结合了思维链推理与工具使用。
 
-Reasoning Agents are a new type of multi-agent system developed by Agno that combines chain of thought reasoning with tool use.
+通过设置`reasoning=True`，您可以在任何智能体上启用推理功能。
 
-You can enable reasoning on any Agent by setting `reasoning=True`.
+当具有`reasoning=True`的智能体接收到任务时，一个独立的"推理智能体"会首先使用思维链来解决问题。在每一步骤中，它会调用工具来收集信息、验证结果并迭代，直到得出最终答案。推理智能体获得最终答案后，会将结果返回给原始智能体进行验证和响应。
 
-When an Agent with `reasoning=True` is given a task, a separate "Reasoning Agent" first solves the problem using chain-of-thought. At each step, it calls tools to gather information, validate results, and iterate until it reaches a final answer. Once the Reasoning Agent has a final answer, it hands the results back to the original Agent to validate and provide a response.
-
-### Example
+### 示例
 
 ```python reasoning_agent.py
 from agno.agent import Agent
@@ -27,21 +26,21 @@ reasoning_agent.print_response(
 )
 ```
 
-## Enabling Agentic Reasoning
+## 启用智能体推理
 
-To enable Agentic Reasoning, set `reasoning=True` or set the `reasoning_model` to a model that supports structured outputs. If you do not set `reasoning_model`, the primary `Agent` model will be used for reasoning.
+要启用智能体推理功能，请设置`reasoning=True`或将`reasoning_model`设置为支持结构化输出的模型。如果未设置`reasoning_model`，将使用主`Agent`模型进行推理。
 
-### Reasoning Model Requirements
+### 推理模型要求
 
-The `reasoning_model` must be able to handle structured outputs, this includes models like gpt-4o and claude-3-7-sonnet that support structured outputs natively or gemini models that support structured outputs using JSON mode.
+`reasoning_model`必须能处理结构化输出，包括原生支持结构化输出的模型（如gpt-4o和claude-3-7-sonnet），或使用JSON模式支持结构化输出的gemini模型。
 
-### Using a Reasoning Model that supports native Reasoning
+### 使用支持原生推理的模型
 
-If you set `reasoning_model` to a model that supports native Reasoning like o3-mini or deepseek-r1, the reasoning model will be used to reason and the primary `Agent` model will be used to respond. See [Reasoning Models + Response Models](/reasoning/reasoning-models#reasoning-model-response-model) for more information.
+如果将`reasoning_model`设置为支持原生推理的模型（如o3-mini或deepseek-r1），推理模型将负责推理过程，而主`Agent`模型将负责生成响应。详见[推理模型+响应模型](/reasoning/reasoning-models#reasoning-model-response-model)。
 
-## Reasoning with tools
+## 结合工具使用推理
 
-You can also use tools with a reasoning agent. Lets create a finance agent that can reason.
+您还可以让推理智能体使用工具。以下创建了一个具备推理能力的金融智能体示例：
 
 ```python finance_reasoning.py
 from agno.agent import Agent
@@ -59,9 +58,9 @@ reasoning_agent = Agent(
 reasoning_agent.print_response("Write a report comparing NVDA to TSLA", stream=True, show_full_reasoning=True)
 ```
 
-## More Examples
+## 更多示例
 
-### Logical puzzles
+### 逻辑谜题
 
 ```python logical_puzzle.py
 from agno.agent import Agent
@@ -79,7 +78,7 @@ reasoning_agent = Agent(
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
 
-### Mathematical proofs
+### 数学证明
 
 ```python mathematical_proof.py
 from agno.agent import Agent
@@ -92,7 +91,7 @@ reasoning_agent = Agent(
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
 
-### Scientific research
+### 科学研究
 
 ```python scientific_research.py
 from agno.agent import Agent
@@ -112,7 +111,7 @@ reasoning_agent = Agent(
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
 
-### Ethical dilemma
+### 伦理困境
 
 ```python ethical_dilemma.py
 from agno.agent import Agent
@@ -131,7 +130,7 @@ reasoning_agent = Agent(
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
 
-### Planning an itinerary
+### 行程规划
 
 ```python planning_itinerary.py
 from agno.agent import Agent
@@ -144,7 +143,7 @@ reasoning_agent = Agent(
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
 
-### Creative writing
+### 创意写作
 
 ```python creative_writing.py
 from agno.agent import Agent
@@ -157,7 +156,7 @@ reasoning_agent = Agent(
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
 
-## Developer Resources
+## 开发者资源
 
-- View [Examples](/examples/concepts/reasoning/agents)
-- View [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/reasoning/agents)
+- 查看[示例](/examples/concepts/reasoning/agents)
+- 查看[Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/reasoning/agents)

@@ -1,15 +1,14 @@
 ---
-title: Shell
+title: 命令行界面
 ---
+**ShellTools** 使智能体能够与 shell 交互以执行命令。
 
-**ShellTools** enable an Agent to interact with the shell to run commands.
+## 示例
 
-## Example
-
-The following agent will run a shell command and show contents of the current directory.
+以下智能体将运行一个 shell 命令并显示当前目录的内容。
 
 <Note>
-  Mention your OS to the agent to make sure it runs the correct command.
+  向智能体提及您的操作系统，以确保其运行正确的命令。
 </Note>
 
 ```python cookbook/tools/shell_tools.py
@@ -20,13 +19,13 @@ agent = Agent(tools=[ShellTools()], show_tool_calls=True)
 agent.print_response("Show me the contents of the current directory", markdown=True)
 ```
 
-## Functions in Toolkit
+## 工具包中的函数
 
-| Function            | Description                                           |
+| 函数            | 描述                                           |
 | ------------------- | ----------------------------------------------------- |
-| `run_shell_command` | Runs a shell command and returns the output or error. |
+| `run_shell_command` | 运行 shell 命令并返回输出或错误。 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/shell.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/shell_tools.py)
+- 查看 [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/shell.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/shell_tools.py)

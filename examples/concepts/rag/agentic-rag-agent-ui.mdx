@@ -1,8 +1,7 @@
 ---
-title: Agentic RAG with Agent UI
+title: 智能体驱动的RAG与智能体界面
 ---
-
-## Code
+## 代码
 
 ```python
 from agno.agent import Agent
@@ -14,10 +13,10 @@ from agno.storage.postgres import PostgresStorage
 from agno.vectordb.pgvector import PgVector, SearchType
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
-# Create a knowledge base of PDFs from URLs
+# 从URL创建PDF知识库
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-    # Use PgVector as the vector database and store embeddings in the `ai.recipes` table
+    # 使用 PgVector 作为向量数据库，并将嵌入向量存储在 `ai.recipes` 表中
     vector_db=PgVector(
         table_name="recipes",
         db_url=db_url,
@@ -31,12 +30,12 @@ rag_agent = Agent(
     agent_id="rag-agent",
     model=OpenAIChat(id="gpt-4o"),
     knowledge=knowledge_base,
-    # Add a tool to search the knowledge base which enables agentic RAG.
-    # This is enabled by default when `knowledge` is provided to the Agent.
+    # 添加一个工具来搜索知识库，以实现智能体驱动的RAG（检索增强生成）。
+    # 当向智能体提供`knowledge`时，此功能默认启用。
     search_knowledge=True,
-    # Add a tool to read chat history.
+    # 添加一个读取聊天历史的工具。
     read_chat_history=True,
-    # Store the agent sessions in the `ai.rag_agent_sessions` table
+    # 将智能体会话存储在 `ai.rag_agent_sessions` 表中
     storage=PostgresStorage(table_name="rag_agent_sessions", db_url=db_url),
     instructions=[
         "Always search your knowledge base first and use it if available.",
@@ -51,30 +50,30 @@ playground = Playground(agents=[rag_agent])
 app = playground.get_app()
 
 if __name__ == "__main__":
-    # Load the knowledge base: Comment after first run as the knowledge base is already loaded
+    # 加载知识库：首次运行后添加注释，因为知识库已加载
     knowledge_base.load(upsert=True)
 
     playground.serve("agentic_rag_agent_ui:app", reload=True)
 ```
 
-## Usage
+## 使用方式
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的API密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai sqlalchemy 'psycopg[binary]' pgvector 'fastapi[standard]' agno
     ```
   </Step>
 
-  <Step title="Run PgVector">
+  <Step title="运行 PgVector">
     ```bash
     docker run -d \
       -e POSTGRES_DB=ai \
@@ -88,7 +87,7 @@ if __name__ == "__main__":
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/rag/agentic_rag_agent_ui.py

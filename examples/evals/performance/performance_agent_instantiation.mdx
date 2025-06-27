@@ -1,9 +1,8 @@
 ---
-title: Performance on Agent Instantiation
-description: Evaluation to analyze the runtime and memory usage of an Agent.
+title: 智能体实例化性能
+description: 评估用于分析智能体的运行时表现和内存使用情况。
 ---
-
-## Code
+## 代码
 
 ```python
 """Run `pip install openai agno memory_profiler` to install dependencies."""
@@ -29,5 +28,3 @@ simple_response_perf = PerformanceEval(
 if __name__ == "__main__":
     simple_response_perf.run(print_results=True, print_summary=True)
 ```
-
-

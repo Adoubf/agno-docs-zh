@@ -1,18 +1,17 @@
 ---
-title: Implementing a Custom Retriever
-description: "Learn how to implement a custom retriever for precise control over document retrieval in your knowledge base."
-sidebarTitle: Custom Retriever
+title: 实现自定义检索器
+description: "了解如何实现自定义检索器，以便精确控制知识库中的文档检索。"
+sidebarTitle: 自定义检索器
 ---
+在某些情况下，您可能需要完全控制智能体如何从知识库检索信息。这可以通过实现自定义检索器函数来实现。自定义检索器允许您定义从向量数据库中搜索和检索文档的逻辑。
 
-In some cases, you may need complete control over how your agent retrieves information from the knowledge base. This can be achieved by implementing a custom retriever function. A custom retriever allows you to define the logic for searching and retrieving documents from your vector database.
+## 设置
 
-## Setup
+按照 [Qdrant 设置指南](https://qdrant.tech/documentation/guides/installation/) 的说明在本地安装 Qdrant。以下是获取 API 密钥的指南：[Qdrant API 密钥](https://qdrant.tech/documentation/cloud/authentication/)。
 
-Follow the instructions in the [Qdrant Setup Guide](https://qdrant.tech/documentation/guides/installation/) to install Qdrant locally. Here is a guide to get API keys: [Qdrant API Keys](https://qdrant.tech/documentation/cloud/authentication/).
+### 示例：PDF 知识库的自定义检索器
 
-### Example: Custom Retriever for a PDF Knowledge Base
-
-Below is a detailed example of how to implement a custom retriever function using the `agno` library. This example demonstrates how to set up a knowledge base with PDF documents, define a custom retriever, and use it with an agent.
+以下是使用 `agno` 库实现自定义检索器函数的详细示例。该示例演示了如何设置包含 PDF 文档的知识库、定义自定义检索器，并将其与智能体结合使用。
 
 ```python
 from typing import Optional
@@ -23,24 +22,24 @@ from agno.vectordb.qdrant import Qdrant
 from qdrant_client import QdrantClient
 
 # ---------------------------------------------------------
-# This section loads the knowledge base. Skip if your knowledge base was populated elsewhere.
-# Define the embedder
+# 本节将加载知识库。如果您的知识库已在其他地方完成初始化，请跳过此步骤。
+# 定义嵌入器
 embedder = OpenAIEmbedder(id="text-embedding-3-small")
-# Initialize vector database connection
+# 初始化向量数据库连接
 vector_db = Qdrant(collection="thai-recipes", url="http://localhost:6333", embedder=embedder)
-# Load the knowledge base
+# 加载知识库
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
     vector_db=vector_db,
 )
 
-# Load the knowledge base
+# 加载知识库
 knowledge_base.load(recreate=True)  # Comment out after first run
-# Knowledge base is now loaded
+# 知识库现已加载
 # ---------------------------------------------------------
 
-# Define the custom retriever
-# This is the function that the agent will use to retrieve documents
+# 定义自定义检索器
+# 这是智能体将用于检索文档的函数。
 def retriever(
     query: str, agent: Optional[Agent] = None, num_documents: int = 5, **kwargs
 ) -> Optional[list[dict]]:
@@ -75,9 +74,9 @@ def retriever(
 
 def main():
     """Main function to demonstrate agent usage."""
-    # Initialize agent with custom retriever
-    # Remember to set search_knowledge=True to use agentic_rag or add_reference=True for traditional RAG
-    # search_knowledge=True is default when you add a knowledge base but is needed here
+    # 使用自定义检索器初始化智能体
+    # 请确保设置 `search_knowledge=True` 来启用智能体辅助检索增强生成（agentic_rag），或设置 `add_reference=True` 以使用传统检索增强生成（RAG）模式。
+    # 当您添加知识库时，`search_knowledge=True` 是默认设置，但在此处仍需显式声明。
     agent = Agent(
         retriever=retriever,
         search_knowledge=True,
@@ -85,7 +84,7 @@ def main():
         show_tool_calls=True,
     )
 
-    # Example query
+    # 示例查询
     query = "List down the ingredients to make Massaman Gai"
     agent.print_response(query, markdown=True)
 
@@ -93,7 +92,7 @@ if __name__ == "__main__":
     main()
 ```
 
-#### Asynchronous Implementation
+#### 异步实现
 
 ```python
 import asyncio
@@ -105,7 +104,7 @@ from agno.vectordb.qdrant import Qdrant
 from qdrant_client import AsyncQdrantClient
 
 # ---------------------------------------------------------
-# Knowledge base setup (same as synchronous example)
+# 知识库设置（与同步示例相同）
 embedder = OpenAIEmbedder(id="text-embedding-3-small")
 vector_db = Qdrant(collection="thai-recipes", url="http://localhost:6333", embedder=embedder)
 knowledge_base = PDFUrlKnowledgeBase(
@@ -114,7 +113,7 @@ knowledge_base = PDFUrlKnowledgeBase(
 )
 # ---------------------------------------------------------
 
-# Define the custom async retriever
+# 定义自定义异步检索器
 async def retriever(
     query: str, agent: Optional[Agent] = None, num_documents: int = 5, **kwargs
 ) -> Optional[list[dict]]:
@@ -147,10 +146,10 @@ async def main():
         show_tool_calls=True,
     )
 
-    # Load the knowledge base (uncomment for first run)
+    # 加载知识库（首次运行时请取消注释）
     await knowledge_base.aload(recreate=True)
 
-    # Example query
+    # 示例查询
     query = "List down the ingredients to make Massaman Gai"
     await agent.aprint_response(query, markdown=True)
 
@@ -158,19 +157,19 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-### Explanation
+### 说明
 
-1. **Embedder and Vector Database Setup**: We start by defining an embedder and initializing a connection to a vector database. This setup is crucial for converting queries into embeddings and storing them in the database.
+1. **嵌入器和向量数据库设置**：我们首先定义了一个嵌入器并初始化与向量数据库的连接。此设置对于将查询转换为嵌入向量并将其存储在数据库中至关重要。
 
-2. **Loading the Knowledge Base**: The knowledge base is loaded with PDF documents. This step involves converting the documents into embeddings and storing them in the vector database.
+2. **加载知识库**：知识库加载了 PDF 文档。此步骤涉及将文档转换为嵌入向量并将其存储在向量数据库中。
 
-3. **Custom Retriever Function**: The `retriever` function is defined to handle the retrieval of documents. It takes a query, converts it into an embedding, and searches the vector database for relevant documents.
+3. **自定义检索器函数**：定义了 `retriever` 函数来处理文档检索。它接收一个查询，将其转换为嵌入向量，并在向量数据库中搜索相关文档。
 
-4. **Agent Initialization**: An agent is initialized with the custom retriever. The agent uses this retriever to search the knowledge base and retrieve information.
+4. **智能体初始化**：使用自定义检索器初始化智能体。智能体使用该检索器搜索知识库并检索信息。
 
-5. **Example Query**: The `main` function demonstrates how to use the agent to perform a query and retrieve information from the knowledge base.
+5. **示例查询**：`main` 函数演示了如何使用智能体执行查询并从知识库中检索信息。
 
-## Developer Resources
+## 开发者资源
 
-- View [Sync Retriever](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/custom/retriever.py)
-- View [Async Retriever](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/custom/async_retriever.py)
+- 查看 [同步检索器](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/custom/retriever.py)
+- 查看 [异步检索器](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/custom/async_retriever.py)

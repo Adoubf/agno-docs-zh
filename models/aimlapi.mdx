@@ -1,13 +1,12 @@
 ---
 title: AI/ML API
-description: Learn how to use AI/ML API with Agno.
+description: 学习如何通过Agno使用AI/ML API。
 ---
+AI/ML API 是一个提供统一访问 300 多个 AI 模型的平台，包括 **Deepseek**、**Gemini**、**ChatGPT** 等，具备生产级正常运行时间和高速率限制。
 
-AI/ML API is a platform providing unified access to 300+ AI models including **Deepseek**, **Gemini**, **ChatGPT**, and more — with production-grade uptime and high rate limits.
+## 认证
 
-## Authentication
-
-Set your `AIMLAPI_API_KEY` environment variable. Get your key at [aimlapi.com](https://aimlapi.com/?utm_source=agno&utm_medium=github&utm_campaign=integration).
+设置您的 `AIMLAPI_API_KEY` 环境变量。访问 [aimlapi.com](https://aimlapi.com/?utm_source=agno&utm_medium=github&utm_campaign=integration) 获取密钥。
 
 <CodeGroup>
 
@@ -15,29 +14,17 @@ Set your `AIMLAPI_API_KEY` environment variable. Get your key at [aimlapi.com](h
 export AIMLAPI_API_KEY=***
 ````
 
-```bash Windows
-setx AIMLAPI_API_KEY ***
-```
+__PROTECTED_1__
 
 </CodeGroup>
 
 ## Example
 
-Use `AI/ML API` with your `Agent`:
+Use `AI/ML API` with your `智能体`:
 
 <CodeGroup>
 
-```python agent.py
-from agno.agent import Agent
-from agno.models.aimlapi import AIMLApi
-
-agent = Agent(
-    model=AIMLApi(id="meta-llama/Llama-3.2-11B-Vision-Instruct-Turbo"),
-    markdown=True,
-)
-
-agent.print_response("Explain how black holes are formed.")
-```
+__PROTECTED_2__
 
 </CodeGroup>
 
@@ -45,4 +32,4 @@ agent.print_response("Explain how black holes are formed.")
 
 <Snippet file="model-aimlapi-params.mdx" />
 
-`AIMLApi` also supports the params of [OpenAI](/reference/models/openai), where applicable.
+`AIMLApi` 也支持 [OpenAI](/reference/models/openai) 的相关参数（如适用）。

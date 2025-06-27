@@ -1,14 +1,9 @@
 ---
-title: Reasoning Agent with Reasoning Tools
+title: 具备推理工具的推理智能体
 ---
+本示例展示如何创建一个使用ReasoningTools（推理工具集）的智能体，通过分步推理解决复杂问题。该智能体会分解问题、分析中间结果，并构建结构化推理路径，最终得出具有充分依据的结论。
 
-This example shows how to create an agent that uses the ReasoningTools to solve
-complex problems through step-by-step reasoning. The agent breaks down questions,
-analyzes intermediate results, and builds structured reasoning paths to arrive at
-well-justified conclusions.
-
-
-## Code
+## 代码
 
 ```python cookbook/reasoning/tools/reasoning_tools.py
 
@@ -61,7 +56,7 @@ reasoning_agent = Agent(
     markdown=True,
 )
 
-# Example usage with a complex reasoning problem
+# 复杂推理问题的示例用法
 reasoning_agent.print_response(
     "Solve this logic puzzle: A man has to take a fox, a chicken, and a sack of grain across a river. "
     "The boat is only big enough for the man and one item. If left unattended together, the fox will "
@@ -72,26 +67,24 @@ reasoning_agent.print_response(
 
 ```
 
-
-
-## Usage
+## 使用方式
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/reasoning/tools/reasoning_tools.py

@@ -1,18 +1,17 @@
 ---
-title: Agent with Knowledge
+title: 带知识库的智能体
 ---
+本示例展示如何创建一个结合精选食谱数据库知识与网络搜索能力的AI烹饪助手。该智能体使用包含正宗泰国菜食谱的PDF知识库，并可在需要时通过网页搜索补充信息。
 
-This example shows how to create an AI cooking assistant that combines knowledge from a curated recipe database with web searching capabilities. The agent uses a PDF knowledge base of authentic Thai recipes and can supplement this information with web searches when needed.
+可尝试的示例提示：
+- "如何制作正宗的泰式炒河粉？"
+- "红咖喱和绿咖喱有什么区别？"
+- "你能解释什么是南姜以及可能的替代品吗？"
+- "告诉我冬阴功汤的历史"
+- "泰式厨房必备食材有哪些？"
+- "如何制作打抛猪肉（Pad Kra Pao）？"
 
-Example prompts to try:
-- "How do I make authentic Pad Thai?"
-- "What's the difference between red and green curry?"
-- "Can you explain what galangal is and possible substitutes?"
-- "Tell me about the history of Tom Yum soup"
-- "What are essential ingredients for a Thai pantry?"
-- "How do I make Thai basil chicken (Pad Kra Pao)?"
-
-## Code
+## 代码
 
 ```python agent_with_knowledge.py
 from textwrap import dedent
@@ -24,7 +23,7 @@ from agno.models.openai import OpenAIChat
 from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.vectordb.lancedb import LanceDb, SearchType
 
-# Create a Recipe Expert Agent with knowledge of Thai recipes
+# 创建具备泰国菜谱知识的食谱专家智能体
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     instructions=dedent("""\
@@ -86,7 +85,7 @@ agent = Agent(
     add_references=True,
 )
 
-# Comment out after the knowledge base is loaded
+# 加载知识库后注释掉
 if agent.knowledge is not None:
     agent.knowledge.load()
 
@@ -97,18 +96,18 @@ agent.print_response("What is the history of Thai curry?", stream=True)
 agent.print_response("What ingredients do I need for Pad Thai?", stream=True)
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai lancedb tantivy pypdf duckduckgo-search agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行智能体">
     ```bash
     python agent_with_knowledge.py
     ```

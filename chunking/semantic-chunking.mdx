@@ -1,8 +1,7 @@
 ---
-title: Semantic Chunking
+title: 语义分块
 ---
-
-Semantic chunking is a method of splitting documents into smaller chunks by analyzing semantic similarity between text segments using embeddings. It uses the chonkie library to identify natural breakpoints where the semantic meaning changes significantly, based on a configurable similarity threshold. This helps preserve context and meaning better than fixed-size chunking by ensuring semantically related content stays together in the same chunk, while splitting occurs at meaningful topic transitions.
+语义分块是一种通过分析文本片段间嵌入向量语义相似度来划分文档的方法。它利用chonkie库识别语义发生显著变化的自然断点（根据可配置的相似度阈值）。相比固定尺寸分块，该方法能更好地保持上下文和语义完整性——确保语义相关的内容保留在同一分块中，同时仅在有意义的话题转换处进行分割。
 
 ```python
 from agno.agent import Agent
@@ -28,6 +27,6 @@ agent.print_response("How to make Thai curry?", markdown=True)
 
 ```
 
-## Semantic Chunking Params
+## 语义分块参数
 
 <Snippet file="chunking-semantic.mdx" />

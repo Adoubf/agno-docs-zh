@@ -1,27 +1,26 @@
 ---
 title: Twilio
 ---
+**TwilioTools** 使智能体能够与 [Twilio](https://www.twilio.com/docs) 服务交互，例如发送短信、获取通话详情和列出消息。
 
-**TwilioTools** enables an Agent to interact with [Twilio](https://www.twilio.com/docs) services, such as sending SMS, retrieving call details, and listing messages.
+## 前提条件
 
-## Prerequisites
-
-The following examples require the `twilio` library and appropriate Twilio credentials, which can be obtained from [here](https://www.twilio.com/console).
+以下示例需要 `twilio` 库及有效的 Twilio 凭证，可从[此处](https://www.twilio.com/console)获取。
 
 ```shell
 pip install twilio
 ```
 
-Set the following environment variables:
+设置以下环境变量：
 
 ```shell
 export TWILIO_ACCOUNT_SID=***
 export TWILIO_AUTH_TOKEN=***
 ```
 
-## Example
+## 示例
 
-The following agent will send an SMS message using Twilio:
+以下智能体将使用 Twilio 发送一条短信：
 
 ```python
 from agno.agent import Agent
@@ -38,27 +37,27 @@ agent = Agent(
 agent.print_response("Send an SMS to +1234567890", markdown=True)
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Name          | Type            | Default | Description                                       |
+| 名称          | 类型            | 默认值 | 描述                                       |
 | ------------- | --------------- | ------- | ------------------------------------------------- |
-| `account_sid` | `Optional[str]` | `None`  | Twilio Account SID for authentication.            |
-| `auth_token`  | `Optional[str]` | `None`  | Twilio Auth Token for authentication.             |
-| `api_key`     | `Optional[str]` | `None`  | Twilio API Key for alternative authentication.    |
-| `api_secret`  | `Optional[str]` | `None`  | Twilio API Secret for alternative authentication. |
-| `region`      | `Optional[str]` | `None`  | Optional Twilio region (e.g., `au1`).             |
-| `edge`        | `Optional[str]` | `None`  | Optional Twilio edge location (e.g., `sydney`).   |
-| `debug`       | `bool`          | `False` | Enable debug logging for troubleshooting.         |
+| `account_sid` | `Optional[str]` | `None`  | 用于身份验证的 Twilio 账户 SID。            |
+| `auth_token`  | `Optional[str]` | `None`  | 用于身份验证的 Twilio 认证令牌。             |
+| `api_key`     | `Optional[str]` | `None`  | 用于替代身份验证的 Twilio API 密钥。    |
+| `api_secret`  | `Optional[str]` | `None`  | 用于替代身份验证的 Twilio API 密钥。 |
+| `region`      | `Optional[str]` | `None`  | 可选的 Twilio 区域（例如 `au1`）。             |
+| `edge`        | `Optional[str]` | `None`  | 可选的 Twilio 边缘位置（例如 `sydney`）。   |
+| `debug`       | `bool`          | `False` | 启用调试日志记录以进行故障排查。         |
 
-## Toolkit Functions
+## 工具包功能
 
-| Function           | Description                                                                                                                                                                 |
+| 功能           | 描述                                                                                                                                                                 |
 | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `send_sms`         | Sends an SMS to a recipient. Takes recipient phone number, sender number (Twilio), and message body. Returns message SID if successful or error message if failed.          |
-| `get_call_details` | Retrieves details of a call using its SID. Takes the call SID and returns a dictionary with call details (e.g., status, duration).                                          |
-| `list_messages`    | Lists recent SMS messages. Takes a limit for the number of messages to return (default 20). Returns a list of message details (e.g., SID, sender, recipient, body, status). |
+| `send_sms`         | 向收件人发送短信。接收收件人电话号码、发送号码（Twilio）和消息正文。成功返回消息 SID，失败返回错误信息。          |
+| `get_call_details` | 使用通话 SID 获取通话详情。接收通话 SID 并返回包含通话详情的字典（例如状态、时长）。                                          |
+| `list_messages`    | 列出最近的短信消息。接收返回消息数量的限制（默认 20）。返回消息详情列表（例如 SID、发送者、收件人、正文、状态）。 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/twilio.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/twilio_tools.py)
+- 查看 [工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/twilio.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/twilio_tools.py)

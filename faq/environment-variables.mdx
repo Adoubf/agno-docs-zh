@@ -1,40 +1,39 @@
 ---
-title: Setting Environment Variables
-sidebarTitle: Environment Variables Setup
+title: 设置环境变量
+sidebarTitle: 环境变量配置
 ---
-
-To configure your environment for applications, you may need to set environment variables. This guide provides instructions for setting environment variables in both macOS (Shell) and Windows (PowerShell and Windows Command Prompt).
+要为应用程序配置环境，您可能需要设置环境变量。本指南提供了在 macOS (Shell) 和 Windows (PowerShell 及 Windows 命令提示符) 中设置环境变量的说明。
 
 ## macOS
 
-### Setting Environment Variables in Shell
+### 在 Shell 中设置环境变量
 
-#### Temporary Environment Variables
+#### 临时环境变量
 
-These environment variables will only be available in the current shell session.
+这些环境变量仅在当前 Shell 会话中有效。
 
 ```shell
 export VARIABLE_NAME="value"
 ```
 
-To display the environment variable:
+显示环境变量：
 
 ```shell
 echo $VARIABLE_NAME
 ```
 
-#### Permanent Environment Variables
+#### 永久环境变量
 
-To make environment variables persist across sessions, add them to your shell configuration file (e.g., `.bashrc`, `.bash_profile`, `.zshrc`).
+要使环境变量在会话间持久化，请将其添加到 Shell 配置文件（例如 `.bashrc`、`.bash_profile`、`.zshrc`）。
 
-For Zsh:
+对于 Zsh：
 
 ```shell
 echo 'export VARIABLE_NAME="value"' >> ~/.zshrc
 source ~/.zshrc
 ```
 
-To display the environment variable:
+显示环境变量：
 
 ```shell
 echo $VARIABLE_NAME
@@ -42,78 +41,78 @@ echo $VARIABLE_NAME
 
 ## Windows
 
-### Setting Environment Variables in PowerShell
+### 在 PowerShell 中设置环境变量
 
-#### Temporary Environment Variables
+#### 临时环境变量
 
-These environment variables will only be available in the current PowerShell session.
+这些环境变量仅在当前 PowerShell 会话中有效。
 
 ```powershell
 $env:VARIABLE_NAME = "value"
 ```
 
-To display the environment variable:
+显示环境变量：
 
 ```powershell
 echo $env:VARIABLE_NAME
 ```
 
-#### Permanent Environment Variables
+#### 永久环境变量
 
-To make environment variables persist across sessions, add them to your PowerShell profile script (e.g., `Microsoft.PowerShell_profile.ps1`).
+要使环境变量在会话间持久化，请将其添加到 PowerShell 配置文件脚本（例如 `Microsoft.PowerShell_profile.ps1`）。
 
 ```powershell
 notepad $PROFILE
 ```
 
-Add the following line to the profile script:
+在配置脚本中添加以下行：
 
 ```powershell
 $env:VARIABLE_NAME = "value"
 ```
 
-Save and close the file, then reload the profile:
+保存并关闭文件，然后重新加载配置文件：
 
 ```powershell
 . $PROFILE
 ```
 
-To display the environment variable:
+显示环境变量：
 
 ```powershell
 echo $env:VARIABLE_NAME
 ```
 
-### Setting Environment Variables in Windows Command Prompt
+### 在 Windows 命令提示符中设置环境变量
 
-#### Temporary Environment Variables
+#### 临时环境变量
 
-These environment variables will only be available in the current Command Prompt session.
+这些环境变量仅在当前命令提示符会话中有效。
 
 ```cmd
 set VARIABLE_NAME=value
 ```
 
-To display the environment variable:
+显示环境变量：
 
 ```cmd
 echo %VARIABLE_NAME%
 ```
 
-#### Permanent Environment Variables
+#### 永久环境变量
 
-To make environment variables persist across sessions, you can use the `setx` command:
+要使环境变量在会话间持久化，可以使用 `setx` 命令：
 
 ```cmd
 setx VARIABLE_NAME "value"
 ```
 
-Note: After setting an environment variable using `setx`, you need to restart the Command Prompt or any applications that need to read the new environment variable.
+注意：使用 `setx` 设置环境变量后，需要重新启动命令提示符或任何需要读取新环境变量的应用程序。
 
-To display the environment variable in a new Command Prompt session:
+在新的命令提示符会话中显示环境变量：
 
 ```cmd
 echo %VARIABLE_NAME%
 ```
 
-By following these steps, you can effectively set and display environment variables in macOS Shell, Windows Command Prompt, and PowerShell. This will ensure your environment is properly configured for your applications.
+通过以上步骤，您可以在 macOS Shell、Windows 命令提示符和 PowerShell 中有效设置和显示环境变量，确保为应用程序正确配置环境。

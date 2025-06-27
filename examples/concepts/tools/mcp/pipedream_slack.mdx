@@ -1,9 +1,8 @@
 ---
 title: "Pipedream Slack"
-description: "This example shows how to use the Slack Pipedream MCP server with Agno Agents."
+description: "本示例展示如何将Slack Pipedream MCP服务器与Agno智能体配合使用。"
 ---
-
-## Code
+## 代码
 
 ```python
 """
@@ -48,10 +47,10 @@ async def run_agent(task: str) -> None:
 
 
 if __name__ == "__main__":
-    # The agent can read channels, users, messages, etc.
+    # 智能体可以读取频道、用户、消息等内容。
     asyncio.run(run_agent("Show me the latest message in the channel #general"))
 
-    # Use your real Slack name for this one to work!
+    # 请使用真实的 Slack 名称才能生效！
     asyncio.run(
         run_agent("Send a message to <YOUR_NAME> saying 'Hello, I'm your Agno Agent!'")
     )

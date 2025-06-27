@@ -1,8 +1,7 @@
 ---
-title: Audio Input Agent
+title: 音频输入智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/openai/chat/audio_input_agent.py
 import requests
@@ -10,13 +9,13 @@ from agno.agent import Agent, RunResponse  # noqa
 from agno.media import Audio
 from agno.models.openai import OpenAIChat
 
-# Fetch the audio file and convert it to a base64 encoded string
+# 获取音频文件并将其转换为base64编码字符串
 url = "https://openaiassets.blob.core.windows.net/$web/API/docs/audio/alloy.wav"
 response = requests.get(url)
 response.raise_for_status()
 wav_data = response.content
 
-# Provide the agent with the audio file and get result as text
+# 向智能体提供音频文件并以文本形式获取结果
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-audio-preview", modalities=["text"]),
     markdown=True,
@@ -26,24 +25,24 @@ agent.print_response(
 )
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai requests agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/openai/chat/audio_input_agent.py

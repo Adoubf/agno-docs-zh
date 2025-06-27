@@ -1,33 +1,31 @@
 ---
-title: Team State
-sidebarTitle: Team State
-description: Learn about the shared state of Agent Teams.
+title: 团队状态
+sidebarTitle: 团队状态
+description: 了解智能体团队的共享状态。
 ---
+团队成员间有多种共享状态的方式。
 
-There are multiple ways to share state between team members.
+## 团队共享状态
 
-## Shared Team State
+团队会话状态（Team Session State）实现了智能体团队间的精细化状态管理，兼具共享和私有状态能力。
 
-Team Session State enables sophisticated state management across teams of agents, with both shared and private state capabilities.
+团队通常需要协调共享信息（如购物清单），同时维护各自的私有指标或配置。Agno为此提供优雅的三层状态系统。
 
-Teams often need to coordinate on shared information (like a shopping list) while maintaining their own private metrics or configuration. Agno provides an elegant three-tier state system for this.
+Agno的团队状态管理包含三个独立层级：
 
-Agno's Team state management provides three distinct levels:
-
-- Team's team_session_state - Shared state accessible by all team members.
-- Team's session_state - Private state only accessible by the team leader
-- Agent's session_state - Private state for each agent members
+- 团队的team_session_state - 所有成员可访问的共享状态
+- 团队的session_state - 仅团队领导者可访问的私有状态
+- 智能体的session_state - 各成员智能体的私有状态
 
 <Check>
-Team state propagates through nested team structures as well
+团队状态同样会在嵌套式团队结构中传递
 </Check>
 
-### How to use Team Session State
+### 如何使用团队会话状态
 
-You can set the `team_session_state` parameter on `Team` to share state between team members.
-This state is available to all team members and is synchronized between them.
+您可以在`Team`上设置`team_session_state`参数来实现成员间状态共享。该状态对所有团队成员可用，并保持同步。
 
-For example:
+例如：
 
 ```python
 team = Team(
@@ -36,9 +34,9 @@ team = Team(
 )
 ```
 
-Members can access the shared state using the `team_session_state` attribute in tools.
+成员可通过工具中的`team_session_state`属性访问共享状态。
 
-For example:
+例如：
 
 ```python
 def add_item(agent: Agent, item: str) -> str:
@@ -47,7 +45,7 @@ def add_item(agent: Agent, item: str) -> str:
     Args:
         item (str): The item to add to the shopping list.
     """
-    # Add the item if it's not already in the list
+    # 如果项目不在列表中，则添加该项目
     if item.lower() not in [
         i.lower() for i in agent.team_session_state["shopping_list"]
     ]:
@@ -57,10 +55,9 @@ def add_item(agent: Agent, item: str) -> str:
         return f"'{item}' is already in the shopping list"
 ```
 
-### Example
+### 示例
 
-Here's a simple example of a team managing a shared shopping list:
-
+以下是团队管理共享购物清单的简单示例：
 
 ```python team_session_state.py
 from agno.agent import Agent
@@ -68,7 +65,7 @@ from agno.models.openai import OpenAIChat
 from agno.team import Team
 
 
-# Define tools that work with shared team state
+# 定义与共享团队状态协作的工具
 def add_item(agent: Agent, item: str) -> str:
     """Add an item to the shopping list."""
     if item.lower() not in [
@@ -90,7 +87,7 @@ def remove_item(agent: Agent, item: str) -> str:
     return f"'{item}' was not found in the shopping list"
 
 
-# Create an agent that manages the shopping list
+# 创建一个管理购物清单的智能体
 shopping_agent = Agent(
     name="Shopping List Agent",
     role="Manage the shopping list",
@@ -99,10 +96,10 @@ shopping_agent = Agent(
 )
 
 
-# Define team-level tools
+# 定义团队级工具
 def list_items(team: Team) -> str:
     """List all items in the shopping list."""
-    # Access shared state (not private state)
+    # 访问共享状态（非私有状态）
     shopping_list = team.team_session_state["shopping_list"]
     
     if not shopping_list:
@@ -114,7 +111,7 @@ def list_items(team: Team) -> str:
 
 def add_chore(team: Team, chore: str) -> str:
     """Add a completed chore to the team's private log."""
-    # Access team's private state
+    # 访问团队的私有状态
     if "chores" not in team.session_state:
         team.session_state["chores"] = []
     
@@ -122,15 +119,15 @@ def add_chore(team: Team, chore: str) -> str:
     return f"Logged chore: {chore}"
 
 
-# Create a team with both shared and private state
+# 创建一个兼具共享和私有状态的团队
 shopping_team = Team(
     name="Shopping Team",
     mode="coordinate",
     model=OpenAIChat(id="gpt-4o-mini"),
     members=[shopping_agent],
-    # Shared state - accessible by all members
+    # 共享状态 - 所有成员均可访问
     team_session_state={"shopping_list": []},
-    # Team's private state - only accessible by team
+    # 团队的私有状态 - 仅限团队成员访问
     session_state={"chores": []},
     tools=[list_items, add_chore],
     instructions=[
@@ -142,7 +139,7 @@ shopping_team = Team(
     show_tool_calls=True,
 )
 
-# Example usage
+# 示例用法
 shopping_team.print_response("Add milk, eggs, and bread", stream=True)
 print(f"Shared state: {shopping_team.team_session_state}")
 
@@ -153,31 +150,27 @@ print(f"Shared state: {shopping_team.team_session_state}")
 print(f"Team private state: {shopping_team.session_state}")
 ```
 
-<Tip> 
-Notice how shared tools use `agent.team_session_state`, which allows state to propagate and persist across the entire team — even for subteams within the team. This ensures consistent shared state for all members.
+<Tip>
+注意共享工具如何使用`agent.team_session_state`，这使得状态能在整个团队（包括子团队）中传递和持久化，从而确保所有成员获得一致的共享状态。
 
-In contrast, tools specific to a team use `team.session_state`, allowing for private, team-specific state. For example, a team leader's tools would maintain their own session state using team.session_state.
+相比之下，团队专用工具使用`team.session_state`来实现私有的团队专属状态。例如团队领导者的工具会使用team.session_state维护自身会话状态。
 </Tip>
 
+完整示例参见[这里](/examples/teams/shared_state/team_shared_state)。
 
-See a full example [here](/examples/teams/shared_state/team_shared_state).
+## 智能体上下文
 
-## Agentic Context
+团队领导者维护一个由智能体（即团队领导者）更新的共享上下文，并在需要时发送给团队成员。
 
-The Team Leader maintains a shared context that is updated agentically (i.e. by the team leader) and is sent to team members if needed.
-
-Agentic Context is critical for effective information sharing and collaboration between agents and the quality of the team's responses depends on how well the team leader manages this shared agentic context.
-This could require higher quality models for the team leader to ensure the quality of the team's responses.
+智能体上下文对于智能体间的有效信息协作至关重要，团队响应质量取决于领导者管理该共享上下文的能力。这可能需要为团队领导者配备更高性能的模型来保证团队输出质量。
 
 <Note>
-The tasks and responses of team members are automatically added to the team context, but Agentic Context needs to be enabled by the developer.
+团队成员的任务和响应会自动添加到团队上下文中，但智能体上下文需要开发者手动启用。
 </Note>
 
-### Enable Agentic Context
+### 启用智能体上下文
 
-To enable the Team leader to maintain Agentic Context, set `enable_agentic_context=True`.
-
-This will allow the team leader to maintain and update the team context during the run.
+要使团队领导者维护智能体上下文，需设置`enable_agentic_context=True`。这将允许团队领导者在运行期间维护和更新团队上下文。
 
 ```python
 team = Team(
@@ -186,9 +179,9 @@ team = Team(
 )
 ```
 
-### Team Member Interactions
+### 团队成员交互
 
-Agent Teams can share interactions between members, allowing agents to learn from each other's outputs:
+智能体团队可实现成员间的交互共享，使智能体能从彼此输出中学习：
 
 ```python
 team = Team(

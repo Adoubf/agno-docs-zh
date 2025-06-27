@@ -1,19 +1,19 @@
-| Parameter                | Type                                   | Description                                                        | Default |
-|--------------------------|----------------------------------------|--------------------------------------------------------------------|---------|
-| `max_completion_tokens`  | `Optional[int]`                        | Maximum tokens in completion                                       | None    |
-| `repetition_penalty`     | `Optional[float]`                      | Penalty for token repetition                                       | None    |
-| `temperature`            | `Optional[float]`                      | Sampling temperature                                               | None    |
-| `top_p`                  | `Optional[float]`                      | Nucleus sampling parameter                                         | None    |
-| `top_k`                  | `Optional[int]`                        | Top-k sampling parameter                                           | None    |
-| `extra_headers`          | `Optional[Any]`                        | Additional HTTP headers to include in the API request              | None    |
-| `extra_query`            | `Optional[Any]`                        | Additional query parameters to include in the API request          | None    |
-| `extra_body`             | `Optional[Any]`                        | Additional body parameters to include in the API request           | None    |
-| `request_params`         | `Optional[Dict[str, Any]>`             | Custom request parameters dictionary, merged into the API request  | None    |
-| `api_key`                | `Optional[str]`                        | Llama API key (overrides `LLAMA_API_KEY` environment variable)      | None    |
-| `base_url`               | `Optional[Union[str, httpx.URL]]`      | Base URL for the Llama API                                          | None    |
-| `timeout`                | `Optional[float]`                      | Timeout for API requests (seconds)                                 | None    |
-| `max_retries`            | `Optional[int]`                        | Maximum number of retries for API calls                            | None    |
-| `default_headers`        | `Optional[Any]`                        | Default HTTP headers for the API client                            | None    |
-| `default_query`          | `Optional[Any]`                        | Default query parameters for the API client                        | None    |
-| `http_client`            | `Optional[httpx.Client]`               | Custom synchronous HTTP client instance                            | None    |
-| `client_params`          | `Optional[Dict[str, Any]>`             | Additional parameters for the HTTP client constructor              | None    |
+| 参数                   | 类型                                   | 描述                                                             | 默认值  |
+|------------------------|----------------------------------------|-----------------------------------------------------------------|---------|
+| `max_completion_tokens`  | `Optional[int]`                        | 生成内容的最大token数                                          | 无      |
+| `repetition_penalty`     | `Optional[float]`                      | 重复token惩罚系数                                              | 无      |
+| `temperature`            | `Optional[float]`                      | 采样温度值                                                    | 无      |
+| `top_p`                  | `Optional[float]`                      | 核采样参数                                                    | 无      |
+| `top_k`                  | `Optional[int]`                        | Top-k采样参数                                                | 无      |
+| `extra_headers`          | `Optional[Any]`                        | API请求中包含的附加HTTP头信息                                 | 无      |
+| `extra_query`            | `Optional[Any]`                        | API请求中包含的附加查询参数                                   | 无      |
+| `extra_body`             | `Optional[Any]`                        | API请求中包含的附加正文参数                                   | 无      |
+| `request_params`         | `Optional[Dict[str, Any]>`             | 自定义请求参数字典，将合并到API请求中                         | 无      |
+| `api_key`                | `Optional[str]`                        | Llama API密钥（覆盖`LLAMA_API_KEY`环境变量）               | 无      |
+| `base_url`               | `Optional[Union[str, httpx.URL]]`      | Llama API基础URL                                             | 无      |
+| `timeout`                | `Optional[float]`                      | API请求超时时间（秒）                                        | 无      |
+| `max_retries`            | `Optional[int]`                        | API调用的最大重试次数                                        | 无      |
+| `default_headers`        | `Optional[Any]`                        | API客户端的默认HTTP头信息                                    | 无      |
+| `default_query`          | `Optional[Any]`                        | API客户端的默认查询参数                                      | 无      |
+| `http_client`            | `Optional[httpx.Client]`               | 自定义同步HTTP客户端实例                                     | 无      |
+| `client_params`          | `Optional[Dict[str, Any]>`             | HTTP客户端构造函数的附加参数                                 | 无      |

@@ -1,30 +1,28 @@
 ---
-title: Authenticate with Agno Platform
-description: "Set up authentication to start monitoring, tracking performance metrics, and managing your Agno workspace."
+title: 验证 Agno 平台身份
+description: "设置身份验证以开始监控、追踪性能指标并管理您的Agno工作区。"
 ---
+有两种方式可验证 Agno 身份：
 
-There are two ways to authenticate with Agno:
+1. 使用 CLI 设置命令 (`ag setup`)
+2. 在环境中手动配置 API 密钥
 
-1. Using the CLI setup command (`ag setup`)
-2. Setting the API key manually in your environment
+### 方法一：CLI 身份验证
 
-### Method 1: CLI Authentication
-
-The fastest way to authenticate is using the Agno CLI:
+最快的方式是使用 Agno CLI 进行验证：
 
 ```bash
 ag setup
 ```
 
-This command will open your browser to authenticate with Agno Platform & automatically configure your workspace 
+该命令将打开浏览器完成 Agno Platform 身份验证，并自动配置您的工作区
 
+### 方法二：手动配置 API 密钥
 
-### Method 2: Manual API Key Setup
+或者，您也可以手动设置 API 密钥：
 
-Alternatively, you can manually set up your API key:
-
-1. Get your API key from [app.agno.com/settings](https://app.agno.com/settings)
-2. Set the API key in your environment
+1. 从 [app.agno.com/settings](https://app.agno.com/settings) 获取您的 API 密钥
+2. 在环境中设置该 API 密钥
 
 <CodeGroup>
 ```bash Mac

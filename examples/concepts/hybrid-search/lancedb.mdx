@@ -1,8 +1,7 @@
 ---
-title: LanceDB Hybrid Search
+title: LanceDB 混合搜索
 ---
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/knowledge/vector_dbs/lance_db/lance_db_hybrid_search.py
 from typing import Optional
@@ -39,30 +38,30 @@ def lancedb_agent(user: str = "user"):
         agent.print_response(message)
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 初次运行后注释掉
     knowledge_base.load(recreate=False)
 
     typer.run(lancedb_agent)
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U lancedb tantivy pypdf openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/vector_dbs/lance_db/lance_db_hybrid_search.py

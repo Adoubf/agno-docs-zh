@@ -1,20 +1,19 @@
 ---
-title: Youtube
+title: YouTube
 ---
+**YouTube工具**能让智能体在获取YouTube视频URL后，访问其字幕和元数据。
 
-**YouTubeTools** enable an Agent to access captions and metadata of YouTube videos, when provided with a video URL.
+## 前提条件
 
-## Prerequisites
-
-The following example requires the `youtube_transcript_api` library.
+以下示例需要使用`youtube_transcript_api`库。
 
 ```shell
 pip install -U youtube_transcript_api
 ```
 
-## Example
+## 示例
 
-The following agent will provide a summary of a YouTube video.
+以下智能体会提供YouTube视频的摘要。
 
 ```python cookbook/tools/youtube_tools.py
 from agno.agent import Agent
@@ -29,22 +28,22 @@ agent = Agent(
 agent.print_response("Summarize this video https://www.youtube.com/watch?v=Iv9dewmcFbs&t", markdown=True)
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Param                | Type        | Default | Description                                                                        |
+| 参数                | 类型        | 默认值  | 描述                                                                        |
 | -------------------- | ----------- | ------- | ---------------------------------------------------------------------------------- |
-| `get_video_captions` | `bool`      | `True`  | Enables the functionality to retrieve video captions.                              |
-| `get_video_data`     | `bool`      | `True`  | Enables the functionality to retrieve video metadata and other related data.       |
-| `languages`          | `List[str]` | -       | Specifies the list of languages for which data should be retrieved, if applicable. |
+| `get_video_captions` | `bool`      | `True`  | 启用获取视频字幕的功能。                              |
+| `get_video_data`     | `bool`      | `True`  | 启用获取视频元数据及其他相关数据的功能。       |
+| `languages`          | `List[str]` | -       | 指定应获取数据的语言列表（如适用）。 |
 
-## Toolkit Functions
+## 工具包函数
 
-| Function                     | Description                                              |
+| 函数                     | 描述                                              |
 | ---------------------------- | -------------------------------------------------------- |
-| `get_youtube_video_captions` | This function retrieves the captions of a YouTube video. |
-| `get_youtube_video_data`     | This function retrieves the metadata of a YouTube video. |
+| `get_youtube_video_captions` | 该函数获取YouTube视频的字幕。 |
+| `get_youtube_video_data`     | 该函数获取YouTube视频的元数据。 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/youtube.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/youtube_tools.py)
+- 查看[工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/youtube.py)
+- 查看[Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/youtube_tools.py)

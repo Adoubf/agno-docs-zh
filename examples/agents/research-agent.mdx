@@ -1,27 +1,23 @@
 ---
-title: Research Agent
+title: 研究型智能体
 ---
+本示例展示如何创建一个结合网络搜索能力与专业新闻写作技巧的高级研究型智能体。该智能体能够使用多种来源进行综合研究，核实信息真实性，并输出结构严谨、符合《纽约时报》风格的专题文章。
 
-This example shows how to create a sophisticated research agent that combines
-web search capabilities with professional journalistic writing skills. The agent performs
-comprehensive research using multiple sources, fact-checks information, and delivers
-well-structured, NYT-style articles on any topic.
+核心能力：
+- 跨多源高级网络搜索
+- 内容提取与分析
+- 交叉引用验证
+- 专业新闻写作
+- 平衡客观的报道
 
-Key capabilities:
-- Advanced web search across multiple sources
-- Content extraction and analysis
-- Cross-reference verification
-- Professional journalistic writing
-- Balanced and objective reporting
+可尝试的示例指令：
+- "分析AI对医疗服务和患者疗效的影响"
+- "报道量子计算领域的最新突破"
+- "调研全球向可再生能源转型的进程"
+- "探讨网络安全威胁与防御技术的演变"
+- "研究自动驾驶技术的发展现状"
 
-Example prompts to try:
-- "Analyze the impact of AI on healthcare delivery and patient outcomes"
-- "Report on the latest breakthroughs in quantum computing"
-- "Investigate the global transition to renewable energy sources"
-- "Explore the evolution of cybersecurity threats and defenses"
-- "Research the development of autonomous vehicle technology"
-
-## Code
+## 代码
 
 ```python research_agent.py
 from textwrap import dedent
@@ -31,7 +27,7 @@ from agno.models.openai import OpenAIChat
 from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.tools.newspaper4k import Newspaper4kTools
 
-# Initialize the research agent with advanced journalistic capabilities
+# 初始化具备高级新闻采编能力的研究型智能体
 research_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     tools=[DuckDuckGoTools(), Newspaper4kTools()],
@@ -76,35 +72,35 @@ research_agent = Agent(
            - Include future implications
     """),
     expected_output=dedent("""\
-        # {Compelling Headline} 📰
+        # {引人注目的标题} 📰
 
-        ## Executive Summary
+        # # 执行摘要
         {Concise overview of key findings and significance}
 
-        ## Background & Context
+        # # 背景与上下文
         {Historical context and importance}
         {Current landscape overview}
 
-        ## Key Findings
+        # # 关键发现
         {Main discoveries and analysis}
         {Expert insights and quotes}
         {Statistical evidence}
 
-        ## Impact Analysis
+        # # 影响分析
         {Current implications}
         {Stakeholder perspectives}
         {Industry/societal effects}
 
-        ## Future Outlook
+        # # 未来展望
         {Emerging trends}
         {Expert predictions}
         {Potential challenges and opportunities}
 
-        ## Expert Insights
+        # # 专家洞见
         {Notable quotes and analysis from industry leaders}
         {Contrasting viewpoints}
 
-        ## Sources & Methodology
+        # # 数据来源与方法论
         {List of primary sources with key contributions}
         {Research methodology overview}
 
@@ -119,14 +115,14 @@ research_agent = Agent(
     add_datetime_to_instructions=True,
 )
 
-# Example usage with detailed research request
+# 示例用法（包含详细研究请求）
 if __name__ == "__main__":
     research_agent.print_response(
         "Analyze the current state and future implications of artificial intelligence regulation worldwide",
         stream=True,
     )
 
-# Advanced research topics to explore:
+# 待探索的高级研究主题：
 """
 Technology & Innovation:
 1. "Investigate the development and impact of large language models in 2024"
@@ -153,24 +149,24 @@ Societal Impact:
 4. "Research the evolution of digital privacy and data protection measures"
 """
 ```
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai duckduckgo-search newspaper4k lxml_html_clean agno
     ```
   </Step>
 
-  <Step title="Set environment variables">
+  <Step title="设置环境变量">
     ```bash
     export OPENAI_API_KEY=****
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行智能体">
     ```bash
     python research_agent.py
     ```

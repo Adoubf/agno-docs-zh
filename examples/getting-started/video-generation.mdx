@@ -1,18 +1,16 @@
 ---
-title: Video Generation
+title: 视频生成
 ---
+本示例展示如何使用ModelsLabs创建生成视频的AI智能体。
+该智能体可用于制作各类短视频，包括动画场景和创意视觉故事。
 
-This example shows how to create an AI agent that generates videos using ModelsLabs.
-You can use this agent to create various types of short videos, from animated scenes
-to creative visual stories.
+尝试以下示例提示词：
+- "创建一段日落时分海浪拍打沙滩的宁静视频"
+- "生成魔法森林中蝴蝶飞舞的神奇视频"
+- "制作花园里花朵绽放的延时视频"
+- "生成夜空中极光舞动的视频"
 
-Example prompts to try:
-- "Create a serene video of waves crashing on a beach at sunset"
-- "Generate a magical video of butterflies flying in a enchanted forest"
-- "Create a timelapse of a blooming flower in a garden"
-- "Generate a video of northern lights dancing in the night sky"
-
-## Code
+## 代码
 
 ```python video_generation.py
 from textwrap import dedent
@@ -21,7 +19,7 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.models_labs import ModelsLabTools
 
-# Create a Creative AI Video Director Agent
+# 创建创意AI视频导演智能体
 video_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     tools=[ModelsLabTools()],
@@ -45,18 +43,18 @@ video_agent = Agent(
     show_tool_calls=True,
 )
 
-# Example usage
+# 示例用法
 video_agent.print_response(
     "Generate a cosmic journey through a colorful nebula", stream=True
 )
 
-# Retrieve and display generated videos
+# 检索并显示生成的视频
 videos = video_agent.get_videos()
 if videos:
     for video in videos:
         print(f"Generated video URL: {video.url}")
 
-# More example prompts to try:
+# 更多可尝试的示例提示：
 """
 Try these creative prompts:
 1. "Create a video of autumn leaves falling in a peaceful forest"
@@ -67,24 +65,24 @@ Try these creative prompts:
 """
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai agno
     ```
   </Step>
 
-  <Step title="Set environment variables">
+  <Step title="设置环境变量">
     ```bash
     export MODELS_LAB_API_KEY=****
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行智能体">
     ```bash
     python video_generation.py
     ```

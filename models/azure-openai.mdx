@@ -1,37 +1,36 @@
 ---
 title: Azure OpenAI
-description: Learn how to use Azure OpenAI models in Agno.
+description: 了解如何在 Agno 中使用 Azure OpenAI 模型。
 ---
+通过Azure基础设施使用OpenAI模型。了解更多请访问[这里](https://learn.microsoft.com/azure/ai-services/openai/overview)。
 
-Use OpenAI models through Azure's infrastructure. Learn more [here](https://learn.microsoft.com/azure/ai-services/openai/overview).
+Azure OpenAI提供对`GPT-4o`、`o3-mini`等OpenAI模型的访问。
 
-Azure OpenAI provides access to OpenAI's models like `GPT-4o`, `o3-mini`, and more.
+## 认证
 
-## Authentication
-
-Navigate to Azure OpenAI on the [Azure Portal](https://portal.azure.com/) and create a service. Then, using the Azure AI Studio portal, create a deployment and set your environment variables:
+访问[Azure门户](https://portal.azure.com/)中的Azure OpenAI并创建服务。然后使用Azure AI Studio门户创建部署并设置环境变量：
 
 <CodeGroup>
 
 ```bash Mac
 export AZURE_OPENAI_API_KEY=***
 export AZURE_OPENAI_ENDPOINT=***  # Of the form https://<your-resource-name>.openai.azure.com/openai/deployments/<your-deployment-name>
-# Optional:
+# 可选：
 # export AZURE_OPENAI_DEPLOYMENT=***
 ```
 
 ```bash Windows
 setx AZURE_OPENAI_API_KEY ***  # Of the form https://<your-resource-name>.openai.azure.com/openai/deployments/<your-deployment-name>
 setx AZURE_OPENAI_ENDPOINT ***
-# Optional:
-# setx AZURE_OPENAI_DEPLOYMENT ***
+# 可选：
+# 设置环境变量 AZURE_OPENAI_DEPLOYMENT 为 ***
 ```
 
 </CodeGroup>
 
-## Example
+## 示例
 
-Use `AzureOpenAI` with your `Agent`:
+使用`AzureOpenAI`与您的`Agent`：
 
 <CodeGroup>
 
@@ -45,22 +44,22 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response on the terminal
+# 在终端打印响应
 agent.print_response("Share a 2 sentence horror story.")
 ```
 
 </CodeGroup>
 
-## Prompt caching
+## 提示缓存
 
-Prompt caching will happen automatically using our `AzureOpenAI` model. You can read more about how OpenAI handle caching in [their docs](https://platform.openai.com/docs/guides/prompt-caching).
+提示缓存将自动使用我们的`AzureOpenAI`模型完成。您可以在[OpenAI文档](https://platform.openai.com/docs/guides/prompt-caching)中阅读更多关于OpenAI如何处理缓存的信息。
 
-## Advanced Examples
+## 高级示例
 
-View more examples [here](../examples/models/azure/openai).
+查看更多示例请访问[这里](../examples/models/azure/openai)。
 
-## Parameters
+## 参数
 
 <Snippet file="model-azure-openai-params.mdx" />
 
-`AzureOpenAI` also supports the parameters of [OpenAI](/reference/models/openai).
+`AzureOpenAI`也支持[OpenAI](/reference/models/openai)的参数。

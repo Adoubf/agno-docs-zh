@@ -1,9 +1,8 @@
 ---
-title: Streaming User Confirmation
-description: This example demonstrates how to implement streaming user confirmation flows, allowing for real-time interaction and response streaming.
+title: 用户确认流式传输
+description: 此示例演示如何实现流式用户确认流程，支持实时交互与响应流式传输。
 ---
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/user_control_flows/confirmation_required_stream.py
 import json
@@ -28,11 +27,11 @@ def get_top_hackernews_stories(num_stories: int) -> str:
     Returns:
         str: JSON string containing story details
     """
-    # Fetch top story IDs
+    # 获取热门故事ID
     response = httpx.get("https://hacker-news.firebaseio.com/v0/topstories.json")
     story_ids = response.json()
 
-    # Yield story details
+    # 产出故事详情
     all_stories = []
     for story_id in story_ids[:num_stories]:
         story_response = httpx.get(
@@ -53,7 +52,7 @@ agent = Agent(
 for run_response in agent.run("Fetch the top 2 hackernews stories", stream=True):
     if run_response.is_paused:
         for tool in run_response.tools_requiring_confirmation:
-            # Ask for confirmation
+            # 请求确认
             console.print(
                 f"Tool name [bold blue]{tool.tool_name}({tool.tool_args})[/] requires confirmation."
             )
@@ -71,24 +70,24 @@ for run_response in agent.run("Fetch the top 2 hackernews stories", stream=True)
         pprint.pprint_run_response(run_response)
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno httpx rich openai
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/user_control_flows/confirmation_required_stream.py
@@ -101,16 +100,16 @@ for run_response in agent.run("Fetch the top 2 hackernews stories", stream=True)
   </Step>
 </Steps>
 
-## Key Features
+## 核心特性
 
-- Uses `agent.run(stream=True)` for streaming responses
-- Implements streaming continuation with `agent.continue_run(stream=True)`
-- Maintains real-time interaction with user confirmation
-- Demonstrates how to handle streaming responses with user input
+- 采用 `agent.run(stream=True)` 实现流式响应
+- 使用 `agent.continue_run(stream=True)` 实现流式续传
+- 维持实时交互与用户确认机制
+- 演示如何处理带用户输入的流式响应
 
-## Use Cases
+## 应用场景
 
-- Real-time user interaction
-- Streaming applications requiring user input
-- Interactive chat interfaces
-- Progressive response generation 
+- 实时用户交互
+- 需要用户输入的流式应用
+- 交互式聊天界面
+- 渐进式响应生成

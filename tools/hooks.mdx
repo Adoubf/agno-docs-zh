@@ -1,14 +1,13 @@
 ---
-title: Hooks
-description: Learn how to use tool hooks to modify the behavior of a tool.
+title: 钩子
+description: 了解如何使用工具钩子（tool hooks）来修改工具的行为。
 ---
+## 工具钩子
+您可以使用工具钩子在调用工具前后执行验证、日志记录或其他任何逻辑。
 
-## Tool Hooks
-You can use tool hooks to perform validation, logging, or any other logic before or after a tool is called.
+工具钩子是一个接收函数名称、函数调用及参数的函数。在工具钩子内部，您必须调用该函数并返回结果。
 
-A tool hook is a function that takes a function name, function call, and arguments.  Inside the tool hook, you have to call the function call and return the result.
-
-For example:
+例如：
 
 ```python
 def logger_hook(
@@ -17,7 +16,7 @@ def logger_hook(
     """Log the duration of the function call"""
     start_time = time.time()
 
-    # Call the function
+    # 调用该函数
     result = function_call(**arguments)
     
     end_time = time.time()
@@ -25,11 +24,11 @@ def logger_hook(
     
     logger.info(f"Function {function_name} took {duration:.2f} seconds to execute")
 
-    # Return the result
+    # 将结果返回
     return result
 ```
 
-or 
+或
 
 ```python
 def confirmation_hook(
@@ -41,9 +40,9 @@ def confirmation_hook(
     return function_call(**arguments)
 ```
 
-You can assign tool hooks on agents and teams.  The tool hooks will be applied to all tools in the agent or team.
+您可以为智能体和团队分配工具钩子。这些工具钩子将应用于该智能体或团队中的所有工具。
 
-For example:
+例如：
 
 ```python
 agent = Agent(
@@ -53,7 +52,7 @@ agent = Agent(
 )
 ```
 
-You can also assign multiple tool hooks at once. They will be applied in the order they are assigned.
+您还可以同时分配多个工具钩子。它们将按照分配的顺序依次执行。
 
 ```python
 agent = Agent(
@@ -63,7 +62,7 @@ agent = Agent(
 )
 ```
 
-You can also assign tool hooks to specific custom tools.
+您也可以为特定自定义工具分配工具钩子。
 
 ```python
 @tool(tool_hooks=[logger_hook, confirmation_hook])
@@ -73,11 +72,11 @@ def get_top_hackernews_stories(num_stories: int) -> Iterator[str]:
     Args:
         num_stories (int): Number of stories to retrieve
     """
-    # Fetch top story IDs
+    # 获取热门故事ID
     response = httpx.get("https://hacker-news.firebaseio.com/v0/topstories.json")
     story_ids = response.json()
 
-    # Yield story details
+    # 产出故事详情
     final_stories = []
     for story_id in story_ids[:num_stories]:
         story_response = httpx.get(
@@ -96,15 +95,14 @@ agent = Agent(
 )
 ```
 
-## Pre and Post Hooks
+## 前置与后置钩子
+前置和后置钩子允许您在工具调用前后修改执行逻辑。这是工具钩子的替代方案。
 
-Pre and post hooks let's you modify what happens before and after a tool is called. It is an alternative to tool hooks.
+在`@tool`装饰器中设置`pre_hook`，可在工具调用前运行函数。
 
-Set the `pre_hook` in the `@tool` decorator to run a function before the tool call.
+在`@tool`装饰器中设置`post_hook`，可在工具调用后运行函数。
 
-Set the `post_hook` in the `@tool` decorator to run a function after the tool call.
-
-Here's a demo example of using a `pre_hook`, `post_hook` along with Agent Context.
+以下是一个结合智能体上下文使用`pre_hook`和`post_hook`的演示示例：
 
 ```python pre_and_post_hooks.py
 import json
@@ -131,11 +129,11 @@ def post_hook(fc: FunctionCall):
 def get_top_hackernews_stories(agent: Agent) -> Iterator[str]:
     num_stories = agent.context.get("num_stories", 5) if agent.context else 5
 
-    # Fetch top story IDs
+    # 获取头条故事ID
     response = httpx.get("https://hacker-news.firebaseio.com/v0/topstories.json")
     story_ids = response.json()
 
-    # Yield story details
+    # 产出故事详情
     for story_id in story_ids[:num_stories]:
         story_response = httpx.get(
             f"https://hacker-news.firebaseio.com/v0/item/{story_id}.json"

@@ -1,8 +1,7 @@
 ---
-title: Image to Audio Agent
+title: 图像转音频智能体
 ---
-
-## Code
+## 代码
 
 ```python
 from pathlib import Path
@@ -43,26 +42,26 @@ if audio_story.response_audio is not None:
     )
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai rich agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果电脑
     python cookbook/agent_concepts/multimodal/image_to_audio.py
     ```
 

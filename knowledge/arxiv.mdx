@@ -1,16 +1,15 @@
 ---
-title: ArXiv Knowledge Base
-description: Learn how to use ArXiv articles in your knowledge base.
-sidebarTitle: ArXiv
+title: ArXiv 知识库
+description: 了解如何将ArXiv论文集成到您的知识库中。
+sidebarTitle: arXiv
 ---
+**ArxivKnowledgeBase** 读取Arxiv论文，将其转化为向量嵌入并加载至向量数据库。
 
-The **ArxivKnowledgeBase** reads Arxiv articles, converts them into vector embeddings and loads them to a vector database.
-
-## Usage
+## 使用方式
 
 <Note>
 
-We are using a local PgVector database for this example. [Make sure it's running](https://docs.agno.com/vectordb/pgvector)
+本示例使用本地PgVector数据库。[确保数据库已运行](https://docs.agno.com/vectordb/pgvector)
 
 </Note>
 
@@ -24,7 +23,7 @@ from agno.vectordb.pgvector import PgVector
 
 knowledge_base = ArxivKnowledgeBase(
     queries=["Generative AI", "Machine Learning"],
-    # Table name: ai.arxiv_documents
+    # 表名：ai.arxiv_documents
     vector_db=PgVector(
         table_name="arxiv_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -32,7 +31,7 @@ knowledge_base = ArxivKnowledgeBase(
 )
 ```
 
-Then use the `knowledge_base` with an `Agent`:
+随后使用`knowledge_base`配合`Agent`：
 
 ```python agent.py
 from agno.agent import Agent
@@ -47,12 +46,12 @@ agent.knowledge.load(recreate=False)
 agent.print_response("Ask me about something from the knowledge base")
 ```
 
-#### ArxivKnowledgeBase also supports async loading.
+#### ArxivKnowledgeBase亦支持异步加载。
 
 ```shell
 pip install qdrant-client
 ```
-We are using a local Qdrant database for this example. [Make sure it's running](https://docs.agno.com/vectordb/qdrant)
+本示例使用本地Qdrant数据库。[确保数据库已运行](https://docs.agno.com/vectordb/qdrant)
 
 ```python async_knowledge_base.py
 import asyncio
@@ -65,22 +64,22 @@ COLLECTION_NAME = "arxiv-reader"
 
 vector_db = Qdrant(collection=COLLECTION_NAME, url="http://localhost:6333")
 
-# Create a knowledge base with the ArXiv documents
+# 用ArXiv文档创建知识库
 knowledge_base = ArxivKnowledgeBase(
     queries=["Generative AI", "Machine Learning"], vector_db=vector_db
 )
 
-# Create an agent with the knowledge base
+# 创建一个具备知识库的智能体
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
 )
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 首次运行后注释掉
     asyncio.run(knowledge_base.aload(recreate=False))
 
-    # Create and use the agent
+    # 创建并使用智能体
     asyncio.run(
         agent.aprint_response(
             "Ask me about generative ai from the knowledge base", markdown=True
@@ -88,16 +87,16 @@ if __name__ == "__main__":
     )
 ```
 
-## Params
+## 参数
 
-| Parameter | Type          | Default         | Description                                                                                        |
-| --------- | ------------- | --------------- | -------------------------------------------------------------------------------------------------- |
-| `queries` | `List[str]`   | `[]`            | Queries to search                                                                                  |
-| `reader`  | `ArxivReader` | `ArxivReader()` | A `ArxivReader` that reads the articles and converts them into `Documents` for the vector database |
+| 参数        | 类型           | 默认值           | 描述                                                                                         |
+| ----------- | -------------- | ---------------- | ------------------------------------------------------------------------------------------- |
+| `queries` | `List[str]`   | `[]`            | 待检索的查询语句                                                                            |
+| `reader`  | `ArxivReader` | `ArxivReader()` | 用于读取论文并将其转化为`Documents`的`ArxivReader`，以供向量数据库使用              |
 
-`ArxivKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+`ArxivKnowledgeBase`是[AgentKnowledge](/reference/knowledge/base)类的子类，拥有相同的参数访问权限。
 
-## Developer Resources
+## 开发者资源
 
-- View [Sync loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/arxiv_kb.py)
-- View [Async loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/arxiv_kb_async.py)
+- 查看[同步加载手册](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/arxiv_kb.py)
+- 查看[异步加载手册](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/arxiv_kb_async.py)

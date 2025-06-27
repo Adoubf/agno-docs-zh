@@ -1,8 +1,7 @@
 ---
-title: Agent with Tools
+title: 带工具的智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/azure/ai_foundry/tool_use.py
 from agno.agent import Agent
@@ -19,33 +18,33 @@ agent = Agent(
 agent.print_response("Whats happening in France?", stream=True)
 ```
 
-## Usage
+## 使用说明
 
-<Steps>
-  <Snippet file="create-venv-step.mdx" />
+<Steps>  
+  <Snippet file="create-venv-step.mdx" />  
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">  
     ```bash
     export AZURE_API_KEY=xxx
     export AZURE_ENDPOINT=xxx
-    ```
-  </Step>
+    ```  
+  </Step>  
 
-  <Step title="Install libraries">
+  <Step title="安装库">  
     ```bash
     pip install -U azure-ai-inference agno duckduckgo-search
-    ```
-  </Step>
+    ```  
+  </Step>  
 
-  <Step title="Run Agent">
-    <CodeGroup>
+  <Step title="运行智能体">  
+    <CodeGroup>  
     ```bash Mac
     python cookbook/models/azure/ai_foundry/tool_use.py
-    ```
+    ```  
 
     ```bash Windows
     python cookbook/models/azure/ai_foundry/tool_use.py
-    ```
-    </CodeGroup>
-  </Step>
+    ```  
+    </CodeGroup>  
+  </Step>  
 </Steps>

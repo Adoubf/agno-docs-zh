@@ -1,17 +1,16 @@
 ---
-title: Sambanova
-description: Learn how to use Sambanova with Agno.
+title: 萨曼诺瓦
+description: 了解如何在 Agno 中使用 Sambanova。
 ---
+Sambanova 是一个为大型语言模型提供端点服务的平台。请注意，目前 Sambanova 不支持函数调用功能。
 
-Sambanova is a platform for providing endpoints for Large Language models. Note that Sambanova currently does not support function calling.
+## 认证
 
-## Authentication
-
-Set your `SAMBANOVA_API_KEY` environment variable. Get your key from [here](https://cloud.sambanova.ai/apis).
+设置您的 `SAMBANOVA_API_KEY` 环境变量。密钥获取地址：[点击此处](https://cloud.sambanova.ai/apis)。
 
 <CodeGroup>
 
-```bash Mac
+```bash 苹果
 export SAMBANOVA_API_KEY=***
 ```
 
@@ -21,9 +20,9 @@ setx SAMBANOVA_API_KEY ***
 
 </CodeGroup>
 
-## Example
+## 示例
 
-Use `Sambanova` with your `Agent`:
+使用 `Sambanova` 配合您的 `Agent`：
 
 <CodeGroup>
 
@@ -33,15 +32,15 @@ from agno.models.sambanova import Sambanova
 
 agent = Agent(model=Sambanova(), markdown=True)
 
-# Print the response in the terminal
+# 在终端打印响应
 agent.print_response("Share a 2 sentence horror story.")
 
 ```
 
 </CodeGroup>
 
-## Params
+## 参数
 
 <Snippet file="model-sambanova-params.mdx" />
 
-`Sambanova` also supports the params of [OpenAI](/reference/models/openai).
+`Sambanova` 同时支持 [OpenAI](/reference/models/openai) 的参数配置。

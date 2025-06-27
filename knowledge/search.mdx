@@ -1,33 +1,32 @@
 ---
-title: Agentic Search
+title: 智能体搜索
 ---
+使用智能体迭代搜索信息的过程称为**智能体搜索（Agentic Search）**，而**搜索-推理-响应**的流程被称为**智能体增强检索生成（Agentic RAG）**。
 
-Using an Agent to iteratively search for information is called **Agentic Search** and the process of **searching, reasoning and responding** is known as **Agentic RAG**.
-
-The model interprets your query, generates relevant keywords and searches its knowledge.
+模型会解析您的查询，生成相关关键词并搜索其知识库。
 
 <Tip>
-The Agent's response is only as good as its search. **Better search = Better responses**
+智能体的响应质量完全取决于其搜索效果。**更好的搜索 = 更优质的响应**
 </Tip>
 
-You can use semantic search, keyword search or hybrid search. We recommend using **hybrid search with reranking** for best in class agentic search.
+您可以使用语义搜索、关键词搜索或混合搜索。我们推荐采用**混合搜索+重排序**来实现顶级的智能体搜索效果。
 
-Because the Agent is searching for the information it needs, this pattern is called **Agentic Search** and is becoming very popular with Agent builders.
+由于智能体会主动搜索所需信息，这种模式被称为**智能体搜索**，并逐渐成为智能体开发者的首选方案。
 
 <Check>
-Let's build some examples to see Agentic Search in action.
+让我们通过实际案例来演示智能体搜索的运行机制。
 </Check>
 
-## Agentic RAG
+## 智能体增强检索生成（Agentic RAG）
 
-When we add a knowledge base to an Agent, behind the scenes, we give the model a tool to search that knowledge base for the information it needs.
+当我们为智能体添加知识库时，实际上是为模型提供了搜索知识库的工具。
 
-The Model generates a set of keywords and calls the `search_knowledge_base()` tool to retrieve the relevant information or few-shot examples.
+模型会生成一组关键词并调用`search_knowledge_base()`工具来检索相关信息或少样本示例。
 
-Here's a working example that uses Hybrid Search + Reranking:
+以下是使用混合搜索+重排序的完整案例：
 
 <Tip>
-You may remove the reranking step if you don't need it.
+若无需重排序步骤，您可以移除该功能。
 </Tip>
 
 ```python agentic_rag.py
@@ -44,10 +43,10 @@ from agno.models.anthropic import Claude
 from agno.reranker.cohere import CohereReranker
 from agno.vectordb.lancedb import LanceDb, SearchType
 
-# Create a knowledge base, loaded with documents from a URL
+# 创建一个知识库，从URL加载文档
 knowledge_base = UrlKnowledge(
     urls=["https://docs.agno.com/introduction/agents.md"],
-    # Use LanceDB as the vector database, store embeddings in the `agno_docs` table
+    # 使用 LanceDB 作为向量数据库，将嵌入向量存储在 `agno_docs` 表中
     vector_db=LanceDb(
         uri="tmp/lancedb",
         table_name="agno_docs",
@@ -59,10 +58,10 @@ knowledge_base = UrlKnowledge(
 
 agent = Agent(
     model=Claude(id="claude-3-7-sonnet-latest"),
-    # Agentic RAG is enabled by default when `knowledge` is provided to the Agent.
+    # 当为智能体提供 `knowledge` 时，Agentic RAG 功能默认启用。
     knowledge=knowledge_base,
-    # search_knowledge=True gives the Agent the ability to search on demand
-    # search_knowledge is True by default
+    # search_knowledge=True 赋予智能体按需搜索知识的能力
+    # 默认情况下，search_knowledge 设为 True
     search_knowledge=True,
     instructions=[
         "Include sources in your response.",
@@ -73,18 +72,18 @@ agent = Agent(
 )
 
 if __name__ == "__main__":
-    # Load the knowledge base, comment after first run
-    # knowledge_base.load(recreate=True)
+    # 加载知识库，首次运行后添加注释
+    # 知识库.load(recreate=True)
     agent.print_response("What are Agents?", stream=True)
 ```
 
-## Agentic RAG with Reasoning
+## 具备推理能力的智能体增强检索生成
 
-We can further improve the Agents search capabilities by giving it the ability to reason about the search results.
+通过赋予智能体分析搜索结果的能力，我们可以进一步优化其搜索性能。
 
-By adding reasoning, the Agent "thinks" first about what to search and then "analyzes" the results of the search.
+加入推理环节后，智能体会先"思考"搜索策略，再"分析"搜索结果。
 
-Here's an example of an Agentic RAG Agent that uses reasoning to improve the quality of the search results.
+以下是智能体运用推理机制提升搜索结果质量的典型案例。
 
 ```python agentic_rag_reasoning.py
 """This cookbook shows how to implement Agentic RAG with Reasoning.
@@ -101,10 +100,10 @@ from agno.reranker.cohere import CohereReranker
 from agno.tools.reasoning import ReasoningTools
 from agno.vectordb.lancedb import LanceDb, SearchType
 
-# Create a knowledge base, loaded with documents from a URL
+# 创建知识库，从URL加载文档
 knowledge_base = UrlKnowledge(
     urls=["https://docs.agno.com/introduction/agents.md"],
-    # Use LanceDB as the vector database, store embeddings in the `agno_docs` table
+    # 使用 LanceDB 作为向量数据库，将嵌入向量存储在 `agno_docs` 表中
     vector_db=LanceDb(
         uri="tmp/lancedb",
         table_name="agno_docs",
@@ -116,10 +115,10 @@ knowledge_base = UrlKnowledge(
 
 agent = Agent(
     model=Claude(id="claude-3-7-sonnet-latest"),
-    # Agentic RAG is enabled by default when `knowledge` is provided to the Agent.
+    # 当向智能体提供`知识`时，默认启用Agentic RAG功能。
     knowledge=knowledge_base,
-    # search_knowledge=True gives the Agent the ability to search on demand
-    # search_knowledge is True by default
+    # search_knowledge=True 赋予智能体按需搜索知识的能力
+    # search_knowledge 默认值为 True
     search_knowledge=True,
     tools=[ReasoningTools(add_instructions=True)],
     instructions=[
@@ -131,8 +130,8 @@ agent = Agent(
 )
 
 if __name__ == "__main__":
-    # Load the knowledge base, comment after first run
-    # knowledge_base.load(recreate=True)
+    # 加载知识库，首次运行后添加注释
+    # 知识库.load(recreate=True)
     agent.print_response(
         "What are Agents?",
         stream=True,

@@ -1,22 +1,21 @@
 ---
 title: LangSmith
-description: Integrate Agno with LangSmith to send traces and gain insights into your agent's performance.
+description: 将Agno与LangSmith集成，发送追踪数据并获取关于智能体性能的深入洞察。
 ---
+## 将Agno与LangSmith集成
 
-## Integrating Agno with LangSmith
+LangSmith提供了一个全面的平台，用于追踪和监控AI模型调用。通过将Agno与LangSmith集成，您可以使用OpenInference发送追踪数据，从而深入了解智能体的性能表现。
 
-LangSmith offers a comprehensive platform for tracing and monitoring AI model calls. By integrating Agno with LangSmith, you can utilize OpenInference to send traces and gain insights into your agent's performance.
+## 前提条件
 
-## Prerequisites
+1. **创建LangSmith账户**
 
-1. **Create a LangSmith Account**
+   - 在[LangSmith](https://smith.langchain.com)注册账户。
+   - 从LangSmith仪表板获取您的API密钥。
 
-   - Sign up for an account at [LangSmith](https://smith.langchain.com).
-   - Obtain your API key from the LangSmith dashboard.
+2. **设置环境变量**
 
-2. **Set Environment Variables**
-
-   Configure your environment with the LangSmith API key and other necessary settings:
+   配置包含LangSmith API密钥及其他必要设置的环境变量：
 
    ```bash
    export LANGSMITH_API_KEY=<your-key>
@@ -25,17 +24,17 @@ LangSmith offers a comprehensive platform for tracing and monitoring AI model ca
    export LANGSMITH_PROJECT=<your-project-name>
    ```
 
-3. **Install Dependencies**
+3. **安装依赖项**
 
-   Ensure you have the necessary packages installed:
+   确保已安装必要的软件包：
 
    ```bash
    pip install openai openinference-instrumentation-agno opentelemetry-sdk opentelemetry-exporter-otlp
    ```
 
-## Sending Traces to LangSmith
+## 向LangSmith发送追踪数据
 
-This example demonstrates how to instrument your Agno agent with OpenInference and send traces to LangSmith.
+以下示例展示如何使用OpenInference为Agno智能体添加追踪功能，并将数据发送至LangSmith。
 
 ```python
 import os
@@ -49,24 +48,24 @@ from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExport
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import SimpleSpanProcessor
 
-# Set the endpoint and headers for LangSmith
+# 设置LangSmith的端点与请求头
 endpoint = "https://eu.api.smith.langchain.com/otel/v1/traces"
 headers = {
     "x-api-key": os.getenv("LANGSMITH_API_KEY"),
     "Langsmith-Project": os.getenv("LANGSMITH_PROJECT"),
 }
 
-# Configure the tracer provider
+# 配置追踪器提供程序
 tracer_provider = TracerProvider()
 tracer_provider.add_span_processor(
     SimpleSpanProcessor(OTLPSpanExporter(endpoint=endpoint, headers=headers))
 )
 trace_api.set_tracer_provider(tracer_provider=tracer_provider)
 
-# Start instrumenting agno
+# 开始对 agno 进行检测
 AgnoInstrumentor().instrument()
 
-# Create and configure the agent
+# 创建并配置智能体
 agent = Agent(
     name="Stock Market Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
@@ -75,13 +74,13 @@ agent = Agent(
     debug_mode=True,
 )
 
-# Use the agent
+# 使用智能体
 agent.print_response("What is news on the stock market?")
 ```
 
-## Notes
+## 注意事项
 
-- **Environment Variables**: Ensure your environment variables are correctly set for the API key, endpoint, and project name.
-- **Data Regions**: Choose the appropriate `LANGSMITH_ENDPOINT` based on your data region.
+- **环境变量**：请确保正确设置API密钥、端点地址和项目名称相关的环境变量。
+- **数据区域**：根据您的数据区域选择合适的`LANGSMITH_ENDPOINT`。
 
-By following these steps, you can effectively integrate Agno with LangSmith, enabling comprehensive observability and monitoring of your AI agents.
+通过遵循上述步骤，您可以有效实现Agno与LangSmith的集成，从而获得AI智能体的全面可观测性与监控能力。

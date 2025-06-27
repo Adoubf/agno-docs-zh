@@ -1,28 +1,27 @@
 ---
 title: Webex
 ---
+**WebexTools** 允许智能体与思科Webex交互，实现消息发送和房间列表查看功能。
 
-**WebexTools** enable an Agent to interact with Cisco Webex, allowing it to send messages and list rooms.
+## 前提条件
 
-## Prerequisites
+以下示例需要 `webexpythonsdk` 库和Webex访问令牌（可从[Webex开发者门户](https://developer.webex.com/docs/bots)获取）。
 
-The following example requires the `webexpythonsdk` library and a Webex access token which can be obtained from [Webex Developer Portal](https://developer.webex.com/docs/bots).
+Webex使用准备步骤：
 
-To get started with Webex:
+1. **创建Webex机器人：**
+   - 访问[开发者门户](https://developer.webex.com/)
+   - 导航至My Webex Apps → Create a Bot
+   - 填写机器人详细信息后点击Add Bot
 
-1. **Create a Webex Bot:**
-   - Go to the [Developer Portal](https://developer.webex.com/)
-   - Navigate to My Webex Apps → Create a Bot
-   - Fill in the bot details and click Add Bot
+2. **获取访问令牌：**
+   - 复制机器人创建后显示的令牌
+   - 或通过My Webex Apps → Edit Bot重新生成
+   - 设置为WEBEX_ACCESS_TOKEN环境变量
 
-2. **Get your access token:**
-   - Copy the token shown after bot creation
-   - Or regenerate via My Webex Apps → Edit Bot
-   - Set as WEBEX_ACCESS_TOKEN environment variable
-
-3. **Add the bot to Webex:**
-   - Launch Webex and add the bot to a space
-   - Use the bot's email (e.g. test@webex.bot)
+3. **添加机器人至Webex：**
+   - 启动Webex并将机器人添加至空间
+   - 使用机器人邮箱（例如test@webex.bot）
 
 ```shell
 pip install webexpythonsdk
@@ -32,9 +31,9 @@ pip install webexpythonsdk
 export WEBEX_ACCESS_TOKEN=your_access_token_here
 ```
 
-## Example
+## 示例
 
-The following agent will list all spaces and send a message using Webex:
+以下智能体将列出所有空间并通过Webex发送消息：
 
 ```python cookbook/tools/webex_tool.py
 from agno.agent import Agent
@@ -42,32 +41,31 @@ from agno.tools.webex import WebexTools
 
 agent = Agent(tools=[WebexTools()], show_tool_calls=True)
 
-# List all spaces in Webex
+# 列出 Webex 中的所有空间
 agent.print_response("List all space on our Webex", markdown=True)
 
-# Send a message to a Space in Webex
+# 向 Webex 中的 Space 发送消息
 agent.print_response(
     "Send a funny ice-breaking message to the webex Welcome space", markdown=True
 )
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter      | Type   | Default | Description                                                                                |
-| -------------- | ------ | ------- | ------------------------------------------------------------------------------------------ |
-| `access_token` | `str`  | `None`  | Webex access token for authentication. If not provided, uses WEBEX_ACCESS_TOKEN environment variable. |
-| `send_message` | `bool` | `True`  | Enable sending messages to Webex spaces.                                                   |
-| `list_rooms`   | `bool` | `True`  | Enable listing Webex spaces/rooms.                                                         |
+| 参数            | 类型    | 默认值    | 描述                                                                                        |
+| --------------- | ------- | --------- | ------------------------------------------------------------------------------------------ |
+| `access_token` | `str` | `None` | 用于认证的Webex访问令牌。若未提供，则使用WEBEX_ACCESS_TOKEN环境变量。                         |
+| `send_message` | `bool` | `True` | 启用向Webex空间发送消息的功能。                                                             |
+| `list_rooms` | `bool` | `True` | 启用Webex空间/房间列表查看功能。                                                            |
 
-## Toolkit Functions
+## 工具包函数
 
-| Function       | Description                                                                                                |
-| -------------- | ---------------------------------------------------------------------------------------------------------- |
-| `send_message` | Sends a message to a Webex room. Parameters: `room_id` (str) for the target room, `text` (str) for the message. |
-| `list_rooms`   | Lists all available Webex rooms/spaces with their details including ID, title, type, and visibility settings.   |
+| 函数            | 描述                                                                                                    |
+| --------------- | ------------------------------------------------------------------------------------------------------ |
+| `send_message` | 向Webex房间发送消息。参数：`room_id` (str) 目标房间，`text` (str) 消息内容。            |
+| `list_rooms` | 列出所有可用Webex房间/空间及其详细信息（包括ID、标题、类型和可见性设置）。                                 |
 
+## 开发者资源
 
-## Developer Resources
-
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/webex.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/webex_tools.py) 
+- 查看[工具文档](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/webex.py)
+- 查看[使用手册](https://github.com/agno-agi/agno/blob/main/cookbook/tools/webex_tools.py)

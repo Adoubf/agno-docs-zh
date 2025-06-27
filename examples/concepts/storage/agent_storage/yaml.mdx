@@ -1,11 +1,10 @@
 ---
-title: YAML Agent Storage
+title: YAML 智能体存储
 sidebarTitle: YAML
 ---
+Agno支持使用本地YAML文件作为智能体的存储后端，通过`YamlStorage`类实现。
 
-Agno supports using local YAML files as a storage backend for Agents using the `YamlStorage` class.
-
-## Usage
+## 使用方法
 
 ```python yaml_storage_for_agent.py
 from agno.agent import Agent
@@ -22,10 +21,10 @@ agent.print_response("How many people live in Canada?")
 agent.print_response("What is their national anthem called?")
 ```
 
-## Params
+## 参数说明
 
 <Snippet file="storage-yaml-params.mdx" />
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/yaml_storage/yaml_storage_for_agent.py)
+- 查看[Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/yaml_storage/yaml_storage_for_agent.py)

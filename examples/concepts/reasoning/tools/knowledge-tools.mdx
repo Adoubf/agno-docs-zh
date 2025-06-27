@@ -1,8 +1,7 @@
 ---
-title: Reasoning Agent with Knowledge Tools
+title: 带知识工具的推理智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/reasoning/tools/knowledge_tools.py
 
@@ -13,10 +12,10 @@ from agno.models.openai import OpenAIChat
 from agno.tools.knowledge import KnowledgeTools
 from agno.vectordb.lancedb import LanceDb, SearchType
 
-# Create a knowledge base containing information from a URL
+# 创建一个包含来自 URL 信息的知识库
 agno_docs = UrlKnowledge(
     urls=["https://docs.agno.com/llms-full.txt"],
-    # Use LanceDB as the vector database and store embeddings in the `agno_docs` table
+    # 使用 LanceDB 作为向量数据库，并将嵌入向量存储在 `agno_docs` 表中
     vector_db=LanceDb(
         uri="tmp/lancedb",
         table_name="agno_docs",
@@ -41,31 +40,31 @@ agent = Agent(
 )
 
 if __name__ == "__main__":
-    # Load the knowledge base, comment after first run
+    # 加载知识库，首次运行后添加注释
     agno_docs.load(recreate=True)
     agent.print_response("How do I build multi-agent teams with Agno?", stream=True)
 
 
 ```
 
-## Usage
+## 使用方式
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的API密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai lancedb tantivy sqlalchemy agno
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/reasoning/tools/knowledge_tools.py

@@ -1,67 +1,66 @@
 ---
-title: Memory Storage
+title: 记忆存储
 ---
+# 记忆存储
 
-# Memory Storage
+为了在会话和执行周期之间持久保存记忆，可将记忆存储在数据库等持久化存储中。
 
-To persist memories across sessions and execution cycles, store memories in a persistent storage like a database.
+如果在生产环境中使用记忆功能，持久化存储至关重要，因为您会希望应用重启后仍能保留用户记忆。
 
-If you're using Memory in production, persistent storage is critical as you'd want to retain user memories across application restarts.
+Agno的记忆系统支持多种持久化存储方案。
 
-Agno's memory system supports multiple persistent storage options.
+## 存储选项
 
-## Storage Options
+Memory类通过可插拔的数据库接口支持不同的后端存储方案。当前Agno提供：
 
-The Memory class supports different backend storage options through a pluggable database interface. Currently, Agno provides:
+1. [SQLite存储](/reference/memory/storage/sqlite)
+2. [PostgreSQL存储](/reference/memory/storage/postgres)
+3. [MongoDB存储](/reference/memory/storage/mongo)
+4. [Redis存储](/reference/memory/storage/redis)
 
-1. [SQLite Storage](/reference/memory/storage/sqlite)
-2. [PostgreSQL Storage](/reference/memory/storage/postgres)
-3. [MongoDB Storage](/reference/memory/storage/mongo)
-4. [Redis Storage](/reference/memory/storage/redis)
+## 配置存储
 
-## Setting Up Storage
-
-To configure memory storage, you'll need to create a database instance and pass it to the Memory constructor:
+要配置记忆存储，您需要创建数据库实例并将其传递给Memory构造函数：
 
 ```python
 from agno.memory.v2.memory import Memory
 from agno.memory.v2.db.sqlite import SqliteMemoryDb
 
-# Create a SQLite database for memory
+# 创建用于存储记忆的SQLite数据库
 memory_db = SqliteMemoryDb(
     table_name="memories",  # The table name to use
     db_file="path/to/memory.db"  # The SQLite database file
 )
 
-# Initialize Memory with the storage backend
+# 初始化带有存储后端的记忆系统
 memory = Memory(db=memory_db)
 ```
 
-## Data Model
+## 数据模型
 
-When using persistent storage, the Memory system stores:
+使用持久化存储时，记忆系统会存储：
 
-- **User Memories** - Facts and insights about users
-- **Last Updated Timestamps** - To track when memories were last modified
-- **Memory IDs** - Unique identifiers for each memory
+- **用户记忆** - 关于用户的事实和洞察
+- **最后更新时间戳** - 用于追踪记忆的最后修改时间
+- **记忆ID** - 每个记忆的唯一标识符
 
-## Storage Examples
+## 存储示例
 
 ```python sqlite_memory.py
 from agno.memory.v2.memory import Memory
 from agno.memory.v2.db.sqlite import SqliteMemoryDb
 from agno.memory.v2.schema import UserMemory
 
-# Create a SQLite memory database
+# 创建SQLite内存数据库
 memory_db = SqliteMemoryDb(
     table_name="user_memories",
     db_file="tmp/memory.db"
 )
 
-# Initialize Memory with the storage backend
+# 初始化存储后端的记忆模块
 memory = Memory(db=memory_db)
 
-# Add a user memory that will persist across restarts
+# 添加一个用户记忆，该记忆将在重启后持久保留
 user_id = "user@example.com"
 memory.add_user_memory(
     memory=UserMemory(
@@ -71,7 +70,7 @@ memory.add_user_memory(
     user_id=user_id
 )
 
-# Retrieve memories (these will be loaded from the database)
+# 检索记忆（这些将从数据库中加载）
 user_memories = memory.get_user_memories(user_id=user_id)
 for m in user_memories:
     print(f"Memory: {m.memory}")
@@ -83,16 +82,16 @@ from agno.memory.v2.memory import Memory
 from agno.memory.v2.db.postgres import PostgresMemoryDb
 from agno.memory.v2.schema import UserMemory
 
-# Create a PostgreSQL memory database
+# 创建 PostgreSQL 内存数据库
 memory_db = PostgresMemoryDb(
     table_name="user_memories",
     connection_string="postgresql://user:password@localhost:5432/mydb"
 )
 
-# Initialize Memory with the storage backend
+# 使用存储后端初始化记忆
 memory = Memory(db=memory_db)
 
-# Add user memories
+# 添加用户记忆
 user_id = "user@example.com"
 memory.add_user_memory(
     memory=UserMemory(
@@ -102,13 +101,13 @@ memory.add_user_memory(
     user_id=user_id
 )
 
-# Memory operations work the same regardless of the backend
+# 无论后端如何，记忆操作的工作原理都相同
 print(f"User has {len(memory.get_user_memories(user_id=user_id))} memories stored")
 ```
 
-## Integrating with Agent Storage
+## 与智能体存储集成
 
-When building agents with memory, you'll often want to store both agent sessions and memories. Agno makes this easy by allowing you to configure both storage systems:
+构建具有记忆功能的智能体时，通常需要同时存储智能体会话和记忆。Agno通过允许您配置两个存储系统来简化这一过程：
 
 ```python
 from agno.agent import Agent
@@ -117,20 +116,20 @@ from agno.memory.v2.db.sqlite import SqliteMemoryDb
 from agno.models.openai import OpenAIChat
 from agno.storage.sqlite import SqliteStorage
 
-# Create memory storage
+# 创建记忆存储
 memory_db = SqliteMemoryDb(
     table_name="memories",
     db_file="tmp/memory.db"
 )
 memory = Memory(db=memory_db)
 
-# Create agent storage
+# 创建智能体存储
 agent_storage = SqliteStorage(
     table_name="agent_sessions",
     db_file="tmp/agent_storage.db"
 )
 
-# Create agent with both memory and storage
+# 创建同时具备记忆和存储功能的智能体
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     memory=memory,
@@ -139,26 +138,25 @@ agent = Agent(
 )
 ```
 
-## Memory Management
+## 记忆管理
 
-When using persistent storage, the Memory system offers several functions to manage stored memories:
+使用持久化存储时，记忆系统提供多个函数来管理存储的记忆：
 
 ```python
-# Delete a specific memory
+# 删除特定记忆
 memory.delete_user_memory(user_id="user@example.com", memory_id="memory_123")
 
-# Replace/update a memory
+# 替换/更新记忆
 memory.replace_user_memory(
     memory_id="memory_123",
     memory=UserMemory(memory="Updated information about the user"),
     user_id="user@example.com"
 )
 
-# Clear all memories
+# 清除所有记忆
 memory.clear()
 ```
 
+## 开发者资源
 
-## Developer Resources
-
-- Find reference documentation for memory storage [here](/reference/memory/storage)
+- 查找记忆存储的参考文档请访问[此处](/reference/memory/storage)

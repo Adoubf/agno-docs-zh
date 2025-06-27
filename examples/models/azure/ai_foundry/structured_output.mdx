@@ -1,8 +1,7 @@
 ---
-title: Agent with Structured Outputs
+title: 结构化输出的智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/azure/ai_foundry/structured_output.py
 from typing import List
@@ -39,34 +38,34 @@ agent = Agent(
     # debug_mode=True,
 )
 
-# Get the response in a variable
-# run: RunResponse = agent.run("New York")
-# pprint(run.content)
+# 将响应存储在变量中
+# run: RunResponse = 智能体.run("纽约")
+# 打印格式化(run.content)
 
 agent.print_response("New York")
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export AZURE_API_KEY=xxx
     export AZURE_ENDPOINT=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U azure-ai-inference agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果
     python cookbook/models/azure/ai_foundry/structured_output.py
     ```
 

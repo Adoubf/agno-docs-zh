@@ -1,25 +1,22 @@
 ---
-title: Model Context Protocol (MCP)
-sidebarTitle: Overview
-description: Learn how to use MCP with Agno to enable your agents to interact with external systems through a standardized interface.
+title: 模型上下文协议（MCP）
+sidebarTitle: 概述
+description: 了解如何通过Agno使用MCP，使您的智能体能够通过标准化接口与外部系统进行交互。
 ---
+[模型上下文协议（MCP）](https://modelcontextprotocol.io)通过标准化接口使智能体能够与外部系统交互。
+您可以使用Agno的MCP集成将智能体连接至任何MCP服务器。
 
-The [Model Context Protocol (MCP)](https://modelcontextprotocol.io) enables Agents to interact with external systems through a standardized interface.
-You can connect your Agents to any MCP server, using Agno's MCP integration.
-
-## Usage
+## 使用方法
 
 <Steps>
-    <Step title="Find the MCP server you want to use">
-    You can use any working MCP server. To see some examples, you can check [this GitHub repository](https://github.com/modelcontextprotocol/servers), by the maintainers of the MCP themselves.
+    <Step title="找到您想使用的 MCP 服务器">
+    您可以使用任何可用的MCP服务器。查看[MCP维护者提供的GitHub仓库](https://github.com/modelcontextprotocol/servers)获取示例。
     </Step>
 
-    <Step title="Initialize the MCP integration">
-    Intialize the `MCPTools` class as a context manager. The recommended way to define the MCP server, is to use the `command` or `url` parameters. With `command`, you can pass the command used to run the MCP server you want. With `url`, you can pass the URL of the running MCP server you want to use.
+    <Step title="初始化 MCP 集成">
+    将`MCPTools`类初始化为上下文管理器。推荐使用`command`或`url`参数定义MCP服务器。通过`command`可传入目标MCP服务器的运行命令，通过`url`可传入正在运行的MCP服务器URL。
 
-
-    For example, to use the "[mcp-server-git](https://github.com/modelcontextprotocol/servers/tree/main/src/git)" server, you can do the following:
-
+    例如，要使用"[mcp-server-git](https://github.com/modelcontextprotocol/servers/tree/main/src/git)"服务器：
 
     ```python
     from agno.tools.mcp import MCPTools
@@ -29,12 +26,10 @@ You can connect your Agents to any MCP server, using Agno's MCP integration.
     ```
     </Step>
 
-    <Step title="Provide the MCPTools to the Agent">
-    When initializing the Agent, pass the `MCPTools` class in the `tools` parameter.
+    <Step title="向智能体提供MCPTools">
+    初始化智能体时，在`tools`参数中传入`MCPTools`类。
 
-
-    The agent will now be ready to use the MCP server:
-
+    智能体即可使用MCP服务器：
 
     ```python
     from agno.agent import Agent
@@ -42,7 +37,7 @@ You can connect your Agents to any MCP server, using Agno's MCP integration.
     from agno.tools.mcp import MCPTools
 
     async with MCPTools(command=f"uvx mcp-server-git") as mcp_tools:
-        # Setup and run the agent
+        # 设置并运行智能体
         agent = Agent(model=OpenAIChat(id="gpt-4o"), tools=[mcp_tools])
         await agent.aprint_response("What is the license for this project?", stream=True)
     ```
@@ -51,9 +46,9 @@ You can connect your Agents to any MCP server, using Agno's MCP integration.
 </Steps>
 
 
-### Basic example: Filesystem Agent
+### 基础示例：文件系统智能体
 
-Here's a filesystem agent that uses the [Filesystem MCP server](https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem) to explore and analyze files:
+这是一个使用[文件系统MCP服务器](https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem)来探索分析文件的智能体：
 
 ```python filesystem_agent.py
 import asyncio
@@ -71,7 +66,7 @@ async def run_agent(message: str) -> None:
 
     file_path = str(Path(__file__).parent.parent.parent.parent)
 
-    # MCP server to access the filesystem (via `npx`)
+    # MCP服务器访问文件系统（通过`npx`）
     async with MCPTools(f"npx -y @modelcontextprotocol/server-filesystem {file_path}") as mcp_tools:
         agent = Agent(
             model=OpenAIChat(id="gpt-4o"),
@@ -89,20 +84,20 @@ async def run_agent(message: str) -> None:
             show_tool_calls=True,
         )
 
-        # Run the agent
+        # 运行智能体
         await agent.aprint_response(message, stream=True)
 
 
-# Example usage
+# 示例用法
 if __name__ == "__main__":
-    # Basic example - exploring project license
+    # 基础示例 - 探索项目许可证
     asyncio.run(run_agent("What is the license for this project?"))
 ```
 
 
-## Using MCP in Agno Playground
+## 在Agno Playground中使用MCP
 
-You can also run MCP servers in the Agno Playground, which provides a web interface for interacting with your agents. Here's an example of a GitHub agent running in the Playground:
+您可以在Agno Playground中运行MCP服务器，该平台提供了与智能体交互的网页界面。以下是在Playground中运行的GitHub智能体示例：
 
 ```python github_playground.py
 import asyncio
@@ -116,7 +111,7 @@ from agno.playground import Playground
 from agno.storage.agent.sqlite import SqliteAgentStorage
 from agno.tools.mcp import MCPTools
 
-# Allow nested event loops
+# 允许嵌套事件循环
 nest_asyncio.apply()
 
 agent_storage_file: str = "tmp/agents.db"
@@ -128,7 +123,7 @@ async def run_server() -> None:
     if not github_token:
         raise ValueError("GITHUB_TOKEN environment variable is required")
 
-    # Create a client session to connect to the MCP server
+    # 创建客户端会话以连接至MCP服务器
     async with MCPTools("npx -y @modelcontextprotocol/server-github") as mcp_tools:
         agent = Agent(
             name="MCP GitHub Agent",
@@ -154,7 +149,7 @@ async def run_server() -> None:
         playground = Playground(agents=[agent])
         app = playground.get_app()
 
-        # Serve the app while keeping the MCPTools context manager alive
+        # 在保持 MCPTools 上下文管理器运行的同时启动应用
         playground.serve(app)
 
 
@@ -163,17 +158,17 @@ if __name__ == "__main__":
 ```
 
 
-## Best Practices
+## 最佳实践
 
-1. **Error Handling**: Always include proper error handling for MCP server connections and operations.
+1. **错误处理**：始终为MCP服务器连接和操作添加适当的错误处理。
 
-2. **Resource Cleanup**: Use `MCPTools` or `MultiMCPTools` as an async context manager to ensure proper cleanup of resources:
+2. **资源清理**：使用`MCPTools`或`MultiMCPTools`作为异步上下文管理器确保资源清理：
 ```python
 async with MCPTools(command) as mcp_tools:
-    # Your agent code here
+    # 您的智能体代码位于此处
 ```
 
-3. **Clear Instructions**: Provide clear and specific instructions to your agent:
+3. **明确指令**：向智能体提供清晰具体的指令：
 
 ```python
 instructions = """
@@ -185,9 +180,9 @@ You are a filesystem assistant. Help users explore files and directories.
 """
 ```
 
-## More Information
+## 更多信息
 
-- Find examples of Agents that use MCP [here](https://docs.agno.com/examples/concepts/tools/mcp/airbnb).
-- Find a collection of MCP servers [here](https://github.com/modelcontextprotocol/servers).
-- Read the [MCP documentation](https://modelcontextprotocol.io/introduction) to learn more about the Model Context Protocol.
-- Checkout the Agno [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/tools/mcp) for more examples of Agents that use MCP.
+- 查看使用MCP的智能体示例[请点击](https://docs.agno.com/examples/concepts/tools/mcp/airbnb)
+- 获取MCP服务器集合[请访问](https://github.com/modelcontextprotocol/servers)
+- 阅读[MCP文档](https://modelcontextprotocol.io/introduction)了解协议详情
+- 查看Agno[Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/tools/mcp)获取更多MCP智能体示例

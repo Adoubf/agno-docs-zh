@@ -1,19 +1,18 @@
 ---
-title: Weaviate Agent Knowledge
+title: Weaviate 智能体知识库
 sidebarTitle: Weaviate
 ---
+按照 [Weaviate 设置指南](https://weaviate.io/developers/weaviate/quickstart) 中提到的步骤设置 Weaviate。
 
-Follow steps mentioned in [Weaviate setup guide](https://weaviate.io/developers/weaviate/quickstart) to setup Weaviate.
+## 设置
 
-## Setup
-
-Install weaviate packages
+安装 weaviate 包
 
 ```shell
 pip install weaviate-client
 ```
 
-Run weaviate
+运行 weaviate
 
 ```shell
 docker run -d \
@@ -23,13 +22,13 @@ docker run -d \
 cr.weaviate.io/semitechnologies/weaviate:1.28.4 
 ```
 
-or 
+或
 
 ```shell
 ./cookbook/scripts/run_weaviate.sh
 ```
 
-## Example
+## 示例
 
 ```python agent_with_knowledge.py
 from agno.agent import Agent
@@ -44,14 +43,14 @@ vector_db = Weaviate(
     distance=Distance.COSINE,
     local=True,  # Set to False if using Weaviate Cloud and True if using local instance
 )
-# Create knowledge base
+# 创建知识库
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
     vector_db=vector_db,
 )
 knowledge_base.load(recreate=False)  # Comment out after first run
 
-# Create and use the agent
+# 创建并使用智能体
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
@@ -60,10 +59,10 @@ agent = Agent(
 agent.print_response("How to make Thai curry?", markdown=True)
 ```
 
-<Card title="Async Support ⚡">
+<Card title="异步支持 ⚡">
   <div className="mt-2">
     <p>
-      Weaviate also supports asynchronous operations, enabling concurrency and leading to better performance.
+      Weaviate 还支持异步操作，可实现并发并带来更好的性能。
     </p>
     
     ```python async_weaviate_db.py
@@ -82,7 +81,7 @@ agent.print_response("How to make Thai curry?", markdown=True)
         local=True,  # Set to False if using Weaviate Cloud and True if using local instance
     )
     
-    # Create knowledge base
+    # 创建知识库
     knowledge_base = PDFUrlKnowledgeBase(
         urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
         vector_db=vector_db,
@@ -95,24 +94,24 @@ agent.print_response("How to make Thai curry?", markdown=True)
     )
 
     if __name__ == "__main__":
-        # Comment out after first run
+        # 首次运行后注释掉
         asyncio.run(knowledge_base.aload(recreate=False))
 
-        # Create and use the agent
+        # 创建并使用智能体
         asyncio.run(agent.aprint_response("How to make Tom Kha Gai", markdown=True))
     ```
     
     <Tip className="mt-4">
-      Weaviate's async capabilities leverage <code>WeaviateAsyncClient</code> to provide non-blocking vector operations. This is particularly valuable for applications requiring high concurrency and throughput.
+      Weaviate 的异步功能利用 <code>WeaviateAsyncClient</code> 提供非阻塞的向量操作。这对于需要高并发和高吞吐量的应用程序特别有价值。
     </Tip>
   </div>
 </Card>
 
-## Weaviate Params
+## Weaviate 参数
 
 <Snippet file="vectordb_weaviate_params.mdx" />
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook (Sync)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/weaviate_db/weaviate_db.py)
-- View [Cookbook (Async)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/weaviate_db/async_weaviate_db.py)
+- 查看 [Cookbook (同步)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/weaviate_db/weaviate_db.py)
+- 查看 [Cookbook (异步)](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/weaviate_db/async_weaviate_db.py)

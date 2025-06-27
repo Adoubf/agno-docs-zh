@@ -1,10 +1,9 @@
 ---
-title: Scenario Testing
+title: 场景测试
 ---
+本示例展示了如何使用[scenario](https://github.com/langwatch/scenario)测试库来测试智能体。
 
-This example shows how to use the [scenario](https://github.com/langwatch/scenario) testing library to test an agent.
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/other/scenario_testing.py
 import pytest
@@ -19,10 +18,10 @@ async def test_vegetarian_recipe_agent():
     agent = VegetarianRecipeAgent()
 
     def vegetarian_recipe_agent(message, context):
-        # Call your agent here
+        # 在此处调用您的智能体
         return agent.run(message)
 
-    # Define the scenario
+    # 定义场景
     scenario = Scenario(
         "User is looking for a dinner idea",
         agent=vegetarian_recipe_agent,
@@ -37,14 +36,14 @@ async def test_vegetarian_recipe_agent():
         ],
     )
 
-    # Run the scenario and get results
+    # 运行场景并获取结果
     result = await scenario.run()
 
-    # Assert for pytest to know whether the test passed
+    # 用于 pytest 判断测试是否通过的断言
     assert result.success
 
 
-# Example agent implementation
+# 示例智能体实现
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
@@ -72,26 +71,26 @@ class VegetarianRecipeAgent:
         return {"message": result}
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的API密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno scenario pytest pytest-asyncio
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果电脑
     pytest cookbook/agent_concepts/other/scenario_testing.py
     ```
 
@@ -100,4 +99,4 @@ class VegetarianRecipeAgent:
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

@@ -1,16 +1,15 @@
 ---
-title: Firecrawl Knowledge Base
-description: Learn how to use Firecrawl to read URLs and convert them into vector embeddings.
+title: Firecrawl 知识库
+description: 了解如何使用 Firecrawl 读取 URL 并将其转换为向量嵌入。
 sidebarTitle: Firecrawl
 ---
+**FirecrawlKnowledgeBase** 读取**URLs**链接，将其转换为向量嵌入并加载到向量数据库中。
 
-The **FirecrawlKnowledgeBase** reads **URLs** links, converts them into vector embeddings and loads them to a vector database.
-
-## Usage
+## 使用方法
 
 <Note>
 
-We are using a local Qdrant database for this example. [Make sure it's running](https://docs.agno.com/vectordb/qdrant)
+本示例使用本地Qdrant数据库。[确保它正在运行](https://docs.agno.com/vectordb/qdrant)
 
 </Note>
 
@@ -27,14 +26,14 @@ COLLECTION_NAME = "website-content"
 
 vector_db = Qdrant(collection=COLLECTION_NAME, url="http://localhost:6333")
 
-# Create a knowledge base with the seed URLs
+# 创建知识库并设置种子URL
 knowledge_base = FireCrawlKnowledgeBase(
     urls=["https://docs.agno.com/introduction"],
     vector_db=vector_db,
 )
 ```
 
-Then use the `knowledge_base` with an `Agent`:
+然后使用`knowledge_base`与`Agent`配合：
 
 ```python
 from agno.agent import Agent
@@ -45,23 +44,23 @@ COLLECTION_NAME = "website-content"
 
 vector_db = Qdrant(collection=COLLECTION_NAME, url="http://localhost:6333")
 
-# Create a knowledge base with the seed URLs
+# 使用种子 URL 创建知识库
 knowledge_base = FireCrawlKnowledgeBase(
     urls=["https://docs.agno.com/introduction"],
     vector_db=vector_db,
 )
 
-# Create an agent with the knowledge base
+# 创建一个带有知识库的智能体
 agent = Agent(knowledge=knowledge_base, search_knowledge=True, debug_mode=True)
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 首次运行后注释掉
     knowledge_base.load(recreate=False)
 
     agent.print_response("How does agno work?", markdown=True)
 ```
 
-#### FirecrawlKnowledgeBase also supports async loading.
+#### FirecrawlKnowledgeBase也支持异步加载。
 
 ```python async_knowledge_base.py
 import asyncio
@@ -74,33 +73,32 @@ COLLECTION_NAME = "website-content"
 
 vector_db = Qdrant(collection=COLLECTION_NAME, url="http://localhost:6333")
 
-# Create a knowledge base with the seed URLs
+# 创建一个带有种子 URL 的知识库
 knowledge_base = FireCrawlKnowledgeBase(
     urls=["https://docs.agno.com/introduction"],
     vector_db=vector_db,
 )
 
-# Create an agent with the knowledge base
+# 创建带有知识库的智能体
 agent = Agent(knowledge=knowledge_base, search_knowledge=True, debug_mode=True)
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 首次运行后注释掉
     asyncio.run(knowledge_base.aload(recreate=False))
 
     asyncio.run(agent.aprint_response("How does agno work?", markdown=True))
 ```
 
-## Params
+## 参数
 
-| Parameter | Type               | Default             | Description                                                                           |
-| --------- | ------------------ | ------------------- | ------------------------------------------------------------------------------------- |
-| `urls`    | `List[str]`        | -                   | URLs of the website to read.                                                                          |
-| `reader`  | `FirecrawlReader` | `FirecrawlReader()` | A `FirecrawlReader` that reads the website `URLs` and converts it into `Documents` for the vector database |
+| 参数       | 类型               | 默认值             | 描述                                                                           |
+| ---------- | ------------------ | ------------------- | ------------------------------------------------------------------------------ |
+| `urls`    | `List[str]`        | -                   | 待读取网站的URL列表                                                                          |
+| `reader`  | `FirecrawlReader` | `FirecrawlReader()` | 一个`FirecrawlReader`，用于读取网站`URLs`并将其转换为向量数据库所需的`Documents` |
 
-`FirecrawlKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+`FirecrawlKnowledgeBase`是[AgentKnowledge](/reference/knowledge/base)类的子类，拥有相同的参数访问权限。
 
-## Developer Resources
+## 开发者资源
 
-- View [Sync loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/firecrawl_kb.py)
-- View [Async loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/firecrawl_kb_async.py)
-
+- 查看[同步加载手册](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/firecrawl_kb.py)
+- 查看[异步加载手册](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/firecrawl_kb_async.py)

@@ -1,22 +1,21 @@
 ---
 title: OpenAI
-description: Learn how to use OpenAI models in Agno.
+description: 了解如何在 Agno 中使用 OpenAI 模型。
 ---
+GPT模型是业界领先的大型语言模型，被**智能体**用作默认的LLM。OpenAI提供多种世界级模型，具体可查看[模型文档](https://platform.openai.com/docs/models)。
 
-The GPT models are the best in class LLMs and used as the default LLM by **Agents**. OpenAI supports a variety of world-class models. See their models [here](https://platform.openai.com/docs/models).
+建议通过实验找到最适合您用例的模型。以下是一些通用建议：
 
-We recommend experimenting to find the best-suited model for your use-case. Here are some general recommendations:
+- `gpt-4o` 适用于大多数通用场景
+- `gpt-4o-mini` 模型适合小型任务和快速推理
+- `o1` 系列模型适合复杂推理和多步骤任务
+- `o3-mini` 是具备工具调用和结构化输出能力的强大推理模型，且成本更低
 
-- `gpt-4o` is good for most general use-cases.
-- `gpt-4o-mini` model is good for smaller tasks and faster inference.
-- `o1` models are good for complex reasoning and multi-step tasks.
-- `o3-mini` is a strong reasoning model with support for tool-calling and structured outputs, but at a much lower cost.
+OpenAI采用分级速率限制，详见[限制文档](https://platform.openai.com/docs/guides/rate-limits/usage-tiers)。
 
-OpenAI have tier based rate limits. See the [docs](https://platform.openai.com/docs/guides/rate-limits/usage-tiers) for more information.
+## 认证
 
-## Authentication
-
-Set your `OPENAI_API_KEY` environment variable. You can get one [from OpenAI here](https://platform.openai.com/account/api-keys).
+设置您的`OPENAI_API_KEY`环境变量，可从[OpenAI获取API密钥](https://platform.openai.com/account/api-keys)。
 
 <CodeGroup>
 
@@ -30,9 +29,9 @@ setx OPENAI_API_KEY sk-***
 
 </CodeGroup>
 
-## Example
+## 示例
 
-Use `OpenAIChat` with your `Agent`:
+配合`Agent`使用`OpenAIChat`：
 
 <CodeGroup>
 
@@ -46,23 +45,23 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response in the terminal
+# 在终端中打印响应
 agent.print_response("Share a 2 sentence horror story.")
 
 ```
 
-## Prompt caching
+## 提示缓存
 
-Prompt caching will happen automatically using our `OpenAIChat` model. You can read more about how OpenAI handle caching in [their docs](https://platform.openai.com/docs/guides/prompt-caching).
+提示缓存将自动通过我们的`OpenAIChat`模型实现。关于OpenAI的缓存机制，可查阅[其官方文档](https://platform.openai.com/docs/guides/prompt-caching)。
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/openai). </Note>
+<Note> 查看更多示例请访问[此处](../examples/models/openai)。</Note>
 
-## Params
+## 参数
 
-For more information, please refer to the [OpenAI docs](https://platform.openai.com/docs/api-reference/chat/create) as well.
+更多信息请参考[OpenAI文档](https://platform.openai.com/docs/api-reference/chat/create)。
 
 <Snippet file="model-openai-params.mdx" />
 
-`OpenAIChat` is a subclass of the [Model](/reference/models/model) class and has access to the same params.
+`OpenAIChat`是[Model](/reference/models/model)类的子类，拥有相同的参数访问权限。

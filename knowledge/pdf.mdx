@@ -1,16 +1,15 @@
 ---
-title: PDF Knowledge Base
-description: Learn how to use local PDF files in your knowledge base.
+title: PDF 知识库
+description: 了解如何在知识库中使用本地 PDF 文件。
 sidebarTitle: PDF
 ---
+**PDFKnowledgeBase** 读取**本地 PDF**文件，将其转换为向量嵌入并加载到向量数据库中。
 
-The **PDFKnowledgeBase** reads **local PDF** files, converts them into vector embeddings and loads them to a vector database.
-
-## Usage
+## 使用方法
 
 <Note>
 
-We are using a local PgVector database for this example. [Make sure it's running](https://docs.agno.com/vectordb/pgvector)
+本示例使用本地 PgVector 数据库。[确保数据库已运行](https://docs.agno.com/vectordb/pgvector)
 
 </Note>
 
@@ -24,7 +23,7 @@ from agno.vectordb.pgvector import PgVector
 
 pdf_knowledge_base = PDFKnowledgeBase(
     path="data/pdfs",
-    # Table name: ai.pdf_documents
+    # 表名：ai.pdf_documents
     vector_db=PgVector(
         table_name="pdf_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -33,7 +32,7 @@ pdf_knowledge_base = PDFKnowledgeBase(
 )
 ```
 
-Then use the `pdf_knowledge_base` with an Agent:
+然后通过智能体使用 `pdf_knowledge_base`：
 
 ```python agent.py
 from agno.agent import Agent
@@ -47,12 +46,12 @@ agent.knowledge.load(recreate=False)
 agent.print_response("Ask me about something from the knowledge base")
 ```
 
-#### PDFKnowledgeBase also supports async loading.
+#### PDFKnowledgeBase 也支持异步加载
 
 ```shell
 pip install qdrant-client
 ```
-We are using a local Qdrant database for this example. [Make sure it's running](https://docs.agno.com/vectordb/qdrant)
+本示例使用本地 Qdrant 数据库。[确保数据库已运行](https://docs.agno.com/vectordb/qdrant)
 
 ```python async_knowledge_base.py
 import asyncio
@@ -65,38 +64,37 @@ COLLECTION_NAME = "pdf-reader"
 
 vector_db = Qdrant(collection=COLLECTION_NAME, url="http://localhost:6333")
 
-# Create a knowledge base with the PDFs from the data/pdfs directory
+# 用 data/pdfs 目录中的 PDF 文件创建知识库
 knowledge_base = PDFKnowledgeBase(
     path="data/pdf",
     vector_db=vector_db,
     reader=PDFReader(chunk=True),
 )
 
-# Create an agent with the knowledge base
+# 创建一个带有知识库的智能体
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
 )
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 首次运行后注释掉
     asyncio.run(knowledge_base.aload(recreate=False))
 
-    # Create and use the agent
+    # 创建并使用智能体
     asyncio.run(agent.aprint_response("How to make Thai curry?", markdown=True))
 ```
 
-## Params
+## 参数
 
-| Parameter | Type                               | Default       | Description                                                                                          |
-| --------- | ---------------------------------- | ------------- | ---------------------------------------------------------------------------------------------------- |
-| `path`    | `Union[str, Path]`                 | -             | Path to `PDF` files. Can point to a single PDF file or a directory of PDF files.                     |
-| `reader`  | `Union[PDFReader, PDFImageReader]` | `PDFReader()` | A `PDFReader` or `PDFImageReader` that converts the `PDFs` into `Documents` for the vector database. |
+| 参数        | 类型                    | 默认值         | 描述                                                                                           |
+| ----------- | ----------------------- | -------------- | ---------------------------------------------------------------------------------------------- |
+| `path`    | `Union[str, Path]`      | -              | `PDF`文件路径。可指向单个PDF文件或PDF文件目录。                                              |
+| `reader`  | `Union[PDFReader, PDFImageReader]` | `PDFReader()` | 用于将`PDFs`转换为向量数据库所需`Documents`的`PDFReader`或`PDFImageReader`。       |
 
-`PDFKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+`PDFKnowledgeBase` 是 [AgentKnowledge](/reference/knowledge/base) 类的子类，具有相同参数的访问权限。
 
-## Developer Resources
+## 开发者资源
 
-- View [Sync loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/pdf_kb.py)
-- View [Async loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/pdf_kb_async.py)
-
+- 查看[同步加载 Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/pdf_kb.py)
+- 查看[异步加载 Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/pdf_kb_async.py)

@@ -1,13 +1,12 @@
 ---
-title: Mongo Team Storage
+title: Mongo团队存储
 sidebarTitle: MongoDB
 ---
+Agno支持使用MongoDB作为Teams的存储后端，通过`MongoDbStorage`类实现。
 
-Agno supports using MongoDB as a storage backend for Teams using the `MongoDbStorage` class.
+## 使用方法
 
-## Usage
-
-You need to provide either `db_url` or `client`. The following example uses `db_url`.
+您需要提供`db_url`或`client`。以下示例使用`db_url`。
 
 ```python mongodb_storage_for_team.py
 """
@@ -24,7 +23,7 @@ from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.tools.hackernews import HackerNewsTools
 from pydantic import BaseModel
 
-# MongoDB connection settings
+# MongoDB 连接设置
 db_url = "mongodb://localhost:27017"
 
 
@@ -73,10 +72,10 @@ hn_team = Team(
 hn_team.print_response("Write an article about the top 2 stories on hackernews")
 ```
 
-## Params
+## 参数
 
 <Snippet file="storage-mongodb-params.mdx" />
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/mongodb_storage/mongodb_storage_for_team.py)
+- 查看[Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/mongodb_storage/mongodb_storage_for_team.py)

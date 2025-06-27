@@ -1,10 +1,10 @@
 ---
-title: "AI Support Team"
+title: "AI 技术支持团队"
 ---
 
-This example illustrates how to create an AI support team that can route customer inquiries to the appropriate agent based on the nature of the inquiry.
+本示例演示如何创建一个AI支持团队，该团队可根据咨询性质将客户请求路由至相应的智能体。
 
-## Code
+## 代码
 
 ```python ai_support_team.py
 
@@ -19,15 +19,16 @@ from agno.vectordb.pgvector.pgvector import PgVector
 
 knowledge_base = WebsiteKnowledgeBase(
     urls=["https://docs.agno.com/introduction"],
-    # Number of links to follow from the seed URLs
+    # 从种子 URL 追踪的链接数量
     max_links=10,
-    # Table name: ai.website_documents
+    # 表名：ai.website_documents
     vector_db=PgVector(
         table_name="website_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
     ),
 )
 knowledge_base.load(recreate=False)
+
 support_channel = "testing"
 feedback_channel = "testing"
 
@@ -38,8 +39,7 @@ doc_researcher_agent = Agent(
     tools=[DuckDuckGoTools(), ExaTools()],
     knowledge=knowledge_base,
     search_knowledge=True,
-    instructions=[
-        "You are a documentation expert for given product. Search the knowledge base thoroughly to answer user questions.",
+    instructions=["You are a documentation expert for given product. Search the knowledge base thoroughly to answer user questions.",
         "Always provide accurate information based on the documentation.",
         "If the question matches an FAQ, provide the specific FAQ answer from the documentation.",
         "When relevant, include direct links to specific documentation pages that address the user's question.",
@@ -56,7 +56,7 @@ escalation_manager_agent = Agent(
     role="Escalate the issue to the slack channel",
     model=OpenAIChat(id="gpt-4o"),
     tools=[SlackTools()],
-    instructions=[
+        instructions=[
         "You are an escalation manager responsible for routing critical issues to the support team.",
         f"When a user reports an issue, always send it to the #{support_channel} Slack channel with all relevant details using the send_message toolkit function.",
         "Include the user's name, contact information (if available), and a clear description of the issue.",
@@ -73,7 +73,7 @@ feedback_collector_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     tools=[SlackTools()],
     description="You are an AI agent that can collect feedback from the user.",
-    instructions=[
+        instructions=[
         "You are responsible for collecting user feedback about the product or feature requests.",
         f"When a user provides feedback or suggests a feature, use the Slack tool to send it to the #{feedback_channel} channel using the send_message toolkit function.",
         "Include all relevant details from the user's feedback in your Slack message.",
@@ -108,7 +108,7 @@ customer_support_team = Team(
     ],
 )
 
-# Add in the query and the agent redirects it to the appropriate agent
+# 在查询中添加，智能体会将其重定向至合适的智能体
 customer_support_team.print_response(
     "Hi Team, I want to build an educational platform where the models are have access to tons of study materials, How can Agno platform help me build this?",
     stream=True,
@@ -127,20 +127,19 @@ customer_support_team.print_response(
 # )
 ```
 
-
-## Usage
+## 使用说明
 
 <Steps>
 
     <Snippet file="create-venv-step.mdx" />
 
-    <Step title="Install required libraries">
+    <Step title="安装所需库">
         ```bash
         pip install openai duckduckgo-search slack_sdk exa_py
         ```
     </Step>
 
-    <Step title="Set environment variables">
+    <Step title="设置环境变量">
         ```bash
         export OPENAI_API_KEY=****
         export SLACK_TOKEN=****
@@ -148,11 +147,10 @@ customer_support_team.print_response(
         ```
     </Step>
 
-    <Step title="Run the agent">
+    <Step title="运行智能体">
         ```bash
         python ai_support_team.py
         ```
     </Step>
 
 </Steps>
-

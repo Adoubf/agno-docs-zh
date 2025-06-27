@@ -1,33 +1,28 @@
 ---
-title: Investment Report Generator
+title: 投资报告生成器
 ---
+这个高级示例展示了如何构建一个结合市场研究、财务分析和投资组合管理的复杂投资分析系统。该工作流程采用三阶段方法：
+1. 全面的股票分析与市场研究
+2. 投资潜力评估与排名
+3. 战略性投资组合分配建议
 
-This advanced example shows how to build a sophisticated investment analysis system that combines
-market research, financial analysis, and portfolio management. The workflow uses a three-stage
-approach:
-1. Comprehensive stock analysis and market research
-2. Investment potential evaluation and ranking
-3. Strategic portfolio allocation recommendations
+核心能力：
+- 实时市场数据分析
+- 专业财务研究
+- 投资风险评估
+- 投资组合分配策略
+- 详细投资逻辑说明
 
-Key capabilities:
-- Real-time market data analysis
-- Professional financial research
-- Investment risk assessment
-- Portfolio allocation strategy
-- Detailed investment rationale
+示例分析企业：
+- "AAPL, MSFT, GOOGL"（科技巨头）
+- "NVDA, AMD, INTC"（半导体领军）
+- "TSLA, F, GM"（汽车创新）
+- "JPM, BAC, GS"（银行业）
+- "AMZN, WMT, TGT"（零售业竞争）
+- "PFE, JNJ, MRNA"（医疗健康）
+- "XOM, CVX, BP"（能源行业）
 
-Example companies to analyze:
-- "AAPL, MSFT, GOOGL" (Tech Giants)
-- "NVDA, AMD, INTC" (Semiconductor Leaders)
-- "TSLA, F, GM" (Automotive Innovation)
-- "JPM, BAC, GS" (Banking Sector)
-- "AMZN, WMT, TGT" (Retail Competition)
-- "PFE, JNJ, MRNA" (Healthcare Focus)
-- "XOM, CVX, BP" (Energy Sector)
-
-Run `pip install openai yfinance agno` to install dependencies.
-"""
-
+运行`pip install openai yfinance agno`安装依赖项。
 
 ```python investment_report_generator.py
 from pathlib import Path
@@ -190,13 +185,13 @@ class InvestmentReportGenerator(Workflow):
         yield from self.investment_lead.run(ranked_companies.content, stream=True)
 
 
-# Run the workflow if the script is executed directly
+# 如果脚本被直接执行则运行工作流程
 if __name__ == "__main__":
     import random
 
     from rich.prompt import Prompt
 
-    # Example investment scenarios to showcase the analyzer's capabilities
+    # 示例投资场景展示分析器功能
     example_scenarios = [
         "AAPL, MSFT, GOOGL",  # Tech Giants
         "NVDA, AMD, INTC",  # Semiconductor Leaders
@@ -207,17 +202,17 @@ if __name__ == "__main__":
         "XOM, CVX, BP",  # Energy Sector
     ]
 
-    # Get companies from user with example suggestion
+    # 从用户处获取公司信息并提供示例建议
     companies = Prompt.ask(
         "[bold]Enter company symbols (comma-separated)[/bold] "
         "(or press Enter for a suggested portfolio)\n✨",
         default=random.choice(example_scenarios),
     )
 
-    # Convert companies to URL-safe string for session_id
+    # 将会话ID中的公司名称转换为URL安全的字符串
     url_safe_companies = companies.lower().replace(" ", "-").replace(",", "")
 
-    # Initialize the investment analyst workflow
+    # 初始化投资分析师工作流程
     investment_report_generator = InvestmentReportGenerator(
         session_id=f"investment-report-{url_safe_companies}",
         storage=SqliteStorage(
@@ -226,25 +221,25 @@ if __name__ == "__main__":
         ),
     )
 
-    # Execute the workflow
+    # 执行工作流程
     report: Iterator[RunResponse] = investment_report_generator.run(companies=companies)
 
-    # Print the report
+    # 打印报告
     pprint_run_response(report, markdown=True)
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai yfinance agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行智能体">
     ```bash
     python investment_report_generator.py
     ```

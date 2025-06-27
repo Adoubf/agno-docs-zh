@@ -1,6 +1,6 @@
 ---
-title: "Product updates"
-mode: "wide"
+title: "产品更新"
+mode: "宽"
 ---
 
 <Update label="2025-06-18" description="v1.6.3">
@@ -343,13 +343,13 @@ mode: "wide"
         - **Explicit Filtering**: Pass filters directly to Agent or during run/query
             
             ```python
-            # Option 1: Filters on Agent initialization
+            # 选项1：在智能体初始化时设置过滤器
             agent = Agent(
             					knowledge=knowledge_base, 
             					knowledge_filters={"filter_1": "abc"}
             				)
                  
-            # Option 2: Filters on run execution
+            # 选项 2：运行执行过滤器
             agent.run("Tell me about...", knowledge_filters={"filter_1": "abc"})
             ```
             
@@ -358,13 +358,13 @@ mode: "wide"
         - **Agentic Filtering**: Agent automatically detects and applies filters from user queries
             
             ```python
-            # Enable automatic filter detection
+            # 启用自动过滤器检测
             agent = Agent(
             					knowledge=knowledge_base, 
             					enable_agentic_knowledge_filters=True
             				)
                  
-            # Agent extracts filters from query
+            # 智能体从查询中提取过滤器
             agent.run("Tell me about John Doe's experience...")
             ```
             
@@ -1095,12 +1095,12 @@ mode: "wide"
 - **Gemini embedder update:** Updated the `GeminiEmbedder` to use the new [Google’s genai SDK](https://github.com/googleapis/python-genai). This update introduces a slight change in the interface:
 
   ```python
-  # Before
+  # 之前
   embeddings = GeminiEmbedder("models/text-embedding-004").get_embedding(
       "The quick brown fox jumps over the lazy dog."
   )
 
-  # After
+  # 之后
   embeddings = GeminiEmbedder("text-embedding-004").get_embedding(
       "The quick brown fox jumps over the lazy dog."
   )

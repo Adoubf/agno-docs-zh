@@ -1,12 +1,11 @@
 ---
-title: Langfuse via OpenLIT
+title: Langfuse 通过 OpenLIT
 ---
+## 概述
 
-## Overview
+本示例展示如何通过 OpenLIT 使用 Langfuse 追踪模型调用。
 
-This example demonstrates how to use Langfuse via OpenLIT to trace model calls.
-
-## Code
+## 代码
 
 ```python
 import base64
@@ -23,8 +22,8 @@ LANGFUSE_AUTH = base64.b64encode(
 os.environ["OTEL_EXPORTER_OTLP_ENDPOINT"] = (
     "https://us.cloud.langfuse.com/api/public/otel"  # 🇺🇸 US data region
 )
-# os.environ["OTEL_EXPORTER_OTLP_ENDPOINT"]="https://cloud.langfuse.com/api/public/otel" # 🇪🇺 EU data region
-# os.environ["OTEL_EXPORTER_OTLP_ENDPOINT"]="http://localhost:3000/api/public/otel" # 🏠 Local deployment (>= v3.22.0)
+# os.environ["OTEL_EXPORTER_OTLP_ENDPOINT"]="https://cloud.langfuse.com/api/public/otel" # 🇪🇺 欧盟数据区域
+# os.environ["OTEL_EXPORTER_OTLP_ENDPOINT"]="http://localhost:3000/api/public/otel" # 🏠 本地部署 (>= v3.22.0)
 
 os.environ["OTEL_EXPORTER_OTLP_HEADERS"] = f"Authorization=Basic {LANGFUSE_AUTH}"
 
@@ -35,17 +34,17 @@ from opentelemetry.sdk.trace.export import SimpleSpanProcessor
 trace_provider = TracerProvider()
 trace_provider.add_span_processor(SimpleSpanProcessor(OTLPSpanExporter()))
 
-# Sets the global default tracer provider
+# 设置全局默认的追踪器提供程序
 from opentelemetry import trace
 
 trace.set_tracer_provider(trace_provider)
 
-# Creates a tracer from the global tracer provider
+# 从全局追踪器提供者创建追踪器
 tracer = trace.get_tracer(__name__)
 
 import openlit
 
-# Initialize OpenLIT instrumentation. The disable_batch flag is set to true to process traces immediately.
+# 初始化 OpenLIT 检测。将 disable_batch 标识设置为 true 以立即处理追踪数据。
 openlit.init(tracer=tracer, disable_batch=True)
 
 agent = Agent(
@@ -58,23 +57,23 @@ agent = Agent(
 agent.print_response("What is currently trending on Twitter?")
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
-  <Step title="Install Dependencies">
+  <Step title="安装依赖项">
     ```bash
     pip install agno openai langfuse openlit opentelemetry-sdk opentelemetry-exporter-otlp
     ```
   </Step>
 
-  <Step title="Set Environment Variables">
+  <Step title="设置环境变量">
     ```bash
     export LANGFUSE_PUBLIC_KEY=<your-public-key>
     export LANGFUSE_SECRET_KEY=<your-secret-key>
     ```
   </Step>
 
-  <Step title="Run the Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/observability/langfuse_via_openlit.py
@@ -87,9 +86,9 @@ agent.print_response("What is currently trending on Twitter?")
   </Step>
 </Steps>
 
-## Notes
+## 注意事项
 
-- **Data Regions**: Adjust the `OTEL_EXPORTER_OTLP_ENDPOINT` for your data region or local deployment as needed:
-  - `https://us.cloud.langfuse.com/api/public/otel` for the US region
-  - `https://cloud.langfuse.com/api/public/otel` for the EU region
-  - `http://localhost:3000/api/public/otel` for local deployment
+- **数据区域**: 根据需求调整 `OTEL_EXPORTER_OTLP_ENDPOINT` 以匹配您的数据区域或本地部署：
+  - `https://us.cloud.langfuse.com/api/public/otel` 适用于美国区域
+  - `https://cloud.langfuse.com/api/public/otel` 适用于欧盟区域
+  - `http://localhost:3000/api/public/otel` 适用于本地部署

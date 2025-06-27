@@ -1,14 +1,13 @@
 ---
-title: Agent with Tools
+title: 带工具的智能体
 ---
-
-Make sure to start the proxy server:
+确保启动代理服务器：
 
 ```shell
 litellm --model gpt-4o --host 127.0.0.1 --port 4000
 ```
 
-## Code
+## 代码
 
 ```python cookbook/models/litellm_openai/tool_use.py
 """Run `pip install duckduckgo-search` to install dependencies."""
@@ -26,24 +25,24 @@ agent = Agent(
 agent.print_response("Whats happening in France?")
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的API密钥">
     ```bash
     export LITELLM_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U litellm[proxy] openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/litellm_openai/tool_use.py

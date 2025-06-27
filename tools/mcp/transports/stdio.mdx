@@ -1,19 +1,17 @@
 ---
-title: Stdio Transport
-sidebarTitle: stdio
+title: Stdio 传输
+sidebarTitle: 标准输入输出
 ---
+模型上下文协议（MCP）中的传输方式定义了消息的发送与接收机制。Agno集成支持现有的三种传输类型：
+[标准输入输出（stdio）](https://modelcontextprotocol.io/docs/concepts/transports#standard-input%2Foutput-stdio)、
+[服务器推送事件（SSE）](https://modelcontextprotocol.io/docs/concepts/transports#server-sent-events-sse)以及
+[可流式HTTP](https://modelcontextprotocol.io/specification/draft/basic/transports#streamable-http)。
 
-Transports in the Model Context Protocol (MCP) define how messages are sent and received. The Agno integration supports the three existing types:
-[stdio](https://modelcontextprotocol.io/docs/concepts/transports#standard-input%2Foutput-stdio),
-[SSE](https://modelcontextprotocol.io/docs/concepts/transports#server-sent-events-sse) and
-[Streamable HTTP](https://modelcontextprotocol.io/specification/draft/basic/transports#streamable-http).
+stdio（标准输入输出）传输是Agno集成中的默认方式，最适合本地集成场景。
 
-The stdio (standard input/output) transport is the default one in Agno's integration. It works best for local integrations.
+使用时只需通过`MCPTools`类的`command`参数进行初始化。需要传入的命令是用于运行智能体将访问的MCP服务器的命令。
 
-To use it, simply initialize the `MCPTools` class with its `command` argument.
-The command you want to pass is the one used to run the MCP server the agent will have access to.
-
-For example `uvx mcp-server-git`, which runs a [git MCP server](https://github.com/modelcontextprotocol/servers/tree/main/src/git):
+例如`uvx mcp-server-git`，该命令运行一个[git MCP服务器](https://github.com/modelcontextprotocol/servers/tree/main/src/git)：
 
 ```python
 from agno.agent import Agent
@@ -26,8 +24,7 @@ async with MCPTools(command=f"uvx mcp-server-git") as mcp_tools:
 ```
 
 
-You can also use multiple MCP servers at once, with the `MultiMCPTools` class. For example:
-
+您还可以通过`MultiMCPTools`类同时使用多个MCP服务器。例如：
 
 ```python
 import asyncio
@@ -61,9 +58,9 @@ async def run_agent(message: str) -> None:
         await agent.aprint_response(message, stream=True)
 
 
-# Example usage
+# 示例用法
 if __name__ == "__main__":
-    # Pull request example
+    # 拉取请求示例
     asyncio.run(
         run_agent(
             "What listings are available in Cape Town for 2 people for 3 nights from 1 to 4 August 2025?"

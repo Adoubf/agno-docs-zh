@@ -1,17 +1,16 @@
 ---
-title: Agent State
+title: 智能体状态
 ---
+本示例展示如何创建一个在交互过程中保持状态的智能体。虽然演示的是简单的计数器机制，但这种模式可扩展至更复杂的状态管理场景，例如维护对话上下文、用户偏好设置或追踪多步骤流程。
 
-This example shows how to create an agent that maintains state across interactions. It demonstrates a simple counter mechanism, but this pattern can be extended to more complex state management like maintaining conversation context, user preferences, or tracking multi-step processes.
+可尝试的示例提示：
+- "将计数器递增3次并告诉我最终数值"
+- "当前计数是多少？再增加2次"
+- "让我们将计数器递增5次，但请告诉我每个步骤"
+- "给计数加4，并提醒我初始值是多少"
+- "将计数器增加两次并总结我们的操作过程"
 
-Example prompts to try:
-- "Increment the counter 3 times and tell me the final count"
-- "What's our current count? Add 2 more to it"
-- "Let's increment the counter 5 times, but tell me each step"
-- "Add 4 to our count and remind me where we started"
-- "Increase the counter twice and summarize our journey"
-
-## Code
+## 代码
 
 ```python agent_state.py
 from textwrap import dedent
@@ -20,20 +19,20 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
 
-# Define a tool that increments our counter and returns the new value
+# 定义一个工具，用于递增计数器并返回新值
 def increment_counter(agent: Agent) -> str:
     """Increment the session counter and return the new value."""
     agent.session_state["count"] += 1
     return f"The count is now {agent.session_state['count']}"
 
 
-# Create a State Manager Agent that maintains state
+# 创建一个维护状态的智能体状态管理器
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
-    # Initialize the session state with a counter starting at 0
+    # 初始化会话状态，将计数器设置为0
     session_state={"count": 0},
     tools=[increment_counter],
-    # You can use variables from the session state in the instructions
+    # 你可以在指令中使用会话状态中的变量
     instructions=dedent("""\
         You are the State Manager, an enthusiastic guide to state management! 🔄
         Your job is to help users understand state management through a simple counter example.
@@ -54,13 +53,13 @@ agent = Agent(
     markdown=True,
 )
 
-# Example usage
+# 示例用法
 agent.print_response(
     "Let's increment the counter 3 times and observe the state changes!",
     stream=True,
 )
 
-# More example prompts to try:
+# 更多示例提示词供尝试：
 """
 Try these engaging state management scenarios:
 1. "Update our state 4 times and track the changes"
@@ -73,21 +72,21 @@ Try these engaging state management scenarios:
 print(f"Final session state: {agent.session_state}")
 ```
 
-## Usage
+## 使用说明
 
-<Steps>
-  <Snippet file="create-venv-step.mdx" />
+<Steps>  
+  <Snippet file="create-venv-step.mdx" />  
 
-  <Step title="Install libraries">
+  <Step title="安装库">  
     ```bash
     pip install openai agno
-    ```
-  </Step>
+    ```  
+  </Step>  
 
-  <Step title="Run the agent">
+  <Step title="运行智能体">  
     ```bash
     python agent_state.py
-    ```
-  </Step>
+    ```  
+  </Step>  
 
 </Steps>

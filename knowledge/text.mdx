@@ -1,16 +1,15 @@
 ---
-title: Text Knowledge Base
-description: Learn how to use text files in your knowledge base.
-sidebarTitle: Text
+title: 文本知识库
+description: 了解如何在知识库中使用文本文件。
+sidebarTitle: 文本
 ---
+**TextKnowledgeBase** 能够读取**本地txt**文件，将其转换为向量嵌入并加载到向量数据库中。
 
-The **TextKnowledgeBase** reads **local txt** files, converts them into vector embeddings and loads them to a vector database.
-
-## Usage
+## 使用方法
 
 <Note>
 
-We are using a local PgVector database for this example. [Make sure it's running](https://docs.agno.com/vectordb/pgvector)
+本示例使用的是本地PgVector数据库。[确保其正常运行](https://docs.agno.com/vectordb/pgvector)
 
 </Note>
 
@@ -20,7 +19,7 @@ from agno.vectordb.pgvector import PgVector
 
 knowledge_base = TextKnowledgeBase(
     path="data/txt_files",
-    # Table name: ai.text_documents
+    # 表名：ai.text_documents
     vector_db=PgVector(
         table_name="text_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -28,7 +27,7 @@ knowledge_base = TextKnowledgeBase(
 )
 ```
 
-Then use the `knowledge_base` with an Agent:
+然后通过智能体使用`knowledge_base`：
 
 ```python agent.py
 from agno.agent import Agent
@@ -43,12 +42,12 @@ agent.knowledge.load(recreate=False)
 agent.print_response("Ask me about something from the knowledge base")
 ```
 
-#### TextKnowledgeBase also supports async loading.
+#### TextKnowledgeBase 也支持异步加载。
 
 ```shell
 pip install qdrant-client
 ```
-We are using a local Qdrant database for this example. [Make sure it's running](https://docs.agno.com/vectordb/qdrant)
+本示例使用的是本地Qdrant数据库。[确保其正常运行](https://docs.agno.com/vectordb/qdrant)
 
 ```python async_knowledge_base.py
 import asyncio
@@ -62,21 +61,21 @@ COLLECTION_NAME = "essay-txt"
 
 vector_db = Qdrant(collection=COLLECTION_NAME, url="http://localhost:6333")
 
-# Initialize the TextKnowledgeBase
+# 初始化文本知识库
 knowledge_base = TextKnowledgeBase(
     path=Path("tmp/docs"),
     vector_db=vector_db,
     num_documents=5,
 )
 
-# Initialize the Assistant with the knowledge_base
+# 初始化智能体时加载知识库
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
 )
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 首次运行后注释掉
     asyncio.run(knowledge_base.aload(recreate=False))
 
     asyncio.run(
@@ -86,18 +85,17 @@ if __name__ == "__main__":
     )
 ```
 
-## Params
+## 参数
 
-| Parameter | Type               | Default        | Description                                                                           |
-| --------- | ------------------ | -------------- | ------------------------------------------------------------------------------------- |
-| `path`    | `Union[str, Path]` | -              | Path to text files. Can point to a single text file or a directory of text files.     |
-| `formats` | `List[str]`        | `[".txt"]`     | Formats accepted by this knowledge base.                                              |
-| `reader`  | `TextReader`       | `TextReader()` | A `TextReader` that converts the text files into `Documents` for the vector database. |
+| 参数        | 类型               | 默认值        | 描述                                                                           |
+| ----------- | ------------------ | ------------- | ------------------------------------------------------------------------------ |
+| `path`    | `Union[str, Path]` | -              | 文本文件路径。可以指向单个文本文件或包含多个文本文件的目录。                   |
+| `formats` | `List[str]`        | `[".txt"]`     | 该知识库所接受的格式。                                                          |
+| `reader`  | `TextReader`       | `TextReader()` | 一个`TextReader`，用于将文本文件转换为向量数据库所需的`Documents`。    |
 
-`TextKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+`TextKnowledgeBase`是[AgentKnowledge](/reference/knowledge/base)类的子类，可以访问相同的参数。
 
-## Developer Resources
+## 开发者资源
 
-- View [Sync loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/text_kb.py)
-- View [Async loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/text_kb_async.py)
-
+- 查看[同步加载示例](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/text_kb.py)
+- 查看[异步加载示例](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/text_kb_async.py)

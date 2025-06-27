@@ -1,10 +1,9 @@
 ---
-title: Fixed Size Chunking
+title: 固定大小分块
 ---
+固定大小分块是一种将文档分割为指定大小的小块的方法，可选地在块之间设置重叠区域。当您需要将大型文档处理为更易管理的小片段时，这种方法非常实用。
 
-Fixed size chunking is a method of splitting documents into smaller chunks of a specified size, with optional overlap between chunks. This is useful when you want to process large documents in smaller, manageable pieces.
-
-## Usage
+## 使用方法
 
 ```python
 from agno.agent import Agent
@@ -29,6 +28,6 @@ agent = Agent(
 agent.print_response("How to make Thai curry?", markdown=True)
 ```
 
-## Fixed Size Chunking Params
+## 固定大小分块参数
 
 <Snippet file="chunking-fixed-size.mdx" />

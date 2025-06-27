@@ -1,8 +1,7 @@
 ---
-title: Async Agent
+title: 异步智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/vllm/async_basic.py
 import asyncio
@@ -14,18 +13,18 @@ agent = Agent(model=vLLM(id="Qwen/Qwen2.5-7B-Instruct"), markdown=True)
 asyncio.run(agent.aprint_response("Share a 2 sentence horror story"))
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno openai vllm
     ```
   </Step>
 
-  <Step title="Start vLLM server">
+  <Step title="启动 vLLM 服务器">
     ```bash
     vllm serve Qwen/Qwen2.5-7B-Instruct \
         --enable-auto-tool-choice \
@@ -36,9 +35,9 @@ asyncio.run(agent.aprint_response("Share a 2 sentence horror story"))
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     ```bash
     python cookbook/models/vllm/async_basic.py
     ```
   </Step>
-</Steps> 
+</Steps>

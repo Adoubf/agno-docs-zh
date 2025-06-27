@@ -1,27 +1,23 @@
 ---
-title: Research Agent using Exa
+title: 使用 Exa 的研究智能体
 ---
+本示例展示了如何创建一个结合学术搜索能力与专业学术写作技能的智能研究助手。该智能体通过Exa学术搜索进行深入研究，分析最新出版物，并生成结构严谨、符合学术规范的专题报告。
 
-This example shows how to create a sophisticated research agent that combines
-academic search capabilities with scholarly writing expertise. The agent performs
-thorough research using Exa's academic search, analyzes recent publications, and delivers
-well-structured, academic-style reports on any topic.
+核心能力：
+- 高级学术文献检索
+- 最新出版物分析
+- 跨学科综合研究
+- 专业学术写作
+- 文献引用管理
 
-Key capabilities:
-- Advanced academic literature search
-- Recent publication analysis
-- Cross-disciplinary synthesis
-- Academic writing expertise
-- Citation management
+示例提示词：
+- "探索量子机器学习的最新进展"
+- "分析核聚变能源研究现状"
+- "调查CRISPR基因编辑技术最新发展"
+- "研究区块链与可持续能源的交叉领域"
+- "考察脑机接口技术近期突破"
 
-Example prompts to try:
-- "Explore recent advances in quantum machine learning"
-- "Analyze the current state of fusion energy research"
-- "Investigate the latest developments in CRISPR gene editing"
-- "Research the intersection of blockchain and sustainable energy"
-- "Examine recent breakthroughs in brain-computer interfaces"
-
-## Code
+## 代码
 
 ```python research_agent_exa.py
 from datetime import datetime
@@ -31,7 +27,7 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.exa import ExaTools
 
-# Initialize the academic research agent with scholarly capabilities
+# 初始化具备学术研究能力的智能体
 research_scholar = Agent(
     model=OpenAIChat(id="gpt-4o"),
     tools=[
@@ -81,39 +77,39 @@ research_scholar = Agent(
            - Highlight future research directions\
     """),
     expected_output=dedent("""\
-        # {Engaging Title} 📚
+        # {引人入胜的标题} 📚
 
-        ## Abstract
+        # # 摘要
         {Concise overview of the research and key findings}
 
-        ## Introduction
+        # # 简介
         {Context and significance}
         {Research objectives}
 
-        ## Methodology
+        # # 方法论
         {Search strategy}
         {Selection criteria}
 
-        ## Literature Review
+        # # 文献综述
         {Current state of research}
         {Key findings and breakthroughs}
         {Emerging trends}
 
-        ## Analysis
+        # # 分析
         {Critical evaluation}
         {Cross-study comparisons}
         {Research gaps}
 
-        ## Future Directions
+        # # 未来发展方向
         {Emerging research opportunities}
         {Potential applications}
         {Open questions}
 
-        ## Conclusions
+        # # 结论
         {Summary of key findings}
         {Implications for the field}
 
-        ## References
+        # # 参考文档
         {Properly formatted academic citations}
 
         ---
@@ -127,14 +123,14 @@ research_scholar = Agent(
     save_response_to_file="tmp/{message}.md",
 )
 
-# Example usage with academic research request
+# 学术研究请求的示例用法
 if __name__ == "__main__":
     research_scholar.print_response(
         "Analyze recent developments in quantum computing architectures",
         stream=True,
     )
 
-# Advanced research topics to explore:
+# 待探索的高级研究课题：
 """
 Quantum Science & Computing:
 1. "Investigate recent breakthroughs in quantum error correction"
@@ -161,25 +157,25 @@ Artificial Intelligence:
 4. "Investigate advances in explainable AI"
 """
 ```
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai exa_py agno
     ```
   </Step>
 
-    <Step title="Set environment variables">
+    <Step title="设置环境变量">
         ```bash
         export OPENAI_API_KEY=****
         export EXA_API_KEY=****
         ```
     </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行智能体">
     ```bash
     python research_agent_exa.py
     ```

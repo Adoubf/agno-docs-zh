@@ -1,9 +1,9 @@
 ---
-title: Filtering on load with Docx
-description: Learn how to filter knowledge base at load time using Docx documents with user-specific metadata.
+title: 加载时对 Docx 进行过滤
+description: 了解如何利用带有用户特定元数据的Docx文档，在加载时筛选知识库。
 ---
 
-## Code
+## 代码
 
 ```python
 from agno.agent import Agent
@@ -14,24 +14,24 @@ from agno.utils.media import (
 )
 from agno.vectordb.lancedb import LanceDb
 
-# Download all sample CVs and get their paths
+# 下载所有示例简历并获取其路径
 downloaded_cv_paths = download_knowledge_filters_sample_data(
     num_files=5, file_extension=SampleDataFileExtension.DOCX
 )
 
-# Initialize LanceDB
-# By default, it stores data in /tmp/lancedb
+# 初始化LanceDB
+# 默认情况下，它将数据存储在 `/tmp/lancedb` 目录中
 vector_db = LanceDb(
     table_name="recipes",
     uri="tmp/lancedb",  # You can change this path to store data elsewhere
 )
 
-# Step 1: Initialize knowledge base with documents and metadata
+# 第一步：用文档和元数据初始化知识库
 # ------------------------------------------------------------------------------
-# When loading the knowledge base, we can attach metadata that will be used for filtering
-# This metadata can include user IDs, document types, dates, or any other attributes
+# 在加载知识库时，我们可以附加用于筛选的元数据
+# 此元数据可包含用户ID、文档类型、日期或其他任何属性
 
-# Initialize the DocxKnowledgeBase
+# 初始化 DocxKnowledgeBase
 knowledge_base = DocxKnowledgeBase(
     vector_db=vector_db,
     num_documents=5,
@@ -43,36 +43,34 @@ knowledge_base.load_document(
     recreate=True,  # Set to True only for the first run, then set to False
 )
 
-# Load second document with user_2 metadata
+# 加载带有 user_2 元数据的第二份文档
 knowledge_base.load_document(
     path=downloaded_cv_paths[1],
     metadata={"user_id": "taylor_brooks", "document_type": "cv", "year": 2025},
 )
 
-# Load second document with user_3 metadata
+# 载入附有 user_3 元数据的第三份文档
 knowledge_base.load_document(
     path=downloaded_cv_paths[2],
     metadata={"user_id": "morgan_lee", "document_type": "cv", "year": 2025},
 )
 
-# Load second document with user_4 metadata
+# 加载带有 user_4 元数据的第四份文档
 knowledge_base.load_document(
     path=downloaded_cv_paths[3],
     metadata={"user_id": "casey_jordan", "document_type": "cv", "year": 2025},
 )
 
-# Load second document with user_5 metadata
+# 加载带有 user_5 元数据的第五份文档
 knowledge_base.load_document(
     path=downloaded_cv_paths[4],
     metadata={"user_id": "alex_rivera", "document_type": "cv", "year": 2025},
 )
 
-# Step 2: Query the knowledge base with different filter combinations
+# 步骤 2：使用不同筛选条件组合查询知识库
 # ------------------------------------------------------------------------------
-# Uncomment the example you want to run
-
-# Option 1: Filters on the Agent
-# Initialize the Agent with the knowledge base
+# 选项 1：智能体上的过滤器
+# 初始化智能体并加载知识库
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
@@ -82,28 +80,84 @@ agent.print_response(
     "Tell me about Jordan Mitchell's experience and skills",
     markdown=True,
 )
-
-# agent = Agent(
-#     knowledge=knowledge_base,
-#     search_knowledge=True,
-# )
-# agent.print_response(
-#     "Tell me about Jordan Mitchell's experience and skills",
-#     knowledge_filters = {"user_id": "jordan_mitchell"},
-#     markdown=True,
-# )
 ```
 
-## Usage
+## 安装指南
+
+1. **系统要求**
+   - 确保系统已安装 Python 3.8 或更高版本
+   - 需要 PostgreSQL 12+ 作为数据库后端
+   - 建议使用虚拟环境（如 venv 或 conda）
+
+2. **依赖安装**
+   ```bash
+   pip install -r requirements.txt
+   ```
+   包含的核心依赖：
+   - FastAPI 用于构建 Agent API
+   - SQLAlchemy 作为 ORM 工具
+   - Pydantic 用于数据验证
+
+3. **环境配置**
+   - 复制 `.env.example` 为 `.env`
+   - 配置以下关键变量：
+     ```
+     DATABASE_URL=postgresql://user:password@localhost:5432/agent_db
+     AGENT_SECRET_KEY=__PROTECTED_SECRET_KEY__
+     ```
+
+4. **数据库迁移**
+   ```bash
+   alembic upgrade head
+   ```
+
+5. **运行开发服务器**
+   ```bash
+   uvicorn main:app --reload
+   ```
+
+## 部署说明
+
+### Vercel 部署
+1. 在项目根目录创建 `vercel.json` 配置文件
+2. 设置 Next.js 前端构建命令：
+   ```json
+   {
+     "builds": [
+       {
+         "src": "frontend/*",
+         "use": "@vercel/nextjs"
+       }
+     ]
+   }
+   ```
+
+### Docker 部署
+构建镜像：
+```bash
+docker build -t agno-agent .
+```
+运行容器：
+```bash
+docker run -p 8000:8000 -e DATABASE_URL=__PROTECTED_DB_URL__ agno-agent
+```
+
+## 注意事项
+- 生产环境务必使用 HTTPS
+- 定期备份 PostgreSQL 数据库
+- 监控 Agent 的内存使用情况
+- 敏感配置项必须使用 `__PROTECTED__` 前缀标识
+
+## 使用说明
 
 <Steps>
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno openai lancedb
     ```
   </Step>
 
-  <Step title="Run the example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/filters/docx/filtering_on_load.py

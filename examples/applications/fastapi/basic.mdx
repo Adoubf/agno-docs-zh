@@ -1,9 +1,8 @@
 ---
-title: Basic
-description: Expose your Agno Agent as a FastAPI app
+title: 基础
+description: 将您的 Agno 智能体作为 FastAPI 应用暴露
 ---
-
-## Code
+## 代码
 
 ```python cookbook/apps/fastapi/basic.py
 from agno.agent import Agent
@@ -33,26 +32,26 @@ if __name__ == "__main__":
 
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno fastapi uvicorn openai
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果电脑
     python cookbook/apps/fastapi/basic.py
     ```
 

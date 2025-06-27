@@ -1,16 +1,15 @@
 ---
-title: Multi-User Multi-Session Chat
+title: 多用户多会话聊天
 ---
+本示例演示如何运行一个多用户、多会话的聊天系统。
 
-This example demonstrates how to run a multi-user, multi-session chat.
+在该示例中，我们配置了3个用户和4个会话。
 
-In this example, we have 3 users and 4 sessions.
+- 用户1拥有2个会话
+- 用户2拥有1个会话  
+- 用户3拥有1个会话
 
-- User 1 has 2 sessions.
-- User 2 has 1 session.
-- User 3 has 1 session.
-
-## Code
+## 代码实现
 
 ```python cookbook/agent_concepts/memory/11_multi_user_multi_session_chat.py
 
@@ -29,7 +28,7 @@ memory_db = SqliteMemoryDb(table_name="memory", db_file="tmp/memory.db")
 
 memory = Memory(db=memory_db)
 
-# Reset the memory for this example
+# 重置此示例的记忆
 memory.clear()
 
 user_1_id = "user_1@example.com"
@@ -61,14 +60,14 @@ async def run_chat_agent():
         session_id=user_1_session_1_id,
     )
 
-    # Chat with user 1 - Session 2
+    # 与用户1的对话 - 会话2
     await chat_agent.aprint_response(
         "I'm going to the movies tonight.",
         user_id=user_1_id,
         session_id=user_1_session_2_id,
     )
 
-    # Chat with user 2
+    # 与用户2聊天
     await chat_agent.aprint_response(
         "Hi my name is John Doe.", user_id=user_2_id, session_id=user_2_session_1_id
     )
@@ -78,7 +77,7 @@ async def run_chat_agent():
         session_id=user_2_session_1_id,
     )
 
-    # Chat with user 3
+    # 与用户 3 聊天
     await chat_agent.aprint_response(
         "Hi my name is Jane Smith.", user_id=user_3_id, session_id=user_3_session_1_id
     )
@@ -88,8 +87,8 @@ async def run_chat_agent():
         session_id=user_3_session_1_id,
     )
 
-    # Continue the conversation with user 1
-    # The agent should take into account all memories of user 1.
+    # 继续与用户 1 对话
+    # 智能体应考虑用户1的所有记忆。
     await chat_agent.aprint_response(
         "What do you suggest I do this weekend?",
         user_id=user_1_id,
@@ -98,7 +97,7 @@ async def run_chat_agent():
 
 
 if __name__ == "__main__":
-    # Chat with user 1 - Session 1
+    # 用户1的会话 - 第1次对话
     asyncio.run(run_chat_agent())
 
     user_1_memories = memory.get_user_memories(user_id=user_1_id)
@@ -117,24 +116,24 @@ if __name__ == "__main__":
         print(f"{i}: {m.memory}")
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API keys">
+  <Step title="设置您的API密钥">
     ```bash
     export GOOGLE_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno google-generativeai anthropic
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/memory/11_multi_user_multi_session_chat.py

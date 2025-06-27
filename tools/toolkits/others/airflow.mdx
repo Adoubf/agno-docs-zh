@@ -1,10 +1,9 @@
 ---
 title: Airflow
 ---
+## 示例
 
-## Example
-
-The following agent will use Airflow to save and read a DAG file.
+以下智能体将使用 Airflow 保存并读取 DAG 文件。
 
 ```python cookbook/tools/airflow_tools.py
 from agno.agent import Agent
@@ -27,7 +26,7 @@ default_args = {
     'retries': 1,
     'retry_delay': timedelta(minutes=5),
 }
-# Using 'schedule' instead of deprecated 'schedule_interval'
+# 使用 'schedule' 替代已废弃的 'schedule_interval'
 with DAG(
     'example_dag',
     default_args=default_args,
@@ -50,23 +49,23 @@ agent.run(f"Save this DAG file as 'example_dag.py': {dag_content}")
 agent.print_response("Read the contents of 'example_dag.py'")
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter  | Type            | Default          | Description                                    |
-| ---------- | --------------- | ---------------- | ---------------------------------------------- |
-| `dags_dir` | `Path` or `str` | `Path.cwd()`     | Directory for DAG files                        |
-| `save_dag` | `bool`          | `True`           | Whether to register the save_dag_file function |
-| `read_dag` | `bool`          | `True`           | Whether to register the read_dag_file function |
-| `name`     | `str`           | `"AirflowTools"` | The name of the tool                           |
+| 参数        | 类型                 | 默认值             | 描述                                     |
+| ----------- | -------------------- | ------------------ | ---------------------------------------- |
+| `dags_dir` | `Path` 或 `str` | `Path.cwd()`      | DAG 文件的存储目录                       |
+| `save_dag` | `bool`           | `True`            | 是否注册 save_dag_file 函数              |
+| `read_dag` | `bool`           | `True`            | 是否注册 read_dag_file 函数              |
+| `name`     | `str`            | `"AirflowTools"`  | 工具名称                                 |
 
-## Toolkit Functions
+## 工具包函数
 
-| Function        | Description                                        |
-| --------------- | -------------------------------------------------- |
-| `save_dag_file` | Saves python code for an Airflow DAG to a file     |
-| `read_dag_file` | Reads an Airflow DAG file and returns the contents |
+| 函数            | 描述                                         |
+| --------------- | ------------------------------------------- |
+| `save_dag_file` | 将 Airflow DAG 的 Python 代码保存至文件      |
+| `read_dag_file` | 读取 Airflow DAG 文件并返回其内容            |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/airflow.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/airflow_tools.py)
+- 查看 [工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/airflow.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/airflow_tools.py)

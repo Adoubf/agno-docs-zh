@@ -1,23 +1,22 @@
 ---
-title: Collaborate
+title: 协作
 ---
+在**协作模式**下，所有团队成员会同时对用户查询作出响应。这使得团队协调员能够审查团队是否就特定主题达成共识，然后将所有团队成员的响应综合为单一答复。
 
-In **Collaborate Mode**, all team members respond to the user query at once. This gives the team coordinator to review whether the team has reached a consensus on a particular topic and then synthesize the responses from all team members into a single response.
+该模式与 `async await` 配合使用时尤为高效，因为它允许各成员并行响应，同时协调员可以异步综合这些响应。
 
-This is especially useful when used with `async await`, because it allows the individual members to respond concurrently and the coordinator to synthesize the responses asynchronously.
+## 协作模式工作原理
 
-## How Collaborate Mode Works
+在"协作"模式下：
 
-In "collaborate" mode:
-
-1. The team receives a user query
-2. All team members get sent a query. When running synchronously, this happens one by one. When running asynchronously, this happens concurrently.
-3. Each team member produces an output
-4. The coordinator reviews the outputs and synthesizes them into a single response
+1. 团队接收用户查询
+2. 所有成员都会收到查询请求。同步运行时逐个发送，异步运行时则并发发送
+3. 每个团队成员生成输出结果
+4. 协调员审阅输出并将其综合为统一响应
 
 <Steps>
-  <Step title="Create a collaborate mode team">
-    Create a file `discussion_team.py`
+  <Step title="创建一个协作模式团队">
+    创建文件 `discussion_team.py`
 
     ```python discussion_team.py
     import asyncio
@@ -121,14 +120,14 @@ In "collaborate" mode:
     ```
   </Step>
 
-  <Step title="Run the team">
-    Install libraries
+  <Step title="运行团队">
+    安装依赖库
 
     ```shell
     pip install openai duckduckgo-search arxiv pypdf googlesearch-python pycountry
     ```
 
-    Run the team
+    运行团队
 
     ```shell
     python discussion_team.py
@@ -136,10 +135,9 @@ In "collaborate" mode:
   </Step>
 </Steps>
 
+## 定义成功标准
 
-## Defining Success Criteria
-
-You can guide the collaborative team by specifying success criteria for the team coordinator to evaluate:
+您可以通过为团队协调员指定评估标准来引导协作团队：
 
 ```python
 strategy_team = Team(
@@ -154,4 +152,3 @@ response = strategy_team.run(
     "What is the best way to learn to code?"
 )
 ```
-

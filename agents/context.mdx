@@ -1,14 +1,13 @@
 ---
-title: Agent Context
+title: 智能体上下文
 ---
-
-Agent Context is another amazing feature of Agno. `context` is a dictionary that contains a set of functions (or dependencies) that are resolved before the agent runs.
+智能体上下文（Agent Context）是 Agno 的另一项卓越特性。`context` 是一个包含函数（或依赖项）集合的字典，这些内容会在智能体运行前被解析。
 
 <Note>
-Context is a way to inject dependencies into the description and instructions of the agent.
+上下文是一种将依赖项注入智能体描述和指令的方法。  
 
-You can use context to inject memories, dynamic few-shot examples, "retrieved" documents, etc.
-</Note>
+您可以通过上下文注入记忆、动态少样本示例、"检索到的"文档等内容。  
+</Note>  
 
 ```python agent_context.py
 import json
@@ -27,7 +26,7 @@ def get_top_hackernews_stories(num_stories: int = 5) -> str:
     Returns:
         JSON string containing story details (title, url, score, etc.)
     """
-    # Get top stories
+    # 获取头条新闻
     stories = [
         {
             k: v
@@ -45,35 +44,35 @@ def get_top_hackernews_stories(num_stories: int = 5) -> str:
     return json.dumps(stories, indent=4)
 
 
-# Create a Context-Aware Agent that can access real-time HackerNews data
+# 创建一个能访问实时 HackerNews 数据的上下文感知智能体
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
-    # Each function in the context is evaluated when the agent is run,
-    # think of it as dependency injection for Agents
+    # 当智能体运行时，上下文中的每个函数都会被评估，
+    # 将其视为智能体的依赖注入
     context={"top_hackernews_stories": get_top_hackernews_stories},
-    # Alternatively, you can manually add the context to the instructions
+    # 或者，您也可以手动将上下文添加到指令中
     instructions=dedent("""\
         You are an insightful tech trend observer! 📰
 
         Here are the top stories on HackerNews:
         {top_hackernews_stories}\
     """),
-    # add_state_in_messages will make the `top_hackernews_stories` variable
-    # available in the instructions
+    # add_state_in_messages 将使 `top_hackernews_stories` 变量
+    # 请参阅说明文档
     add_state_in_messages=True,
     markdown=True,
 )
 
-# Example usage
+# 示例用法
 agent.print_response(
     "Summarize the top stories on HackerNews and identify any interesting trends.",
     stream=True,
 )
-```
+```  
 
-## Adding the entire context to the user message
+## 将完整上下文添加到用户消息  
 
-Set `add_context=True` to add the entire context to the user message. This way you don't have to manually add the context to the instructions.
+设置 `add_context=True` 可将完整上下文添加到用户消息中。这样您就无需手动将上下文写入指令。  
 
 ```python agent_context_instructions.py
 import json
@@ -92,7 +91,7 @@ def get_top_hackernews_stories(num_stories: int = 5) -> str:
     Returns:
         JSON string containing story details (title, url, score, etc.)
     """
-    # Get top stories
+    # 获取头条新闻
     stories = [
         {
             k: v
@@ -110,18 +109,18 @@ def get_top_hackernews_stories(num_stories: int = 5) -> str:
     return json.dumps(stories, indent=4)
 
 
-# Create a Context-Aware Agent that can access real-time HackerNews data
+# 创建一个能够访问实时 HackerNews 数据的上下文感知智能体
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
-    # Each function in the context is resolved when the agent is run,
-    # think of it as dependency injection for Agents
+    # 当智能体运行时，上下文中的每个函数都会被解析。
+    # 把它想象成智能体的依赖注入
     context={"top_hackernews_stories": get_top_hackernews_stories},
-    # We can add the entire context dictionary to the instructions
+    # 我们可以将整个上下文字典添加到指令中
     add_context=True,
     markdown=True,
 )
 
-# Example usage
+# 示例用法
 agent.print_response(
     "Summarize the top stories on HackerNews and identify any interesting trends.",
     stream=True,

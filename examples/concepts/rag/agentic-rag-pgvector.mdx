@@ -1,8 +1,7 @@
 ---
-title: Agentic RAG with PgVector
+title: 基于PgVector的智能体化RAG
 ---
-
-## Code
+## 代码
 
 ```python
 from agno.agent import Agent
@@ -12,10 +11,10 @@ from agno.models.openai import OpenAIChat
 from agno.vectordb.pgvector import PgVector, SearchType
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
-# Create a knowledge base of PDFs from URLs
+# 从URL创建PDF知识库
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-    # Use PgVector as the vector database and store embeddings in the `ai.recipes` table
+    # 使用 PgVector 作为向量数据库，并将嵌入数据存储在 `ai.recipes` 表中
     vector_db=PgVector(
         table_name="recipes",
         db_url=db_url,
@@ -23,14 +22,14 @@ knowledge_base = PDFUrlKnowledgeBase(
         embedder=OpenAIEmbedder(id="text-embedding-3-small"),
     ),
 )
-# Load the knowledge base: Comment after first run as the knowledge base is already loaded
+# 加载知识库：首次运行后注释，因为知识库已加载
 knowledge_base.load(upsert=True)
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     knowledge=knowledge_base,
-    # Add a tool to search the knowledge base which enables agentic RAG.
-    # This is enabled by default when `knowledge` is provided to the Agent.
+    # 添加一个工具来搜索知识库，以实现智能体的检索增强生成（RAG）。
+    # 当向智能体提供`knowledge`时，该功能默认启用。
     search_knowledge=True,
     show_tool_calls=True,
     markdown=True,
@@ -40,24 +39,24 @@ agent.print_response(
 )
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai sqlalchemy 'psycopg[binary]' pgvector agno
     ```
   </Step>
 
-  <Step title="Run PgVector">
+  <Step title="运行 PgVector">
     ```bash
     docker run -d \
       -e POSTGRES_DB=ai \
@@ -71,7 +70,7 @@ agent.print_response(
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/rag/agentic_rag_pgvector.py

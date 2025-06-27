@@ -1,9 +1,8 @@
 ---
-title: Accuracy with Teams
-description: Learn how to evaluate the accuracy of an Agno Team.
+title: 团队协作的准确性
+description: 了解如何评估 Agno Team 的准确性。
 ---
-
-## Code
+## 代码
 
 ```python
 from typing import Optional
@@ -13,7 +12,7 @@ from agno.eval.accuracy import AccuracyEval, AccuracyResult
 from agno.models.openai import OpenAIChat
 from agno.team.team import Team
 
-# Setup a team with two members
+# 建立一个包含两名成员的团队
 english_agent = Agent(
     name="English Agent",
     role="You only answer in English",
@@ -39,7 +38,7 @@ multi_language_team = Team(
     ],
 )
 
-# Evaluate the accuracy of the Team's responses
+# 评估团队应答的准确性
 evaluation = AccuracyEval(
     model=OpenAIChat(id="o4-mini"),
     team=multi_language_team,

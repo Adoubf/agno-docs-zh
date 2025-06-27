@@ -1,16 +1,15 @@
 ---
-title: Website Knowledge Base
-description: Learn how to use websites in your knowledge base.
-sidebarTitle: Website
+title: 网站知识库
+description: 了解如何在知识库中使用网站。
+sidebarTitle: 网站
 ---
+**WebsiteKnowledgeBase** 会读取网站内容，将其转换为向量嵌入并加载至 `vector_db`。
 
-The **WebsiteKnowledgeBase** reads websites, converts them into vector embeddings and loads them to a `vector_db`.
-
-## Usage
+## 使用方式
 
 <Note>
 
-We are using a local PgVector database for this example. [Make sure it's running](https://docs.agno.com/vectordb/pgvector)
+本示例使用本地PgVector数据库。[确保其正常运行](https://docs.agno.com/vectordb/pgvector)
 
 </Note>
 
@@ -24,9 +23,9 @@ from agno.vectordb.pgvector import PgVector
 
 knowledge_base = WebsiteKnowledgeBase(
     urls=["https://docs.agno.com/introduction"],
-    # Number of links to follow from the seed URLs
+    # 从种子URL开始追踪的链接数量
     max_links=10,
-    # Table name: ai.website_documents
+    # 表名：ai.website_documents
     vector_db=PgVector(
         table_name="website_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -34,7 +33,7 @@ knowledge_base = WebsiteKnowledgeBase(
 )
 ```
 
-Then use the `knowledge_base` with an `Agent`:
+随后配合 `Agent` 使用 `knowledge_base`：
 
 ```python agent.py
 from agno.agent import Agent
@@ -49,12 +48,12 @@ agent.knowledge.load(recreate=False)
 agent.print_response("Ask me about something from the knowledge base")
 ```
 
-#### WebsiteKnowledgeBase also supports async loading.
+#### WebsiteKnowledgeBase 也支持异步加载
 
 ```shell
 pip install qdrant-client
 ```
-We are using a local Qdrant database for this example. [Make sure it's running](https://docs.agno.com/vectordb/qdrant)
+本示例使用本地Qdrant数据库。[确保其正常运行](https://docs.agno.com/vectordb/qdrant)
 
 ```python async_knowledge_base.py
 import asyncio
@@ -70,39 +69,38 @@ COLLECTION_NAME = "website-content"
 vector_db = Qdrant(collection=COLLECTION_NAME, url="http://localhost:6333")
 
 
-# Create a knowledge base with the seed URLs
+# 创建知识库并设置种子URL
 knowledge_base = WebsiteKnowledgeBase(
     urls=["https://docs.agno.com/introduction"],
-    # Number of links to follow from the seed URLs
+    # 从种子URL开始追踪的链接数量
     max_links=5,
-    # Table name: ai.website_documents
+    # 表名：ai.website_documents
     vector_db=vector_db,
 )
 
-# Create an agent with the knowledge base
+# 创建带有知识库的智能体
 agent = Agent(knowledge=knowledge_base, search_knowledge=True, debug_mode=True)
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 首次运行后注释掉
     asyncio.run(knowledge_base.aload(recreate=False))
 
-    # Create and use the agent
+    # 创建并使用智能体
     asyncio.run(agent.aprint_response("How does agno work?", markdown=True))
 ```
 
+## 参数
 
-## Params
+| 参数        | 类型                      | 默认值  | 描述                                                                                             |
+| ----------- | ------------------------- | ------- | ------------------------------------------------------------------------------------------------ |
+| `urls`      | `List[str]`               | `[]`    | 待读取的URL列表                                                                                  |
+| `reader`    | `Optional[WebsiteReader]` | `None`  | 用于读取URL并将其转换为向量数据库 `Documents` 的 `WebsiteReader`。                          |
+| `max_depth` | `int`                     | `3`     | 最大爬取深度                                                                                     |
+| `max_links` | `int`                     | `10`    | 待爬取的链接数量                                                                                 |
 
-| Parameter   | Type                      | Default | Description                                                                                       |
-| ----------- | ------------------------- | ------- | ------------------------------------------------------------------------------------------------- |
-| `urls`      | `List[str]`               | `[]`    | URLs to read                                                                                      |
-| `reader`    | `Optional[WebsiteReader]` | `None`  | A `WebsiteReader` that reads the urls and converts them into `Documents` for the vector database. |
-| `max_depth` | `int`                     | `3`     | Maximum depth to crawl.                                                                           |
-| `max_links` | `int`                     | `10`    | Number of links to crawl.                                                                         |
+`WebsiteKnowledgeBase` 是 [AgentKnowledge](/reference/knowledge/base) 类的子类，拥有相同的参数访问权限。
 
-`WebsiteKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+## 开发者资源
 
-## Developer Resources
-
-- View [Sync loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/website_kb.py)
-- View [Async loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/website_kb_async.py)
+- 查看[同步加载 Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/website_kb.py)
+- 查看[异步加载 Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/website_kb_async.py)

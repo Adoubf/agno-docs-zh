@@ -1,22 +1,21 @@
 ---
-title: Research Agent
+title: 研究型智能体
 ---
+本示例展示了如何结合Exa.ai的搜索能力与学术写作技巧，创建一个高级研究智能体，以生成结构严谨、基于事实的报告。
 
-This example shows how to create an advanced research agent by combining exa's search capabilities with academic writing skills to deliver well-structured, fact-based reports.
+演示的核心功能：
+- 使用Exa.ai进行学术和新闻检索
+- 生成带参考文献的结构化报告
+- 自定义格式及文件保存功能
 
-Key features demonstrated:
-- Using Exa.ai for academic and news searches
-- Structured report generation with references
-- Custom formatting and file saving capabilities
+可尝试的示例提示：
+- "量子计算领域的最新进展有哪些？"
+- "研究人工意识的当前发展状况"
+- "分析核聚变能源的最新突破"
+- "调查太空旅游对环境的影响"
+- "探索长寿研究的最新发现"
 
-Example prompts to try:
-- "What are the latest developments in quantum computing?"
-- "Research the current state of artificial consciousness"
-- "Analyze recent breakthroughs in fusion energy"
-- "Investigate the environmental impact of space tourism"
-- "Explore the latest findings in longevity research"
-
-## Code
+## 代码
 
 ```python research_agent.py
 from datetime import datetime
@@ -59,29 +58,29 @@ agent = Agent(
     expected_output=dedent("""\
     A professional research report in markdown format:
 
-    # {Compelling Title That Captures the Topic's Essence}
+    # {引人注目的标题，精准概括主题精髓}
 
-    ## Executive Summary
+    # # 执行摘要
     {Brief overview of key findings and significance}
 
-    ## Introduction
+    # # 简介
     {Context and importance of the topic}
     {Current state of research/discussion}
 
-    ## Key Findings
+    # # 关键发现
     {Major discoveries or developments}
     {Supporting evidence and analysis}
 
-    ## Implications
+    # # 影响
     {Impact on field/society}
     {Future directions}
 
-    ## Key Takeaways
+    # # 主要要点
     - {Bullet point 1}
     - {Bullet point 2}
     - {Bullet point 3}
 
-    ## References
+    # # 参考资料
     - [Source 1](link) - Key finding/quote
     - [Source 2](link) - Key finding/quote
     - [Source 3](link) - Key finding/quote
@@ -97,14 +96,14 @@ agent = Agent(
     save_response_to_file=str(tmp.joinpath("{message}.md")),
 )
 
-# Example usage
+# 示例用法
 if __name__ == "__main__":
-    # Generate a research report on a cutting-edge topic
+    # 生成一份关于前沿技术主题的研究报告
     agent.print_response(
         "Research the latest developments in brain-computer interfaces", stream=True
     )
 
-# More example prompts to try:
+# 更多可以尝试的示例提示：
 """
 Try these research topics:
 1. "Analyze the current state of solid-state batteries"
@@ -115,18 +114,18 @@ Try these research topics:
 """
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai exa-py agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行智能体">
     ```bash
     python research_agent.py
     ```

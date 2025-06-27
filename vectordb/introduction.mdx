@@ -1,46 +1,42 @@
 ---
-title: What are Vector Databases?
-sidebarTitle: Overview
-description: Vector databases enable us to store information as embeddings and search for "results similar" to our input query using cosine similarity or full text search. These results are then provided to the Agent as context so it can respond in a context-aware manner using Retrieval Augmented Generation (RAG).
+title: 什么是向量数据库？
+sidebarTitle: 概述
+description: 向量数据库使我们能够将信息存储为嵌入向量，并通过余弦相似度或全文搜索来检索与输入查询"相似的结果"。这些结果随后会作为上下文提供给智能体，使其能够利用检索增强生成（RAG）技术进行具备上下文感知的响应。
 ---
-
-Here's how vector databases are used with Agents:
+以下是向量数据库在智能体中的应用方式：
 
 <Steps>
-  <Step title="Chunk the information">
-    Break down the knowledge into smaller chunks to ensure our search query
-    returns only relevant results.
+  <Step title="分块处理信息">
+    将知识分解为更小的片段，确保搜索查询仅返回相关结果。
   </Step>
-  <Step title="Load the knowledge base">
-    Convert the chunks into embedding vectors and store them in a vector
-    database.
+  <Step title="加载知识库">
+    将这些片段转换为嵌入向量并存储到向量数据库中。
   </Step>
-  <Step title="Search the knowledge base">
-    When the user sends a message, we convert the input message into an
-    embedding and "search" for nearest neighbors in the vector database.
+  <Step title="搜索知识库">
+    当用户发送消息时，我们将输入消息转换为嵌入向量，并在向量数据库中"搜索"最近邻。
   </Step>
 </Steps>
 
-Many vector databases also support hybrid search, which combines the power of vector similarity search with traditional keyword-based search. This approach can significantly improve the relevance and accuracy of search results, especially for complex queries or when dealing with diverse types of data.
+许多向量数据库还支持混合搜索，该功能结合了向量相似性搜索与传统基于关键词搜索的优势。这种方法能显著提升搜索结果的关联性和准确性，尤其适用于复杂查询或处理多样化数据类型时。
 
-Hybrid search typically works by:
+混合搜索通常的工作流程：
 
-1. Performing a vector similarity search to find semantically similar content.
-2. Conducting a keyword-based search to identify exact or close matches.
-3. Combining the results using a weighted approach to provide the most relevant information.
+1. 执行向量相似性搜索以查找语义相似的内容
+2. 进行基于关键词的搜索以识别精确或近似匹配项
+3. 采用加权方法合并结果，提供最相关信息
 
-This capability allows for more flexible and powerful querying, often yielding better results than either method alone.
+该功能可实现更灵活强大的查询，通常比单独使用任一方法都能获得更好效果。
 
-<Card title="⚡ Asynchronous Operations">
-  <p>Several vector databases support asynchronous operations, offering improved performance through non-blocking operations, concurrent processing, reduced latency, and seamless integration with FastAPI and async agents.</p>
+<Card title="⚡ 异步操作">
+  <p>部分向量数据库支持异步操作，通过非阻塞操作、并发处理、降低延迟以及与FastAPI和异步智能体的无缝集成来提升性能。</p>
   <Tip className="mt-4">
-    When building with Agno, use the <code>aload</code> methods for async knowledge base loading in production environments.
+    使用Agno构建时，生产环境中请使用<code>aload</code>方法进行异步知识库加载。
   </Tip>
 </Card>
 
-## Supported Vector Databases
+## 支持的向量数据库
 
-The following VectorDb are currently supported:
+当前支持的VectorDb包括：
 
 - [PgVector](/vectordb/pgvector)\*
 - [Cassandra](/vectordb/cassandra)
@@ -55,6 +51,6 @@ The following VectorDb are currently supported:
 - [Singlestore](/vectordb/singlestore)
 - [Weaviate](/vectordb/weaviate)
 
-\*hybrid search supported
+\*支持混合搜索
 
-Each of these databases has its own strengths and features, including varying levels of support for hybrid search and async operations. Be sure to check the specific documentation for each to understand how to best leverage their capabilities in your projects.
+每个数据库都有其独特的优势和特性，包括对混合搜索和异步操作的不同支持级别。请务必查阅各数据库的具体文档，以了解如何在项目中最佳利用其功能。

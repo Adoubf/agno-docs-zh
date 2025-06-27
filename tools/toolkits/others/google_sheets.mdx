@@ -1,18 +1,17 @@
 ---
-title: Google Sheets
+title: 谷歌表格
 ---
+**GoogleSheetsTools** 使智能体能够通过 Google Sheets API 读取、创建、更新和复制电子表格。
 
-**GoogleSheetsTools** enable an Agent to interact with Google Sheets API for reading, creating, updating, and duplicating spreadsheets.
+## 先决条件
 
-## Prerequisites
-
-You need to install the required Google API client libraries:
+需要安装以下 Google API 客户端库：
 
 ```bash
 pip install google-api-python-client google-auth-httplib2 google-auth-oauthlib
 ```
 
-Set up the following environment variables:
+设置以下环境变量：
 
 ```bash
 export GOOGLE_CLIENT_ID=your_client_id_here
@@ -21,28 +20,28 @@ export GOOGLE_PROJECT_ID=your_project_id_here
 export GOOGLE_REDIRECT_URI=your_redirect_uri_here
 ```
 
-## How to Get Credentials
+## 如何获取凭证
 
-1. Go to Google Cloud Console (https://console.cloud.google.com)
-2. Create a new project or select an existing one
-3. Enable the Google Sheets API:
-   - Go to "APIs & Services" > "Enable APIs and Services"
-   - Search for "Google Sheets API"
-   - Click "Enable"
+1. 访问 Google Cloud Console (https://console.cloud.google.com)
+2. 创建新项目或选择现有项目
+3. 启用 Google Sheets API：
+   - 进入"APIs & Services" > "Enable APIs and Services"
+   - 搜索"Google Sheets API"
+   - 点击"Enable"
 
-4. Create OAuth 2.0 credentials:
-   - Go to "APIs & Services" > "Credentials"
-   - Click "Create Credentials" > "OAuth client ID"
-   - Go through the OAuth consent screen setup
-   - Give it a name and click "Create"
-   - You'll receive:
-     * Client ID (GOOGLE_CLIENT_ID)
-     * Client Secret (GOOGLE_CLIENT_SECRET)
-   - The Project ID (GOOGLE_PROJECT_ID) is visible in the project dropdown at the top of the page
+4. 创建 OAuth 2.0 凭证：
+   - 进入"APIs & Services" > "Credentials"
+   - 点击"Create Credentials" > "OAuth client ID"
+   - 完成 OAuth 同意屏幕设置
+   - 输入名称并点击"Create"
+   - 您将获得：
+     * 客户端 ID (GOOGLE_CLIENT_ID)
+     * 客户端密钥 (GOOGLE_CLIENT_SECRET)
+   - 项目 ID (GOOGLE_PROJECT_ID) 可在页面顶部的项目下拉菜单中查看
 
-## Example
+## 示例
 
-The following agent will use Google Sheets to read and update spreadsheet data.
+以下智能体将使用 Google Sheets 读取和更新电子表格数据。
 
 ```python cookbook/tools/googlesheets_tools.py
 from agno.agent import Agent
@@ -67,31 +66,31 @@ agent.print_response("Please tell me about the contents of the spreadsheet")
 
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter          | Type            | Default | Description                                                                 |
+| 参数          | 类型            | 默认值 | 描述                                                                 |
 | ------------------ | --------------- | ------- | --------------------------------------------------------------------------- |
-| `scopes`           | `List[str]`     | `None`  | Custom OAuth scopes. If None, determined by operations.                     |
-| `spreadsheet_id`   | `str`           | `None`  | ID of the target spreadsheet.                                              |
-| `spreadsheet_range`| `str`           | `None`  | Range within the spreadsheet.                                              |
-| `creds`            | `Credentials`   | `None`  | Pre-existing credentials.                                                  |
-| `creds_path`       | `str`           | `None`  | Path to credentials file.                                                  |
-| `token_path`       | `str`           | `None`  | Path to token file.                                                        |
-| `read`             | `bool`          | `True`  | Enable read operations.                                                    |
-| `create`           | `bool`          | `False` | Enable create operations.                                                  |
-| `update`           | `bool`          | `False` | Enable update operations.                                                  |
-| `duplicate`        | `bool`          | `False` | Enable duplicate operations.                                               |
+| `scopes`           | `List[str]`     | `None`  | 自定义 OAuth 范围。如果为 None，则由操作决定。                     |
+| `spreadsheet_id`   | `str`           | `None`  | 目标电子表格的 ID。                                              |
+| `spreadsheet_range`| `str`           | `None`  | 电子表格中的范围。                                              |
+| `creds`            | `Credentials`   | `None`  | 预存凭证。                                                  |
+| `creds_path`       | `str`           | `None`  | 凭证文件路径。                                                  |
+| `token_path`       | `str`           | `None`  | 令牌文件路径。                                                        |
+| `read`             | `bool`          | `True`  | 启用读取操作。                                                    |
+| `create`           | `bool`          | `False` | 启用创建操作。                                                  |
+| `update`           | `bool`          | `False` | 启用更新操作。                                                  |
+| `duplicate`        | `bool`          | `False` | 启用复制操作。                                               |
 
-## Toolkit Functions
+## 工具包功能
 
-| Function                | Description                                     |
+| 函数                | 描述                                     |
 | ----------------------- | ----------------------------------------------- |
-| `read_sheet`            | Read values from a Google Sheet                 |
-| `create_sheet`          | Create a new Google Sheet                       |
-| `update_sheet`          | Update data in a Google Sheet                   |
-| `create_duplicate_sheet`| Create a duplicate of an existing Google Sheet  |
+| `read_sheet`            | 从 Google Sheet 读取值                 |
+| `create_sheet`          | 创建新的 Google Sheet                       |
+| `update_sheet`          | 更新 Google Sheet 中的数据                   |
+| `create_duplicate_sheet`| 复制现有的 Google Sheet  |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/googlesheets.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/googlesheets_tools.py)
+- 查看 [工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/googlesheets.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/googlesheets_tools.py)

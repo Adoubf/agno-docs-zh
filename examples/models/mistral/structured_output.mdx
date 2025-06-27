@@ -1,8 +1,7 @@
 ---
-title: Agent with Structured Outputs
+title: 具备结构化输出的智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/mistral/structured_output.py
 import os
@@ -48,31 +47,31 @@ json_mode_agent = Agent(
     debug_mode=True,
 )
 
-# Get the response in a variable
-# json_mode_response: RunResponse = json_mode_agent.run("New York")
+# 获取变量中的响应
+# json_mode_response: RunResponse = json_mode_agent.run("纽约")
 # pprint(json_mode_response.content)
 
 json_mode_agent.print_response("Find a cool movie idea about London and write it.")
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export MISTRAL_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U mistralai duckduckgo-search agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/mistral/structured_output.py

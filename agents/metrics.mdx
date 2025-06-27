@@ -1,27 +1,26 @@
 ---
-title: Metrics
-description: Understanding agent run and session metrics in Agno
+title: 指标
+description: 理解 Agno 中的智能体运行与会话指标
 ---
+## 概述
+在Agno中运行智能体时，所获得的响应（**RunResponse**）包含关于此次运行的详细指标。这些指标有助于理解资源使用情况（例如**令牌用量**和**时间**）、性能以及模型与工具调用的其他方面。
 
-## Overview
-When you run an agent in Agno, the response you get (**RunResponse**) includes detailed metrics about the run. These metrics help you understand resource usage (like **token usage** and **time**), performance, and other aspects of the model and tool calls.
-
-Metrics are available at multiple levels:
-- **Per-message**: Each message (assistant, tool, etc.) has its own metrics.
-- **Per-tool call**: Each tool execution has its own metrics.
-- **Aggregated**: The `RunResponse` aggregates metrics across all messages in the run.
+指标划分为多个层级：
+- **每条消息**：每条消息（助手消息、工具消息等）均有专属指标。
+- **每次工具调用**：每次工具执行均有专属指标。
+- **聚合指标**：`RunResponse`会汇总运行中所有消息的指标。
 
 <Note>
-Where Metrics Live
-- `RunResponse.metrics`: Aggregated metrics for the whole run, as a dictionary.
-- `ToolExecution.metrics`: Metrics for each tool call.
-- `Message.metrics`: Metrics for each message (assistant, tool, etc.).
+指标存储位置
+- `RunResponse.metrics`：整个运行的聚合指标，以字典形式呈现。
+- `ToolExecution.metrics`：每次工具调用的指标。
+- `Message.metrics`：每条消息（助手消息、工具消息等）的指标。
 </Note>
 
-## Example Usage
-Suppose you have an agent that performs some tasks and you want to analyze the metrics after running it. Here's how you can access and print the metrics:
+## 使用示例
+假设有一个执行任务的智能体，您希望在运行后分析其指标。以下是访问并打印指标的方法：
 
-You run the following code to create an agent and run it with the following configuration:
+运行以下代码创建智能体并按如下配置执行：
 ```python
 from typing import Iterator
 
@@ -41,7 +40,7 @@ agent.print_response(
     "What is the stock price of NVDA", stream=True
 )
 
-# Print metrics per message
+# 按消息打印指标
 if agent.run_response.messages:
     for message in agent.run_response.messages:
         if message.role == "assistant":
@@ -53,39 +52,36 @@ if agent.run_response.messages:
             pprint(message.metrics)
             print("---" * 20)
 
-# Print the aggregated metrics for the whole run
+# 打印整个运行过程的聚合指标
 print("---" * 5, "Collected Metrics", "---" * 5)
 pprint(agent.run_response.metrics)
-# Print the aggregated metrics for the whole session
+# 输出整个会话的聚合指标
 print("---" * 5, "Session Metrics", "---" * 5)
 pprint(agent.session_metrics)
 ```
 
-You'd see the outputs with following information:
-### Tool Execution Metrics
+您将看到包含以下信息的输出：
+### 工具执行指标
+本节提供每次工具执行的指标，包含单个工具调用的资源使用详情和性能数据。
 
-This section provides metrics for each tool execution. It includes details about the resource usage and performance of individual tool calls.
+![工具运行消息指标](../images/tools-run-message-metrics.png)
 
-![Tool Run Message Metrics](../images/tools-run-message-metrics.png)
+### 消息指标
+此处可查看智能体每条消息响应的指标。所有"assistant"响应都将包含此类指标，帮助理解消息层级的性能和资源使用情况。
 
-### Message Metrics
+![智能体运行消息指标](../images/agent-run-message-metrics.png)
 
-Here, you can see the metrics for each message response from the agent. All "assistant" responses will have metrics like this, helping you understand the performance and resource usage at the message level.
+### 聚合运行指标
+聚合指标提供整个运行的全局视图，包含所有消息和工具调用的摘要，展现智能体的整体性能和资源使用情况。
 
-![Agent Run Message Metrics](../images/agent-run-message-metrics.png)
+![聚合运行指标](../images/agent-run-aggregated-metrics.png)
 
-### Aggregated Run Metrics
+会话指标同理，您可查看会话中所有运行的聚合指标，从而洞察智能体在多次运行中的整体性能和资源使用情况。
 
-The aggregated metrics provide a comprehensive view of the entire run. This includes a summary of all messages and tool calls, giving you an overall picture of the agent's performance and resource usage.
+## 指标聚合方式
+- **每条消息**：每条消息（助手消息、工具消息等）拥有独立的指标对象。
+- **运行层级**：RunResponse.metrics为字典结构，每个键（如input_tokens）映射到运行中所有助手消息的值列表。
+- **会话层级**：`SessionMetrics`（参见`agent.session_metrics`）会聚合会话中所有运行的指标。
 
-![Aggregated Run Metrics](../images/agent-run-aggregated-metrics.png)
-
-Similarly for the session metrics, you can see the aggregated metrics across all runs in the session, providing insights into the overall performance and resource usage of the agent across multiple runs.
-
-## How Metrics Are Aggregated
-- **Per-message**: Each message (assistant, tool, etc.) has its own metrics object.
-- **Run-level**: RunResponse.metrics is a dictionary where each key (e.g., input_tokens) maps to a list of values from all assistant messages in the run.
-- **Session-level**: `SessionMetrics` (see `agent.session_metrics`) aggregates metrics across all runs in the session.
-
-## `MessageMetrics` Params
+## `MessageMetrics` 参数
 <Snippet file="message_metrics_params.mdx" />

@@ -1,13 +1,12 @@
 ---
-title: Singlestore Agent Storage
+title: Singlestore 智能体存储
 sidebarTitle: Singlestore
 ---
+Agno 支持使用 Singlestore 作为智能体的存储后端，通过 `SingleStoreStorage` 类实现。
 
-Agno supports using Singlestore as a storage backend for Agents using the `SingleStoreStorage` class.
+## 使用方法
 
-## Usage
-
-Obtain the credentials for Singlestore from [here](https://portal.singlestore.com/)
+从[这里](https://portal.singlestore.com/)获取 Singlestore 的凭证
 
 ```python singlestore_storage_for_agent.py
 from os import getenv
@@ -17,7 +16,7 @@ from sqlalchemy.engine import create_engine
 from agno.agent import Agent
 from agno.storage.singlestore import SingleStoreStorage
 
-# SingleStore Configuration
+# SingleStore 配置
 USERNAME = getenv("SINGLESTORE_USERNAME")
 PASSWORD = getenv("SINGLESTORE_PASSWORD")
 HOST = getenv("SINGLESTORE_HOST")
@@ -25,32 +24,32 @@ PORT = getenv("SINGLESTORE_PORT")
 DATABASE = getenv("SINGLESTORE_DATABASE")
 SSL_CERT = getenv("SINGLESTORE_SSL_CERT", None)
 
-# SingleStore DB URL
+# SingleStore DB 网址
 db_url = f"mysql+pymysql://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}?charset=utf8mb4"
 if SSL_CERT:
     db_url += f"&ssl_ca={SSL_CERT}&ssl_verify_cert=true"
 
-# Create a database engine
+# 创建数据库引擎
 db_engine = create_engine(db_url)
 
-# Create a storage backend using the Singlestore database
+# 使用 Singlestore 数据库创建存储后端
 storage = SingleStoreStorage(
-    # store sessions in the ai.sessions table
+    # 将会话存储在 ai.sessions 表中
     table_name="agent_sessions",
-    # db_engine: Singlestore database engine
+    # db_engine: Singlestore 数据库引擎
     db_engine=db_engine,
     # schema: Singlestore schema
     schema=DATABASE,
 )
 
-# Add storage to the Agent
+# 为智能体添加存储功能
 agent = Agent(storage=storage)
 ```
 
-## Params
+## 参数
 
 <Snippet file="storage-s2-params.mdx" />
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/singlestore_storage/singlestore_storage_for_agent.py)
+- 查看[操作手册](https://github.com/agno-agi/agno/blob/main/cookbook/storage/singlestore_storage/singlestore_storage_for_agent.py)

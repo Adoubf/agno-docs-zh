@@ -1,10 +1,9 @@
 ---
-title: Add Context
+title: 添加上下文
 ---
+本示例展示如何创建一个能访问HackerNews实时数据的上下文感知智能体。
 
-This example demonstrates how to create a context-aware agent that can access real-time data from HackerNews.
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/context/01-add_context.py
 import json
@@ -23,7 +22,7 @@ def get_top_hackernews_stories(num_stories: int = 5) -> str:
     Returns:
         JSON string containing story details (title, url, score, etc.)
     """
-    # Get top stories
+    # 获取头条新闻
     stories = [
         {
             k: v
@@ -41,36 +40,36 @@ def get_top_hackernews_stories(num_stories: int = 5) -> str:
     return json.dumps(stories, indent=4)
 
 
-# Create a Context-Aware Agent that can access real-time HackerNews data
+# 创建一个能访问实时HackerNews数据的上下文感知智能体
 agent = Agent(
     model=OpenAIChat(id="gpt-4"),
-    # Each function in the context is resolved when the agent is run,
-    # think of it as dependency injection for Agents
+    # 当智能体运行时，上下文中的每个函数都会被解析，
+    # 将其视为智能体的依赖注入机制
     context={"top_hackernews_stories": get_top_hackernews_stories},
-    # We can add the entire context dictionary to the user message
+    # 我们可以将整个上下文字典添加到用户消息中
     add_context=True,
     markdown=True,
 )
 
-# Example usage
+# 示例用法
 agent.print_response(
     "Summarize the top stories on HackerNews and identify any interesting trends.",
     stream=True,
 )
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno httpx
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/context/01-add_context.py

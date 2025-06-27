@@ -1,23 +1,23 @@
-| Parameter                 | Type                          | Default             | Description                                                                  |
+| 参数                      | 类型                           | 默认值              | 描述                                                                         |
 | ------------------------- | ----------------------------- | ------------------- | ---------------------------------------------------------------------------- |
-| `id`                      | `str`                         | -                   | The specific model ID used for generating responses. This field is required. |
-| `name`                    | `str`                         | `"AzureOpenAI"`     | The name identifier for the agent.                                           |
-| `provider`                | `str`                         | `"Azure"`           | The provider of the model.                                                   |
-| `api_key`                 | `Optional[str]`               | `"None"`            | The API key for authenticating requests to the Azure OpenAI service.         |
-| `api_version`             | `str`                         | `"2024-10-21"`      | The version of the Azure OpenAI API to use.                                  |
-| `azure_endpoint`          | `Optional[str]`               | `"None"`            | The endpoint URL for the Azure OpenAI service.                               |
-| `client`                  | `Optional[ChatCompletionsClient]` | `None`              | The client for making requests to the Azure OpenAI service. |
-| `async_client`            | `Optional[AsyncChatCompletionsClient]` | `None`              | The asynchronous client for making requests to the Azure OpenAI service. |
-| `temperature`             | `Optional[float]`             | `None`              | Controls randomness in the model's output. Higher values make output more random. |
-| `max_tokens`             | `Optional[int]`               | `None`              | The maximum number of tokens to generate in the response. |
-| `frequency_penalty`      | `Optional[float]`             | `None`              | Reduces repetition by penalizing tokens based on their frequency. |
-| `presence_penalty`       | `Optional[float]`             | `None`              | Reduces repetition by penalizing tokens that have appeared at all. |
-| `top_p`                  | `Optional[float]`             | `None`              | Controls diversity by limiting cumulative probability of tokens considered. |
-| `stop`                   | `Optional[Union[str, List[str]]]` | `None`          | Sequences where the model will stop generating further tokens. |
-| `seed`                   | `Optional[int]`               | `None`              | Random seed for deterministic outputs. |
-| `model_extras`           | `Optional[Dict[str, Any]]`    | `None`              | Additional model-specific parameters. |
-| `request_params`         | `Optional[Dict[str, Any]]`    | `None`              | Additional parameters to pass with the request. |
-| `timeout`                | `Optional[float]`             | `None`              | Timeout in seconds for API requests. |
-| `max_retries`            | `Optional[int]`               | `None`              | Maximum number of retries for failed requests. |
-| `http_client`            | `Optional[httpx.Client]`      | `None`              | Custom HTTP client for making requests. |
-| `client_params`          | `Optional[Dict[str, Any]]`    | `None`              | Additional parameters for client configuration. |
+| `id`                      | `str`                         | -                   | 用于生成响应的特定模型ID。该字段为必填项。                                   |
+| `name`                    | `str`                         | `"AzureOpenAI"`     | 智能体的名称标识符。                                                         |
+| `provider`                | `str`                         | `"Azure"`           | 模型提供商。                                                                 |
+| `api_key`                 | `Optional[str]`               | `"None"`            | 用于验证Azure OpenAI服务请求的API密钥。                                      |
+| `api_version`             | `str`                         | `"2024-10-21"`      | 使用的Azure OpenAI API版本。                                                 |
+| `azure_endpoint`          | `Optional[str]`               | `"None"`            | Azure OpenAI服务的端点URL。                                                  |
+| `client`                  | `Optional[ChatCompletionsClient]` | `None`              | 用于向Azure OpenAI服务发起请求的客户端。                                     |
+| `async_client`            | `Optional[AsyncChatCompletionsClient]` | `None`              | 用于向Azure OpenAI服务发起异步请求的客户端。                                 |
+| `temperature`             | `Optional[float]`             | `None`              | 控制模型输出的随机性。数值越高输出越随机。                                   |
+| `max_tokens`             | `Optional[int]`               | `None`              | 响应中生成的最大token数量。                                                  |
+| `frequency_penalty`      | `Optional[float]`             | `None`              | 通过基于词频惩罚token来减少重复。                                            |
+| `presence_penalty`       | `Optional[float]`             | `None`              | 通过惩罚所有已出现token来减少重复。                                          |
+| `top_p`                  | `Optional[float]`             | `None`              | 通过限制考虑token的累积概率来控制多样性。                                    |
+| `stop`                   | `Optional[Union[str, List[str]]]` | `None`          | 模型将停止生成后续token的序列。                                              |
+| `seed`                   | `Optional[int]`               | `None`              | 用于确定性输出的随机种子。                                                   |
+| `model_extras`           | `Optional[Dict[str, Any]]`    | `None`              | 特定模型的其他参数。                                                         |
+| `request_params`         | `Optional[Dict[str, Any]]`    | `None`              | 随请求传递的附加参数。                                                       |
+| `timeout`                | `Optional[float]`             | `None`              | API请求的超时时间（秒）。                                                    |
+| `max_retries`            | `Optional[int]`               | `None`              | 失败请求的最大重试次数。                                                     |
+| `http_client`            | `Optional[httpx.Client]`      | `None`              | 用于发起请求的自定义HTTP客户端。                                             |
+| `client_params`          | `Optional[Dict[str, Any]]`    | `None`              | 客户端配置的附加参数。                                                       |

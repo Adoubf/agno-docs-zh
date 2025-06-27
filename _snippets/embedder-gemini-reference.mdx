@@ -1,12 +1,12 @@
-### Parameters
+### 参数
 
-| Parameter | Type | Description | Default |
+| 参数 | 类型 | 描述 | 默认值 |
 |-----------|------|-------------|---------|
-| `id` | `str` | The model ID to use for embeddings | `"models/text-embedding-004"` |
-| `task_type` | `str` | Type of task for embedding generation | `"RETRIEVAL_QUERY"` |
-| `title` | `Optional[str]` | Optional title for the content being embedded | `None` |
-| `dimensions` | `Optional[int]` | Output dimensions of the embedding | `768` |
-| `api_key` | `Optional[str]` | Google API key | Environment variable `GOOGLE_API_KEY` |
-| `request_params` | `Optional[Dict[str, Any]]` | Additional parameters for embedding requests | `None` |
-| `client_params` | `Optional[Dict[str, Any]]` | Additional parameters for client initialization | `None` |
-| `gemini_client` | `Optional[ModuleType]` | Pre-configured Gemini client | `None` |
+| `id` | `str` | 用于生成嵌入的模型ID | `"models/text-embedding-004"` |
+| `task_type` | `str` | 嵌入生成的任务类型 | `"RETRIEVAL_QUERY"` |
+| `title` | `Optional[str]` | 待嵌入内容的可选标题 | `None` |
+| `dimensions` | `Optional[int]` | 嵌入输出的维度 | `768` |
+| `api_key` | `Optional[str]` | Google API密钥 | 环境变量 `GOOGLE_API_KEY` |
+| `request_params` | `Optional[Dict[str, Any]]` | 嵌入请求的附加参数 | `None` |
+| `client_params` | `Optional[Dict[str, Any]]` | 客户端初始化的附加参数 | `None` |
+| `gemini_client` | `Optional[ModuleType]` | 预配置的Gemini客户端 | `None` |

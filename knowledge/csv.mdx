@@ -1,16 +1,15 @@
 ---
-title: CSV Knowledge Base
-description: Learn how to use local CSV files in your knowledge base.
-sidebarTitle: CSV
+title: CSV 知识库
+description: 了解如何在知识库中使用本地CSV文件。
+sidebarTitle: CSV（逗号分隔文件）
 ---
+**CSVKnowledgeBase** 读取**本地CSV**文件，将其转换为向量嵌入并加载到向量数据库中。
 
-The **CSVKnowledgeBase** reads **local CSV** files, converts them into vector embeddings and loads them to a vector database.
-
-## Usage
+## 使用方法
 
 <Note>
 
-We are using a local PgVector database for this example. [Make sure it's running](https://docs.agno.com/vectordb/pgvector)
+本示例使用本地PgVector数据库。[请确保其已运行](https://docs.agno.com/vectordb/pgvector)
 
 </Note>
 
@@ -20,7 +19,7 @@ from agno.vectordb.pgvector import PgVector
 
 knowledge_base = CSVKnowledgeBase(
     path="data/csv",
-    # Table name: ai.csv_documents
+    # 表名：ai.csv_documents
     vector_db=PgVector(
         table_name="csv_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -28,7 +27,7 @@ knowledge_base = CSVKnowledgeBase(
 )
 ```
 
-Then use the `knowledge_base` with an `Agent`:
+然后使用`knowledge_base`与`Agent`配合：
 
 ```python
 from agno.agent import Agent
@@ -43,12 +42,12 @@ agent.knowledge.load(recreate=False)
 agent.print_response("Ask me about something from the knowledge base")
 ```
 
-#### CSVKnowledgeBase also supports async loading.
+#### CSVKnowledgeBase也支持异步加载。
 
 ```shell
 pip install qdrant-client
 ```
-We are using a local Qdrant database for this example. [Make sure it's running](https://docs.agno.com/vectordb/qdrant)
+本示例使用本地Qdrant数据库。[请确保其已运行](https://docs.agno.com/vectordb/qdrant)
 
 ```python async_knowledge_base.py
 import asyncio
@@ -69,30 +68,30 @@ knowledge_base = CSVKnowledgeBase(
     num_documents=5,  # Number of documents to return on search
 )
 
-# Initialize the Agent with the knowledge_base
+# 用知识库初始化智能体
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
 )
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 首次运行后注释掉
     asyncio.run(knowledge_base.aload(recreate=False))
 
-    # Create and use the agent
+    # 创建并使用智能体
     asyncio.run(agent.aprint_response("What is the csv file about", markdown=True))
 ```
 
-## Params
+## 参数
 
-| Parameter | Type               | Default       | Description                                                                                    |
-| --------- | ------------------ | ------------- | ---------------------------------------------------------------------------------------------- |
-| `path`    | `Union[str, Path]` | -             | Path to the CSV file                                                                           |
-| `reader`  | `CSVReader`        | `CSVReader()` | A `CSVReader` that reads the CSV file and converts it into `Documents` for the vector database |
+| 参数        | 类型               | 默认值       | 描述                                                                                    |
+| ----------- | ------------------ | ------------- | -------------------------------------------------------------------------------------- |
+| `path`    | `Union[str, Path]` | -             | CSV文件路径                                                                            |
+| `reader`  | `CSVReader`        | `CSVReader()` | 一个`CSVReader`，用于读取CSV文件并将其转换为向量数据库所需的`Documents` |
 
-`CSVKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+`CSVKnowledgeBase`是[AgentKnowledge](/reference/knowledge/base)类的子类，可访问相同参数。
 
-## Developer Resources
+## 开发者资源
 
-- View [Sync loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/csv_kb.py)
-- View [Async loading Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/csv_kb_async.py)
+- 查看[同步加载操作指南](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/csv_kb.py)
+- 查看[异步加载操作指南](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/csv_kb_async.py)

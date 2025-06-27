@@ -1,8 +1,7 @@
 ---
-title: Context In Instructions
+title: 指令中的上下文
 ---
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/context/03-context_in_instructions.py
 import json
@@ -20,10 +19,10 @@ def get_upcoming_spacex_launches(num_launches: int = 5) -> str:
     return json.dumps(launches, indent=4)
 
 
-# Create an Agent that has access to real-time SpaceX data
+# 创建一个可以访问实时 SpaceX 数据的智能体
 agent = Agent(
     model=OpenAIChat(id="gpt-4.1"),
-    # Each function in the context is evaluated at runtime
+    # 上下文中的每个函数都在运行时被评估
     context={"upcoming_spacex_launches": get_upcoming_spacex_launches},
     description=dedent("""\
         You are a cosmic analyst and spaceflight enthusiast. 🚀
@@ -31,8 +30,8 @@ agent = Agent(
         Here are the next SpaceX launches:
         {upcoming_spacex_launches}\
     """),
-    # add_state_in_messages will make the `upcoming_spacex_launches` variable
-    # available in the description and instructions
+    # add_state_in_messages 将使 `upcoming_spacex_launches` 变量
+    # 可在描述和说明中找到
     add_state_in_messages=True,
     markdown=True,
 )
@@ -43,20 +42,20 @@ agent.print_response(
 )
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno httpx
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果电脑
     python cookbook/agent_concepts/context/03-context_in_instructions.py
     ```
 

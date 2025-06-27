@@ -1,8 +1,7 @@
 ---
-title: Image Input URL 
+title: 图像输入URL
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/anthropic/image_input_url.py
 from agno.agent import Agent
@@ -27,26 +26,26 @@ agent.print_response(
 )
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export ANTHROPIC_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U anthropic agno duckduckgo-search
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果电脑
     python cookbook/models/anthropic/image_input_url.py
     ```
 

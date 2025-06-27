@@ -1,8 +1,7 @@
 ---
-title: Financial Datasets Tools
+title: 金融数据集工具
 ---
-
-## Code
+## 代码
 
 ```python cookbook/tools/financial_datasets_tools.py
 from agno.agent import Agent
@@ -26,14 +25,14 @@ agent = Agent(
     show_tool_calls=True,
 )
 
-# Example 1: Financial Statements
+# 示例 1: 财务报表
 print("\n=== Income Statement Example ===")
 agent.print_response(
     "Get the most recent income statement for AAPL and highlight key metrics",
     stream=True,
 )
 
-# Example 2: Balance Sheet Analysis
+# 示例2：资产负债表分析
 print("\n=== Balance Sheet Analysis Example ===")
 agent.print_response(
     "Analyze the balance sheets for MSFT over the last 3 years. Focus on debt-to-equity ratio and cash position.",
@@ -42,26 +41,26 @@ agent.print_response(
 
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API credentials">
+  <Step title="设置您的API凭证">
     ```bash
     export FINANCIAL_DATASETS_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果
       python cookbook/tools/financial_datasets_tools.py
     ```
 

@@ -1,23 +1,22 @@
 ---
 title: Groq
-description: Learn how to use Groq with Agno.
+description: 了解如何在 Agno 中使用 Groq。
 ---
+Groq为大型语言模型提供极速API端点。
 
-Groq offers blazing-fast API endpoints for large language models.
+查看所有Groq支持的模型[请点击这里](https://console.groq.com/docs/models)。
 
-See all the Groq supported models [here](https://console.groq.com/docs/models).
+- 常规使用推荐`llama-3.3-70b-versatile`
+- 需要快速响应推荐`llama-3.1-8b-instant`
+- 图像理解任务推荐`llama-3.2-90b-vision-preview`
 
-- We recommend using `llama-3.3-70b-versatile` for general use
-- We recommend `llama-3.1-8b-instant` for a faster result.
-- We recommend using `llama-3.2-90b-vision-preview` for image understanding.
+#### 多模态支持
 
-#### Multimodal Support
+Groq支持将`Image`作为输入
 
-With Groq we support `Image` as input
+## 认证
 
-## Authentication
-
-Set your `GROQ_API_KEY` environment variable. Get your key from [here](https://console.groq.com/keys).
+设置您的`GROQ_API_KEY`环境变量。密钥获取[请访问这里](https://console.groq.com/keys)。
 
 <CodeGroup>
 
@@ -31,9 +30,9 @@ setx GROQ_API_KEY ***
 
 </CodeGroup>
 
-## Example
+## 示例
 
-Use `Groq` with your `Agent`:
+结合您的`Agent`使用`Groq`：
 
 <CodeGroup>
 
@@ -46,17 +45,17 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response in the terminal
+# 在终端中打印响应
 agent.print_response("Share a 2 sentence horror story.")
 
 ```
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/groq). </Note>
+<Note> 查看更多示例[请访问这里](../examples/models/groq)。 </Note>
 
-## Params
+## 参数
 
 <Snippet file="model-groq-params.mdx" />
 
-`Groq` is a subclass of the [Model](/reference/models/model) class and has access to the same params.
+`Groq`是[Model](/reference/models/model)类的子类，拥有相同的参数访问权限。

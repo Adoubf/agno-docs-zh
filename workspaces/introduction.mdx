@@ -1,55 +1,52 @@
 ---
-title: Standardized Codebases for Agentic Systems
-sidebarTitle: Overview
+title: 智能体系统的标准化代码库
+sidebarTitle: 概述
 ---
+在构建智能体系统时，您需要一个API来服务智能体、一个数据库存储会话和向量数据，以及一个用于测试评估的管理界面。同时还需要定时任务、告警机制和数据管道来处理数据摄取与清洗。这类系统通常需要数月开发周期，我们将其开源免费提供给社区。
 
-When building an Agentic System, you'll need an API to serve your Agents, a database to store session and vector data and an admin interface for testing and evaluation. You'll also need cron jobs, alerting and data pipelines for ingestion and cleaning. This system would generally take a few months to build, we're open-sourcing it for the community for free.
+# 什么是Workspaces？
 
-# What are Workspaces?
+**Workspaces是标准化生产级智能体系统的代码库**，包含：
 
-**Workspaces are standardized codebases for production Agentic Systems.** They contain:
+- 基于FastAPI的RestAPI，用于服务智能体、团队和工作流
+- 测试用的streamlit应用（相当于管理后台）
+- 用于会话和向量存储的PostgreSQL数据库
 
-- A RestAPI (FastAPI) for serving Agents, Teams and Workflows.
-- A streamlit application for testing -- think of this as an admin interface.
-- A postgres database for session and vector storage.
+Workspaces通过Docker支持本地运行，并可轻松部署至AWS。这是绝佳的起点，也是我们服务客户时使用的标准方案。您需要根据具体需求进行定制，但它们能显著加速开发进程。
 
-Workspaces are setup to run locally using docker and be easily deployed to AWS. They're a fantastic starting point and exactly what we use for our customers. You'll definitely need to customize them to fit your specific needs, but they'll get you started much faster.
+这些代码库凝结了我们多年的经验积累，现免费开放给开源社区。
 
-They contain years of learnings, available for free for the open-source community.
+# 运行机制
 
-# Here's how they work
+- 创建代码库：`ag ws create`
+- 本地Docker运行：`ag ws up`
+- 部署到AWS：`ag ws up prd:aws`
 
-- Create your codebase using: `ag ws create`
-- Run locally using docker: `ag ws up`
-- Run on AWS: `ag ws up prd:aws`
-
-We recommend starting with the `agent-app` template and taking it from there.
+建议从`agent-app`模板开始入手。
 
 <CardGroup cols={2}>
-  <Card title="Agent App" icon="books" href="/workspaces/agent-app/local">
-    An Agentic System built with FastAPI, Streamlit and a Postgres database.
+  <Card title="智能体应用" icon="books" href="/workspaces/agent-app/local">
+    基于FastAPI、Streamlit和PostgreSQL构建的智能体系统
   </Card>
-  <Card title="Agent Api" icon="bolt" href="/workspaces/agent-api/local">
-    An Agent API built with FastAPI and Postgres.
+  <Card title="智能体 API" icon="bolt" href="/workspaces/agent-api/local">
+    基于FastAPI和PostgreSQL构建的智能体API
   </Card>
 </CardGroup>
 
-# How we build Agentic Systems
+# 我们的智能体系统构建方法论
 
-When building Agents, we experiment locally till we achieve 6/10 quality.
-This helps us see quick results and get a rough idea of how our solution should look like in production.
+开发智能体时，我们通过本地实验达到6/10质量基准。这有助于快速验证效果并明确生产环境的解决方案轮廓。
 
-Then, we start moving to a production environment and iterate from there. Here's how __*we*__ build production systems:
-- Serve Agents, Teams and Workflows via a REST API (FastAPI).
-- Use a streamlit application for debugging and testing. This streamlit app is generally used as an admin interface for the agentic system and shows all sorts of data.
-- Monitor, evaluate and improve the implementation until we reach 9/10 quality.
-- In parallel, we start integrating our front-end with the REST API above.
+随后转入生产环境进行迭代优化。我们的标准生产系统构建流程：
+- 通过FastAPI构建REST API服务智能体、团队和工作流
+- 使用Streamlit应用进行调试测试（作为智能体系统的管理后台，展示各类数据）
+- 持续监控评估直至达到9/10质量基准
+- 同步将前端与REST API集成
 
-Having built 100s of such systems, we have a standard set of codebases we use and we call them **Workspaces**. They help us manage our Agentic System as code.
+基于数百个系统的构建经验，我们形成了标准化的代码库体系——即**Workspaces**，帮助我们以代码化方式管理智能体系统。
 
 ![workspace](/images/workspace.png)
 
 <Note>
-We strongly believe that your AI applications should run securely inside your VPC.
-We fully support BYOC (Bring Your Own Cloud) and encourage you to use your own cloud account.
+我们坚信AI应用应运行在您专属的VPC内以确保安全。完全支持BYOC（自带云）模式，强烈建议使用您自己的云账户。
 </Note>

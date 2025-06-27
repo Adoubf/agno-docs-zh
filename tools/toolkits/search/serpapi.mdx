@@ -1,12 +1,11 @@
 ---
 title: Serpapi
 ---
+**SerpApi工具**能让智能体在Google和YouTube上执行搜索查询。
 
-**SerpApiTools** enable an Agent to search Google and YouTube for a query.
+## 前提条件
 
-## Prerequisites
-
-The following example requires the `google-search-results` library and an API key from [SerpApi](https://serpapi.com/).
+以下示例需要`google-search-results`库以及来自[SerpApi](https://serpapi.com/)的API密钥。
 
 ```shell
 pip install -U google-search-results
@@ -16,9 +15,9 @@ pip install -U google-search-results
 export SERP_API_KEY=***
 ```
 
-## Example
+## 示例
 
-The following agent will search Google for the query: "Whats happening in the USA" and share results.
+以下智能体会在Google上搜索查询："Whats happening in the USA"并分享结果。
 
 ```python cookbook/tools/serpapi_tools.py
 from agno.agent import Agent
@@ -28,21 +27,21 @@ agent = Agent(tools=[SerpApiTools()])
 agent.print_response("Whats happening in the USA?", markdown=True)
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter        | Type   | Default | Description                                                 |
+| 参数        | 类型   | 默认值 | 描述                                                 |
 | ---------------- | ------ | ------- | ----------------------------------------------------------- |
-| `api_key`        | `str`  | -       | API key for authentication purposes.                        |
-| `search_youtube` | `bool` | `False` | Enables the functionality to search for content on YouTube. |
+| `api_key`        | `str`  | -       | 用于身份验证的API密钥。                        |
+| `search_youtube` | `bool` | `False` | 启用YouTube内容搜索功能。 |
 
-## Toolkit Functions
+## 工具包函数
 
-| Function         | Description                                |
+| 函数         | 描述                                |
 | ---------------- | ------------------------------------------ |
-| `search_google`  | This function searches Google for a query. |
-| `search_youtube` | Searches YouTube for a query.              |
+| `search_google`  | 该函数在Google上执行查询搜索。 |
+| `search_youtube` | 在YouTube上执行查询搜索。              |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/serpapi.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/serpapi_tools.py)
+- 查看[工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/serpapi.py)
+- 查看[Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/serpapi_tools.py)

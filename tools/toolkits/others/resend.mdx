@@ -1,12 +1,11 @@
 ---
 title: Resend
 ---
+**ResendTools** 让智能体能够通过 Resend 发送电子邮件
 
-**ResendTools** enable an Agent to send emails using Resend
+## 前提条件
 
-## Prerequisites
-
-The following example requires the `resend` library and an API key from [Resend](https://resend.com/).
+以下示例需要 `resend` 库和一个来自 [Resend](https://resend.com/) 的 API 密钥。
 
 ```shell
 pip install -U resend
@@ -16,9 +15,9 @@ pip install -U resend
 export RESEND_API_KEY=***
 ```
 
-## Example
+## 示例
 
-The following agent will send an email using Resend
+以下智能体将使用 Resend 发送电子邮件
 
 ```python cookbook/tools/resend_tools.py
 from agno.agent import Agent
@@ -31,20 +30,20 @@ agent = Agent(tools=[ResendTools(from_email=from_email)], show_tool_calls=True)
 agent.print_response(f"Send an email to {to_email} greeting them with hello world")
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter    | Type  | Default | Description                                                   |
-| ------------ | ----- | ------- | ------------------------------------------------------------- |
-| `api_key`    | `str` | -       | API key for authentication purposes.                          |
-| `from_email` | `str` | -       | The email address used as the sender in email communications. |
+| 参数          | 类型   | 默认值  | 描述                                           |
+| ------------- | ------ | ------- | ---------------------------------------------- |
+| `api_key`    | `str` | -       | 用于身份验证的 API 密钥。                      |
+| `from_email` | `str` | -       | 在电子邮件通信中作为发件人的电子邮件地址。     |
 
-## Toolkit Functions
+## 工具包功能
 
-| Function     | Description                         |
-| ------------ | ----------------------------------- |
-| `send_email` | Send an email using the Resend API. |
+| 功能          | 描述                             |
+| ------------- | -------------------------------- |
+| `send_email` | 使用 Resend API 发送电子邮件。   |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/resend.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/resend_tools.py)
+- 查看 [工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/resend.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/resend_tools.py)

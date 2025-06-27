@@ -1,9 +1,8 @@
 ---
-title: Streaming External Tool Execution
-description: This example demonstrates how to implement streaming external tool execution, allowing for real-time interaction and response streaming while executing tools outside of the agent's control.
+title: 流式外部工具执行
+description: 本示例演示如何实现流式外部工具执行，允许在智能体控制范围之外执行工具时进行实时交互和响应流式传输。
 ---
-
-## Code
+## 代码
 
 ```python cookbook/agent_concepts/user_control_flows/external_tool_execution_stream.py
 import subprocess
@@ -41,35 +40,35 @@ for run_response in agent.run(
         for tool in run_response.tools_awaiting_external_execution:
             if tool.tool_name == execute_shell_command.name:
                 print(f"Executing {tool.tool_name} with args {tool.tool_args} externally")
-                # We execute the tool ourselves. You can also execute something completely external here.
+                # 我们自行执行该工具。您也可以在此处执行完全外部的操作。
                 result = execute_shell_command.entrypoint(**tool.tool_args)
-                # We have to set the result on the tool execution object so that the agent can continue
+                # 我们需要在工具执行对象上设置结果，以便智能体可以继续
                 tool.result = result
 
         run_response = agent.continue_run(run_response=run_response, stream=True)
         pprint.pprint_run_response(run_response)
 ```
 
-## Usage
+## 使用方式
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的API密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno openai
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果电脑
     python cookbook/agent_concepts/user_control_flows/external_tool_execution_stream.py
     ```
 
@@ -80,16 +79,16 @@ for run_response in agent.run(
   </Step>
 </Steps>
 
-## Key Features
+## 核心特性
 
-- Uses `agent.run(stream=True)` for streaming responses
-- Implements streaming continuation with `agent.continue_run(stream=True)`
-- Maintains real-time interaction with external tool execution
-- Demonstrates how to handle streaming responses with external tools
+- 采用 `agent.run(stream=True)` 实现流式响应
+- 使用 `agent.continue_run(stream=True)` 实现流式续传
+- 保持与外部工具执行的实时交互
+- 演示如何处理带外部工具的流式响应
 
-## Use Cases
+## 应用场景
 
-- Real-time external tool execution
-- Streaming applications with external service calls
-- Interactive interfaces with external tool execution
-- Progressive response generation with external tools 
+- 实时外部工具执行
+- 需要调用外部服务的流式应用
+- 结合外部工具执行的交互式界面
+- 基于外部工具的渐进式响应生成

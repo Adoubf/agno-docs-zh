@@ -1,34 +1,33 @@
 ---
-title: Mongo Agent Storage
+title: Mongo 智能体存储
 sidebarTitle: MongoDB
 ---
+Agno支持使用MongoDB作为智能体的存储后端，通过`MongoDbStorage`类实现。
 
-Agno supports using MongoDB as a storage backend for Agents using the `MongoDbStorage` class.
+## 使用方法
 
-## Usage
-
-You need to provide either `db_url` or `client`. The following example uses `db_url`.
+您需要提供`db_url`或`client`。以下示例使用`db_url`。
 
 ```python mongodb_storage_for_agent.py
 from agno.storage.mongodb import MongoDbStorage
 
 db_url = "mongodb://ai:ai@localhost:27017/agno"
 
-# Create a storage backend using the Mongo database
+# 使用Mongo数据库创建存储后端
 storage = MongoDbStorage(
-    # store sessions in the agent_sessions collection
+    # 将会话存储在 agent_sessions 集合中
     collection_name="agent_sessions",
     db_url=db_url,
 )
 
-# Add storage to the Agent
+# 为智能体添加存储功能
 agent = Agent(storage=storage)
 ```
 
-## Params
+## 参数说明
 
 <Snippet file="storage-mongodb-params.mdx" />
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/mongodb_storage/mongodb_storage_for_agent.py)
+- 查看[Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/mongodb_storage/mongodb_storage_for_agent.py)

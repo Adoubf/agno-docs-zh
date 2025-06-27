@@ -1,22 +1,21 @@
 ---
-title: Together
-description: Learn how to use Together with Agno.
+title: 一起
+description: 了解如何结合使用 Agno。
 ---
+Together是一个为大型语言模型提供API端点的平台。
+查看他们的模型库请点击[这里](https://www.together.ai/models)。
 
-Together is a platform for providing endpoints for Large Language models.
-See their library of models [here](https://www.together.ai/models).
+我们建议通过实验来寻找最适合您用例的模型。
 
-We recommend experimenting to find the best-suited model for your use-case.
+Together采用分级速率限制策略。更多详情请参阅[文档](https://docs.together.ai/docs/rate-limits)。
 
-Together have tier based rate limits. See the [docs](https://docs.together.ai/docs/rate-limits) for more information.
+## 身份验证
 
-## Authentication
-
-Set your `TOGETHER_API_KEY` environment variable. Get your key [from Together here](https://api.together.xyz/settings/api-keys).
+设置您的`TOGETHER_API_KEY`环境变量。获取API密钥请访问[Together平台](https://api.together.xyz/settings/api-keys)。
 
 <CodeGroup>
 
-```bash Mac
+```bash Mac（苹果电脑）
 export TOGETHER_API_KEY=***
 ```
 
@@ -26,9 +25,9 @@ setx TOGETHER_API_KEY ***
 
 </CodeGroup>
 
-## Example
+## 示例
 
-Use `Together` with your `Agent`:
+使用`Together`配合您的`Agent`：
 
 <CodeGroup>
 
@@ -41,16 +40,16 @@ agent = Agent(
     markdown=True
 )
 
-# Print the response in the terminal
+# 在终端中打印响应
 agent.print_response("Share a 2 sentence horror story.")
 ```
 
 </CodeGroup>
 
-<Note> View more examples [here](../examples/models/together). </Note>
+<Note> 查看更多示例请访问[这里](../examples/models/together)。 </Note>
 
-## Params
+## 参数
 
 <Snippet file="model-together-params.mdx" />
 
-`Together` also supports the params of [OpenAI](/reference/models/openai).
+`Together` 同时支持[OpenAI](/reference/models/openai)的参数配置。

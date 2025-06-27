@@ -1,6 +1,6 @@
-| Parameter    | Type                | Default          | Description                                                    |
+| 参数        | 类型                | 默认值           | 描述                                                           |
 | ----------- | ------------------- | ---------------- | -------------------------------------------------------------- |
-| `table_name` | `str`               | `None`                | Name of the table to store vectors and metadata in Cassandra    |
-| `keyspace`   | `str`               | `None`                | Keyspace name in Cassandra where the table will be created      |
-| `embedder`   | `Optional[Embedder]` | `OpenAIEmbedder()` | Embedder instance to generate embeddings                       |
-| `session`    | `CassandraSession`  | `None`                | Active Cassandra session object for database operations         |
+| `table_name` | `str`               | `None`                | 用于存储向量和元数据的 Cassandra 表名称                        |
+| `keyspace`   | `str`               | `None`                | 将在其中创建表的 Cassandra 键空间名称                          |
+| `embedder`   | `Optional[Embedder]` | `OpenAIEmbedder()` | 用于生成嵌入向量的嵌入器实例                                   |
+| `session`    | `CassandraSession`  | `None`                | 用于数据库操作的活跃 Cassandra 会话对象                        |

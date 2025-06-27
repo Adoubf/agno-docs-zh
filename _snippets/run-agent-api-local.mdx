@@ -1,34 +1,34 @@
-## Run your Agent Api locally
+## 本地运行你的 Agent Api
 
-`cd` into the `agent-api` folder
+`cd` 进入 `agent-api` 文件夹
 
 ```bash
 cd agent-api
 ```
 
-Start your Agent Api using the following command:
+使用以下命令启动你的 Agent Api：
 
 <CodeGroup>
 
-```bash terminal
+```bash 终端
 ag ws up
 ```
 
-```bash shorthand
+```bash 速记
 ag ws up dev:docker
 ```
 
-```bash full options
+```bash 完整选项
 ag ws up --env dev --infra docker
 ```
 
 </CodeGroup>
 
-**Press Enter** to confirm and give a few seconds for the image to download (only the first time). Verify container status and view logs on the docker dashboard.
+**按回车键**确认并等待几秒下载镜像（仅首次运行）。在 Docker 仪表盘中检查容器状态并查看日志。
 
-- Open [localhost:8000/docs](http://localhost:8000/docs) to view the FastAPI routes.
+- 访问 [localhost:8000/docs](http://localhost:8000/docs) 查看 FastAPI 路由。
 
-Notes:
+注意事项：
 
-- The `Agents` are defined in the `agents` folder.
-- The api routes are defined in the `api` folder.
+- `Agents` 定义在 `agents` 文件夹中。
+- API 路由定义在 `api` 文件夹中。

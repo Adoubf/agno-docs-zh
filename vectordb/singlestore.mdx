@@ -1,9 +1,8 @@
 ---
-title: SingleStore Agent Knowledge
+title: SingleStore 智能体知识库
 sidebarTitle: SingleStore
 ---
-
-## Setup
+## 安装配置
 
 ```shell
 docker run -d --name singlestoredb \
@@ -18,7 +17,7 @@ docker run -d --name singlestoredb \
 docker start singlestoredb
 ```
 
-After running the container, set the environment variables:
+运行容器后，请设置以下环境变量：
 
 ```shell
 export SINGLESTORE_HOST="localhost"
@@ -28,9 +27,9 @@ export SINGLESTORE_PASSWORD="admin"
 export SINGLESTORE_DATABASE="AGNO"
 ```
 
-SingleStore supports both cloud-based and local deployments. For step-by-step guidance on setting up your cloud deployment, please refer to the [SingleStore Setup Guide](https://docs.singlestore.com/cloud/connect-to-singlestore/connect-with-mysql/connect-with-mysql-client/connect-to-singlestore-helios-using-tls-ssl/).
+SingleStore 支持云端和本地部署。如需分步指导配置云端部署，请参阅 [SingleStore 安装指南](https://docs.singlestore.com/cloud/connect-to-singlestore/connect-with-mysql/connect-with-mysql-client/connect-to-singlestore-helios-using-tls-ssl/)。
 
-## Example
+## 示例
 
 ```python agent_with_knowledge.py
 import typer
@@ -74,8 +73,8 @@ def pdf_assistant(user: str = "user"):
         knowledge_base=knowledge_base,
         use_tools=True,
         show_tool_calls=True,
-        # Uncomment the following line to use traditional RAG
-        # add_references_to_prompt=True,
+        # 取消注释以下行以使用传统 RAG
+        # 将引用内容添加到提示中=True,
     )
     if run_id is None:
         run_id = agent.run_id
@@ -87,16 +86,16 @@ def pdf_assistant(user: str = "user"):
         agent.cli_app(markdown=True)
 
 if __name__ == "__main__":
-    # Comment out after first run
+    # 首次运行后注释掉
     knowledge_base.load(recreate=False)
 
     typer.run(pdf_assistant)
 ```
 
-## SingleStore Params
+## SingleStore 参数
 
 <Snippet file="vectordb_singlestore_params.mdx" />
 
-## Developer Resources
+## 开发者资源
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/singlestore_db.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/vector_dbs/singlestore_db.py)

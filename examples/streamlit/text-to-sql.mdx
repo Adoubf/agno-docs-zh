@@ -1,19 +1,18 @@
 ---
-title: SQL Agent
+title: SQL 智能体
 ---
+本示例演示如何构建一个文本转SQL系统，该系统具备以下功能：
+1. 使用智能体增强检索（Agentic RAG）搜索表元数据、示例查询和编写优质SQL查询的规则
+2. 利用动态少量示例和规则改进查询构建
+3. 提供交互式Streamlit UI供用户查询数据库
 
-This example shows how to build a text-to-SQL system that:
-1. Uses Agentic RAG to search for table metadata, sample queries and rules for writing better SQL queries.
-2. Uses dynamic few-shot examples and rules to improve query construction.
-3. Provides an interactive Streamlit UI for users to query the database.
+我们以F1数据集为例，但您可以轻松扩展到其他数据集。
 
-We'll use the F1 dataset as an example, but you can easily extend it to other datasets.
-
-### Key capabilities
-- Natural language to SQL conversion
-- Retrieve table metadata, sample queries and rules using Agentic RAG
-- Better query construction with the help of dynamic few-shot examples and rules
-- Interactive Streamlit UI
+### 核心能力
+- 自然语言转SQL
+- 使用智能体增强检索获取表元数据、示例查询和规则
+- 借助动态少量示例和规则构建更优质的查询
+- 交互式Streamlit UI
 
 <video
   autoPlay
@@ -23,57 +22,57 @@ We'll use the F1 dataset as an example, but you can easily extend it to other da
   src="/videos/sql_agent.mp4"
 ></video>
 
-### Simple queries to try
-- "Who are the top 5 drivers with the most race wins?"
-- "Compare Mercedes vs Ferrari performance in constructors championships"
-- "Show me the progression of fastest lap times at Monza"
-- "Which drivers have won championships with multiple teams?"
-- "What tracks have hosted the most races?"
-- "Show me Lewis Hamilton's win percentage by season"
+### 可尝试的简单查询
+- "获胜场次最多的前5名车手是谁？"
+- "比较梅赛德斯和法拉利在车队锦标赛中的表现"
+- "展示蒙扎赛道最快单圈时间的演进过程"
+- "哪些车手曾效力不同车队赢得冠军？"
+- "举办赛事最多的赛道有哪些？"
+- "展示刘易斯·汉密尔顿分赛季胜率"
 
-### Advanced queries with table joins
-- "How many races did the championship winners win each year?"
-- "Compare the number of race wins vs championship positions for constructors in 2019"
-- "Show me Lewis Hamilton's race wins and championship positions by year"
-- "Which drivers have both won races and set fastest laps at Monaco?"
-- "Show me Ferrari's race wins and constructor championship positions from 2015-2020"
+### 涉及表连接的高级查询
+- "历届冠军车手每年赢得多少场比赛？"
+- "对比2019赛季各车队的获胜场次与冠军排名"
+- "展示刘易斯·汉密尔顿历年比赛胜场和冠军排名"
+- "哪些车手曾在摩纳哥站既获胜又刷出最快圈速？"
+- "展示法拉利2015-2020年间比赛胜场和车队排名"
 
-## Code
+## 代码
 
-The complete code is available in the [Agno repository](https://github.com/agno-agi/agno).
+完整代码参见[Agno仓库](https://github.com/agno-agi/agno)。
 
-## Usage
+## 使用指南
 
 <Steps>
-  <Step title="Clone the repository">
+  <Step title="克隆该仓库">
     ```bash
     git clone https://github.com/agno-agi/agno.git
     cd agno
     ```
   </Step>
 
-  <Step title="Create virtual environment">
+  <Step title="创建虚拟环境">
     ```bash
     python3 -m venv .venv
     source .venv/bin/activate
     ```
   </Step>
 
-  <Step title="Install dependencies">
+  <Step title="安装依赖项">
     ```bash
     pip install -r cookbook/examples/streamlit_apps/sql_agent/requirements.txt
     ```
   </Step>
 
-  <Step title="Run PgVector">
-    First, install [Docker Desktop](https://docs.docker.com/desktop/install/mac-install/).
+  <Step title="运行 PgVector">
+    首先安装[Docker Desktop](https://docs.docker.com/desktop/install/mac-install/)。
 
-    Then run either using the helper script:
+    然后通过辅助脚本运行：
     ```bash
     ./cookbook/scripts/run_pgvector.sh
     ```
 
-    Or directly with Docker:
+    或直接使用Docker运行：
     ```bash
     docker run -d \
       -e POSTGRES_DB=ai \
@@ -87,43 +86,43 @@ The complete code is available in the [Agno repository](https://github.com/agno-
     ```
   </Step>
 
-  <Step title="Load F1 data">
+  <Step title="加载F1数据">
     ```bash
     python cookbook/examples/streamlit_apps/sql_agent/load_f1_data.py
     ```
   </Step>
 
-  <Step title="Load knowledge base">
-    The knowledge base contains table metadata, rules and sample queries that help the Agent generate better responses.
+  <Step title="加载知识库">
+    知识库包含表元数据、规则和示例查询，这些内容有助于智能体生成更优质的响应。
 
     ```bash
     python cookbook/examples/streamlit_apps/sql_agent/load_knowledge.py
     ```
 
-    Pro tips for enhancing the knowledge base:
-    - Add `table_rules` and `column_rules` to guide the Agent on query formats
-    - Add sample queries to `cookbook/examples/apps/sql_agent/knowledge_base/sample_queries.sql`
+    增强知识库的专业建议：
+    - 添加`table_rules`和`column_rules`来指导智能体查询格式
+    - 将示例查询添加至`cookbook/examples/apps/sql_agent/knowledge_base/sample_queries.sql`
   </Step>
 
-  <Step title="Set up API keys">
+  <Step title="设置 API 密钥">
     ```bash
-    # Required
+    # 必填
     export OPENAI_API_KEY=***
 
-    # Optional
+    # 可选
     export ANTHROPIC_API_KEY=***
     export GOOGLE_API_KEY=***
     export GROQ_API_KEY=***
     ```
-    We recommend using gpt-4o for optimal performance.
+    我们推荐使用gpt-4o以获得最佳性能。
   </Step>
 
-  <Step title="Launch the app">
+  <Step title="启动应用">
     ```bash
     streamlit run cookbook/examples/streamlit_apps/sql_agent/app.py
     ```
-    Open [localhost:8501](http://localhost:8501) to start using the SQL Agent.
+    访问[localhost:8501](http://localhost:8501)开始使用SQL智能体。
   </Step>
 </Steps>
 
-Need help? Join our [Discourse community](https://community.agno.com) for support!
+需要帮助？请加入我们的[Discourse社区](https://community.agno.com)获取支持！

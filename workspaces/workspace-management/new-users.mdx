@@ -1,14 +1,13 @@
 ---
-title: Setup workspace for new users
-sidebarTitle: "Add New Users"
+title: 为新用户设置工作空间
+sidebarTitle: "新增用户"
 ---
-
-Follow these steps to setup an existing workspace:
+按照以下步骤设置现有工作区：
 
 <Steps>
 
-<Step title="Clone git repository">
-Clone the git repo and `cd` into the workspace directory
+<Step title="克隆 Git 仓库">
+克隆git仓库并`cd`到工作区目录
 
 <CodeGroup>
 
@@ -27,7 +26,7 @@ cd your_workspace_directory
 </CodeGroup>
 
 </Step>
-<Step title="Create and activate a virtual env">
+<Step title="创建并激活虚拟环境">
 
 <CodeGroup>
 
@@ -44,7 +43,7 @@ aienv/scripts/activate
 </CodeGroup>
 
 </Step>
-<Step title="Install agno">
+<Step title="安装 agno">
 
 <CodeGroup>
 
@@ -59,7 +58,7 @@ pip install -U agno
 </CodeGroup>
 
 </Step>
-<Step title="Setup workspace">
+<Step title="设置工作区">
 
 <CodeGroup>
 
@@ -74,9 +73,9 @@ ag ws setup
 </CodeGroup>
 
 </Step>
-<Step title="Copy secrets">
+<Step title="复制密钥">
 
-Copy `workspace/example_secrets` to `workspace/secrets`
+将`workspace/example_secrets`复制到`workspace/secrets`
 
 <CodeGroup>
 
@@ -91,44 +90,44 @@ cp -r workspace/example_secrets workspace/secrets
 </CodeGroup>
 
 </Step>
-<Step title="Start workspace">
+<Step title="启动工作空间">
 
 <Note>
 
-Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) if needed.
+如需安装[docker desktop](https://docs.docker.com/desktop/install/mac-install/)。
 
 </Note>
 
 <CodeGroup>
 
-```bash terminal
+```bash 终端
 ag ws up
 ```
 
-```bash full options
+```bash 完整选项
 ag ws up --env dev --infra docker
 ```
 
-```bash shorthand
+```bash 速记
 ag ws up dev:docker
 ```
 
 </CodeGroup>
 
 </Step>
-<Step title="Stop workspace">
+<Step title="停止工作区">
 
 <CodeGroup>
 
-```bash terminal
+```bash 终端
 ag ws down
 ```
 
-```bash full options
+```bash 完整选项
 ag ws down --env dev --infra docker
 ```
 
-```bash shorthand
+```bash 速记
 ag ws down dev:docker
 ```
 

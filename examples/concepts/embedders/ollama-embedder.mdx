@@ -1,8 +1,7 @@
 ---
-title: Ollama Embedder
+title: Ollama 嵌入器
 ---
-
-## Code
+## 代码
 
 ```python
 from agno.agent import AgentKnowledge
@@ -13,11 +12,11 @@ embeddings = OllamaEmbedder().get_embedding(
     "The quick brown fox jumps over the lazy dog."
 )
 
-# Print the embeddings and their dimensions
+# 打印嵌入向量及其维度
 print(f"Embeddings: {embeddings[:5]}")
 print(f"Dimensions: {len(embeddings)}")
 
-# Example usage:
+# 示例用法：
 knowledge_base = AgentKnowledge(
     vector_db=PgVector(
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -28,22 +27,22 @@ knowledge_base = AgentKnowledge(
 )
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install Ollama">
-    Follow the installation instructions at [Ollama's website](https://ollama.ai)
+  <Step title="安装Ollama">
+    按照[Ollama官网](https://ollama.ai)的安装说明进行操作
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U sqlalchemy 'psycopg[binary]' pgvector agno
     ```
   </Step>
 
-  <Step title="Run PgVector">
+  <Step title="运行PgVector">
     ```bash
     docker run -d \
       -e POSTGRES_DB=ai \
@@ -57,7 +56,7 @@ knowledge_base = AgentKnowledge(
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/embedders/ollama_embedder.py

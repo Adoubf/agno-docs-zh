@@ -1,39 +1,38 @@
 ---
-title: X (Twitter)
+title: X（推特）
 ---
+## 前提条件
 
-## Prerequisites
-
-The following example requires the `tweepy` library.
+以下示例需要 `tweepy` 库。
 
 ```shell
 pip install tweepy
 ```
 
-To set up an X developer account and obtain the necessary keys, follow these steps:
+要设置X开发者账号并获取必要的密钥，请按照以下步骤操作：
 
-1. **Create an X Developer Account:**
-   - Go to the X Developer website: https://developer.x.com/
-   - Sign in with your X account or create a new one if you don't have an account.
-   - Apply for a developer account by providing the required information about your intended use of the X API.
+1. **创建X开发者账号：**
+   - 访问X开发者网站：https://developer.x.com/
+   - 使用您的X账号登录，如果没有账号请先注册。
+   - 申请开发者账号，提供关于您使用X API的预期用途所需信息。
 
-2. **Create a Project and App:**
-   - Once your developer account is approved, log in to the X Developer portal.
-   - Navigate to the "Projects & Apps" section and create a new project.
-   - Within the project, create a new app. This app will be used to generate the necessary API keys and tokens.
-   - You'll get a client id and client secret, but you can ignore them.
+2. **创建项目和应用：**
+   - 开发者账号获批后，登录X开发者门户。
+   - 导航至"Projects & Apps"部分并创建新项目。
+   - 在项目中创建新应用，该应用将用于生成必要的API密钥和令牌。
+   - 您会获得客户端ID和客户端密钥，但可以忽略它们。
 
-3. **Generate API Keys, Tokens, and Client Credentials:**
-   - After creating the app, navigate to the "Keys and tokens" tab.
-   - Generate the following keys, tokens, and client credentials:
-     - **API Key (Consumer Key)**
-     - **API Secret Key (Consumer Secret)**
-     - **Bearer Token**
-     - **Access Token**
-     - **Access Token Secret**
+3. **生成API密钥、令牌和客户端凭证：**
+   - 创建应用后，导航至"Keys and tokens"选项卡。
+   - 生成以下密钥、令牌和客户端凭证：
+     - **API密钥（消费者密钥）**
+     - **API密钥秘密（消费者秘密）**
+     - **Bearer令牌**
+     - **访问令牌**
+     - **访问令牌秘密**
 
-4. **Set Environment Variables:**
-   - Export the generated keys, tokens, and client credentials as environment variables in your system or provide them as arguments to the `XTools` constructor.
+4. **设置环境变量：**
+   - 将生成的密钥、令牌和客户端凭证导出为系统环境变量，或作为参数提供给`XTools`构造函数：
      - `X_CONSUMER_KEY`
      - `X_CONSUMER_SECRET`
      - `X_ACCESS_TOKEN`
@@ -41,18 +40,18 @@ To set up an X developer account and obtain the necessary keys, follow these ste
      - `X_BEARER_TOKEN`
 
 
-## Example
+## 示例
 
-The following example demonstrates how to use the X toolkit to interact with X (formerly Twitter) API:
+以下示例演示如何使用X工具包与X（原Twitter）API交互：
 
 ```python cookbook/tools/x_tools.py
 from agno.agent import Agent
 from agno.tools.x import XTools
 
-# Initialize the X toolkit
+# 初始化 X 工具包
 x_tools = XTools()
 
-# Create an agent with the X toolkit
+# 创建带有 X 工具包的智能体
 agent = Agent(
     instructions=[
         "Use your tools to interact with X as the authorized user",
@@ -65,25 +64,25 @@ agent = Agent(
     show_tool_calls=True,
 )
 
-# Example: Get user profile
+# 示例：获取用户资料
 agent.print_response("Get my X profile", markdown=True)
 
-# Example: Get user timeline
+# 示例：获取用户时间线
 agent.print_response("Get my timeline", markdown=True)
 
-# Example: Create and post a tweet
+# 示例：创建并发布一条推文
 agent.print_response("Create a post about AI ethics", markdown=True)
 
-# Example: Get information about a user
+# 示例：获取用户信息
 agent.print_response("Can you retrieve information about this user https://x.com/AgnoAgi ", markdown=True)
 
-# Example: Reply to a post
+# 示例：回复帖子
 agent.print_response(
     "Can you reply to this [post ID] post as a general message as to how great this project is: https://x.com/AgnoAgi",
     markdown=True,
 )
 
-# Example: Send a direct message
+# 示例：发送私信
 agent.print_response(
     "Send direct message to the user @AgnoAgi telling them I want to learn more about them and a link to their community.",
     markdown=True,
@@ -91,27 +90,27 @@ agent.print_response(
 ```
 
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter             | Type  | Default | Description                                            |
+| 参数名               | 类型  | 默认值 | 描述                                             |
 | --------------------- | ----- | ------- | ------------------------------------------------------ |
-| `bearer_token`        | `str` | `None`  | The bearer token for X API authentication        |
-| `consumer_key`        | `str` | `None`  | The consumer key for X API authentication        |
-| `consumer_secret`     | `str` | `None`  | The consumer secret for X API authentication     |
-| `access_token`        | `str` | `None`  | The access token for X API authentication        |
-| `access_token_secret` | `str` | `None`  | The access token secret for X API authentication |
+| `bearer_token`        | `str` | `None`  | 用于X API认证的Bearer令牌         |
+| `consumer_key`        | `str` | `None`  | 用于X API认证的消费者密钥         |
+| `consumer_secret`     | `str` | `None`  | 用于X API认证的消费者秘密      |
+| `access_token`        | `str` | `None`  | 用于X API认证的访问令牌         |
+| `access_token_secret` | `str` | `None`  | 用于X API认证的访问令牌秘密 |
 
-## Toolkit Functions
+## 工具包功能
 
-| Function            | Description                                 |
+| 函数名              | 描述                                  |
 | ------------------- | ------------------------------------------- |
-| `create_post`      | Creates and posts a new post               |
-| `reply_to_post`    | Replies to an existing post                |
-| `send_dm`           | Sends a direct message to a X user    |
-| `get_user_info`     | Retrieves information about a X user  |
-| `get_home_timeline` | Gets the authenticated user's home timeline |
+| `create_post`      | 创建并发布新推文                       |
+| `reply_to_post`    | 回复现有推文                            |
+| `send_dm`           | 向X用户发送私信               |
+| `get_user_info`     | 获取X用户信息                   |
+| `get_home_timeline` | 获取认证用户的主页时间线 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/x.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/x_tools.py)
+- 查看[工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/x.py)
+- 查看[Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/x_tools.py)

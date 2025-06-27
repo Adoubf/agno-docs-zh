@@ -1,21 +1,21 @@
 ---
-title: AWS SES Tools
+title: AWS SES工具
 ---
 
-## Code
+## 代码
 
-```python cookbook/tools/aws_ses_tools.py
+```python
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.aws_ses import AWSSESTool
 from agno.tools.duckduckgo import DuckDuckGoTools
 
-# Configure email settings
+# 配置邮件设置
 sender_email = "verified-sender@example.com"  # Your verified SES email
 sender_name = "AI Research Updates"
 region_name = "us-east-1"
 
-# Create an agent that can research and send personalized email updates
+# 创建一个能够研究并发送个性化邮件更新的智能体
 agent = Agent(
     name="Research Newsletter Agent",
     model=OpenAIChat(id="gpt-4o"),
@@ -53,47 +53,59 @@ agent.print_response(
 )
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-{" "}
-<Step title="Set up AWS SES">
-  ### Verify your email/domain: **For testing:** 1. Go to [AWS SES
-  Console](https://console.aws.amazon.com/ses/home) > Verified Identities >
-  Create Identity 2. Choose "Email Address" verification 3. Click verification
-  link sent to your email **For production:** 1. Choose "Domain" and follow DNS
-  verification steps 2. Add DKIM and SPF records to your domain's DNS **Note:**
-  In sandbox mode, both sender and recipient emails must be verified.
-</Step>
+  <Step title="设置 AWS SES">
+    <p><strong>验证邮箱/域名：</strong></p>
+    <p><strong>测试环境：</strong></p>
+    <ol>
+      <li>访问 <a href="https://console.aws.amazon.com/ses/home">AWS SES控制台</a> &gt; 已验证身份 &gt; 创建身份</li>
+      <li>选择 "电子邮箱地址" 验证方式</li>
+      <li>点击发送至您邮箱的验证链接</li>
+    </ol>
+    <p><strong>生产环境：</strong></p>
+    <ol>
+      <li>选择 "域名" 并完成DNS验证步骤</li>
+      <li>在域名DNS中添加DKIM和SPF记录</li>
+    </ol>
+    <p><strong>注意：</strong> 沙盒模式下，发送方和接收方邮箱均需通过验证。</p>
+  </Step>
 
-{" "}
-<Step title="Configure AWS credentials">
-  ### Create IAM user: 1. Go to IAM Console > Users > Add User 2. Enable
-  "Programmatic access" 3. Attach 'AmazonSESFullAccess' policy ### Set
-  credentials (choose one method): **Method 1 - Using AWS CLI:** ```bash aws
-  configure ``` **Method 2 - Environment variables:** ```bash export
-  AWS_ACCESS_KEY_ID=xxx export AWS_SECRET_ACCESS_KEY=xxx export
-  AWS_DEFAULT_REGION=us-east-1 export OPENAI_API_KEY=xxx ```
-</Step>
+  <Step title="配置 AWS 凭证">
+    <p><strong>创建IAM用户：</strong></p>
+    <ol>
+      <li>访问IAM控制台 &gt; 用户 &gt; 添加用户</li>
+      <li>启用 "编程访问" 权限</li>
+      <li>附加 'AmazonSESFullAccess' 策略</li>
+    </ol>
+    <p><strong>配置凭证（任选一种方式）：</strong></p>
+    <p>方式1 - 使用AWS CLI：</p>
+    <pre><code>aws configure</code></pre>
+    <p>方式2 - 环境变量：</p>
+    <pre><code>export AWS_ACCESS_KEY_ID=xxx
+export AWS_SECRET_ACCESS_KEY=xxx
+export AWS_DEFAULT_REGION=us-east-1
+export OPENAI_API_KEY=xxx</code></pre>
+  </Step>
 
-{" "}
-<Step title="Install libraries">
-  ```bash pip install -U boto3 openai duckduckgo-search agno ```
-</Step>
+  <Step title="安装库">
+    <pre><code>pip install -U boto3 openai duckduckgo-search agno</code></pre>
+  </Step>
 
-{" "}
-<Step title="Run Agent">
-  ```bash python cookbook/tools/aws_ses_tools.py ```
-</Step>
+  <Step title="运行智能体">
+    <pre><code>python cookbook/tools/aws_ses_tools.py</code></pre>
+  </Step>
 
-  <Step title="Troubleshooting">
-    If emails aren't sending, check:
-    - Both sender and recipient are verified (in sandbox mode)
-    - AWS credentials are correctly configured
-    - You're within sending limits
-    - Your IAM user has correct SES permissions
-    - Use SES Console's 'Send Test Email' feature to verify setup
+  <Step title="故障排查">
+    <ul>
+      <li>发送方和接收方是否均已验证（沙盒模式下）</li>
+      <li>AWS凭证是否配置正确</li>
+      <li>是否在发送限额内</li>
+      <li>IAM用户是否具备正确的SES权限</li>
+      <li>使用SES控制台的 "发送测试邮件" 功能验证设置</li>
+    </ul>
   </Step>
 </Steps>

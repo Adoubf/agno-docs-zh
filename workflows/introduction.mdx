@@ -1,25 +1,24 @@
 ---
-title: What are Workflows?
-sidebarTitle: Overview
+title: 什么是工作流？
+sidebarTitle: 概览
 ---
+工作流是专为生产应用设计的确定性、有状态、多智能体程序。它们经过实战检验，功能极其强大，并提供以下优势：
 
-Workflows are deterministic, stateful, multi-agent programs that are built for production applications. They're battle-tested, incredibly powerful and offer the following benefits:
-
-- **Pure python**: Build your workflow logic using standard python. Having built 100s of agentic systems, **no framework or step based approach will give you the flexibility and reliability of pure-python**. Want loops - use while/for, want conditionals - use if/else, want exceptional handling - use try/except.
-- **Full control and flexibility**: Because your workflow logic is a python function, you have full control over the process, like validating input before processing, spawning agents and running them in parallel, caching results as needed and correcting any intermediate errors. **This level of control is critical for reliability.**
-- **Built-in storage and caching**: Workflows come with built-in storage and state management. Use session_state to cache intermediate results. A big advantage of this approach is that you can trigger workflows in a separate process and ping for results later, meaning you don't run into request timeout issues which are very common with long running workflows.
+- **纯Python**：使用标准Python构建工作流逻辑。在开发了数百个智能体系统后，**没有任何框架或基于步骤的方法能比纯Python提供更高的灵活性和可靠性**。想要循环？使用while/for；想要条件判断？使用if/else；想要异常处理？使用try/except。
+- **完全控制与灵活性**：由于工作流逻辑是Python函数，您可以完全掌控整个流程，例如在处理前验证输入、并行生成和运行智能体、按需缓存结果以及纠正中间错误。**这种控制级别对可靠性至关重要。**
+- **内置存储与缓存**：工作流自带存储和状态管理功能。使用session_state缓存中间结果。这种方法的一大优势是，您可以在单独进程中触发工作流并稍后查询结果，从而避免长时间运行工作流常见的请求超时问题。
 
 <Check>
 
-Because the workflow logic is a python function, AI code editors can write workflows for you. Just add `https://docs.agno.com` as a document source.
+由于工作流逻辑是Python函数，AI代码编辑器可以为您编写工作流。只需添加`https://docs.agno.com`作为文档源。
 
 </Check>
 
-### The best part
+### 最大亮点
 
-There's nothing new to learn! You already know python, you already know how to build Agents and Teams -- now its just about putting them together using regular python code. No need to learn a new DSL or syntax.
+无需学习新知识！您已经掌握Python，已经知道如何构建智能体和团队——现在只需用常规Python代码将它们组合起来。不必学习新的DSL或语法。
 
-Here's a simple workflow that caches the outputs. You see the level of control you have over the process, even the "storing state" happens after the response is yielded.
+这是一个缓存输出的简单工作流示例。您可以看到对流程的控制级别，甚至"存储状态"都是在响应生成后进行的。
 
 ```python simple_cache_workflow.py
 from typing import Iterator
@@ -32,58 +31,58 @@ from agno.workflow import Workflow
 
 
 class CacheWorkflow(Workflow):
-    # Purely descriptive, not used by the workflow
+    # 纯描述性内容，不用于工作流程
     description: str = "A workflow that caches previous outputs"
 
-    # Add agents or teams as attributes on the workflow
+    # 在工作流中将智能体或团队添加为属性
     agent = Agent(model=OpenAIChat(id="gpt-4o-mini"))
 
-    # Write the logic in the `run()` method
+    # 在 `run()` 方法中编写逻辑
     def run(self, message: str) -> Iterator[RunResponse]:
         logger.info(f"Checking cache for '{message}'")
-        # Check if the output is already cached
+        # 检查输出是否已缓存
         if self.session_state.get(message):
             logger.info(f"Cache hit for '{message}'")
             yield RunResponse(run_id=self.run_id, content=self.session_state.get(message))
             return
 
         logger.info(f"Cache miss for '{message}'")
-        # Run the agent and yield the response
+        # 运行智能体并返回响应
         yield from self.agent.run(message, stream=True)
 
-        # Cache the output after response is yielded
+        # 在响应生成后缓存输出
         self.session_state[message] = self.agent.run_response.content
 
 
 if __name__ == "__main__":
     workflow = CacheWorkflow()
-    # Run workflow (this is takes ~1s)
+    # 运行工作流（耗时约1秒）
     response: Iterator[RunResponse] = workflow.run(message="Tell me a joke.")
-    # Print the response
+    # 输出响应
     pprint_run_response(response, markdown=True, show_time=True)
-    # Run workflow again (this is immediate because of caching)
+    # 再次运行工作流程（由于缓存机制会立即执行）
     response: Iterator[RunResponse] = workflow.run(message="Tell me a joke.")
-    # Print the response
+    # 输出响应内容
     pprint_run_response(response, markdown=True, show_time=True)
 ```
 
-### How to build a workflow
+### 如何构建工作流
 
-1. Define your workflow as a class by inheriting the `Workflow` class.
-2. Add agents or teams as attributes on the workflow. These isn't a strict requirement, just helps us map the session_id of the agent to the session_id of the workflow.
-3. Implement the workflow logic in the `run()` method. This is the main function that will be called when you run the workflow (**the workflow entrypoint**). This function gives us so much control over the process, some agents can stream, other's can generate structured outputs, agents can be run in parallel using `async.gather()`, some agents can have validation logic that runs before returning the response.
+1. 通过继承`Workflow`类来定义您的工作流类。
+2. 将智能体或团队添加为工作流的属性。这不是严格要求的，但有助于我们将智能体的session_id映射到工作流的session_id。
+3. 在`run()`方法中实现工作流逻辑。这是运行工作流时调用的主要函数（**工作流入口点**）。该函数赋予我们对流程的极大控制权：部分智能体可以流式传输，其他可以生成结构化输出，智能体可以使用`async.gather()`并行运行，某些智能体可以在返回响应前运行验证逻辑。
 
 <Note>
-You can also execute workflows asynchronously using the `arun` method. This allows for more efficient and non-blocking operations when calling agents. For a detailed example, please refer to the [Async Workflows Example](examples/workflows/async-hackernews-reporter).
+您还可以使用`arun`方法异步执行工作流。这能在调用智能体时实现更高效的非阻塞操作。详细示例请参考[异步工作流示例](examples/workflows/async-hackernews-reporter)。
 </Note>
 
-## Full Example: Blog Post Generator
+## 完整示例：博客文章生成器
 
-Let's create a blog post generator that can search the web, read the top links and write a blog post for us. We'll cache intermediate results in the database to improve performance.
+让我们创建一个能搜索网络、阅读热门链接并撰写博客文章的工作流。我们将在数据库中缓存中间结果以提高性能。
 
-### Create the Workflow
+### 创建工作流
 
-1. Define your workflow as a class by inheriting from the `Workflow` class.
+1. 通过继承`Workflow`类来定义您的工作流。
 
 ```python blog_post_generator.py
 from agno.workflow import Workflow
@@ -92,7 +91,7 @@ class BlogPostGenerator(Workflow):
     pass
 ```
 
-2. Add one or more agents to the workflow and implement the workflow logic in the `run()` method.
+2. 向工作流添加一个或多个智能体，并在`run()`方法中实现工作流逻辑。
 
 ```python blog_post_generator.py
 import json
@@ -145,7 +144,7 @@ class BlogPostGenerator(Workflow):
     digital consumption.
     """)
 
-    # Search Agent: Handles intelligent web searching and source gathering
+    # 搜索智能体：负责智能网络搜索与资源收集
     searcher: Agent = Agent(
         model=OpenAIChat(id="gpt-4o-mini"),
         tools=[DuckDuckGoTools()],
@@ -176,7 +175,7 @@ class BlogPostGenerator(Workflow):
         response_model=SearchResults,
     )
 
-    # Content Scraper: Extracts and processes article content
+    # 内容抓取器：提取并处理文章内容
     article_scraper: Agent = Agent(
         model=OpenAIChat(id="gpt-4o-mini"),
         tools=[Newspaper4kTools()],
@@ -209,7 +208,7 @@ class BlogPostGenerator(Workflow):
         structured_outputs=True,
     )
 
-    # Content Writer Agent: Crafts engaging blog posts from research
+    # 内容写作智能体：基于研究创作引人入胜的博客文章
     writer: Agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
         description=dedent("""\
@@ -245,29 +244,29 @@ class BlogPostGenerator(Workflow):
            - Add engaging subheadings\
         """),
         expected_output=dedent("""\
-        # {Viral-Worthy Headline}
+        # {病毒式传播的标题}
 
-        ## Introduction
+        # # 简介
         {Engaging hook and context}
 
-        ## {Compelling Section 1}
+        # # {引人注目的第一部分}
         {Key insights and analysis}
         {Expert quotes and statistics}
 
-        ## {Engaging Section 2}
+        # # {互动环节 2}
         {Deeper exploration}
         {Real-world examples}
 
-        ## {Practical Section 3}
+        # # {实践部分 3}
         {Actionable insights}
         {Expert recommendations}
 
-        ## Key Takeaways
+        # # 关键要点
         - {Shareable insight 1}
         - {Practical takeaway 2}
         - {Notable finding 3}
 
-        ## Sources
+        # # 数据源
         {Properly attributed sources with links}\
         """),
         markdown=True,
@@ -282,7 +281,7 @@ class BlogPostGenerator(Workflow):
     ) -> Iterator[RunResponse]:
         logger.info(f"Generating a blog post on: {topic}")
 
-        # Use the cached blog post if use_cache is True
+        # 如果 use_cache 为 True 则使用缓存的博客文章
         if use_cached_report:
             cached_blog_post = self.get_cached_blog_post(topic)
             if cached_blog_post:
@@ -291,11 +290,11 @@ class BlogPostGenerator(Workflow):
                 )
                 return
 
-        # Search the web for articles on the topic
+        # 在网络上搜索关于该主题的文章
         search_results: Optional[SearchResults] = self.get_search_results(
             topic, use_search_cache
         )
-        # If no search_results are found for the topic, end the workflow
+        # 如果未找到关于该主题的 search_results，则终止工作流程
         if search_results is None or len(search_results.articles) == 0:
             yield RunResponse(
                 event=RunEvent.workflow_completed,
@@ -303,21 +302,21 @@ class BlogPostGenerator(Workflow):
             )
             return
 
-        # Scrape the search results
+        # 抓取搜索结果
         scraped_articles: Dict[str, ScrapedArticle] = self.scrape_articles(
             topic, search_results, use_scrape_cache
         )
 
-        # Prepare the input for the writer
+        # 为作者准备输入内容
         writer_input = {
             "topic": topic,
             "articles": [v.model_dump() for v in scraped_articles.values()],
         }
 
-        # Run the writer and yield the response
+        # 运行写入器并返回响应
         yield from self.writer.run(json.dumps(writer_input, indent=4), stream=True)
 
-        # Save the blog post in the cache
+        # 将博客文章保存到缓存中
         self.add_blog_post_to_cache(topic, self.writer.run_response.content)
 
     def get_cached_blog_post(self, topic: str) -> Optional[str]:
@@ -365,7 +364,7 @@ class BlogPostGenerator(Workflow):
     def get_search_results(
         self, topic: str, use_search_cache: bool, num_attempts: int = 3
     ) -> Optional[SearchResults]:
-        # Get cached search_results from the session state if use_search_cache is True
+        # 若 use_search_cache 为 True，则从会话状态中获取缓存的 search_results
         if use_search_cache:
             try:
                 search_results_from_cache = self.get_cached_search_results(topic)
@@ -380,7 +379,7 @@ class BlogPostGenerator(Workflow):
             except Exception as e:
                 logger.warning(f"Could not read search results from cache: {e}")
 
-        # If there are no cached search_results, use the searcher to find the latest articles
+        # 如果没有缓存搜索结果（search_results），则使用搜索器（searcher）查找最新文章
         for attempt in range(num_attempts):
             try:
                 searcher_response: RunResponse = self.searcher.run(topic)
@@ -393,7 +392,7 @@ class BlogPostGenerator(Workflow):
                     logger.info(
                         f"Found {article_count} articles on attempt {attempt + 1}"
                     )
-                    # Cache the search results
+                    # 缓存搜索结果
                     self.add_search_results_to_cache(topic, searcher_response.content)
                     return searcher_response.content
                 else:
@@ -411,7 +410,7 @@ class BlogPostGenerator(Workflow):
     ) -> Dict[str, ScrapedArticle]:
         scraped_articles: Dict[str, ScrapedArticle] = {}
 
-        # Get cached scraped_articles from the session state if use_scrape_cache is True
+        # 如果 use_scrape_cache 为 True，则从会话状态获取缓存的 scraped_articles
         if use_scrape_cache:
             try:
                 scraped_articles_from_cache = self.get_cached_scraped_articles(topic)
@@ -424,7 +423,7 @@ class BlogPostGenerator(Workflow):
             except Exception as e:
                 logger.warning(f"Could not read scraped articles from cache: {e}")
 
-        # Scrape the articles that are not in the cache
+        # 抓取不在缓存中的文章
         for article in search_results.articles:
             if article.url in scraped_articles:
                 logger.info(f"Found scraped article in cache: {article.url}")
@@ -443,18 +442,18 @@ class BlogPostGenerator(Workflow):
                 )
                 logger.info(f"Scraped article: {article_scraper_response.content.url}")
 
-        # Save the scraped articles in the session state
+        # 将抓取的文章保存在会话状态中
         self.add_scraped_articles_to_cache(topic, scraped_articles)
         return scraped_articles
 
 
-# Run the workflow if the script is executed directly
+# 如果脚本被直接执行，则运行工作流程
 if __name__ == "__main__":
     import random
 
     from rich.prompt import Prompt
 
-    # Fun example prompts to showcase the generator's versatility
+    # 展示生成器多功能性的趣味示例提示
     example_prompts = [
         "Why Cats Secretly Run the Internet",
         "The Science Behind Why Pizza Tastes Better at 2 AM",
@@ -466,18 +465,18 @@ if __name__ == "__main__":
         "A Historical Analysis of Dad Jokes Through the Ages",
     ]
 
-    # Get topic from user
+    # 从用户处获取主题
     topic = Prompt.ask(
         "[bold]Enter a blog post topic[/bold] (or press Enter for a random example)\n✨",
         default=random.choice(example_prompts),
     )
 
-    # Convert the topic to a URL-safe string for use in session_id
+    # 将主题转换为URL安全的字符串用于session_id
     url_safe_topic = topic.lower().replace(" ", "-")
 
-    # Initialize the blog post generator workflow
-    # - Creates a unique session ID based on the topic
-    # - Sets up SQLite storage for caching results
+    # 初始化博客文章生成器工作流程
+    # - 根据主题生成唯一的会话ID
+    # - 设置 SQLite 存储用于缓存结果
     generate_blog_post = BlogPostGenerator(
         session_id=f"generate-blog-post-on-{url_safe_topic}",
         storage=SqliteStorage(
@@ -487,8 +486,8 @@ if __name__ == "__main__":
         debug_mode=True,
     )
 
-    # Execute the workflow with caching enabled
-    # Returns an iterator of RunResponse objects containing the generated content
+    # 启用缓存执行工作流
+    # 返回一个包含生成内容的RunResponse对象迭代器
     blog_post: Iterator[RunResponse] = generate_blog_post.run(
         topic=topic,
         use_search_cache=True,
@@ -496,25 +495,25 @@ if __name__ == "__main__":
         use_cached_report=True,
     )
 
-    # Print the response
+    # 打印响应内容
     pprint_run_response(blog_post, markdown=True)
 ```
 
-### Run the workflow
+### 运行工作流
 
-Install libraries
+安装库
 
 ```shell
 pip install agno openai duckduckgo-search sqlalchemy
 ```
 
-Run the workflow
+运行工作流
 
 ```shell
 python blog_post_generator.py
 ```
 
-Now the results are cached in the database and can be re-used for future runs. Run the workflow again to view the cached results.
+现在结果已缓存至数据库，可供后续运行重复使用。再次运行工作流可查看缓存结果。
 
 ```shell
 python blog_post_generator.py
@@ -526,27 +525,26 @@ python blog_post_generator.py
   style={{ borderRadius: '8px' }}
 />
 
-Checkout more [usecases](/examples/workflows/) and [examples](/examples/concepts/storage/workflow_storage) related to workflows.
+查看更多[用例](/examples/workflows/)和[示例](/examples/concepts/storage/workflow_storage)。
 
-
-## Design decisions
+## 设计决策
 
 <Tip>
 
-**Why do we recommend writing your workflow logic as a python function instead of creating a custom abstraction like a Graph, Chain, or Flow?**
+**为什么我们建议用Python函数编写工作流逻辑，而不是创建Graph、Chain或Flow等自定义抽象？**
 
-In our experience building AI products, the workflow logic needs to be dynamic (i.e. determined at runtime) and requires fine-grained control over parallelization, caching, state management, error handling, and issue resolution.
+在我们构建AI产品的经验中，工作流逻辑需要动态化（即在运行时确定），并要求对并行化、缓存、状态管理、错误处理和问题解决进行细粒度控制。
 
-A custom abstraction (Graph, Chain, Flow) with a new DSL would mean learning new concepts and write more code. We would end up spending more time learning and fighting the DSL.
+使用带有新DSL的自定义抽象（Graph、Chain、Flow）意味着学习新概念并编写更多代码。最终我们会花费更多时间学习和对抗DSL。
 
-Every project we worked on, a simple python function always seems to do the trick. We also found that complex workflows can span multiple files, sometimes turning into modules in themselves. You know what works great here? Python.
+在每个项目中，简单的Python函数总能解决问题。我们还发现，复杂工作流可以跨多个文件，有时会自成模块。您知道什么最适合这种情况吗？Python。
 
-We keep coming back to the [Unix Philosophy](https://en.wikipedia.org/wiki/Unix_philosophy).
+我们始终回归[Unix哲学](https://en.wikipedia.org/wiki/Unix_philosophy)。
 
-If our workflow can't be written in vanilla python, then we should simplify and re-organize our workflow, not the other way around.
+如果我们的工作流无法用原生Python编写，那么我们应该简化和重组工作流，而不是反过来。
 
-Another significant challenge with long-running workflows is managing request/response timeouts. We need workflows to trigger asynchronously, respond to the client confirming initiation, and then allow the client to poll for results later. Achieving this UX requires running workflows in background tasks and closely managing state so the latest updates are available to the client.
+长期运行工作流的另一个重大挑战是管理请求/响应超时。我们需要工作流异步触发、向客户端确认启动，然后允许客户端稍后轮询结果。实现这种用户体验需要在后台任务中运行工作流，并严格管理状态以确保客户端能获取最新更新。
 
-For these reasons, we recommend building workflows as vanilla python functions, the level of control, flexibility and reliability is unmatched.
+基于这些原因，我们建议用原生Python函数构建工作流，其控制级别、灵活性和可靠性无可匹敌。
 
 </Tip>

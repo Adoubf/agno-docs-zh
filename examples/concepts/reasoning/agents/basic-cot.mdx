@@ -1,8 +1,8 @@
 ---
-title: Basic Reasoning Agent
+title: 基础推理智能体
 ---
-This is a basic reasoning agent with chain of thought reasoning.
-## Code
+这是一个具备思维链推理能力的基础推理智能体。
+## 代码
 
 ```python cookbook/reasoning/agents/analyse_treaty_of_versailles.py
 from agno.agent import Agent
@@ -23,30 +23,30 @@ reasoning_agent = Agent(
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/reasoning/agents/analyse_treaty_of_versailles.py
     ```
 
-    ```bash Windows
+    ```bash Windows（操作系统）
     python cookbook/reasoning/agents/analyse_treaty_of_versailles.py
     ```
     </CodeGroup>

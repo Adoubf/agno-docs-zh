@@ -1,9 +1,8 @@
 ---
-title: Filtering on LanceDB
-description: Learn how to filter knowledge base searches using Pdf documents with user-specific metadata in LanceDB.
+title: LanceDB 中的筛选功能
+description: 了解如何在 LanceDB 中使用带有用户特定元数据的 PDF 文档来筛选知识库搜索。
 ---
-
-## Code
+## 代码
 
 ```python
 from agno.agent import Agent
@@ -14,22 +13,22 @@ from agno.utils.media import (
 )
 from agno.vectordb.lancedb import LanceDb
 
-# Download all sample CVs and get their paths
+# 下载所有示例简历并获取它们的路径
 downloaded_cv_paths = download_knowledge_filters_sample_data(
     num_files=5, file_extension=SampleDataFileExtension.PDF
 )
 
-# Initialize LanceDB
-# By default, it stores data in /tmp/lancedb
+# 初始化 LanceDB
+# 默认情况下，它将数据存储在 /tmp/lancedb 中
 vector_db = LanceDb(
     table_name="recipes",
     uri="tmp/lancedb",  # You can change this path to store data elsewhere
 )
 
-# Step 1: Initialize knowledge base with documents and metadata
+# 第一步：用文档和元数据初始化知识库
 # ------------------------------------------------------------------------------
-# When initializing the knowledge base, we can attach metadata that will be used for filtering
-# This metadata can include user IDs, document types, dates, or any other attributes
+# 初始化知识库时，我们可以附加用于筛选的元数据
+# 此元数据可包含用户ID、文档类型、日期或任何其他属性
 
 knowledge_base = PDFKnowledgeBase(
     path=[
@@ -77,10 +76,10 @@ knowledge_base = PDFKnowledgeBase(
     vector_db=vector_db,
 )
 
-# Load all documents into the vector database
+# 将所有文档加载到向量数据库中
 knowledge_base.load(recreate=True)
 
-# Step 2: Query the knowledge base with different filter combinations
+# 步骤2：使用不同筛选组合查询知识库
 # ------------------------------------------------------------------------------
 
 agent = Agent(
@@ -95,16 +94,16 @@ agent.print_response(
 )
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno lancedb openai
     ```
   </Step>
 
-  <Step title="Run the example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/filters/filtering_lance_db.py

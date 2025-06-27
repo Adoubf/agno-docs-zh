@@ -1,10 +1,9 @@
 ---
-title: "Team Session State"
+title: "团队会话状态"
 ---
+本示例演示了共享的 `team_session_state` 如何跨嵌套智能体和子团队传播并持久化，从而实现协作任务的无缝状态管理。
 
-This example demonstrates how a shared team_session_state can propagate and persist across nested agents and subteams, enabling seamless state management for collaborative tasks.
-
-## Code
+## 代码
 
 ```python cookbook/teams/team_with_nested_shared_state.py
 
@@ -13,14 +12,14 @@ from agno.models.openai.chat import OpenAIChat
 from agno.team import Team
 
 
-# Define tools to manage our shopping list
+# 定义管理购物清单的工具
 def add_item(agent: Agent, item: str) -> str:
     """Add an item to the shopping list and return confirmation.
 
     Args:
         item (str): The item to add to the shopping list.
     """
-    # Add the item if it's not already in the list
+    # 如果列表中尚未包含该条目，则将其添加
     if item.lower() not in [
         i.lower() for i in agent.team_session_state["shopping_list"]
     ]:
@@ -36,7 +35,7 @@ def remove_item(agent: Agent, item: str) -> str:
     Args:
         item (str): The item to remove from the shopping list.
     """
-    # Case-insensitive search
+    # 大小写不敏感搜索
     for i, list_item in enumerate(agent.team_session_state["shopping_list"]):
         if list_item.lower() == item.lower():
             agent.team_session_state["shopping_list"].pop(i)
@@ -65,7 +64,7 @@ shopping_list_agent = Agent(
 )
 
 
-# Shopping management team - new layer for handling all shopping list modifications
+# 购物管理团队 - 新增处理所有购物清单修改的层级
 shopping_mgmt_team = Team(
     name="Shopping Management Team",
     team_id="shopping_management",
@@ -91,7 +90,7 @@ def get_ingredients(agent: Agent) -> str:
     if not shopping_list:
         return "The shopping list is empty. Add some ingredients first to get recipe suggestions."
 
-    # Just return the ingredients - the agent will create recipes
+    # 只返回配料——智能体会生成食谱
     return f"Available ingredients from shopping list: {', '.join(shopping_list)}"
 
 
@@ -125,7 +124,7 @@ def list_items(team: Team) -> str:
     return f"Current shopping list:\n{items_text}"
 
 
-# Create meal planning subteam
+# 创建膳食规划子团队
 meal_planning_team = Team(
     name="Meal Planning Team",
     team_id="meal_planning",
@@ -151,16 +150,16 @@ def add_chore(team: Team, chore: str, priority: str = "medium") -> str:
     Returns:
         str: Confirmation message
     """
-    # Initialize chores list if it doesn't exist
+    # 如果任务清单不存在，则初始化它
     if "chores" not in team.session_state:
         team.session_state["chores"] = []
 
-    # Validate priority
+    # 验证优先级
     valid_priorities = ["low", "medium", "high"]
     if priority.lower() not in valid_priorities:
         priority = "medium"  # Default to medium if invalid
 
-    # Add the chore with timestamp and priority
+    # 添加带有时间戳和优先级的杂务
     from datetime import datetime
 
     chore_entry = {
@@ -200,7 +199,7 @@ shopping_team = Team(
     show_members_responses=True,
 )
 
-# Example usage
+# 示例用法
 shopping_team.print_response(
     "Add milk, eggs, and bread to the shopping list", stream=True
 )
@@ -215,7 +214,7 @@ print(f"Session state: {shopping_team.team_session_state}")
 shopping_team.print_response("whats on my list?", stream=True)
 print(f"Session state: {shopping_team.team_session_state}")
 
-# Try the meal planning feature
+# 尝试膳食计划功能
 shopping_team.print_response("What can I make with these ingredients?", stream=True)
 print(f"Session state: {shopping_team.team_session_state}")
 
@@ -231,29 +230,28 @@ print(f"Team session state: {shopping_team.session_state}")
 ```
 
 
-## Usage
+## 使用方法
 
 <Steps>
 
     <Snippet file="create-venv-step.mdx" />
 
-    <Step title="Install required libraries">
+    <Step title="安装所需库">
         ```bash
         pip install openai
         ```
     </Step>
 
-    <Step title="Set environment variables">
+    <Step title="设置环境变量">
         ```bash
         export OPENAI_API_KEY=****
         ```
     </Step>
 
-    <Step title="Run the agent">
+    <Step title="运行智能体">
         ```bash
         python cookbook/teams/team_with_nested_shared_state.py
         ```
     </Step>
 
 </Steps>
-

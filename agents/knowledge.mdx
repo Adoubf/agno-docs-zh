@@ -1,86 +1,82 @@
 ---
-title: Knowledge
+title: 知识
 ---
+**知识**是特定领域的信息，智能体可以在运行时**搜索**这些信息以做出更好的决策（动态少样本学习）并提供准确响应（智能体RAG）。知识存储在向量数据库中，这种**按需搜索**模式被称为智能体RAG。
 
-**Knowledge** is domain-specific information that the Agent can **search** at runtime to make better decisions (dynamic few-shot learning) and provide accurate responses (agentic RAG). Knowledge is stored in a vector db and this **searching on demand** pattern is called Agentic RAG.
+<Accordion title="动态少样本学习：Text2Sql 智能体" icon="database">
+示例：如果我们正在构建一个Text2Sql智能体，我们需要提供表结构、列名、数据类型、示例查询以及常见“陷阱”，以帮助它生成最佳的SQL查询。
 
-<Accordion title="Dynamic Few-Shot Learning: Text2Sql Agent" icon="database">
-Example: If we're building a Text2Sql Agent, we'll need to give the table schemas, column names, data types, example queries, common "gotchas" to help it generate the best-possible SQL query.
+显然，我们不会将所有内容都放入系统提示中，而是将这些信息存储在向量数据库中，让智能体在运行时查询。
 
-We're obviously not going to put this all in the system prompt, instead we store this information in a vector database and let the Agent query it at runtime.
-
-Using this information, the Agent can then generate the best-possible SQL query. This is called dynamic few-shot learning.
+利用这些信息，智能体可以生成最佳的SQL查询。这被称为动态少样本学习。
 </Accordion>
 
-**Agno Agents use Agentic RAG** by default, meaning when we provide `knowledge` to an Agent, it will search this knowledge base, at runtime, for the specific information it needs to achieve its task.
+**Agno智能体默认使用智能体RAG**，这意味着当我们向智能体提供`knowledge`时，它将在运行时搜索知识库，以获取完成任务所需的特定信息。
 
-The pseudo steps for adding knowledge to an Agent are:
+向智能体添加知识的伪步骤如下：
 
 ```python
 from agno.agent import Agent, AgentKnowledge
 
-# Create a knowledge base for the Agent
+# 为智能体创建知识库
 knowledge_base = AgentKnowledge(vector_db=...)
 
-# Add information to the knowledge base
+# 向知识库添加信息
 knowledge_base.load_text("The sky is blue")
 
-# Add the knowledge base to the Agent and
-# give it a tool to search the knowledge base as needed
+# 将知识库添加到智能体并
+# 赋予它按需搜索知识库的工具
 agent = Agent(knowledge=knowledge_base, search_knowledge=True)
 ```
 
-We can give our agent access to the knowledge base in the following ways:
+我们可以通过以下方式让智能体访问知识库：
 
-- We can set `search_knowledge=True` to add a `search_knowledge_base()` tool to the Agent. `search_knowledge` is `True` **by default** if you add `knowledge` to an Agent.
-- We can set `add_references=True` to automatically add references from the knowledge base to the Agent's prompt. This is the traditional 2023 RAG approach.
+- 设置`search_knowledge=True`，向智能体添加一个`search_knowledge_base()`工具。如果向智能体添加`knowledge`，则默认情况下`search_knowledge`为`True`。
+- 设置`add_references=True`，自动将知识库中的引用添加到智能体的提示中。这是传统的2023 RAG方法。
 
 <Tip>
 
-If you need complete control over the knowledge base search, you can pass your own `retriever` function with the following signature:
+如果需要完全控制知识库搜索，可以传递一个具有以下签名的自定义`retriever`函数：
 
 ```python
 def retriever(agent: Agent, query: str, num_documents: Optional[int], **kwargs) -> Optional[list[dict]]:
   ...
 ```
 
-This function is called during `search_knowledge_base()` and is used by the Agent to retrieve references from the knowledge base.
+该函数在`search_knowledge_base()`期间调用，智能体用它从知识库中检索引用。
 
 </Tip>
 
-## Vector Databases
+## 向量数据库
 
-While any type of storage can act as a knowledge base, vector databases offer the best solution for retrieving relevant results from dense information quickly. Here's how vector databases are used with Agents:
+虽然任何类型的存储都可以作为知识库，但向量数据库提供了从密集信息中快速检索相关结果的最佳解决方案。以下是向量数据库与智能体的结合方式：
 
 <Steps>
-  <Step title="Chunk the information">
-    Break down the knowledge into smaller chunks to ensure our search query
-    returns only relevant results.
+  <Step title="分块处理信息">
+    将知识分解为较小的块，确保搜索查询仅返回相关结果。
   </Step>
-  <Step title="Load the knowledge base">
-    Convert the chunks into embedding vectors and store them in a vector
-    database.
+  <Step title="加载知识库">
+    将块转换为嵌入向量并存储在向量数据库中。
   </Step>
-  <Step title="Search the knowledge base">
-    When the user sends a message, we convert the input message into an
-    embedding and "search" for nearest neighbors in the vector database.
+  <Step title="搜索知识库">
+    当用户发送消息时，我们将输入消息转换为嵌入向量，并在向量数据库中“搜索”最近的邻居。
   </Step>
 </Steps>
 
 <Note>
-Knowledge filters are currently supported on the following knowledge base types: <b>PDF</b>, <b>PDF_URL</b>, <b>Text</b>, <b>JSON</b>, and <b>DOCX</b>.
-For more details, see the [Knowledge Filters documentation](/filters/introduction).
+目前支持以下知识库类型的知识过滤器：<b>PDF</b>、<b>PDF_URL</b>、<b>Text</b>、<b>JSON</b>和<b>DOCX</b>。
+更多详情请参阅[知识过滤器文档](/filters/introduction)。
 </Note>
 
-## Example: RAG Agent with a PDF Knowledge Base
+## 示例：带有PDF知识库的RAG智能体
 
-Let's build a **RAG Agent** that answers questions from a PDF.
+让我们构建一个从PDF回答问题的**RAG智能体**。
 
-### Step 1: Run PgVector
+### 步骤1：运行PgVector
 
-Let's use `PgVector` as our vector db as it can also provide storage for our Agents.
+使用`PgVector`作为我们的向量数据库，因为它还可以为智能体提供存储。
 
-Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) and run **PgVector** on port **5532** using:
+安装[docker桌面版](https://docs.docker.com/desktop/install/mac-install/)并使用以下命令在端口**5532**上运行**PgVector**：
 
 ```bash
 docker run -d \
@@ -94,18 +90,18 @@ docker run -d \
   agnohq/pgvector:16
 ```
 
-### Step 2: Traditional RAG
+### 步骤2：传统RAG
 
-Retrieval Augmented Generation (RAG) means **"stuffing the prompt with relevant information"** to improve the model's response. This is a 2 step process:
+检索增强生成（RAG）意味着**“将相关信息填充到提示中”**以改进模型的响应。这是一个两步过程：
 
-1. Retrieve relevant information from the knowledge base.
-2. Augment the prompt to provide context to the model.
+1. 从知识库中检索相关信息。
+2. 增强提示以向模型提供上下文。
 
-Let's build a **traditional RAG** Agent that answers questions from a PDF of recipes.
+让我们构建一个从食谱PDF回答问题的**传统RAG**智能体。
 
 <Steps>
-  <Step title="Install libraries">
-    Install the required libraries using pip
+  <Step title="安装库">
+    使用pip安装所需库
 
     <CodeGroup>
 
@@ -120,8 +116,8 @@ Let's build a **traditional RAG** Agent that answers questions from a PDF of rec
     </CodeGroup>
 
   </Step>
-  <Step title="Create a Traditional RAG Agent">
-    Create a file `traditional_rag.py` with the following contents
+  <Step title="创建传统RAG智能体">
+    创建一个文件`traditional_rag.py`，内容如下
 
     ```python traditional_rag.py
     from agno.agent import Agent
@@ -131,34 +127,34 @@ Let's build a **traditional RAG** Agent that answers questions from a PDF of rec
 
     db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
     knowledge_base = PDFUrlKnowledgeBase(
-        # Read PDF from this URL
+        # 从该 URL 读取 PDF
         urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-        # Store embeddings in the `ai.recipes` table
+        # 将嵌入向量存储在 `ai.recipes` 表中
         vector_db=PgVector(table_name="recipes", db_url=db_url, search_type=SearchType.hybrid),
     )
-    # Load the knowledge base: Comment after first run
+    # 加载知识库：首次运行后评论
     knowledge_base.load(upsert=True)
 
     agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
         knowledge=knowledge_base,
-        # Enable RAG by adding references from AgentKnowledge to the user prompt.
+        # 通过从AgentKnowledge添加引用到用户提示来启用RAG。
         add_references=True,
-        # Set as False because Agents default to `search_knowledge=True`
+        # 设置为 False，因为智能体默认启用 `search_knowledge=True`。
         search_knowledge=False,
         markdown=True,
-        # debug_mode=True,
+        # 调试模式=True,
     )
     agent.print_response("How do I make chicken and galangal in coconut milk soup")
     ```
 
   </Step>
-  <Step title="Run the agent">
-    Run the agent (it takes a few seconds to load the knowledge base).
+  <Step title="运行智能体">
+    运行智能体（加载知识库需要几秒）。
 
     <CodeGroup>
 
-    ```bash Mac
+    ```bash 苹果电脑
     python traditional_rag.py
     ```
 
@@ -173,8 +169,8 @@ Let's build a **traditional RAG** Agent that answers questions from a PDF of rec
   </Step>
 </Steps>
 
-<Accordion title="How to use local PDFs" icon="file-pdf" iconType="duotone">
-If you want to use local PDFs, use a `PDFKnowledgeBase` instead
+<Accordion title="如何使用本地 PDF 文件" icon="file-pdf" iconType="duotone">
+如果想使用本地PDF，改用`PDFKnowledgeBase`
 
 ```python agent.py
 from agno.knowledge.pdf import PDFKnowledgeBase
@@ -192,17 +188,17 @@ knowledge_base = PDFKnowledgeBase(
 
 </Accordion>
 
-### Step 3: Agentic RAG
+### 步骤3：智能体RAG
 
-With traditional RAG above, `add_references=True` always adds information from the knowledge base to the prompt, regardless of whether it is relevant to the question or helpful.
+在上述传统RAG中，`add_references=True`总是将知识库中的信息添加到提示中，无论其是否与问题相关或有用。
 
-With Agentic RAG, we let the Agent decide **if** it needs to access the knowledge base and what search parameters it needs to query the knowledge base.
+在智能体RAG中，我们让智能体决定**是否**需要访问知识库以及需要哪些搜索参数来查询知识库。
 
-Set `search_knowledge=True` and `read_chat_history=True`, giving the Agent tools to search its knowledge and chat history on demand.
+设置`search_knowledge=True`和`read_chat_history=True`，赋予智能体按需搜索知识和聊天历史的工具。
 
 <Steps>
-  <Step title="Create an Agentic RAG Agent">
-    Create a file `agentic_rag.py` with the following contents
+  <Step title="创建智能体式 RAG 智能体">
+    创建一个文件`agentic_rag.py`，内容如下
 
     ```python agentic_rag.py
     from agno.agent import Agent
@@ -215,15 +211,15 @@ Set `search_knowledge=True` and `read_chat_history=True`, giving the Agent tools
         urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
         vector_db=PgVector(table_name="recipes", db_url=db_url, search_type=SearchType.hybrid),
     )
-    # Load the knowledge base: Comment out after first run
+    # 加载知识库：首次运行后注释掉
     knowledge_base.load(upsert=True)
 
     agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
         knowledge=knowledge_base,
-        # Add a tool to search the knowledge base which enables agentic RAG.
+        # 添加一个工具用于搜索知识库，以实现智能体驱动的检索增强生成（RAG）。
         search_knowledge=True,
-        # Add a tool to read chat history.
+        # 添加一个读取聊天历史的工具。
         read_chat_history=True,
         show_tool_calls=True,
         markdown=True,
@@ -234,12 +230,12 @@ Set `search_knowledge=True` and `read_chat_history=True`, giving the Agent tools
     ```
 
   </Step>
-  <Step title="Run the agent">
-    Run the agent
+  <Step title="运行智能体">
+    运行智能体
 
     <CodeGroup>
 
-    ```bash Mac
+    ```bash 苹果
     python agentic_rag.py
     ```
 
@@ -250,23 +246,23 @@ Set `search_knowledge=True` and `read_chat_history=True`, giving the Agent tools
     </CodeGroup>
 
     <Note>
-    Notice how it searches the knowledge base and chat history when needed
+    注意它在需要时如何搜索知识库和聊天历史
     </Note>
 
   </Step>
 </Steps>
 
-## Attributes
+## 属性
 
-| Parameter | Type | Default | Description |
+| 参数 | 类型 | 默认值 | 描述 |
 |-----------|------|---------|-------------|
-| `knowledge` | `AgentKnowledge` | `None` | Provides the knowledge base used by the agent. |
-| `search_knowledge` | `bool` | `True` | Adds a tool that allows the Model to search the knowledge base (aka Agentic RAG). Enabled by default when `knowledge` is provided. |
-| `add_references` | `bool` | `False` | Enable RAG by adding references from AgentKnowledge to the user prompt. |
-| `retriever` | `Callable[..., Optional[list[dict]]]` | `None` | Function to get context to add to the user message. This function is called when add_references is True. |
-| `context_format` | `Literal['json', 'yaml']` | `json` | Specifies the format for RAG, either "json" or "yaml". |
-| `add_context_instructions` | `bool` | `False` | If True, add instructions for using the context to the system prompt (if knowledge is also provided). For example: add an instruction to prefer information from the knowledge base over its training data. |
+| `knowledge` | `AgentKnowledge` | `None` | 提供智能体使用的知识库。 |
+| `search_knowledge` | `bool` | `True` | 添加一个允许模型搜索知识库的工具（即智能体RAG）。当提供`knowledge`时默认启用。 |
+| `add_references` | `bool` | `False` | 通过从AgentKnowledge添加引用来启用RAG到用户提示中。 |
+| `retriever` | `Callable[..., Optional[list[dict]]]` | `None` | 获取添加到用户消息中的上下文的函数。当add_references为True时调用此函数。 |
+| `context_format` | `Literal['json', 'yaml']` | `json` | 指定RAG的格式，可以是"json"或"yaml"。 |
+| `add_context_instructions` | `bool` | `False` | 如果为True，则在系统提示中添加使用上下文的指令（如果也提供了知识）。例如：添加优先使用知识库信息而非训练数据的指令。 |
 
- ## Developer Resources
+ ## 开发者资源
 
-- View [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/agent_concepts/knowledge)
+- 查看[Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/agent_concepts/knowledge)

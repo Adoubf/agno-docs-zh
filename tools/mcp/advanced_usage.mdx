@@ -1,14 +1,12 @@
 ---
-title: Advanced MCP Usage
-sidebarTitle: Advanced Usage
+title: 高级 MCP 使用
+sidebarTitle: 高级用法
 ---
+Agno的MCP集成还支持连接多台服务器、指定服务器参数以及使用您自己的MCP服务器：
 
-Agno's MCP integration also supports handling connections to multiple servers, specifying server parameters and using your own MCP servers:
+## 连接多个MCP服务器
 
-
-## Connecting to Multiple MCP Servers
-
-You can use multiple MCP servers in a single agent by using the `MultiMCPTools` class.
+您可以通过使用`MultiMCPTools`类在单个智能体中连接多个MCP服务器。
 
 ```python multiple_mcp_servers.py
 import asyncio
@@ -42,9 +40,9 @@ async def run_agent(message: str) -> None:
         await agent.aprint_response(message, stream=True)
 
 
-# Example usage
+# 示例用法
 if __name__ == "__main__":
-    # Pull request example
+    # 拉取请求示例
     asyncio.run(
         run_agent(
             "What listings are available in Cape Town for 2 people for 3 nights from 1 to 4 August 2025?"
@@ -52,20 +50,19 @@ if __name__ == "__main__":
     )
 ```
 
+### 理解服务器参数
 
-### Understanding Server Parameters
+配置`MCPTools`或`MultiMCPTools`的推荐方式是使用`command`或`url`参数。
 
-The recommended way to configure `MCPTools` or `MultiMCPTools` is to use the `command` or `url` parameters.
+或者，您可以使用`server_params`参数配合`MCPTools`来更详细地配置与MCP服务器的连接。
 
-Alternatively, you can use the `server_params` parameter with `MCPTools` to configure the connection to the MCP server in more detail.
-
-When using the **stdio** transport, the `server_params` parameter should be an instance of `StdioServerParameters`. It contains the following keys:
-- `command`: The command to run the MCP server.
-    - Use `npx` for mcp servers that can be installed via npm (or `node` if running on Windows).
-    - Use `uvx` for mcp servers that can be installed via uvx.
-- `args`: The arguments to pass to the MCP server.
-- `env`: Optional environment variables to pass to the MCP server. Remember to include all current environment variables in the `env` dictionary. If `env` is not provided, the current environment variables will be used.
-e.g.
+当使用**stdio**传输协议时，`server_params`参数应该是`StdioServerParameters`的一个实例。它包含以下键值：
+- `command`：运行MCP服务器的命令。
+    - 对于可通过npm安装的mcp服务器，使用`npx`（或在Windows系统上运行时使用`node`）。
+    - 对于可通过uvx安装的mcp服务器，使用`uvx`。
+- `args`：传递给MCP服务器的参数。
+- `env`：传递给MCP服务器的可选环境变量。请确保将当前所有环境变量包含在`env`字典中。如果未提供`env`，则将使用当前环境变量。
+例如：
 ```python
 {
     **os.environ,
@@ -73,26 +70,22 @@ e.g.
 }
 ```
 
-When using the **SSE** transport, the `server_params` parameter should be an instance of `SSEClientParams`. It contains the following fields:
-- `url`: The URL of the MCP server.
-- `headers`: Headers to pass to the MCP server (optional).
-- `timeout`: Timeout for the connection to the MCP server (optional).
-- `sse_read_timeout`: Timeout for the SSE connection itself (optional).
+当使用**SSE**传输协议时，`server_params`参数应该是`SSEClientParams`的一个实例。它包含以下字段：
+- `url`：MCP服务器的URL。
+- `headers`：传递给MCP服务器的头部信息（可选）。
+- `timeout`：连接到MCP服务器的超时时间（可选）。
+- `sse_read_timeout`：SSE连接本身的超时时间（可选）。
 
-When using the **Streamable HTTP** transport, the `server_params` parameter should be an instance of `StreamableHTTPClientParams`. It contains the following fields:
-- `url`: The URL of the MCP server.
-- `headers`: Headers to pass to the MCP server (optional).
-- `timeout`: Timeout for the connection to the MCP server (optional).
-- `sse_read_timeout`: how long (in seconds) the client will wait for a new event before disconnecting. All other HTTP operations are controlled by `timeout` (optional).
-- `terminate_on_close`: Whether to terminate the connection when the client is closed (optional).
+当使用**Streamable HTTP**传输协议时，`server_params`参数应该是`StreamableHTTPClientParams`的一个实例。它包含以下字段：
+- `url`：MCP服务器的URL。
+- `headers`：传递给MCP服务器的头部信息（可选）。
+- `timeout`：连接到MCP服务器的超时时间（可选）。
+- `sse_read_timeout`：客户端在断开连接前等待新事件的时长（以秒计）。所有其他HTTP操作由`timeout`控制（可选）。
+- `terminate_on_close`：客户端关闭时是否终止连接（可选）。
 
+## 更多灵活性
 
-
-
-## More Flexibility
-
-You can also create the MCP server yourself and pass it to the `MCPTools` constructor.
-
+您也可以自行创建MCP服务器并将其传递给`MCPTools`的构造函数。
 
 ```python filesystem_agent.py
 import asyncio
@@ -108,11 +101,11 @@ from mcp.client.stdio import stdio_client
 
 async def create_filesystem_agent(session):
     """Create and configure a filesystem agent with MCP tools."""
-    # Initialize the MCP toolkit
+    # 初始化 MCP 工具包
     mcp_tools = MCPTools(session=session)
     await mcp_tools.initialize()
 
-    # Create an agent with the MCP toolkit
+    # 使用 MCP 工具包创建智能体
     return Agent(
         model=OpenAIChat(id="gpt-4o"),
         tools=[mcp_tools],
@@ -133,7 +126,7 @@ async def create_filesystem_agent(session):
 async def run_agent(message: str) -> None:
     """Run the filesystem agent with the given message."""
 
-    # Initialize the MCP server
+    # 初始化 MCP 服务器
     server_params = StdioServerParameters(
         command="npx",
         args=[
@@ -143,17 +136,17 @@ async def run_agent(message: str) -> None:
         ],
     )
 
-    # Create a client session to connect to the MCP server
+    # 创建客户端会话以连接到MCP服务器
     async with stdio_client(server_params) as (read, write):
         async with ClientSession(read, write) as session:
             agent = await create_filesystem_agent(session)
 
-            # Run the agent
+            # 运行智能体
             await agent.aprint_response(message, stream=True)
 
 
-# Example usage
+# 示例用法
 if __name__ == "__main__":
-    # Basic example - exploring project license
+    # 基础示例 - 探索项目许可证
     asyncio.run(run_agent("What is the license for this project?"))
 ```

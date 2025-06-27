@@ -1,24 +1,23 @@
 ---
 title: Slack
 ---
+## 前提条件
 
-## Prerequisites
-
-The following example requires the `slack-sdk` library.
+以下示例需要 `slack-sdk` 库。
 
 ```shell
 pip install openai slack-sdk
 ```
 
-Get a Slack token from [here](https://api.slack.com/tutorials/tracks/getting-a-token).
+从[这里](https://api.slack.com/tutorials/tracks/getting-a-token)获取 Slack 令牌。
 
 ```shell
 export SLACK_TOKEN=***
 ```
 
-## Example
+## 示例
 
-The following agent will use Slack to send a message to a channel, list all channels, and get the message history of a specific channel.
+以下智能体将使用 Slack 向频道发送消息，列出所有频道，并获取特定频道的消息历史记录。
 
 ```python cookbook/tools/slack_tools.py
 import os
@@ -30,35 +29,35 @@ slack_tools = SlackTools()
 
 agent = Agent(tools=[slack_tools], show_tool_calls=True)
 
-# Example 1: Send a message to a Slack channel
+# 示例1：向Slack频道发送消息
 agent.print_response("Send a message 'Hello from Agno!' to the channel #general", markdown=True)
 
-# Example 2: List all channels in the Slack workspace
+# 示例 2：列出 Slack workspace 中的所有频道
 agent.print_response("List all channels in our Slack workspace", markdown=True)
 
-# Example 3: Get the message history of a specific channel by channel ID
+# 示例 3：通过频道 ID 获取特定频道的消息历史记录
 agent.print_response("Get the last 10 messages from the channel 1231241", markdown=True)
 
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter             | Type   | Default | Description                                                         |
+| 参数名               | 类型   | 默认值 | 描述                                                         |
 | --------------------- | ------ | ------- | ------------------------------------------------------------------- |
-| `token`               | `str`  | -       | Slack API token for authentication                                  |
-| `send_message`        | `bool` | `True`  | Enables the functionality to send messages to Slack channels        |
-| `list_channels`       | `bool` | `True`  | Enables the functionality to list available Slack channels          |
-| `get_channel_history` | `bool` | `True`  | Enables the functionality to retrieve message history from channels |
+| `token`       | `str`  | -       | 用于身份验证的 Slack API 令牌                                  |
+| `send_message`       | `bool` | `True`  | 启用向 Slack 频道发送消息的功能        |
+| `list_channels`       | `bool` | `True`  | 启用列出可用 Slack 频道的功能          |
+| `get_channel_history`      | `bool` | `True`  | 启用从频道检索消息历史记录的功能 |
 
-## Toolkit Functions
+## 工具包功能
 
-| Function              | Description                                         |
+| 函数名               | 描述                                         |
 | --------------------- | --------------------------------------------------- |
-| `send_message`        | Sends a message to a specified Slack channel        |
-| `list_channels`       | Lists all available channels in the Slack workspace |
-| `get_channel_history` | Retrieves message history from a specified channel  |
+| `send_message`      | 向指定 Slack 频道发送消息        |
+| `list_channels`      | 列出 Slack workspace 中所有可用频道 |
+| `get_channel_history`      | 从指定频道检索消息历史记录  |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/slack.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/slack_tools.py)
+- 查看 [工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/slack.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/slack_tools.py)

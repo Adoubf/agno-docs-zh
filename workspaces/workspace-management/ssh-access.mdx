@@ -1,20 +1,19 @@
 ---
-title: SSH Access
+title: SSH访问
 ---
+SSH访问是开发者工作流程中的重要组成部分。
 
-SSH Access is an important part of the developer workflow.
+## 开发环境SSH访问
 
-## Dev SSH Access
-
-SSH into the dev containers using the `docker exec` command
+使用`docker exec`命令进入开发容器
 
 ```bash
 docker exec -it ai-api zsh
 ```
 
-## Production SSH Access
+## 生产环境SSH访问
 
-Your ECS tasks are already enabled with SSH access. SSH into the production containers using:
+您的ECS任务已默认启用SSH访问功能。使用以下命令进入生产容器：
 
 ```bash
 ECS_CLUSTER=ai-app-prd-cluster

@@ -1,16 +1,14 @@
 ---
-title: File Upload
-description: Learn how to use Anthropic's Files API with Agno.
+title: 文件上传
+description: 了解如何在 Agno 中使用 Anthropic 的 Files API。
 ---
+借助 Anthropic 的 [Files API](https://docs.anthropic.com/en/docs/build-with-claude/files)，您可以上传文件并在其他 API 调用中引用它们。当同一流程中多次引用某个文件时，这一功能非常实用。
 
-With Anthropic's [Files API](https://docs.anthropic.com/en/docs/build-with-claude/files), you can upload files and later reference them in other API calls.
-This is handy when a file is referenced multiple times in the same flow.
-
-## Usage
+## 使用方法
 
 <Steps>
-<Step title="Upload a file">
-Initialize the Anthropic client and use `client.beta.files.upload`:
+<Step title="上传文件">
+初始化 Anthropic 客户端并使用 `client.beta.files.upload`：
 
 ```python
 from anthropic import Anthropic
@@ -21,8 +19,8 @@ client = Anthropic()
 uploaded_file = client.beta.files.upload(file=file_path)
 ```
 </Step>
-<Step title="Initialize the Claude model">
-When initializing the `Claude` model, pass the necessary beta header:
+<Step title="初始化 Claude 模型">
+初始化 `Claude` 模型时，传递必要的测试版标头：
 
 ```python
 from agno.agent import Agent
@@ -36,8 +34,8 @@ agent = Agent(
 )
 ```
 </Step>
-<Step title="Reference the file">
-You can now reference the uploaded file when interacting with your Agno agent:
+<Step title="引用文件">
+现在与您的 Agno 智能体交互时可引用已上传的文件：
 
 ```python
 agent.print_response(
@@ -48,11 +46,9 @@ agent.print_response(
 </Step>
 </Steps>
 
+请注意该功能存在存储限制。您可以在 Anthropic 的[文档](https://docs.anthropic.com/en/docs/build-with-claude/files#file-storage-and-limits)中查阅更多详情。
 
-Notice there are some storage limits attached to this feature. You can read more about that on Anthropic's [docs](https://docs.anthropic.com/en/docs/build-with-claude/files#file-storage-and-limits).
-
-
-## Working example
+## 工作示例
 
 ```python cookbook/models/anthropic/pdf_input_file_upload.py
 from pathlib import Path
@@ -65,15 +61,15 @@ from anthropic import Anthropic
 
 pdf_path = Path(__file__).parent.joinpath("ThaiRecipes.pdf")
 
-# Download the file using the download_file function
+# 使用 download_file 函数下载文件
 download_file(
     "https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf", str(pdf_path)
 )
 
-# Initialize Anthropic client
+# 初始化 Anthropic 客户端
 client = Anthropic()
 
-# Upload the file to Anthropic
+# 将文件上传至Anthropic
 uploaded_file = client.beta.files.upload(
     file=Path(pdf_path),
 )

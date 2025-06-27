@@ -1,8 +1,7 @@
 ---
-title: Basic Agent
+title: 基础智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/deepinfra/basic.py
 from agno.agent import Agent, RunResponse  # noqa
@@ -13,32 +12,32 @@ agent = Agent(
     markdown=True,
 )
 
-# Get the response in a variable
-# run: RunResponse = agent.run("Share a 2 sentence horror story")
-# print(run.content)
+# 将响应存入变量
+# 运行：RunResponse = agent.run("分享一个两句话的恐怖故事")
+# 打印(run.content)
 
-# Print the response in the terminal
+# 在终端中打印响应
 agent.print_response("Share a 2 sentence horror story")
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export DEEPINFRA_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/models/deepinfra/basic.py
@@ -49,4 +48,4 @@ agent.print_response("Share a 2 sentence horror story")
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

@@ -1,12 +1,11 @@
 ---
-title: What are Tools?
-sidebarTitle: Overview
-description: Tools are functions that helps Agno Agents to interact with the external world.
+title: 什么是工具？
+sidebarTitle: 概述
+description: 工具是帮助 Agno 智能体与外部世界交互的函数。
 ---
+工具使智能体具备"自主性"——通过让它们能与外部系统交互，比如搜索网页、运行SQL、发送邮件或调用API。
 
-Tools make agents - "agentic" by enabling them to interact with external systems like searching the web, running SQL, sending an email or calling APIs.
-
-Agno comes with 80+ pre-built toolkits, but in most cases, you will write your own tools. The general syntax is:
+Agno预置了80多个现成的工具套件，但在大多数情况下您需要编写自己的工具。基本语法如下：
 
 ```python
 import random
@@ -19,7 +18,7 @@ from agno.tools import tool
 @tool(show_result=True, stop_after_tool_call=True)
 def get_weather(city: str) -> str:
     """Get the weather for a city."""
-    # In a real implementation, this would call a weather API
+    # 在实际实现中，这将调用一个天气API
     weather_conditions = ["sunny", "cloudy", "rainy", "snowy", "windy"]
     random_weather = random.choice(weather_conditions)
 
@@ -36,15 +35,15 @@ agent.print_response("What is the weather in San Francisco?", stream=True)
 
 <Tip>
 
-In the example above, the `get_weather` function is a tool. When it is called, the tool result will be shown in the output because we set `show_result=True`.
+在上述示例中，`get_weather`函数就是一个工具。当它被调用时，工具的执行结果会显示在输出中，因为我们设置了`show_result=True`。
 
-Then, the Agent will stop after the tool call because we set `stop_after_tool_call=True`.
+然后，智能体会在工具调用后停止，因为我们设置了`stop_after_tool_call=True`。
 
 </Tip>
 
-### Using the Toolkit Class
+### 使用Toolkit类
 
-The `Toolkit` class provides a way to manage multiple tools with additional control over their execution. You can specify which tools should stop the agent after execution and which should have their results shown.
+`Toolkit`类提供了管理多个工具的方法，并对其执行过程进行额外控制。您可以指定哪些工具在执行后应该停止智能体，以及哪些工具的执行结果应该被显示。
 
 ```python
 from agno.agent import Agent
@@ -65,8 +64,8 @@ agent = Agent(
 agent.print_response("What's the latest about gpt 4.5?", markdown=True)
 ```
 
-In this example, the `GoogleSearchTools` toolkit is configured to stop the agent after executing the `google_search` function and to show the result of this function.
+在这个例子中，`GoogleSearchTools`工具套件被配置为在执行`google_search`函数后停止智能体，并显示该函数的执行结果。
 
-Read more about:
-- [Available Toolkits](/tools/toolkits)
-- [Using functions as tools](/tools/tool-decorator)
+了解更多：
+- [可用工具套件](/tools/toolkits)
+- [将函数作为工具使用](/tools/tool-decorator)

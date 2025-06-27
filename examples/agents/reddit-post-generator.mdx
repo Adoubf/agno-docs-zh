@@ -1,10 +1,9 @@
 ---
-title: Reddit Post Generator
+title: Reddit 帖子生成器
 ---
+**Reddit帖子生成器**是一个由智能体组成的团队，能够在网上研究主题并生成Reddit论坛的帖子。
 
-**Reddit Post Generator** is a team of agents that can research topics on the web and make posts for a subreddit on Reddit.
-
-Create a file `reddit_post_generator_team.py` with the following code:
+创建一个名为`reddit_post_generator_team.py`的文件，包含以下代码：
 
 ```python reddit_post_generator_team.py
 from agno.agent import Agent
@@ -61,18 +60,18 @@ post_team.print_response(
 )
 
 ```
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai praw duckduckgo-search
     ```
   </Step>
 
-  <Step title="Set environment variables">
+  <Step title="设置环境变量">
     ```bash
     export OPENAI_API_KEY=****
     export REDDIT_CLIENT_ID=****
@@ -82,7 +81,7 @@ post_team.print_response(
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行智能体">
     ```bash
     python reddit_post_generator_team.py
     ```

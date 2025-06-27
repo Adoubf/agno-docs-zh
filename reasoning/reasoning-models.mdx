@@ -1,16 +1,15 @@
 ---
-title: Reasoning Models
+title: 推理模型
 ---
-
-Reasoning models are a new class of large language models trained with reinforcement learning to think before they answer. They produce a long internal chain of thought before responding. Examples of reasoning models include:
-- OpenAI o1-pro and o3-mini
-- Claude 3.7 sonnet in extended-thinking mode
+推理模型是一类新型的大型语言模型，它们通过强化学习训练，具备"先思考后回答"的能力。这类模型在生成响应前会构建一长串内部思维链。典型的推理模型包括：
+- OpenAI o1-pro 和 o3-mini
+- 扩展思考模式下的 Claude 3.7 sonnet
 - Gemini 2.0 flash thinking
 - DeepSeek-R1
 
-Reasoning models deeply consider and think through a plan before taking action. Its all about what the model does **before it starts generating a response**. Reasoning models excel at single-shot use-cases. They're perfect for solving hard problems (coding, math, physics) that don't require multiple turns, or calling tools sequentially.
+推理模型在执行行动前会深入推敲并制定计划，其核心价值体现在模型**开始生成响应前的思考过程**。这类模型特别擅长单轮次应用场景，完美适用于解决不需要多轮交互或工具链调用的复杂问题（如编程、数学、物理等领域）。
 
-## Examples
+## 示例
 
 ### o3-mini
 
@@ -26,7 +25,7 @@ agent.print_response(
 )
 ```
 
-### o3-mini with tools
+### 带工具的 o3-mini
 
 ```python o3_mini_with_tools.py
 from agno.agent import Agent
@@ -43,7 +42,7 @@ agent = Agent(
 agent.print_response("Write a report comparing NVDA to TSLA", stream=True)
 ```
 
-### o3-mini with reasoning effort
+### 加强推理的 o3-mini
 
 ```python o3_mini_with_reasoning_effort.py
 from agno.agent import Agent
@@ -60,7 +59,7 @@ agent = Agent(
 agent.print_response("Write a report comparing NVDA to TSLA", stream=True)
 ```
 
-### DeepSeek-R1 using Groq
+### 使用 Groq 的 DeepSeek-R1
 
 ```python deepseek_r1_using_groq.py
 from agno.agent import Agent
@@ -75,15 +74,15 @@ agent = Agent(
 agent.print_response("9.11 and 9.9 -- which is bigger?", stream=True)
 ```
 
-## Reasoning Model + Response Model
+## 推理模型+响应模型组合
 
-When you run the DeepSeek-R1 Agent above, you'll notice that the response is not that great. This is because DeepSeek-R1 is great at solving problems but not that great at responding in a natural way (like claude sonnet or gpt-4.5).
+运行上述 DeepSeek-R1 智能体时，您会发现其响应效果并不理想。这是因为 DeepSeek-R1 擅长解决问题，但在生成自然语言响应方面（如 Claude sonnet 或 GPT-4.5）表现欠佳。
 
-What if we wanted to use a Reasoning Model to reason but a different model to generate the response?
+如果我们想用推理模型处理思考过程，而用另一个模型生成响应呢？
 
-Great news! Agno allows you to use a Reasoning Model and a different Response Model together. By using a separate model for reasoning and a different model for responding, we can have the best of both worlds.
+好消息！Agno 允许您组合使用推理模型和响应模型。通过分离思考与响应功能，我们可以兼得二者优势。
 
-### DeepSeek-R1 + Claude Sonnet
+### DeepSeek-R1 + Claude Sonnet 组合
 
 ```python deepseek_plus_claude.py
 from agno.agent import Agent
@@ -99,9 +98,7 @@ deepseek_plus_claude = Agent(
 deepseek_plus_claude.print_response("9.11 and 9.9 -- which is bigger?", stream=True)
 ```
 
-## Developer Resources
+## 开发者资源
 
-
-- View [Examples](/examples/concepts/reasoning/models)
-- View [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/reasoning/models)
-
+- 查看[示例](/examples/concepts/reasoning/models)
+- 查看[操作手册](https://github.com/agno-agi/agno/tree/main/cookbook/reasoning/models)

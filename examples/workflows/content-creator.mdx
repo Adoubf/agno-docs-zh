@@ -1,9 +1,9 @@
 ---
-title: Content Creator
+title: 内容创作者
 ---
-**ContentCreator** streamlines the process of planning, creating, and distributing engaging content across LinkedIn and Twitter.
+**ContentCreator** 简化了在LinkedIn和Twitter上规划、创建和分发引人入胜内容的流程。
 
-Create a file `config.py` with the following code:
+创建一个文件 `config.py`，包含以下代码：
 
 ```python config.py
 import os
@@ -19,15 +19,15 @@ TYPEFULLY_API_KEY = os.getenv("TYPEFULLY_API_KEY")
 HEADERS = {"X-API-KEY": f"Bearer {TYPEFULLY_API_KEY}"}
 
 
-# Define the enums
+# 定义枚举
 class PostType(Enum):
     TWITTER = "Twitter"
     LINKEDIN = "LinkedIn"
 ```
-Add prompts in `prompts.py`
+在 `prompts.py` 中添加提示词
 
 ```python prompts.py
-# Planner Agents Configuration
+# 智能体规划器配置
 agents_config = {
     "blog_analyzer": {
         "role": "Blog Analyzer",
@@ -61,7 +61,7 @@ agents_config = {
     },
 }
 
-# Planner Tasks Configuration
+# 规划任务配置
 tasks_config = {
     "analyze_blog": {
         "description": (
@@ -137,7 +137,7 @@ tasks_config = {
 }
 ```
 
-For Scheduling logic, create `scheduler.py`
+对于排程逻辑，创建 `scheduler.py`
 
 ```python scheduler.py
 import datetime
@@ -228,22 +228,22 @@ def schedule(
     """
     try:
         thread_content = ""
-        # Convert Pydantic model to dict
+        # 将 Pydantic 模型转换为字典
         thread_json = thread_model.model_dump()
         logger.info("######## Thread JSON: ", thread_json)
-        # Convert to Typefully format
+        # 转换为 Typefully 格式
         if post_type == PostType.TWITTER:
             thread_content = json_to_typefully_content(thread_json)
         elif post_type == PostType.LINKEDIN:
             thread_content = json_to_linkedin_content(thread_json)
 
-        # Calculate schedule time
+        # 计算调度时间
         schedule_date = (
             datetime.datetime.utcnow() + datetime.timedelta(hours=hours_from_now)
         ).isoformat() + "Z"
 
         if thread_content:
-            # Schedule the thread
+            # 调度线程
             response = schedule_thread(
                 content=thread_content,
                 schedule_date=schedule_date,
@@ -263,7 +263,7 @@ def schedule(
         logger.error(f"Error: {str(e)}")
         return None
 ```
-Define workflow in `workflow.py`:
+在 `workflow.py` 中定义工作流：
 
 ```python workflow.py
 import json
@@ -285,11 +285,11 @@ from cookbook.workflows.content_creator_workflow.prompts import (
 )
 from cookbook.workflows.content_creator_workflow.scheduler import schedule
 
-# Load environment variables
+# 加载环境变量
 load_dotenv()
 
 
-# Define Pydantic models to structure responses
+# 定义 Pydantic 模型以结构化响应
 class BlogAnalyzer(BaseModel):
     """
     Represents the response from the Blog Analyzer agent.
@@ -340,12 +340,12 @@ class ContentPlanningWorkflow(Workflow):
     3. Scheduling and publishing the planned content.
     """
 
-    # This description is used only in workflow UI
+    # 该描述仅用于工作流界面
     description: str = (
         "Plan, schedule, and publish social media content based on a blog post."
     )
 
-    # Blog Analyzer Agent: Extracts blog content (title, sections) and converts it into Markdown format for further use.
+    # 博客分析智能体：提取博客内容（标题、章节）并将其转换为Markdown格式以供后续使用。
     blog_analyzer: Agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
         tools=[
@@ -361,8 +361,8 @@ class ContentPlanningWorkflow(Workflow):
         response_model=BlogAnalyzer,  # Expects response to follow the BlogAnalyzer Pydantic model
     )
 
-    # Twitter Thread Planner: Creates a Twitter thread from the blog content, each tweet is concise, engaging,
-    # and logically connected with relevant media.
+    # Twitter 线程规划器：从博客内容生成 Twitter 线程，每条推文简洁、引人入胜
+    # 并与相关媒体保持逻辑关联。
     twitter_thread_planner: Agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
         description=f"{agents_config['twitter_thread_planner']['role']} - {agents_config['twitter_thread_planner']['goal']}",
@@ -373,8 +373,8 @@ class ContentPlanningWorkflow(Workflow):
         response_model=Thread,  # Expects response to follow the Thread Pydantic model
     )
 
-    # LinkedIn Post Planner: Converts blog content into a structured LinkedIn post, optimized for a professional
-    # audience with relevant hashtags.
+    # LinkedIn 文章规划器：将博客内容转换为结构化LinkedIn帖子，为专业受众优化
+    # 带有相关话题标签的受众。
     linkedin_post_planner: Agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
         description=f"{agents_config['linkedin_post_planner']['role']} - {agents_config['linkedin_post_planner']['goal']}",
@@ -427,7 +427,7 @@ class ContentPlanningWorkflow(Workflow):
         """
         logger.info(f"# Publishing content for post type: {post_type}")
 
-        # Use the `scheduler` module directly to schedule the content
+        # 通过 `scheduler` 模块直接调度内容
         response = schedule(
             thread_model=plan,
             post_type=post_type,  # Either "Twitter" or "LinkedIn"
@@ -448,20 +448,20 @@ class ContentPlanningWorkflow(Workflow):
             blog_post_url: URL of the blog post to analyze.
             post_type: Type of post to generate (e.g., Twitter or LinkedIn).
         """
-        # Scrape the blog post
+        # 抓取博客文章
         blog_content = self.scrape_blog_post(blog_post_url)
 
-        # Generate the plan based on the blog and post type
+        # 根据博客和帖子类型生成计划
         plan = self.generate_plan(blog_content, post_type)
 
-        # Schedule and publish the content
+        # 安排并发布内容
         response = self.schedule_and_publish(plan, post_type)
 
         return response
 
 
 if __name__ == "__main__":
-    # Initialize and run the workflow
+    # 初始化并运行工作流
     blogpost_url = "https://blog.dailydoseofds.com/p/5-chunking-strategies-for-rag"
     workflow = ContentPlanningWorkflow()
     post_response = workflow.run(
@@ -469,18 +469,18 @@ if __name__ == "__main__":
     )  # PostType.LINKEDIN for LinkedIn post
     logger.info(post_response.content)
 ```
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install agno firecrawl-py openai packaging requests python-dotenv
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行智能体">
     ```bash
     python workflow.py
     ```

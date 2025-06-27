@@ -1,15 +1,14 @@
 ---
-title: Format & Validate
+title: 格式化与验证
 description:
 ---
+## 代码格式化
 
-## Format
-
-Formatting the codebase using a set standard saves us time and mental energy. Agno templates are pre-configured with [ruff](https://docs.astral.sh/ruff/) that you can run using a helper script or directly.
+采用统一标准格式化代码库能节省时间和心智负担。Agno模板预先配置了[ruff](https://docs.astral.sh/ruff/)，您可以通过辅助脚本或直接运行。
 
 <CodeGroup>
 
-```bash terminal
+```bash 终端
 ./scripts/format.sh
 ```
 
@@ -19,15 +18,15 @@ ruff format .
 
 </CodeGroup>
 
-## Validate
+## 验证
 
-Linting and Type Checking add an extra layer of protection to the codebase. We highly recommending running the validate script before pushing any changes.
+代码静态检查和类型检查为代码库提供额外保护层。我们强烈建议在推送任何更改前运行验证脚本。
 
-Agno templates are pre-configured with [ruff](https://docs.astral.sh/ruff/) and [mypy](https://mypy.readthedocs.io/en/stable/) that you can run using a helper script or directly. Checkout the `pyproject.toml` file for the configuration.
+Agno模板预先配置了[ruff](https://docs.astral.sh/ruff/)和[mypy](https://mypy.readthedocs.io/en/stable/)，您可以通过辅助脚本或直接运行。具体配置请查看`pyproject.toml`文件。
 
 <CodeGroup>
 
-```bash terminal
+```bash 终端
 ./scripts/validate.sh
 ```
 

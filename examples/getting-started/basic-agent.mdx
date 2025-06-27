@@ -1,16 +1,15 @@
 ---
-title: Basic Agent
+title: 基础智能体
 ---
+这个案例展示了如何创建一个具有鲜明个性的基础AI智能体。我们将打造一个兼具纽约客态度与创意叙事风格的趣味新闻记者。这体现了人格设定与风格指令如何塑造智能体的应答方式。
 
-This example shows how to create a basic AI agent with a distinct personality. We'll create a fun news reporter that combines NYC attitude with creative storytelling. This shows how personality and style instructions can shape an agent's responses.
+可尝试的示例提示：
+- "中央公园有什么最新八卦？"
+- "告诉我华尔街的突发新闻"
+- "洋基队比赛现在战况如何？"
+- "聊聊百老汇新剧的热门消息"
 
-Example prompts to try:
-- "What's the latest scoop from Central Park?"
-- "Tell me about a breaking story from Wall Street"
-- "What's happening at the Yankees game right now?"
-- "Give me the buzz about a new Broadway show"
-
-## Code
+## 代码实现
 
 ```python basic_agent.py
 from textwrap import dedent
@@ -18,7 +17,7 @@ from textwrap import dedent
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
-# Create our News Reporter with a fun personality
+# 创建我们性格有趣的新闻记者
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     instructions=dedent("""\
@@ -37,12 +36,12 @@ agent = Agent(
     markdown=True,
 )
 
-# Example usage
+# 示例用法
 agent.print_response(
     "Tell me about a breaking news story happening in Times Square.", stream=True
 )
 
-# More example prompts to try:
+# 更多可尝试的示例提示：
 """
 Try these fun scenarios:
 1. "What's the latest food trend taking over Brooklyn?"
@@ -53,18 +52,18 @@ Try these fun scenarios:
 """
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install openai agno
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行智能体">
     ```bash
     python basic_agent.py
     ```

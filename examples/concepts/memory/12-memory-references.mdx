@@ -1,14 +1,11 @@
 ---
-title: Memory References
+title: 记忆引用
 ---
+本示例展示如何在智能体配置中使用 `add_memory_references` 参数，将用户记忆引用添加到智能体中。
 
-This example shows how to use the `add_memory_references` parameter in the Agent config to
-add references to the user memories to the Agent.
+## 代码
 
-
-## Code
-
-```12_memory_references.py
+```12_memory_references .py
 from agno.agent.agent import Agent
 from agno.memory.v2.db.sqlite import SqliteMemoryDb
 from agno.memory.v2.memory import Memory, UserMemory
@@ -29,29 +26,29 @@ agent = Agent(
     add_memory_references=True,  # Add pre existing memories to the Agent but don't create new ones
 )
 
-# Alternatively, you can create/update user memories but not add them to the Agent
-# agent = Agent(
-#     model=Gemini(id="gemini-2.0-flash-exp"),
-#     memory=memory,
-#     enable_user_memories=True,
-#     add_memory_references=False,
-# )
+# 或者，您可以创建/更新用户记忆但不将其添加到智能体中
+# 智能体 = 智能体(
+# model=Gemini(id="gemini-2.0-flash-exp"),
+# 记忆=记忆,
+# enable_user_memories=True,
+# add_memory_references=False,
+# （空响应）
 
 agent.print_response("What are my hobbies?", user_id="john_doe@example.com")
 ```
 
-## Usage
+## 使用方式
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="运行示例">
     <CodeGroup>
     ```bash Mac
     python 12_memory_references.py
@@ -62,4 +59,4 @@ agent.print_response("What are my hobbies?", user_id="john_doe@example.com")
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

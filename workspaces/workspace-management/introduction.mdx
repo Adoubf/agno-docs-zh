@@ -1,98 +1,97 @@
 ---
-title: Introduction
+title: 简介
 ---
+**Agno Workspaces** 是标准化代码库，用于通过Docker在本地运行智能体系统，并在AWS上生产环境部署。它们帮助我们将智能体系统作为代码进行管理。
 
-**Agno Workspaces** are standardized codebases for running Agentic Systems locally using Docker and in production on AWS. They help us manage our Agentic System as code.
+![工作区](/images/workspace.png)
 
-![workspace](/images/workspace.png)
+## 创建新工作区
 
-## Create a new workspace
-
-Run `ag ws create` to create a new workspace, the command will ask your for a starter template and workspace name.
+运行 `ag ws create` 创建新工作区，该命令会要求选择起始模板和工作区名称。
 
 <CodeGroup>
 
-```bash Create Workspace
+```bash 创建工作区
 ag ws create
 ```
 
-```bash Create Agent App
+```bash 创建智能体应用
 ag ws create -t agent-app-aws -n agent-app
 ```
 
-```bash Create Agent API
+```bash 创建 Agent API
 ag ws create -t agent-api-aws -n agent-api
 ```
 
 </CodeGroup>
 
-## Start workspace resources
+## 启动工作区资源
 
-Run `ag ws up` to start i.e. create workspace resources
+运行 `ag ws up` 启动（即创建）工作区资源
 
 <CodeGroup>
 
-```bash terminal
+```bash 终端
 ag ws up
 ```
 
-```bash shorthand
+```bash 速记
 ag ws up dev:docker
 ```
 
-```bash full options
+```bash 完整选项
 ag ws up --env dev --infra docker
 ```
 
-```bash short options
+```bash 短选项
 ag ws up -e dev -i docker
 ```
 
 </CodeGroup>
 
-## Stop workspace resources
+## 停止工作区资源
 
-Run `ag ws down` to stop i.e. delete workspace resources
+运行 `ag ws down` 停止（即删除）工作区资源
 
 <CodeGroup>
 
-```bash terminal
+```bash 终端
 ag ws down
 ```
 
-```bash shorthand
+```bash 速记
 ag ws down dev:docker
 ```
 
-```bash full options
+```bash 完整选项
 ag ws down --env dev --infra docker
 ```
 
-```bash short options
+```bash 简短选项
 ag ws down -e dev -i docker
 ```
 
 </CodeGroup>
 
-## Patch workspace resources
+## 修补工作区资源
 
-Run `ag ws patch` to patch i.e. update workspace resources
+运行 `ag ws patch` 修补（即更新）工作区资源
 
 <CodeGroup>
 
-```bash terminal
+```bash 终端
 ag ws patch
 ```
 
-```bash shorthand
+```bash 速记
 ag ws patch dev:docker
 ```
 
-```bash full options
+```bash 完整选项
 ag ws patch --env dev --infra docker
 ```
 
-```bash short options
+```bash 简短选项
 ag ws patch -e dev -i docker
 ```
 
@@ -102,116 +101,116 @@ ag ws patch -e dev -i docker
 
 <Note>
 
-The `patch` command in under development for some resources. Use `restart` if needed
+当前 `patch` 命令对部分资源正在开发中。如需使用可改用 `restart`
 
 </Note>
 
-## Restart workspace
+## 重启工作区
 
-Run `ag ws restart` to stop resources and start them again
+运行 `ag ws restart` 停止资源并重新启动
 
 <CodeGroup>
 
-```bash terminal
+```bash 终端
 ag ws restart
 ```
 
-```bash shorthand
+```bash 速记
 ag ws restart dev:docker
 ```
 
-```bash full options
+```bash 完整选项
 ag ws restart --env dev --infra docker
 ```
 
-```bash short options
+```bash 简短选项
 ag ws restart -e dev -i docker
 ```
 
 </CodeGroup>
 
-## Setup existing workspace
+## 设置现有工作区
 
-If you clone the codebase directly (eg: if your coworker created it) - run `ag ws setup` to set it up locally
+如果直接克隆代码库（例如同事创建的），运行 `ag ws setup` 在本地进行设置
 
 <CodeGroup>
 
-```bash terminal
+```bash 终端
 ag ws setup
 ```
 
-```bash with debug logs
+```bash 开启调试日志
 ag ws setup -d
 ```
 
 </CodeGroup>
 
-## Command Options
+## 命令选项
 
-<Note>Run `ag ws up --help` to view all options</Note>
+<Note>运行 `ag ws up --help` 查看所有选项</Note>
 
-### Environment (`--env`)
+### 环境 (`--env`)
 
-Use the `--env` or `-e` flag to filter the environment (dev/prd)
+使用 `--env` 或 `-e` 标识过滤环境（dev/prd）
 
 <CodeGroup>
 
-```bash flag
+```bash 标识
 ag ws up --env dev
 ```
 
-```bash shorthand
+```bash 速记
 ag ws up dev
 ```
 
-```bash short options
+```bash 简短选项
 ag ws up -e dev
 ```
 
 </CodeGroup>
 
-### Infra (`--infra`)
+### 基础设施 (`--infra`)
 
-Use the `--infra` or `-i` flag to filter the infra (docker/aws/k8s)
+使用 `--infra` 或 `-i` 标识过滤基础设施（docker/aws/k8s）
 
 <CodeGroup>
 
-```bash flag
+```bash 标识
 ag ws up --infra docker
 ```
 
-```bash shorthand
+```bash 速记
 ag ws up :docker
 ```
 
-```bash short options
+```bash 简短选项
 ag ws up -i docker
 ```
 
 </CodeGroup>
 
-### Group (`--group`)
+### 资源组 (`--group`)
 
-Use the `--group` or `-g` flag to filter by resource group.
+使用 `--group` 或 `-g` 标识按资源组过滤
 
 <CodeGroup>
 
-```bash flag
+```bash 标识
 ag ws up --group app
 ```
 
-```bash full options
+```bash 全部选项
 ag ws up \
   --env dev \
   --infra docker \
   --group app
 ```
 
-```bash shorthand
+```bash 速记
 ag ws up dev:docker:app
 ```
 
-```bash short options
+```bash 简短选项
 ag ws up \
   -e dev \
   -i docker \
@@ -220,28 +219,28 @@ ag ws up \
 
 </CodeGroup>
 
-### Name (`--name`)
+### 名称 (`--name`)
 
-Use the `--name` or `-n` flag to filter by resource name
+使用 `--name` 或 `-n` 标识按资源名称过滤
 
 <CodeGroup>
 
-```bash flag
+```bash 标识
 ag ws up --name app
 ```
 
-```bash full options
+```bash 完整选项
 ag ws up \
   --env dev \
   --infra docker \
   --name app
 ```
 
-```bash shorthand
+```bash 速记
 ag ws up dev:docker::app
 ```
 
-```bash short options
+```bash 短选项
 ag ws up \
   -e dev \
   -i docker \
@@ -250,28 +249,28 @@ ag ws up \
 
 </CodeGroup>
 
-### Type (`--type`)
+### 类型 (`--type`)
 
-Use the `--type` or `-t` flag to filter by resource type.
+使用 `--type` 或 `-t` 标识按资源类型过滤
 
 <CodeGroup>
 
-```bash flag
+```bash 标识
 ag ws up --type container
 ```
 
-```bash full options
+```bash 完整选项
 ag ws up \
   --env dev \
   --infra docker \
   --type container
 ```
 
-```bash shorthand
+```bash 速记
 ag ws up dev:docker:app::container
 ```
 
-```bash short options
+```bash 短选项
 ag ws up \
   -e dev \
   -i docker \
@@ -280,28 +279,28 @@ ag ws up \
 
 </CodeGroup>
 
-### Dry Run (`--dry-run`)
+### 试运行 (`--dry-run`)
 
-The `--dry-run` or `-dr` flag can be used to **dry-run** the command. `ag ws up -dr` will only print resources, not create them.
+使用 `--dry-run` 或 `-dr` 标识进行**试运行**。`ag ws up -dr` 仅打印资源信息，不会实际创建。
 
 <CodeGroup>
 
-```bash flag
+```bash 标识
 ag ws up --dry-run
 ```
 
-```bash full options
+```bash 完整选项
 ag ws up \
   --env dev \
   --infra docker \
   --dry-run
 ```
 
-```bash shorthand
+```bash 速记
 ag ws up dev:docker -dr
 ```
 
-```bash short options
+```bash 短选项
 ag ws up \
   -e dev \
   -i docker \
@@ -310,28 +309,28 @@ ag ws up \
 
 </CodeGroup>
 
-### Show Debug logs (`--debug`)
+### 显示调试日志 (`--debug`)
 
-Use the `--debug` or `-d` flag to show debug logs.
+使用 `--debug` 或 `-d` 标识显示调试日志
 
 <CodeGroup>
 
-```bash flag
+```bash 标识
 ag ws up -d
 ```
 
-```bash full options
+```bash 完整选项
 ag ws up \
   --env dev \
   --infra docker \
   -d
 ```
 
-```bash shorthand
+```bash 速记
 ag ws up dev:docker -d
 ```
 
-```bash short options
+```bash 简短选项
 ag ws up \
   -e dev \
   -i docker \
@@ -340,28 +339,28 @@ ag ws up \
 
 </CodeGroup>
 
-### Force recreate images & containers (`-f`)
+### 强制重建镜像和容器 (`-f`)
 
-Use the `--force` or `-f` flag to force recreate images & containers
+使用 `--force` 或 `-f` 标识强制重建镜像和容器
 
 <CodeGroup>
 
-```bash flag
+```bash 标识
 ag ws up -f
 ```
 
-```bash full options
+```bash 完整选项
 ag ws up \
   --env dev \
   --infra docker \
   -f
 ```
 
-```bash shorthand
+```bash 速记
 ag ws up dev:docker -f
 ```
 
-```bash short options
+```bash 简短选项
 ag ws up \
   -e dev \
   -i docker \

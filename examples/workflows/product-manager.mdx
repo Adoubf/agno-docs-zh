@@ -1,9 +1,9 @@
 ---
-title: Product Manager
+title: 产品经理
 ---
-**ProductManager** generates tasks from meeting notes, creates corresponding issues in Linear, and sends Slack notifications with task details to the team.
+**产品经理**从会议纪要生成任务，在Linear中创建对应的问题，并通过Slack向团队发送包含任务详情的通知。
 
-Create a file `product_manager.py` with the following code:
+创建文件 `product_manager.py`，内容如下：
 
 ```python product_manager.py
 import os
@@ -112,7 +112,7 @@ class ProductManagerWorkflow(Workflow):
         if team_id is None:
             raise Exception("LINEAR_TEAM_ID is not set")
 
-        # Create issues in Linear
+        # 在Linear中创建问题
         logger.info(f"Creating issues in Linear: {tasks.model_dump_json()}")
         linear_response: RunResponse = self.linear_agent.run(
             f"Create issues in Linear for project {project_id} and team {team_id}: {tasks.model_dump_json()} and here is the dictionary of users and their uuid: {linear_users}. If you fail to create an issue, try again."
@@ -150,7 +150,7 @@ class ProductManagerWorkflow(Workflow):
 
         linear_issues = self.create_linear_issues(tasks, linear_users)
 
-        # Send slack notification with tasks
+        # 发送带有任务的 Slack 通知
         if linear_issues:
             logger.info(
                 f"Sending slack notification with tasks: {linear_issues.model_dump_json()}"
@@ -163,7 +163,7 @@ class ProductManagerWorkflow(Workflow):
         return slack_response
 
 
-# Create the workflow
+# 创建该工作流程
 product_manager = ProductManagerWorkflow(
     session_id="product-manager",
     storage=PostgresStorage(
@@ -181,11 +181,11 @@ users_uuid = {
     "James": "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
 }
 
-# Run workflow
+# 运行工作流
 product_manager.run(meeting_notes=meeting_notes, linear_users=users_uuid)
 ```
 
-## Meeting Notes
+## 会议纪要
 
 ```text meeting_notes.txt
 Daily Standup Meeting - Technical Team
@@ -221,18 +221,18 @@ Meeting ended at 9:45 AM
 
 ```
 
-## Usage
+## 使用方法
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install "psycopg[binary]" slack-sdk
     ```
   </Step>
 
-  <Step title="Run the agent">
+  <Step title="运行智能体">
     ```bash
     python product_manager.py
     ```

@@ -1,8 +1,7 @@
 ---
-title: CSV URL Knowledge Base
+title: CSV URL 知识库
 ---
-
-## Code
+## 代码
 
 ```python
 from agno.agent import Agent
@@ -28,18 +27,18 @@ agent.print_response(
 )
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U sqlalchemy 'psycopg[binary]' pgvector agno
     ```
   </Step>
 
-  <Step title="Run PgVector">
+  <Step title="运行 PgVector">
     ```bash
     docker run -d \
       -e POSTGRES_DB=ai \
@@ -53,7 +52,7 @@ agent.print_response(
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_concepts/knowledge/csv_url_kb.py

@@ -1,8 +1,7 @@
 ---
-title: Agent with Structured Outputs
+title: 结构化输出的智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/deepseek/structured_output.py
 from typing import List
@@ -38,33 +37,33 @@ json_mode_agent = Agent(
     response_model=MovieScript,
 )
 
-# Get the response in a variable
-# json_mode_response: RunResponse = json_mode_agent.run("New York")
+# 获取变量中的响应
+# json_mode_response: RunResponse = json_mode_agent.run("纽约")
 # pprint(json_mode_response.content)
 
 json_mode_agent.print_response("New York")
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的API密钥">
     ```bash
     export DEEPSEEK_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U openai agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
-    ```bash Mac
+    ```bash 苹果
     python cookbook/models/deepseek/structured_output.py
     ```
 

@@ -1,8 +1,7 @@
 ---
-title: Llama Essay Writer
+title: Llama论文写作助手
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/huggingface/llama_essay_writer.py
 import os
@@ -21,26 +20,26 @@ agent = Agent(
 agent.print_response("topic: AI")
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的API密钥">
     ```bash
     export HF_TOKEN=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U huggingface_hub agno
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
-    ```bash Mac
+    ```bash Mac（苹果电脑）
     python cookbook/models/huggingface/llama_essay_writer.py
     ```
 

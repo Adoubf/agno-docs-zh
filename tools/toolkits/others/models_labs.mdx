@@ -1,52 +1,51 @@
 ---
 title: ModelsLabs
 ---
+## 先决条件
 
-## Prerequisites
-
-You need to install the `requests` library.
+您需要安装 `requests` 库。
 
 ```bash
 pip install requests
 ```
 
-Set the `MODELS_LAB_API_KEY` environment variable.
+设置 `MODELS_LAB_API_KEY` 环境变量。
 
 ```bash
 export MODELS_LAB_API_KEY=****
 ```
 
-## Example
+## 示例
 
-The following agent will use ModelsLabs to generate a video based on a text prompt.
+以下智能体会使用 ModelsLabs 根据文本提示生成视频。
 
 ```python cookbook/tools/models_labs_tools.py
 from agno.agent import Agent
 from agno.tools.models_labs import ModelsLabsTools
 
-# Create an Agent with the ModelsLabs tool
+# 使用 ModelsLabs 工具创建智能体
 agent = Agent(tools=[ModelsLabsTools()], name="ModelsLabs Agent")
 
 agent.print_response("Generate a video of a beautiful sunset over the ocean", markdown=True)
 ```
 
-## Toolkit Params
+## 工具包参数
 
-| Parameter             | Type   | Default                                           | Description                                                                |
+| 参数             | 类型   | 默认值                                           | 描述                                                                 |
 | --------------------- | ------ | ------------------------------------------------- | -------------------------------------------------------------------------- |
-| `api_key`             | `str`  | `None`                                            | The ModelsLab API key for authentication                                   |
-| `wait_for_completion` | `bool` | `False`                                           | Whether to wait for the video to be ready                                  |
-| `add_to_eta`          | `int`  | `15`                                              | Time to add to the ETA to account for the time it takes to fetch the video |
-| `max_wait_time`       | `int`  | `60`                                              | Maximum time to wait for the video to be ready                             |
-| `file_type`           | `str`  | `"mp4"`                                           | The type of file to generate                                               |
+| `api_key`       | `str`  | `None`                                 | 用于身份验证的 ModelsLab API 密钥                                   |
+| `wait_for_completion`       | `bool`  | `False`                                | 是否等待视频准备完成                                  |
+| `add_to_eta`      | `int` | `15`                                | 为预估时间添加的额外缓冲时间，以补偿获取视频所需时间 |
+| `max_wait_time`      | `int` | `60`                                | 等待视频准备完成的最大时间                             |
+| `file_type`      | `str` | `"mp4"`                                | 生成的文件类型                                               |
 
-## Toolkit Functions
+## 工具包功能
 
-| Function         | Description                                     |
+| 函数         | 描述                                     |
 | ---------------- | ----------------------------------------------- |
-| `generate_media` | Generates a video or gif based on a text prompt |
+| `generate_media` | 根据文本提示生成视频或 GIF 动画 |
 
-## Developer Resources
+## 开发者资源
 
-- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/models_labs.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/models_labs_tools.py)
+- 查看 [工具](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/models_labs.py)
+- 查看 [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/models_labs_tools.py)

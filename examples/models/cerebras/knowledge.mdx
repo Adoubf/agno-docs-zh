@@ -1,8 +1,7 @@
 ---
-title: Agent with Knowledge Base
+title: 具备知识库的智能体
 ---
-
-## Code
+## 代码
 
 ```python cookbook/models/cerebras/basic_knowledge.py
 from agno.agent import Agent
@@ -25,29 +24,29 @@ agent = Agent(
 agent.print_response("How to make Thai curry?", markdown=True)
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的API密钥">
     ```bash
     export CEREBRAS_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno cerebras-cloud-sdk
     ```
   </Step>
 
-  <Step title="Start your Postgres server">
-    Ensure your Postgres server is running and accessible at the connection string used in `db_url`.
+  <Step title="启动您的 PostgreSQL 服务器">
+    确保您的 PostgreSQL 服务器正在运行，并且可通过 `db_url` 中使用的连接字符串访问。
   </Step>
 
-  <Step title="Run Agent (first time)">
-    The first run will load and index the PDF. This may take a while.
+  <Step title="运行智能体（首次）">
+    首次运行将加载并索引 PDF 文件。这可能需要一段时间。
     <CodeGroup>
     ```bash Mac
     python cookbook/models/cerebras/basic_knowledge.py
@@ -59,7 +58,7 @@ agent.print_response("How to make Thai curry?", markdown=True)
     </CodeGroup>
   </Step>
 
-  <Step title="Subsequent Runs">
-    After the first run, comment out or remove `knowledge_base.load(recreate=True)` to avoid reloading the PDF each time.
+  <Step title="后续运行">
+    首次运行后，请注释掉或删除 `knowledge_base.load(recreate=True)` 以避免每次重新加载 PDF。
   </Step>
 </Steps>

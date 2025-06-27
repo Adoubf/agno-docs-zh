@@ -1,16 +1,15 @@
 ---
-title: Combined Knowledge Base
-description: Learn how to combine multiple knowledge bases into one.
-sidebarTitle: Combined
+title: 综合知识库
+description: 了解如何将多个知识库合并为一个。
+sidebarTitle: 结合
 ---
+**CombinedKnowledgeBase** 将多个知识库合并为1个，适用于需要从多源获取信息的应用场景。
 
-The **CombinedKnowledgeBase** combines multiple knowledge bases into 1 and is used when your app needs information using multiple sources.
-
-## Usage
+## 使用方式
 
 <Note>
 
-We are using a local PgVector database for this example. [Make sure it's running](https://docs.agno.com/vectordb/pgvector)
+本示例使用本地PgVector数据库。[确保数据库已运行](https://docs.agno.com/vectordb/pgvector)
 
 </Note>
 
@@ -28,7 +27,7 @@ from agno.knowledge.pdf import PDFKnowledgeBase
 
 url_pdf_knowledge_base = PDFUrlKnowledgeBase(
     urls=["pdf_url"],
-    # Table name: ai.pdf_documents
+    # 表名：ai.pdf_documents
     vector_db=PgVector(
         table_name="pdf_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -37,9 +36,9 @@ url_pdf_knowledge_base = PDFUrlKnowledgeBase(
 
 website_knowledge_base = WebsiteKnowledgeBase(
     urls=["https://docs.agno.com/introduction"],
-    # Number of links to follow from the seed URLs
+    # 从种子URL开始跟踪的链接数量
     max_links=10,
-    # Table name: ai.website_documents
+    # 表名：ai.website_documents
     vector_db=PgVector(
         table_name="website_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -48,7 +47,7 @@ website_knowledge_base = WebsiteKnowledgeBase(
 
 local_pdf_knowledge_base = PDFKnowledgeBase(
     path="data/pdfs",
-    # Table name: ai.pdf_documents
+    # 表名：ai.pdf_documents
     vector_db=PgVector(
         table_name="pdf_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -63,14 +62,14 @@ knowledge_base = CombinedKnowledgeBase(
         local_pdf_knowledge_base,
     ],
     vector_db=PgVector(
-        # Table name: ai.combined_documents
+        # 表名：ai.combined_documents
         table_name="combined_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
     ),
 )
 ```
 
-Then use the `knowledge_base` with an Agent:
+随后通过智能体使用`knowledge_base`：
 
 ```python agent.py
 from agno.agent import Agent
@@ -85,14 +84,14 @@ agent.knowledge.load(recreate=False)
 agent.print_response("Ask me about something from the knowledge base")
 ```
 
-## Params
+## 参数说明
 
-| Parameter | Type                   | Default | Description              |
-| --------- | ---------------------- | ------- | ------------------------ |
-| `sources` | `List[AgentKnowledge]` | `[]`    | List of knowledge bases. |
+| 参数        | 类型                     | 默认值  | 描述                   |
+| ----------- | ------------------------ | ------- | ---------------------- |
+| `sources` | `List[AgentKnowledge]` | `[]`    | 知识库列表。            |
 
-`CombinedKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge/base) class and has access to the same params.
+`CombinedKnowledgeBase`是[AgentKnowledge](/reference/knowledge/base)类的子类，拥有相同的参数访问权限。
 
-## Developer Resources
+## 开发资源
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/combined_kb.py)
+- 查看[烹饪手册](https://github.com/agno-agi/agno/blob/main/cookbook/agent_concepts/knowledge/combined_kb.py)

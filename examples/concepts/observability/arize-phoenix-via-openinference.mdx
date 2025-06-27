@@ -1,12 +1,11 @@
 ---
-title: Arize Phoenix via OpenInference
+title: Arize Phoenix通过OpenInference
 ---
+## 概述
 
-## Overview
+本示例演示如何通过 OpenInference 为您的 Agno 智能体添加观测能力，并将追踪数据发送至 Arize Phoenix 平台。
 
-This example demonstrates how to instrument your Agno agent with OpenInference and send traces to Arize Phoenix.
-
-## Code
+## 代码实现
 
 ```python
 import asyncio
@@ -17,17 +16,17 @@ from agno.models.openai import OpenAIChat
 from agno.tools.yfinance import YFinanceTools
 from phoenix.otel import register
 
-# Set environment variables for Arize Phoenix
+# 为 Arize Phoenix 设置环境变量
 os.environ["PHOENIX_CLIENT_HEADERS"] = f"api_key={os.getenv('ARIZE_PHOENIX_API_KEY')}"
 os.environ["PHOENIX_COLLECTOR_ENDPOINT"] = "https://app.phoenix.arize.com"
 
-# Configure the Phoenix tracer
+# 配置 Phoenix 追踪器
 tracer_provider = register(
     project_name="agno-stock-price-agent",  # Default is 'default'
     auto_instrument=True,  # Automatically use the installed OpenInference instrumentation
 )
 
-# Create and configure the agent
+# 创建并配置智能体
 agent = Agent(
     name="Stock Price Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
@@ -36,26 +35,26 @@ agent = Agent(
     debug_mode=True,
 )
 
-# Use the agent
+# 使用智能体
 agent.print_response("What is the current price of Tesla?")
 ```
 
-## Usage
+## 使用说明
 
 <Steps>
-  <Step title="Install Dependencies">
+  <Step title="安装依赖">
     ```bash
     pip install agno arize-phoenix openai openinference-instrumentation-agno opentelemetry-sdk opentelemetry-exporter-otlp
     ```
   </Step>
 
-  <Step title="Set Environment Variables">
+  <Step title="设置环境变量">
     ```bash
     export ARIZE_PHOENIX_API_KEY=<your-key>
     ```
   </Step>
 
-  <Step title="Run the Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/observability/arize_phoenix_via_openinference.py

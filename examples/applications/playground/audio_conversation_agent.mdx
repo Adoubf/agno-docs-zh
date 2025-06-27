@@ -1,10 +1,9 @@
 ---
-title: Audio Conversation Agent
+title: 音频对话智能体
 ---
+本示例展示如何在 playground 中使用音频对话智能体。
 
-This example shows how to use the audio conversation agent with playground.
-
-## Code
+## 代码
 
 ```python cookbook/apps/playground/audio_conversation_agent.py 
 from agno.agent import Agent
@@ -41,24 +40,24 @@ if __name__ == "__main__":
 
 ```
 
-## Usage
+## 使用方式
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
+  <Step title="设置您的 API 密钥">
     ```bash
     export OPENAI_API_KEY=xxx
     ```
   </Step>
 
-  <Step title="Install libraries">
+  <Step title="安装库">
     ```bash
     pip install -U agno "uvicorn[standard]" openai
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="运行智能体">
     <CodeGroup>
     ```bash Mac
     python cookbook/apps/playground/audio_conversation_agent.py
@@ -69,4 +68,4 @@ if __name__ == "__main__":
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>
