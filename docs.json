@@ -1810,14 +1810,6 @@
       {
         "label": "Community",
         "href": "https://community.agno.com/"
-      },
-      {
-        "label": "English",
-        "href": "/en/"
-      },
-      {
-        "label": "中文",
-        "href": "/zh/"
       }
     ],
     "primary": {
