@@ -1,5 +1,18 @@
 # Agno 中文文档
 
+## 使用 MCP 搜索文档内容
+
+> 前提条件：需要安装 Node.js
+
+```
+npx mint-mcp add coralera -y
+```
+
+> 出现以下界面为安装成功
+
+![image](https://github.com/user-attachments/assets/bdb34174-8997-4a7c-a5dc-baff9b9330fa)
+
+
 ## 开发
 
 安装 [Mintlify CLI](https://www.npmjs.com/package/mintlify) 以本地运行文档站点：
