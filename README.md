@@ -28,3 +28,6 @@ git push
 
 - Mintlify dev 未运行 - 执行 `mintlify install` 将重新安装依赖项
 - 页面加载为404 - 请确保在包含 `mint.json` 的文件夹中运行
+
+## LICENSE
+[MIT](LICENSE)
