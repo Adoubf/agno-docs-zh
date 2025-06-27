@@ -19,10 +19,10 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "User Guide",
+        "tab": "用户指南",
         "groups": [
           {
-            "group": "Introduction",
+            "group": "简介",
             "pages": [
               "introduction",
               "introduction/agents",
@@ -33,7 +33,7 @@
             ]
           },
           {
-            "group": "Concepts",
+            "group": "概念",
             "pages": [
               {
                 "group": "Agents",
@@ -436,7 +436,7 @@
             ]
           },
           {
-            "group": "Other",
+            "group": "其他",
             "pages": [
               {
                 "group": "Agent UI",
@@ -464,7 +464,7 @@
             ]
           },
           {
-            "group": "How to",
+            "group": "如何做",
             "pages": [
               "how-to/install",
               "how-to/contribute",
@@ -475,14 +475,14 @@
         ]
       },
       {
-        "tab": "Examples",
+        "tab": "代码示例",
         "groups": [
           {
             "group": "Examples",
             "pages": [
               "examples/introduction",
               {
-                "group": "Getting Started",
+                "group": "新手入门",
                 "pages": [
                   "examples/getting-started/introduction",
                   "examples/getting-started/basic-agent",
@@ -637,10 +637,10 @@
                 ]
               },
               {
-                "group": "Evals",
+                "group": "评估",
                 "pages": [
                   {
-                    "group": "Accuracy",
+                    "group": "准确性",
                     "pages": [
                       "examples/evals/accuracy/basic",
                       "examples/evals/accuracy/accuracy_with_given_answer",
@@ -649,7 +649,7 @@
                     ]
                   },
                   {
-                    "group": "Performance",
+                    "group": "性能",
                     "pages": [
                       "examples/evals/performance/performance_agent_instantiation",
                       "examples/evals/performance/performance_instantiation_with_tool",
@@ -659,7 +659,7 @@
                     ]
                   },
                   {
-                    "group": "Reliability",
+                    "group": "可靠性",
                     "pages": [
                       "examples/evals/reliability/basic",
                       "examples/evals/reliability/reliability_with_multiple_tools",
@@ -671,7 +671,7 @@
             ]
           },
           {
-            "group": "Agent Concepts",
+            "group": "Agent 概念",
             "pages": [
               {
                 "group": "Reasoning",
@@ -788,7 +788,7 @@
                 ]
               },
               {
-                "group": "User Control Flows",
+                "group": "用户控制流程",
                 "pages": [
                   "examples/concepts/user-control-flows/01-confirmation-required",
                   "examples/concepts/user-control-flows/02-confirmation-required-async",
@@ -1529,10 +1529,10 @@
         ]
       },
       {
-        "tab": "Workspaces",
+        "tab": "工作空间",
         "groups": [
           {
-            "group": "Workspaces",
+            "group": "工作空间",
             "pages": [
               "workspaces/introduction",
               {
@@ -1552,7 +1552,7 @@
             ]
           },
           {
-            "group": "Workspace Management",
+            "group": "管理工作空间",
             "pages": [
               "workspaces/workspace-management/introduction",
               "workspaces/workspace-management/development-app",
@@ -1574,7 +1574,7 @@
         ]
       },
       {
-        "tab": "FAQs",
+        "tab": "常见问题",
         "groups": [
           {
             "group": "FAQs",
@@ -1594,7 +1594,7 @@
         ]
       },
       {
-        "tab": "API reference",
+        "tab": "API 参考",
         "groups": [
           {
             "group": "Reference",
@@ -1779,7 +1779,7 @@
         ]
       },
       {
-        "tab": "Changelog",
+        "tab": "更新日志",
         "groups": [
           {
             "group": "Changelog",
@@ -1810,6 +1810,14 @@
       {
         "label": "Community",
         "href": "https://community.agno.com/"
+      },
+      {
+        "label": "English",
+        "href": "/en/"
+      },
+      {
+        "label": "中文",
+        "href": "/zh/"
       }
     ],
     "primary": {

@@ -1,27 +1,27 @@
 ---
 title: "产品更新"
-mode: "宽"
+mode: "wide"
 ---
 
 <Update label="2025-06-18" description="v1.6.3">
 
-## New Features:
+## 新功能：
 
-- **User Control Flows on Playground**: The Agno Platform now support user control flows on the playground.
-- **Team & Agent Events on RunResponse:** Added `store_events` parameter to optionally add all events that happened during the course of an agent/team run on the `RunResponse`/`TeamRunResponse`.
-- **Team Member Responses on Playground**: The Agno Platform now shows member responses during team runs.
-- **Behind-the-scenes on Playground**: The Agno Platform now shows what is happening during runs, for both agents and teams.
-- **Metadata filtering support for `csv` and `csv_url` knowledge bases:** Add knowledge filters support for these knowledge base types.
+- **Playground 上的用户控制流程**：Agno 平台现在支持 Playground 上的用户控制流程。
+- **RunResponse 上的团队和代理事件**：添加了 `store_events` 参数，可选择在 `RunResponse`/`TeamRunResponse` 上添加代理/团队运行过程中发生的所有事件。
+- **Playground 上的团队成员响应**：Agno 平台现在显示团队运行期间的成员响应。
+- **Playground 上的幕后**：Agno 平台现在显示运行期间代理和团队的运行情况。
+- **对 `csv` 和 `csv_url` 知识库的元数据过滤支持**：添加了对这些知识库类型的知识过滤器支持。
 
-## Updates
+## 更新
 
-- **Removed `a` prefix from async function names:** `asearch_knowledge_base`, etc will now be the same as their `sync` counterparts when sent to the model. The names of functions are important for accurate function calling.
+- **移除了异步函数名称中的 `a` 前缀：** `asearch_knowledge_base` 等函数在发送到模型时将与其对应的 `sync` 函数名称相同。函数名称对于函数调用的准确性至关重要。
 
-## Bug Fixes:
+## 错误修复：
 
-- **AG-UI Fix**: Fixed issue related to missing messages when using the Agno AG-UI app.
-- **Chat History Fix**: Fixed issue related to history not available when `agent_id` not set.
-- **MongoDB ObjectId serialization issue when using with agent:** Fixed issue while ****using mongodb vectordb with ObjectId present in the metadata it throws Object of type `ObjectId` is not JSON serializable
+- **AG-UI 修复**：修复了使用 Agno AG-UI 应用时丢失消息的问题。
+- **聊天历史记录修复**：修复了未设置 `agent_id` 时聊天历史记录不可用的问题。
+- **与代理一起使用时 MongoDB ObjectId 序列化问题：**修复了使用 MongoDB VectorDB 时，如果 ObjectId 存在于元数据中，则抛出 `ObjectId` 类型的对象无法 JSON 序列化的问题。
 
 </Update>
 <Update label="2025-06-13" description="v1.6.1">
